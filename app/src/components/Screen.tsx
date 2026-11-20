@@ -35,7 +35,7 @@ export function Screen({ title, back = true, children, onVoice, action }: {
         {back ? <button className="btn small" onClick={() => { tap(); nav(-1) }}><span className="ic">←</span>{t('back')}</button> : <span style={{ width: 8 }} />}
         <h1>{title}</h1>
         <button className="btn small lang" aria-label="Language" onClick={() => { tap(); setLang(lang === 'hi' ? 'hinglish' : 'hi') }}>
-          {lang === 'hi' ? 'A' : 'अ'}
+          <span style={{display:'flex',flexDirection:'column',lineHeight:1.05,fontSize:16}}><b>{lang === 'hi' ? 'A' : 'अ'}</b>{t('bhasha')}</span>
         </button>
       </header>
       <main className="content">

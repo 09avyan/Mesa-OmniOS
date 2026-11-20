@@ -4,6 +4,7 @@ export type Lang = 'hi' | 'hinglish'
 const S = {
   back: ['वापस', 'Wapas'],
   bolo: ['बोलो', 'Bolo'],
+  bhasha: ['भाषा', 'Bhasha'],
   listening: ['सुन रहा हूँ…', 'Sun raha hoon…'],
   login_title: ['दुकान में आइए', 'Dukaan mein aaiye'],
   store_code: ['दुकान कोड', 'Dukaan code'],

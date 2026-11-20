@@ -36,7 +36,7 @@ export default function Login() {
       <header className="topbar">
         <span style={{ width: 8 }} />
         <h1>OmniOS Dukaan</h1>
-        <button className="btn small lang" onClick={() => { tap(); setLang(lang === 'hi' ? 'hinglish' : 'hi') }}>{lang === 'hi' ? 'A' : 'अ'}</button>
+        <button className="btn small lang" onClick={() => { tap(); setLang(lang === 'hi' ? 'hinglish' : 'hi') }}><span style={{display:'flex',flexDirection:'column',lineHeight:1.05,fontSize:16}}><b>{lang === 'hi' ? 'A' : 'अ'}</b>{t('bhasha')}</span></button>
       </header>
       <main className="content">
         <h2 style={{ fontSize: 30, textAlign: 'center' }}>🏪 {t('login_title')}</h2>
