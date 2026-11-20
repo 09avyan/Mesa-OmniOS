@@ -2,6 +2,7 @@
 
 | # | Decision | Answer | Date |
 |---|----------|--------|------|
+| 1 | Build order | Thin slices; each slice fully working and tested before the next | 2026-11-20 |
 | 2 | Default skills repo | The kclothio skills already copied are the defaults. Nothing more to import. | 2026-11-20 |
 | 3 | App name owners see | OmniOS Dukaan | 2026-11-20 |
 | 4 | Home screen layout | Today's summary card on top, 4 big tiles (Bill, Maal aaya, Udhaar, Stock), mic fixed at bottom | 2026-11-20 |
