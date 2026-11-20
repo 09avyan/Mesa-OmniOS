@@ -1,27 +1,24 @@
 ---
 name: "delegate"
-description: "Mesa-OmniOS: the lead model delegates to at most 3 persistent Haiku subagents (no Sonnet, never stopped), with non-overlapping briefs, file ownership, review and commits."
+description: "Mesa-OmniOS: the lead model delegates to at most 1 Haiku + 1 Sonnet persistent subagent, only for simple tasks that don't need the lead, with non-overlapping briefs, file ownership, review and commits."
 ---
 
 # /delegate — Opus-led delegation protocol
 
-## Mesa-OmniOS override (owner, 14 Nov 2026) — wins over everything below
+## Mesa-OmniOS override (owner, 20 Nov 2026) — wins over everything below
 
-- **Haiku first, one Sonnet allowed** (owner, 14 Nov: for speed and to save usage). Workers are `model: "haiku"`;
-  one persistent `model: "sonnet"` worker may be added only for a slice Haiku cannot handle that does not need the lead. Give Haiku literal, bounded slices (exact files and lines, schemas, one worked
-  example); the lead does the rest itself. The lead may review all workers' output together at the end of a chunk
-  instead of after each one.
-- **At most 3 Haiku workers + 1 Sonnet worker alive**, ever. The lead does not count.
-- **Persistent, never killed.** Do not use TaskStop on a worker. Keep the same 3 workers for the whole session and
-  give them their next slice with SendMessage (warm context) instead of spawning new ones. Spawn a new worker only
-  while fewer than 3 exist.
+- **Usage efficiency first.** Delegate only simple, bounded tasks that don't need the lead, matched to model:
+  Haiku for mechanical work (data files, docs/README, inventories), Sonnet for clear-spec implementation slices.
+  When briefing costs about as much as doing it, the lead does it. Give Haiku literal slices (exact files, schemas,
+  one worked example). The lead may review all workers' output together at the end of a chunk.
+- **At most 1 Haiku + 1 Sonnet worker alive**, ever. The lead does not count. This overrides section 2's "3".
+- **Persistent, never killed.** Do not use TaskStop on a worker. Reuse the same worker with SendMessage (warm
+  context) instead of spawning new ones.
 - **Escalation** (section 7): Haiku → Sonnet → the lead.
-- **Money-critical work** (pricing, coupons, prepaid, GST, coins, checkout/order creation, stock functions, payments,
-  refunds, invoices): owner, 14 Nov: no Fable, everything on Opus (DECISIONS #56). Engine logic stays with the lead;
-  workers may do bounded display/report slices of it, reviewed line by line.
-- **Git:** workers never touch git. The push after each chunk goes to `main` (and the session branch) with no pull
-  request (CLAUDE.md). The lead commits; one of the 3 persistent workers runs the exact push commands the lead gives
-  (the only git a worker may run), so no 4th agent is needed.
+- **Money-critical work** (pricing, billing, stock functions, udhaar, supplier dues, payments): engine logic stays
+  with the lead; workers may do bounded display slices, reviewed line by line.
+- **Git:** workers never touch git. The lead commits and pushes to `main` after each reasonable chunk, with no pull
+  request, and updates README.md and the graphify graph at the same time.
 - **Database:** only the lead applies migrations (Supabase MCP) and commits the SQL under `supabase/migrations/`.
 - Briefs tell graphify users: run `graphify query "<question>"` before grepping when `graphify-out/graph.json` exists.
 
