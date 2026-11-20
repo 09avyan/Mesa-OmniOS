@@ -1,41 +1,62 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Boxes, ChevronRight, LayoutGrid, NotebookPen, PackagePlus, ReceiptText, Sun } from 'lucide-react'
+import { Boxes, ChevronRight, LayoutGrid, NotebookPen, PackagePlus, ReceiptText } from 'lucide-react'
 import { Screen } from '../components/Screen'
 import { useLang } from '../lib/i18n'
 import { supabase } from '../lib/supabase'
 import { tap } from '../lib/feedback'
 
+type Entry = { id: string; created_at: string; total: number; pay_mode: string; customers: { name: string } | null }
+const rupees = (n: number) => '₹' + n.toLocaleString('en-IN')
+
 export default function Home({ storeName }: { storeName: string }) {
   const { t, lang } = useLang()
   const nav = useNavigate()
-  const [today, setToday] = useState<{ total: number; n: number } | null>(null)
+  const [rows, setRows] = useState<Entry[] | null>(null)
 
   useEffect(() => {
     const start = new Date(); start.setHours(0, 0, 0, 0)
-    supabase.from('bills').select('total').gte('created_at', start.toISOString()).then(({ data }) =>
-      setToday({ total: (data ?? []).reduce((s, b) => s + Number(b.total), 0), n: data?.length ?? 0 }))
+    supabase.from('bills').select('id,created_at,total,pay_mode,customers(name)').gte('created_at', start.toISOString())
+      .order('created_at', { ascending: false }).limit(20)
+      .then(({ data }) => setRows((data ?? []) as unknown as Entry[]))
   }, [])
 
-  const date = new Date().toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-IN', { weekday: 'long', day: 'numeric', month: 'long' })
+  const total = (rows ?? []).reduce((s, r) => s + Number(r.total), 0)
+  const locale = lang === 'hi' ? 'hi-IN' : 'en-IN'
+  const date = new Date().toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' })
   const go = (to: string) => () => { tap(); nav(to) }
+
   return (
-    <Screen title={storeName} back={false}>
-      <section className="card" aria-live="polite">
-        <div className="eyebrow"><Sun size={18} />{t('today')} · {date}</div>
-        <div className="row" style={{ marginTop: 10 }}>
-          <div className="stat"><div className="num">₹{(today?.total ?? 0).toLocaleString('en-IN')}</div><div className="lbl">{t('sales')}</div></div>
-          <div className="stat"><div className="num">{today?.n ?? 0}</div><div className="lbl">{t('bills_n')}</div></div>
-        </div>
-        {today?.n === 0 && <p className="muted" style={{ margin: '10px 0 0' }}>{t('morning_empty')}</p>}
-      </section>
-      <nav className="tiles">
-        <button className="tile main" onClick={go('/bill')}><span className="iconbox"><ReceiptText size={28} /></span>{t('bill')}</button>
-        <button className="tile" onClick={go('/maal')}><span className="iconbox"><PackagePlus size={28} /></span>{t('maal')}</button>
-        <button className="tile" onClick={go('/udhaar')}><span className="iconbox"><NotebookPen size={28} /></span>{t('udhaar')}</button>
-        <button className="tile" onClick={go('/stock')}><span className="iconbox"><Boxes size={28} /></span>{t('stock')}</button>
+    <Screen title={storeName} cover={
+      <div className="balance" aria-live="polite">
+        <div className="sub">{t('today_sales')} · {date}</div>
+        <div className="num">{rows === null ? '—' : rupees(total)}</div>
+        <div className="sub">{rows?.length ?? 0} {t('bills_n')}</div>
+      </div>
+    }>
+      <nav className="actions">
+        <button className="action bill" onClick={go('/bill')}><ReceiptText size={28} />{t('bill')}</button>
+        <button className="action" onClick={go('/maal')}><PackagePlus size={28} />{t('maal')}</button>
+        <button className="action" onClick={go('/udhaar')}><NotebookPen size={28} />{t('udhaar')}</button>
+        <button className="action" onClick={go('/stock')}><Boxes size={28} />{t('stock')}</button>
       </nav>
-      <button className="btn row-btn" onClick={go('/more')}><span className="iconbox"><LayoutGrid size={22} /></span>{t('more')}<ChevronRight className="chev" /></button>
+
+      <section className="ledger">
+        <div className="ledger-head"><h2>{t('entries')}</h2></div>
+        <div className="ledger-cols"><span>{t('col_time')}</span><span>{t('col_detail')}</span><span>{t('col_amount')}</span></div>
+        {rows && rows.length === 0 && <div className="ledger-empty"><strong>{t('empty_title')}</strong>{t('empty_body')}</div>}
+        {rows?.map(r => (
+          <div className="entry" key={r.id}>
+            <span className="time num">{new Date(r.created_at).toLocaleTimeString(locale, { hour: 'numeric', minute: '2-digit' })}</span>
+            <span>{r.customers?.name ?? t('walkin')} · <span className={r.pay_mode === 'udhaar' ? 'baki' : 'muted'}>{t(('pay_' + r.pay_mode) as 'pay_cash')}</span></span>
+            <span className={'amt' + (r.pay_mode === 'udhaar' ? ' baki' : '')}>{rupees(Number(r.total))}</span>
+          </div>
+        ))}
+      </section>
+
+      <div className="list">
+        <button className="list-row" onClick={go('/more')}><LayoutGrid size={24} />{t('other')}<ChevronRight className="chev" /></button>
+      </div>
     </Screen>
   )
 }

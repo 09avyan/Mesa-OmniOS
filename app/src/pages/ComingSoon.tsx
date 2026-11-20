@@ -13,13 +13,13 @@ export default function ComingSoon({ id }: { id?: string }) {
   const Icon = c.icon
   return (
     <Screen title={c.title[i]}>
-      <section className="card soon">
-        <span className="hero"><Icon size={36} strokeWidth={1.75} /></span>
-        <span className="pill"><Clock size={16} />{t('soon')}</span>
-        <h2 style={{ fontSize: 26 }}>{c.title[i]}</h2>
+      <section className="soon">
+        <span className="glyph"><Icon size={32} strokeWidth={1.9} /></span>
+        <h2>{c.title[i]}</h2>
+        <span className="status"><Clock size={16} />{t('soon')}</span>
         <p className="big" style={{ margin: 0 }}>{c.body[i]}</p>
         {c.points && <ul className="points">{c.points.map(pt => <li key={pt[1]}><Check size={20} />{pt[i]}</li>)}</ul>}
-        {c.control && <p className="okmsg" style={{ margin: 0 }}><ShieldCheck size={22} style={{ flex: 'none' }} />{t('you_control')}</p>}
+        {c.control && <p className="okmsg" style={{ margin: 0 }}><ShieldCheck size={22} />{t('you_control')}</p>}
       </section>
     </Screen>
   )

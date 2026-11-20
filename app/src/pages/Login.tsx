@@ -3,7 +3,7 @@ import { supabase, storeEmail, storePassword, logUsage } from '../lib/supabase'
 import { useLang } from '../lib/i18n'
 import { tap, success, fail } from '../lib/feedback'
 import { ArrowRight, CircleAlert, Delete, Pencil, Store } from 'lucide-react'
-import { LangButton } from '../components/Screen'
+import { LangButton, Mark } from '../components/Screen'
 
 export default function Login() {
   const { t } = useLang()
@@ -35,13 +35,11 @@ export default function Login() {
 
   return (
     <div className="screen">
-      <header className="topbar">
-        <span className="logo"><Store size={20} /></span>
-        <div className="brand"><h1>OmniOS Dukaan</h1></div>
-        <LangButton />
+      <header className="cover">
+        <div className="cover-top"><Mark /><h1>OmniOS Dukaan</h1><LangButton onNavy /></div>
+        <h2 style={{ fontSize: 28, marginTop: 10 }}>{t('login_title')}</h2>
       </header>
-      <main className="content">
-        <h2 style={{ fontSize: 28, marginTop: 8 }}>{t('login_title')}</h2>
+      <main className="content" style={{ paddingBottom: 24 }}>
         {err && <div className="err" role="alert"><CircleAlert size={22} style={{ flex: 'none' }} />{err}</div>}
         {step === 'code' ? (
           <>
@@ -55,7 +53,7 @@ export default function Login() {
           </>
         ) : (
           <>
-            <button className="btn row-btn" onClick={() => { tap(); setStep('code'); setPin('') }}><Store size={20} />{code}<Pencil size={18} style={{ marginLeft: 'auto', color: 'var(--ink-faint)' }} /></button>
+            <button className="list-row" style={{ borderRadius: 12, border: '1.5px solid var(--rule-strong)' }} onClick={() => { tap(); setStep('code'); setPin('') }}><Store size={20} />{code}<Pencil size={18} style={{ marginLeft: 'auto', color: 'var(--ink-3)' }} /></button>
             <p className="big" style={{ textAlign: 'center', margin: 0 }}>{t('pin')}</p>
             <div className="pinbox">{[0, 1, 2, 3].map(i => <span key={i} className={pin.length > i ? 'on' : ''}></span>)}</div>
             {busy && <p className="muted" style={{ textAlign: 'center' }}>{t('wait')}</p>}

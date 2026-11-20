@@ -21,7 +21,7 @@ export default function Terms() {
   const { t, lang } = useLang()
   return (
     <Screen title={t('terms')}>
-      <ol className="card" style={{ margin: 0, paddingLeft: 36, display: 'grid', gap: 12 }}>
+      <ol className="panel" style={{ margin: 0, paddingLeft: 40, display: "grid", gap: 14 }}>
         {T[lang].map(p => <li key={p}>{p}</li>)}
       </ol>
     </Screen>

@@ -74,10 +74,10 @@ export default function Admin() {
         <button className="btn small" style={{ flex: 0 }} onClick={async () => { await supabase.auth.signOut(); setSignedIn(false) }}>Sign out</button></div>
       {msg && <div className={msg.ok ? 'okmsg' : 'err'}>{msg.text}</div>}
 
-      <section className="card"><h2>Pitch line</h2><p className="big">{pitch}</p>
+      <section className="panel"><h2>Pitch line</h2><p className="big">{pitch}</p>
         <button className="btn small" onClick={() => navigator.clipboard.writeText(pitch)}><Copy size={18} />Copy</button></section>
 
-      <section className="card" style={{ display: 'grid', gap: 10 }}>
+      <section className="panel" style={{ display: 'grid', gap: 10 }}>
         <h2>Create store</h2>
         {(['code', 'name', 'owner_name', 'phone', 'area', 'pin'] as const).map(k =>
           <label key={k} className="field">{{ code: 'Store code (3-12 lowercase letters/numbers, owner types this)', name: 'Store name', owner_name: 'Owner name', phone: 'Owner phone', area: 'Area (e.g. Vijay Nagar)', pin: '4-digit PIN' }[k]}
@@ -86,7 +86,7 @@ export default function Admin() {
         <button className="btn primary" onClick={() => act({ action: 'create', ...f }, `Store "${f.code}" created. Owner logs in with code ${f.code} + PIN ${f.pin}.`).then(() => setF({ code: '', name: '', owner_name: '', phone: '', area: '', pin: '' }))}><Plus size={20} />Create store</button>
       </section>
 
-      <section className="card" style={{ overflowX: 'auto' }}>
+      <section className="panel" style={{ overflowX: 'auto' }}>
         <div className="row" style={{ alignItems: 'center' }}><h2>Stores and usage</h2><button className="btn small" style={{ flex: 0 }} onClick={csv}><Download size={18} />CSV</button></div>
         <table><thead><tr><th>Code</th><th>Name</th><th>Status</th><th>Bills</th><th>/day</th><th>Receipts</th><th>Voice</th><th>Orders</th><th>Udhaar</th><th>Active days</th><th>Actions</th></tr></thead>
           <tbody>{rows.map(r => <tr key={r.code}>

@@ -2,12 +2,12 @@
 
 Store app for kirana owners (Mesa Future Founders Challenge). Full brief: [PROJECT.md](PROJECT.md) · Design rules: [DESIGN.md](DESIGN.md) · Decisions: [DECISIONS.md](DECISIONS.md)
 
-**Live:** https://omnios-dukaan.vercel.app (store app) · https://omnios-dukaan.vercel.app/admin (owner admin)
+**Live:** https://omnidukaan.vercel.app (store app) · https://omnidukaan.vercel.app/admin (owner admin)
 
 ## Status
 | Slice | What | State |
 |---|---|---|
-| 1 | Login (store code + PIN), home, Coming soon screens (Agents, Phase 3), Terms, admin (create store, PIN reset, pause, delete, usage, CSV, pitch line) | Live |
+| 1 | Bank-passbook design, login (store code + PIN), home, Coming soon screens (Agents, Phase 3), Terms, admin (create store, PIN reset, pause, delete, usage, CSV, pitch line) | Live |
 | 2 | Voice opening stock + item matching + Indore catalogue | Next |
 
 ## Layout

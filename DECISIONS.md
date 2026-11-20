@@ -6,3 +6,4 @@
 | 2 | Default skills repo | The kclothio skills already copied are the defaults. Nothing more to import. | 2026-11-20 |
 | 3 | App name owners see | OmniOS Dukaan | 2026-11-20 |
 | 4 | Home screen layout | Today's summary card on top, 4 big tiles (Bill, Maal aaya, Udhaar, Stock), mic fixed at bottom | 2026-11-20 |
+| 4b | Visual direction | Bank passbook: passbook-blue shell, white pages, money lists as passbook entries, "Jama" stamp on save (owner delegated the pick) | 2026-11-20 |

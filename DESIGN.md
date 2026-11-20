@@ -1,51 +1,43 @@
-# OmniOS Dukaan — Design rules
+# OmniOS Dukaan — Design system ("Bank passbook")
 
-Clean premium + warm Indian market. Ease of use wins over style every time. Target: 360px Android, Chrome, bright shop light.
+Mode: Operate. The shop's numbers are the hero; chrome recedes. The world is the bank passbook every shop owner trusts: passbook-blue cover, white pages, entries in ruled columns with tabular numbers. Ease-of-use rules in PROJECT.md override everything here. Tokens live in `app/src/styles/app.css`.
 
-## Colour (tokens in `app/src/styles/tokens.css`)
-| Token | Value | Use |
+## Colour (Restrained: navy shell + neutrals + meaning colours)
+| Token | Value | Job |
 |---|---|---|
-| `--bg` | `#FFF7EC` | warm cream page |
-| `--surface` | `#FFFFFF` | cards, tiles |
-| `--ink` | `#1E1A16` | main text (contrast 16:1 on bg) |
-| `--ink-soft` | `#5A5148` | secondary text (7.4:1) |
-| `--line` | `#EADFCF` | borders |
-| `--accent` | `#C2410C` | the one confident accent: main action, mic (white text 5.2:1) |
-| `--accent-press` | `#9A3412` | pressed accent |
-| `--accent-tint` | `#FFEAD8` | accent background tint |
-| `--ok` | `#15803D` | ✓ confirm, success |
-| `--bad` | `#B91C1C` | ✗ cancel, errors |
-| `--warn-tint` | `#FEF3C7` | highlighted "check this" lines |
+| `--navy` | `#17325C` | passbook cover: home/login header, primary action, mic |
+| `--navy-press` | `#0F2445` | pressed primary |
+| `--on-navy-soft` | `#C7D3E6` | secondary text on navy (≥7:1) |
+| `--ground` | `#F3F5F8` | screen ground (cool, never cream) |
+| `--page` | `#FFFFFF` | pages: lists, ledger, panels |
+| `--ink` / `--ink-2` / `--ink-3` | `#0F1B2D` / `#44526A` / `#6B778C` | text levels |
+| `--rule` / `--rule-strong` | `#DCE2EA` / `#B9C3D2` | ledger rules, borders |
+| `--jama` | `#0F7B3F` | money in, success, ✓ |
+| `--baki` | `#B42318` | udhaar / due / error / ✗ only |
+| `--note-tint` | `#FFF4D6` | "check this" highlight, coming-soon status |
+| `--stamp` | `#3E4CB8` | rubber-stamp ink, used only by the save stamp |
 
-One accent only. Green/red only for ✓/✗ and status.
+Red never decorates; it always means money owed or a problem.
 
 ## Type
-- Headings and numbers: **Baloo 2** (700/800). Friendly, bold, has Devanagari.
-- Body: **Hind** (500/600). Clear Devanagari + Latin.
-- Sizes: body 18px · label 20px · title 26px · number 32px · big number 44px. Never below 16px (fine print only).
-- Line height 1.4 body, 1.15 headings.
+One family: **Mukta** (Devanagari + Latin), 500/600/700/800. All amounts use tabular lining numerals.
+Scale: 15 meta · 18 body · 19–21 labels/titles · 25–28 page headings · 44 balance. Nothing below 15px.
 
-## Size and space
-- Touch targets: min 56px; primary action and tiles 64px+. Gap between tappables ≥ 12px.
-- Spacing scale: 4 · 8 · 12 · 16 · 24 · 32. Screen side padding 16px.
-- Radius: buttons 16px, cards/tiles 20px, pills 999px.
-- Shadow: one soft level `0 2px 10px rgba(60,40,20,.08)`.
+## Shell (identical on every screen)
+- Home and login: navy **cover** with mark, store name, language button; home shows today's sales as the passbook balance.
+- Inner screens: white bar, **Back** (arrow + "Wapas") left, title centre, language right.
+- Bottom: white bar with the full-width navy **Bolo** mic pill, always visible.
+- Home actions: **Bill** full-width navy (primary), then Maal aaya · Udhaar · Stock in one row of three.
 
-## Fixed layout (same on every screen)
-- Top bar 64px: big **back** button (← + "Wapas") on the left, screen title in the middle, language switch (अ/A) on the right.
-- Bottom bar, always visible: **mic** pill in the centre (60px tall, near-black ink, mic icon + "Bolo"). Screen's main action sits directly above it, full width.
-- Every button = icon + short word. Never icon-only, never text-only. Icons: Lucide line icons (1.75-2px stroke) in a tinted rounded square. No emoji anywhere.
-- Confirm = big ✓ (green) / ✗ (red) pair, ✓ always on the right. Undo toast instead of "are you sure?".
+## Signature: the passbook ledger
+Money lists (today's bills, udhaar, supplier dues) are passbook entries: heavy top rule, column heads (Samay · Vivran · Rakam), alternate-row tint, right-aligned tabular amounts, udhaar in red. Empty state says what will appear there.
+Saving money (bill, receipt, payment) shows the round "Jama ✓" stamp for under half a second, with vibration and tone.
 
-## Feedback
-- Every tap: pressed state within 0.1s (scale .97 + darker colour, 80ms).
-- Success: green tick + short vibration (30ms) + short tone.
-- Errors: plain sentence saying what to do next, in the owner's language.
-- Loading: spinner only after 300ms, with words ("Ruko, aa raha hai…").
+## Components
+- Buttons: 56px min (primary 60), radius 12, icon + word always. Lucide icons, ~2px stroke, navy. No emoji.
+- Lists: white grouped rows, 64px, icon · label · chevron.
+- Messages: tinted strip with icon (err red, ok green, note amber).
+- PIN: 4 boxes + large keypad, no system keyboard.
 
 ## Motion
-- 120–200ms, ease-out `cubic-bezier(.2,.8,.2,1)`. No decoration motion. `prefers-reduced-motion` turns it all off.
-
-## Language
-- Two modes: हिंदी (Devanagari) and Hinglish (Roman). Switch on every top bar; choice remembered.
-- Words: Bill, Maal aaya, Udhaar, Stock, Wapas, Haan ✓, Nahi ✗. No jargon.
+90ms press (scale .98), state changes ≤200ms ease-out, stamp 380ms. No page-load choreography. Reduced motion turns it off.
