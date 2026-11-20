@@ -55,10 +55,6 @@ export default function Admin() {
         const { error } = await supabase.auth.signInWithPassword({ email, password: pw })
         if (error) setMsg({ ok: false, text: error.message }); else { setSignedIn(true); load() }
       }}>Sign in</button>
-      <button className="btn full" onClick={async () => {
-        const { error } = await supabase.auth.signUp({ email, password: pw })
-        setMsg(error ? { ok: false, text: error.message } : { ok: true, text: 'Check your email and tap the confirm link, then sign in here.' })
-      }}>First time: create admin password</button>
     </main></div>
   )
   if (!isAdmin) return (
