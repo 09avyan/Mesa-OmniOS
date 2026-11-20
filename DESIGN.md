@@ -33,8 +33,8 @@ One accent only. Green/red only for ✓/✗ and status.
 
 ## Fixed layout (same on every screen)
 - Top bar 64px: big **back** button (← + "Wapas") on the left, screen title in the middle, language switch (अ/A) on the right.
-- Bottom bar 88px, always visible: **mic** button in the centre (72px circle, accent). Screen's main action sits directly above it, full width.
-- Every button = icon + short word. Never icon-only, never text-only.
+- Bottom bar, always visible: **mic** pill in the centre (60px tall, near-black ink, mic icon + "Bolo"). Screen's main action sits directly above it, full width.
+- Every button = icon + short word. Never icon-only, never text-only. Icons: Lucide line icons (1.75-2px stroke) in a tinted rounded square. No emoji anywhere.
 - Confirm = big ✓ (green) / ✗ (red) pair, ✓ always on the right. Undo toast instead of "are you sure?".
 
 ## Feedback

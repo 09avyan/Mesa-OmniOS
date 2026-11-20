@@ -1,6 +1,7 @@
 // Owner-only dashboard. Plain English, desktop or phone.
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { Copy, Download, KeyRound, Pause, Play, Plus, Trash2 } from 'lucide-react'
 
 type Row = { code: string; name: string; area: string | null; status: string; created_at: string; bills: number; bills_per_day: number; receipts: number; voice: number; orders: number; udhaar: number; active_days: number; last_active: string | null }
 
@@ -74,7 +75,7 @@ export default function Admin() {
       {msg && <div className={msg.ok ? 'okmsg' : 'err'}>{msg.text}</div>}
 
       <section className="card"><h2>Pitch line</h2><p className="big">{pitch}</p>
-        <button className="btn small" onClick={() => navigator.clipboard.writeText(pitch)}>📋 Copy</button></section>
+        <button className="btn small" onClick={() => navigator.clipboard.writeText(pitch)}><Copy size={18} />Copy</button></section>
 
       <section className="card" style={{ display: 'grid', gap: 10 }}>
         <h2>Create store</h2>
@@ -82,19 +83,19 @@ export default function Admin() {
           <label key={k} className="field">{{ code: 'Store code (3-12 lowercase letters/numbers, owner types this)', name: 'Store name', owner_name: 'Owner name', phone: 'Owner phone', area: 'Area (e.g. Vijay Nagar)', pin: '4-digit PIN' }[k]}
             <input value={f[k]} inputMode={k === 'pin' || k === 'phone' ? 'numeric' : 'text'} maxLength={k === 'pin' ? 4 : 60}
               onChange={e => setF({ ...f, [k]: k === 'code' ? e.target.value.toLowerCase().replace(/[^a-z0-9]/g, '') : e.target.value })} /></label>)}
-        <button className="btn primary" onClick={() => act({ action: 'create', ...f }, `Store "${f.code}" created. Owner logs in with code ${f.code} + PIN ${f.pin}.`).then(() => setF({ code: '', name: '', owner_name: '', phone: '', area: '', pin: '' }))}>➕ Create store</button>
+        <button className="btn primary" onClick={() => act({ action: 'create', ...f }, `Store "${f.code}" created. Owner logs in with code ${f.code} + PIN ${f.pin}.`).then(() => setF({ code: '', name: '', owner_name: '', phone: '', area: '', pin: '' }))}><Plus size={20} />Create store</button>
       </section>
 
       <section className="card" style={{ overflowX: 'auto' }}>
-        <div className="row" style={{ alignItems: 'center' }}><h2>Stores and usage</h2><button className="btn small" style={{ flex: 0 }} onClick={csv}>⬇️ CSV</button></div>
+        <div className="row" style={{ alignItems: 'center' }}><h2>Stores and usage</h2><button className="btn small" style={{ flex: 0 }} onClick={csv}><Download size={18} />CSV</button></div>
         <table><thead><tr><th>Code</th><th>Name</th><th>Status</th><th>Bills</th><th>/day</th><th>Receipts</th><th>Voice</th><th>Orders</th><th>Udhaar</th><th>Active days</th><th>Actions</th></tr></thead>
           <tbody>{rows.map(r => <tr key={r.code}>
             <td><b>{r.code}</b></td><td>{r.name}<div className="muted">{r.area}</div></td><td>{r.status}</td>
             <td>{r.bills}</td><td>{r.bills_per_day}</td><td>{r.receipts}</td><td>{r.voice}</td><td>{r.orders}</td><td>{r.udhaar}</td><td>{r.active_days}</td>
             <td style={{ whiteSpace: 'nowrap' }}>
-              <button className="btn small" onClick={() => { const pin = prompt(`New 4-digit PIN for ${r.code}`); if (pin) act({ action: 'reset_pin', code: r.code, pin }, `PIN for ${r.code} changed.`) }}>🔑 PIN</button>{' '}
-              <button className="btn small" onClick={() => act({ action: 'set_status', code: r.code, status: r.status === 'active' ? 'paused' : 'active' }, `${r.code} ${r.status === 'active' ? 'paused' : 'resumed'}.`)}>{r.status === 'active' ? '⏸ Pause' : '▶️ Resume'}</button>{' '}
-              <button className="btn small" style={{ color: 'var(--bad)' }} onClick={() => { const c = prompt(`This deletes ALL data of ${r.code} forever. Type the store code to confirm.`); if (c) act({ action: 'delete', code: r.code, confirm: c }, `${r.code} deleted.`) }}>🗑 Delete</button>
+              <button className="btn small" onClick={() => { const pin = prompt(`New 4-digit PIN for ${r.code}`); if (pin) act({ action: 'reset_pin', code: r.code, pin }, `PIN for ${r.code} changed.`) }}><KeyRound size={18} />PIN</button>{' '}
+              <button className="btn small" onClick={() => act({ action: 'set_status', code: r.code, status: r.status === 'active' ? 'paused' : 'active' }, `${r.code} ${r.status === 'active' ? 'paused' : 'resumed'}.`)}>{r.status === 'active' ? <><Pause size={18} />Pause</> : <><Play size={18} />Resume</>}</button>{' '}
+              <button className="btn small" style={{ color: 'var(--bad)' }} onClick={() => { const c = prompt(`This deletes ALL data of ${r.code} forever. Type the store code to confirm.`); if (c) act({ action: 'delete', code: r.code, confirm: c }, `${r.code} deleted.`) }}><Trash2 size={18} />Delete</button>
             </td></tr>)}</tbody></table>
         {rows.length === 0 && <p className="muted">No stores yet. Create one above.</p>}
       </section>
