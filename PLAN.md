@@ -6,7 +6,7 @@ Max 1 Sonnet + 1 Haiku alive, reused across sections.
 
 | # | Section | What gets built | Who | Target |
 |---|---|---|---|---|
-| S0 | Reset + plan | Repo wiped except skills; PROJECT.md, PLAN.md, CLAUDE.md | Lead | 21 Nov |
+| S0 | Reset + plan ✅ | Repo wiped except skills; PROJECT.md, PLAN.md, CLAUDE.md, DECISIONS.md | Lead | 21 Nov |
 | S1 | Foundation | DESIGN.md (exact values) → app shell, 4 tabs, home, fixed mic, back button, feedback (tap sound/vibrate, tick, undo toast); Supabase schema + per-store security; store-code+PIN login; admin "create store"; Vercel deploy | Lead: schema, auth, shell. Sonnet: shared components. Haiku: Hindi/English copy file | 22–23 Nov |
 | S2 | Voice engine | Speech capture (hi-IN/en-IN, live words); rule parser (Hindi number words, units, synonyms, fuzzy match); intent router; the one Review card (unsure lines highlighted, tap/voice fix, ✓); Gemini fallback (server-side) | Lead: parser + router. Haiku: Indore catalogue + synonym list. Sonnet: Review card UI | 24–25 Nov |
 | S3 | Stock in | Items + opening stock by voice; "Maal aaya" by voice; receipt photo → Gemini → review → stock + supplier due; "new name asks once, remembers"; 3 sample receipts | Lead: stock + dues logic, Gemini function. Sonnet: screens. Haiku: sample receipts | 26–27 Nov |
