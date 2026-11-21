@@ -79,4 +79,5 @@ Tabs: Ghar/घर/Home · Bill/बिल/Bill · Maal/माल/Stock · Udhaar/
 12. **Mic lives in the bottom bar**, centre, raised (76px), same spot on every screen. On flow screens the bar has no tabs and the one main action sits directly above it.
 13. **Udhaar is double-checked without a dialog**: choosing Udhaar shows the running balance before Save ("Pehle ₹340 + is bill ₹120 / Sharma ji ka kul udhaar: ₹460"); Saved repeats the new balance.
 14. **Undo is plain words**: "Galti hui? → Bill hatao" (outlined, apart from other buttons) → toast "Bill hat gaya, stock wapas" with "Wapas lao".
-15. Owner-test method: every design change is reviewed by two simulated owners (Ramesh ji 56, Sunita ji 42) at real phone size until both score every screen ease ≥ 9, calm ≥ 8. Real owners still decide; the pilot overrides the simulation.
+15. Owner-test method: every design change is reviewed by two simulated owners (Ramesh ji 56, Sunita ji 42) at real phone size until both score every screen ease ≥ 9 AND calm ≥ 9 (owner's bar, 21 Nov). Real owners still decide; the pilot overrides the simulation.
+16. **Items first, money second**: on a bill review, Cash/UPI/Udhaar appear only after every yellow line is answered. Until then the bottom shows one flat amber bar "Kul ₹X · pehle \"Haan\" dabao".
