@@ -12,3 +12,5 @@
 | — | Database | Wipe old Supabase tables, rebuild clean in same project |
 | — | Vercel | Live project is `omnidukaan` |
 | — | Git | Push straight to `main` (owner override of the session's branch rule, 21 Nov) |
+| 8 | Mic speaks answers aloud | Yes for answers to questions ("Cheeni kitni bachi?"); bills/stock show the review card silently. Settings: speak answers on/off + speed (slow/normal) |
+| — | Old Vercel project | `omnios-dukaan` builds switched off (21 Nov); owner deletes it in Vercel. Live = omnidukaan.vercel.app |
