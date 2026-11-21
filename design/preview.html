@@ -83,7 +83,9 @@
 .guess{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
 .gtxt{color:#7A5600;font-weight:600;font-size:18px}
 .chg{white-space:nowrap;height:56px;padding:0 16px;border-radius:14px;border:1.5px solid #C99A1E;color:#7A5600;display:flex;align-items:center;font-weight:700;background:#fff}
-.chg.yes{border-color:var(--ac);color:var(--ac)}
+.chg.yes{background:var(--ac);border-color:var(--ac);color:#fff}
+.tot2{position:absolute;left:24px;right:24px;bottom:212px;display:flex;justify-content:space-between;align-items:baseline}
+.udnote{margin-top:14px;background:#FBE9DC;color:var(--ud);border-radius:14px;padding:12px 16px;font-weight:700}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
 <symbol id="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
@@ -104,7 +106,7 @@
 <div class="wrap"><div class="cap">1 · Ghar (Home)</div><div class="ph"><div class="top"><div class="store">Sharma Kirana</div><div class="ghost"><svg width="22" height="22"><use href="#gear"/></svg>Settings</div></div>
 <div class="pad">
 <div class="sales"><div class="lab">Aaj ki bikri</div><div class="big">₹6,840</div>
-<div class="three"><div><div class="lab">Cash</div><div class="num">₹4,120</div></div><div><div class="lab">UPI</div><div class="num">₹2,720</div></div><div><div class="lab">Udhaar</div><div class="num" style="color:var(--ud)">₹560 ›</div></div></div>
+<div class="three" style="align-items:center"><div class="lab">Aaj udhaar diya</div><div class="num" style="color:var(--ud)">₹560 ›</div></div>
 <div class="more"><span>Pura hisaab dekho</span><span style="font:700 26px 'Baloo 2'">›</span></div></div>
 <div class="rows"><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-gal)"><svg width="24" height="24"><use href="#cash"/></svg></div></div><div class="grow">Galla gino</div><div class="chev">›</div></div><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-ord)"><svg width="24" height="24"><use href="#cart"/></svg></div><span class="badge">2</span></div><div class="grow">Online orders</div><div class="chev">›</div></div><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-bag)"><svg width="24" height="24"><use href="#bag"/></svg></div></div><div class="grow">Free thaile mangao</div><div class="chev">›</div></div></div>
 </div>
@@ -127,14 +129,28 @@
 <div class="sec">Paise kaise mile?</div>
 <div class="pay"><div class="pb on">✓ Cash</div><div class="pb">UPI</div><div class="pb ud">Udhaar</div></div>
 </div>
-<div class="act done">✓ Save karo · ₹106</div>
+<div class="tot2"><span class="num">Kul</span><span class="big" style="font-size:38px">₹106</span></div>
+<div class="act warn">Pehle Maggi pe "Haan" dabao</div>
 <div class="band"></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolke badlo</span></div></div></div>
-<div class="wrap"><div class="cap">4 · Ho gaya (Saved)</div><div class="ph"><div class="pad">
+<div class="wrap"><div class="cap">4 · Theek kiya, Udhaar chuna</div><div class="ph"><div class="top"><div class="ghost"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div></div></div>
+<div class="pad">
+<div class="who" style="margin-top:16px"><div class="av">S</div><div class="t"><div class="lab" style="line-height:20px">Bill kiska?</div><div class="h1">Sharma ji</div></div><div class="link">Badlo</div></div>
+<div class="items">
+<div class="it"><div><div class="nm">Cheeni</div><div class="pr">₹46/kg · ₹92</div></div><div class="step"><i>−</i><em>2 kg</em><i>+</i></div></div>
+<div class="it"><div><div class="nm">Maggi chhota</div><div class="pr">₹14 ek · ₹28</div></div><div class="step"><i>−</i><em>2</em><i>+</i></div></div>
+</div>
+<div class="sec">Paise kaise mile?</div>
+<div class="pay"><div class="pb">Cash</div><div class="pb">UPI</div><div class="pb on" style="background:var(--ud)">✓ Udhaar</div></div>
+<div class="udnote">Sharma ji ke khate mein ₹120 judega</div>
+</div>
+<div class="act done">✓ Save karo · ₹120</div>
+<div class="band"></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolke badlo</span></div></div></div>
+<div class="wrap"><div class="cap">5 · Ho gaya (Saved)</div><div class="ph"><div class="pad">
 <div class="ok"><div class="okc"><svg width="48" height="48" style="color:#fff"><use href="#tick"/></svg></div>
-<div class="h1" style="margin-top:24px">Bill ban gaya</div><div class="lab" style="margin-top:4px">Sharma ji · Cash</div><div class="big" style="margin-top:8px">₹120</div></div>
-<div class="changed"><span>Stock se kam hua: 2 kg cheeni, 2 Maggi</span></div>
+<div class="h1" style="margin-top:24px">Bill ban gaya</div><div class="lab" style="margin-top:4px">Sharma ji · Udhaar</div><div class="big" style="margin-top:8px">₹120</div></div>
+<div class="changed"><span>Udhaar khate mein ₹120 juda.<br>Stock se kam: 2 kg cheeni, 2 Maggi</span></div>
 <div class="wa" style="color:#137A3C;box-shadow:inset 0 0 0 2px #1FA855"><svg width="26" height="26"><use href="#wa"/></svg>Sharma ji ko WhatsApp karo</div>
-<div class="undorow"><span class="lab">Galti hui?</span><div class="undo">Bill hatao, stock wapas</div></div>
+<div class="undorow"><span class="lab">Galti hui?</span><div class="undo">Bill hatao</div></div>
 </div>
 <div class="act done"><svg width="24" height="24"><use href="#bill"/></svg>Naya bill</div>
 <div class="band"></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolo</span></div></div></div>
