@@ -72,6 +72,17 @@
 .tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px}
 .warn{background:#fff;border:2px solid var(--unsb);color:#7A5600}
 .undorow{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding:0 4px}
+
+.rows{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+.rowb{background:var(--s);border-radius:18px;box-shadow:var(--sh);height:68px;padding:0 18px 0 16px;display:flex;align-items:center;gap:14px;font-weight:700;font-size:19px}
+.rowb .grow{flex:1}.rowb .chev{color:#A89A86;font:700 26px 'Baloo 2'}
+.chipw{position:relative;flex:none}.chipw .badge{position:absolute;top:-8px;right:-10px;margin:0}
+.more{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:12px;margin-bottom:-8px;border-top:1px solid var(--line);color:var(--ac);font-weight:700}
+.pb.on{background:var(--ac);color:#fff;box-shadow:none}
+.pb.ud{color:var(--ud)}
+.guess{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.gtxt{color:#7A5600;font-weight:600;font-size:18px}
+.chg{white-space:nowrap;height:56px;padding:0 16px;border-radius:14px;border:1.5px solid #C99A1E;color:#7A5600;display:flex;align-items:center;font-weight:700;background:#fff}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
 <symbol id="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
@@ -89,56 +100,41 @@
 <symbol id="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l1.3-4A8 8 0 1 1 8 19z"/></symbol>
 </defs></svg>
 
-<div class="wrap"><div class="cap">1 · Ghar (Home)</div><div class="ph">
-<div class="top"><div class="store">Sharma Kirana</div><div class="ghost"><svg width="22" height="22"><use href="#gear"/></svg>Settings</div></div>
+<div class="wrap"><div class="cap">1 · Ghar (Home)</div><div class="ph"><div class="top"><div class="store">Sharma Kirana</div><div class="ghost"><svg width="22" height="22"><use href="#gear"/></svg>Settings</div></div>
 <div class="pad">
 <div class="sales"><div class="lab">Aaj ki bikri</div><div class="big">₹6,840</div>
-<div class="three"><div><div class="lab">Cash</div><div class="num">₹4,120</div></div><div><div class="lab">UPI</div><div class="num">₹2,720</div></div><div><div class="lab">Udhaar</div><div class="num" style="color:var(--ud)">₹560</div></div></div></div>
-<div class="grid">
-<div class="tile"><div class="chip" style="background:var(--c-his)"><svg width="24" height="24"><use href="#chart"/></svg></div>Aaj ka hisaab</div>
-<div class="tile"><div class="chip" style="background:var(--c-gal)"><svg width="24" height="24"><use href="#cash"/></svg></div>Galla gino</div>
-<div class="tile"><div class="chip" style="background:var(--c-ord)"><svg width="24" height="24"><use href="#cart"/></svg></div><div>Online order<span class="badge">2</span></div></div>
-<div class="tile"><div class="chip" style="background:var(--c-bag)"><svg width="24" height="24"><use href="#bag"/></svg></div>Free thaile</div></div>
+<div class="three"><div><div class="lab">Cash</div><div class="num">₹4,120</div></div><div><div class="lab">UPI</div><div class="num">₹2,720</div></div><div><div class="lab">Udhaar</div><div class="num" style="color:var(--ud)">₹560</div></div></div>
+<div class="more"><span>Pura hisaab dekho</span><span style="font:700 26px 'Baloo 2'">›</span></div></div>
+<div class="rows"><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-gal)"><svg width="24" height="24"><use href="#cash"/></svg></div></div><div class="grow">Galla gino</div><div class="chev">›</div></div><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-ord)"><svg width="24" height="24"><use href="#cart"/></svg></div><span class="badge">2</span></div><div class="grow">Online orders</div><div class="chev">›</div></div><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-bag)"><svg width="24" height="24"><use href="#bag"/></svg></div></div><div class="grow">Free thaile mangao</div><div class="chev">›</div></div></div>
 </div>
-<div class="say">Mic dabao aur bolo, jaise:<br><b>"Sharma ji, 2 kilo cheeni"</b></div><div class="band"><div class="tab on"><svg width="26" height="26" style="color:inherit"><use href="#home"/></svg>Ghar</div><div class="tab"><svg width="26" height="26" style="color:var(--ac)"><use href="#bill"/></svg>Bill</div><div></div><div class="tab"><svg width="26" height="26" style="color:var(--c-maal)"><use href="#box"/></svg>Maal</div><div class="tab"><svg width="26" height="26" style="color:var(--c-udh)"><use href="#book"/></svg>Udhaar</div></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolo</span></div>
-</div></div>
-
-<div class="wrap"><div class="cap">2 · Sun raha hai (Listening)</div><div class="ph">
-<div class="top"><div class="ghost"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div></div></div>
-<div class="pad">
-<div class="h1" style="margin-top:16px">Boliye, sun raha hoon</div>
-<div class="live">Sharma ji, 2 kilo cheeni, 1 Maggi <span class="dim">…</span></div>
-<div class="note">Bolna band karte hi aage badhega.</div>
-</div>
+<div class="say">Mic dabao aur bolo, jaise:<br><b>"Sharma ji, 2 kilo cheeni"</b></div>
+<div class="band"><div class="tab on"><svg width="26" height="26" style="color:inherit"><use href="#home"/></svg>Ghar</div><div class="tab"><svg width="26" height="26" style="color:var(--ac)"><use href="#bill"/></svg>Bill</div><div></div><div class="tab"><svg width="26" height="26" style="color:var(--c-maal)"><use href="#box"/></svg>Maal</div><div class="tab"><svg width="26" height="26" style="color:var(--c-udh)"><use href="#book"/></svg>Udhaar</div></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolo</span></div></div></div>
+<div class="wrap"><div class="cap">2 · Sun raha hai (Listening)</div><div class="ph"><div class="top"><div class="ghost"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div></div></div>
+<div class="pad"><div class="h1" style="margin-top:16px">Boliye, sun raha hoon</div>
+<div class="live">Sharma ji, 2 kilo cheeni, 1 Maggi</div>
+<div class="note">Bolna band karte hi aage badhega.</div></div>
 <div class="act outline">Ho gaya, aage chalo</div>
-<div class="band"></div><div class="dock"><div class="c" style="background:#C2410C"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:#C2410C">Sun raha hai</span></div>
-</div></div>
-
-<div class="wrap"><div class="cap">3 · Bill check karo (Review)</div><div class="ph">
-<div class="top"><div class="ghost"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div></div></div>
+<div class="band"></div><div class="dock"><div class="c" style="background:#C2410C"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:#C2410C">Sun raha hai</span></div></div></div>
+<div class="wrap"><div class="cap">3 · Bill check karo (Review)</div><div class="ph"><div class="top"><div class="ghost"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div></div></div>
 <div class="pad">
-<div class="who" style="margin-top:12px"><div class="av">S</div><div class="t"><div class="lab" style="line-height:20px">Bill kiska?</div><div class="h1">Sharma ji</div></div><div class="link">Badlo</div></div>
+<div class="who" style="margin-top:16px"><div class="av">S</div><div class="t"><div class="lab" style="line-height:20px">Bill kiska?</div><div class="h1">Sharma ji</div></div><div class="link">Badlo</div></div>
 <div class="items">
 <div class="it"><div><div class="nm">Cheeni</div><div class="pr">₹46/kg · ₹92</div></div><div class="step"><i>−</i><em>2 kg</em><i>+</i></div></div>
-<div class="it u"><div class="qrow"><div><div class="nm">Maggi</div><div class="ask" style="margin:0">Kaunsi? Ek dabao</div></div><div class="step"><i>−</i><em>1</em><i>+</i></div></div><div class="opts"><div class="opt">Maggi chhota<span>₹14 ek</span></div><div class="opt">Maggi 4 wala<span>₹56 ek</span></div></div></div>
+<div class="it u"><div class="qrow" style="margin:0"><div><div class="nm">Maggi chhota</div><div class="pr">₹14 ek</div></div><div class="step"><i>−</i><em>1</em><i>+</i></div></div>
+<div class="guess"><span class="gtxt">Yahi wali Maggi?</span><div class="chg">Doosra chuno</div></div></div>
 </div>
 <div class="sec">Paise kaise mile?</div>
-<div class="pay"><div class="pb on">Cash</div><div class="pb">UPI</div><div class="pb" style="color:var(--ud)">Udhaar</div></div>
-<div class="tot"><span class="num">Kul</span><span><span class="big" style="font-size:38px">₹92</span> <span style="color:#7A5600;font-weight:700">+ Maggi</span></span></div>
+<div class="pay"><div class="pb on">✓ Cash</div><div class="pb">UPI</div><div class="pb ud">Udhaar</div></div>
 </div>
-<div class="act warn">↑ Pehle Maggi chuno</div>
-<div class="band"></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolke badlo</span></div>
-</div></div>
-
-<div class="wrap"><div class="cap">4 · Ho gaya (Saved)</div><div class="ph">
-<div class="pad">
+<div class="act done">✓ Save karo · ₹106</div>
+<div class="band"></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolke badlo</span></div></div></div>
+<div class="wrap"><div class="cap">4 · Ho gaya (Saved)</div><div class="ph"><div class="pad">
 <div class="ok"><div class="okc"><svg width="48" height="48" style="color:#fff"><use href="#tick"/></svg></div>
 <div class="h1" style="margin-top:24px">Bill ban gaya</div><div class="lab" style="margin-top:4px">Sharma ji · Cash</div><div class="big" style="margin-top:8px">₹120</div></div>
-<div class="changed"><span>Stock se 2 kg cheeni aur 2 Maggi kam ho gaye</span></div>
+<div class="changed"><span>Stock se kam hua: 2 kg cheeni, 2 Maggi</span></div>
 <div class="wa" style="color:#137A3C;box-shadow:inset 0 0 0 2px #1FA855"><svg width="26" height="26"><use href="#wa"/></svg>Sharma ji ko WhatsApp karo</div>
-<div class="undorow"><span class="lab">Galti hui?</span><div class="undo">Bill hatao</div></div>
+<div class="undorow"><span class="lab">Galti hui?</span><div class="undo">Bill hatao, stock wapas</div></div>
 </div>
 <div class="act done"><svg width="24" height="24"><use href="#bill"/></svg>Naya bill</div>
-<div class="band"></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolo</span></div>
-</div></div>
+<div class="band"></div><div class="dock"><div class="c" style="background:var(--ac)"><svg width="30" height="30" style="color:#fff"><use href="#mic"/></svg></div><span style="color:var(--ac)">Bolo</span></div></div></div>
 </body></html>
