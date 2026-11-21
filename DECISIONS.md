@@ -13,4 +13,5 @@
 | — | Vercel | Live project is `omnidukaan` |
 | — | Git | Push straight to `main` (owner override of the session's branch rule, 21 Nov) |
 | 8 | Mic speaks answers aloud | Yes for answers to questions ("Cheeni kitni bachi?"); bills/stock show the review card silently. Settings: speak answers on/off + speed (slow/normal) |
-| — | Old Vercel project | `omnios-dukaan` builds switched off (21 Nov); owner deletes it in Vercel. Live = omnidukaan.vercel.app |
+| — | Vercel | Owner (21 Nov, later): `omnios-dukaan` must NOT be deleted; it is the publish target. Both `omnios-dukaan` and `omnidukaan` build from `main` (root `app`). |
+| — | Admin login | admin@omni.in (created 21 Nov). Password set by owner; change it before real pilots. |
