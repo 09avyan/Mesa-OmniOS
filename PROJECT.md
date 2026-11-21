@@ -1,122 +1,175 @@
-# OmniOS — Project Brief (read at the start of every session)
+# PROJECT.md — OmniOS brief (owner: Avyan). Read at the start of every session.
 
-Owner: Avyan, student founder, Indore. Built for the Mesa Future Founders Challenge and beyond.
+ROLE
+You are my builder in Claude Code. I'm Avyan, a student founder in Indore, India, building OmniOS for the Mesa Future Founders Challenge and beyond. I can't read code. Tell me what changed and what to tap, in plain words. No flattery, no restating this brief. If something I say contradicts this brief, flag it before acting.
 
-## Working rules for Claude
-- Builder role. Owner can't read code: report what changed and what to tap, in plain words. No flattery, no restating this brief.
-- If an owner message contradicts this brief, flag it before acting.
-- Ask each OPEN DECISION only when reached. Every question: 3-5 options, recommended first, one line each on what it changes. Batch independent questions.
-- Delegation: at most 1 Haiku + 1 Sonnet subagent, only for simple tasks that don't need the lead (see `.claude/skills/delegate`). Be usage-efficient.
-- After each reasonable chunk: push to `main`, update README.md, update the graphify graph (`graphify-out/`). Use graphify queries before broad file reads.
+FIRST
+1. Save this brief as PROJECT.md in the repo and read it at the start of every session.
+2. Ask me each OPEN DECISION (bottom) only when you reach it.
+3. Ask every question with many options (3-5): recommended first, one line each on what it changes. Batch independent questions.
+4. (Added 21 Nov 2026) You may ask me questions whenever and as many as needed.
 
-## What OmniOS is
-An intelligence layer for kirana owners who use no software today, many not comfortable with phones. Used for real pilots, competition demos, and further building.
-- Phase 1: the real store app (built now).
-- Phase 2: AI agents that do work for the owner (Coming soon).
-- Phase 3: kiranas become quick-commerce nodes for our own consumer app (Coming soon).
+WHAT OMNIOS IS
+A voice-native app that runs a kirana (neighbourhood grocery) store for owners who have never used software, many of whom struggle with phones. The owner talks or takes a photo; OmniOS does the rest. Used for real pilots with kirana owners, competition demos, and further building.
+- Phase 1: the store app (BUILD NOW, live by Thu 3 Dec 2026).
+- Phase 2: smart assistant (Coming soon).
+- Phase 3: quick-commerce network (Coming soon).
+- (Added 21 Nov 2026) Phase 2 and 3 get real Coming soon UI plus light backend groundwork.
 
-## Rule: nothing fake in the app
-- Everything either works for real or is a "Coming soon" screen.
-- Coming soon = short friendly explanation in Hindi/Hinglish. No fake data, no scripted demos.
-- Future-feature depictions are separate videos, not in the app.
+RULE: NOTHING FAKE IN THE APP
+- Everything either works for real or is a clearly labelled "Coming soon" screen with a short, friendly Hindi/Hinglish explanation.
+- No fake data, no scripted demos.
 
-## Ease of use (top priority, above features)
-- One main job per screen. Max 2 taps from home to any core task (bill, receipt, udhaar).
-- Big buttons (≥56px), icon + short Hindi word. Never icon-only or text-only.
-- Body text ≥18px, numbers bigger, high contrast, readable in a bright shop.
-- Same layout, colours, button positions on every screen. Main action always in the same place.
-- Voice works everywhere input is needed. Mic button always visible.
-- No hidden gestures (no swipe-only, long-press-only, tiny menus). Clear back button on every screen.
-- Confirm with big ✓ / ✗. Undo instead of "are you sure?".
-- Plain words: "Udhaar", "Maal aaya", not "inventory sync".
-- Clear feedback on every action: visible change, short sound/vibration, success tick.
-- Friendly errors that say exactly what to do next.
-- Test each screen as a first-time non-tech user. Check: could someone who only uses WhatsApp do this without help?
+========== UX AND UI: TOP PRIORITY, ABOVE FEATURES ==========
+The app must feel extremely smooth, calm and pleasant, and be easy enough for someone who only uses WhatsApp.
 
-## Users, device, language
-- Store owner only, mid-range Android, Chrome, 360px width, web link added to home screen.
-- Login: store code + 4-digit PIN, created by admin. No public sign-up.
-- Language: Hindi (Devanagari) and Hinglish, switchable.
+Navigation
+- 4 tabs at most at the bottom, each with an icon plus a Hindi word. A home screen with the day at a glance.
+- Max 2 taps from home to anything. A clear back button on every screen. No hidden gestures, no tiny menus.
+- Same layout, colours and button positions everywhere. The main action is always in the same place.
 
-## Phase 1: real app
+Readability
+- Body text at least 18px, numbers bigger. High contrast that's readable in a bright shop.
+- Plain words: "Maal aaya", "Udhaar", "Aaj ka hisaab". Never jargon.
 
-### Capture (core edge: near-zero effort)
-- Onboarding: owner speaks opening stock ("cheeni 25 kilo, Maggi 3 dabba"). Show transcript, then confirm.
-- Supplier receipts: photograph → Gemini reads every line (item, qty, buying price, MRP if printed) → overview with unclear lines highlighted, fixed by voice or tap → on confirm, posts to inventory. Never places orders with suppliers. Nothing saved without confirmation.
-- Item matching engine, without AI where possible: Hindi/English/brand synonym lists (cheeni = shakkar = sugar = Madhur Sugar 1kg); fuzzy spelling and unit normalisation (kg/g/packet/dabba); known matches merge silently; a new name asks once ("Is this the same as Cheeni?") and remembers; Gemini only as fallback.
-- Supplier dues: each receipt paid or credit, with due date and in-app reminder ("Pay Sharma Traders ₹4,200 by Fri"). Nothing sent to suppliers.
-- Delivery pattern spotting: learn when each supplier/item usually arrives, from receipt history.
+Touch and feedback
+- Buttons at least 56px, icon plus word, never icon-only.
+- Every tap responds within 0.1s, with a visible change plus a light sound or vibration.
+- Success gets a tick and a short, happy moment. Undo instead of "are you sure?".
+- Friendly errors that say exactly what to do next. Loading, empty and error states are warm and in the owner's language.
 
-### Inventory and insight
-- Stock levels and dead stock.
-- Low stock = item won't last until its next expected delivery (sales speed + delivery pattern).
-- "What to buy and how much" list with a simple reason per item, from real data.
-- Morning briefing in-app: yesterday's sales, restock, stuck stock, supplier dues.
-- Coming soon: forecast chart, neighbourhood trends.
+Motion and look
+- Smooth, subtle transitions (150-250ms, eased). Nothing flashy or slow.
+- A mix of clean premium (generous space, one confident accent) and a warm local Indian-market feel (warm colours, friendly bold type).
+- Propose exact values (colours, fonts, sizes, radius, spacing, motion) in DESIGN.md before the first screen.
 
-### Billing
-- Add items by voice ("Sharma ji, 2 kilo cheeni, 1 Maggi") or search. Bill fills in, owner confirms.
-- Simple itemised bill (no GST). Daily cash/UPI tally. UPI only recorded, never collected in-app.
-- Walk-in: nothing required. Name/phone only to send bill or add udhaar.
-- Item not in inventory: allow sale, negative stock, flag "record a receipt for this".
-- Bill to customer: one-tap WhatsApp share with a link to a bill page on our site. Bill page switches Hindi/English, defaulting to customer's last choice (Hindi if new). Dead simple to read.
+Testing
+- Before reporting, test every screen as a first-time, non-tech owner would, using phone-size screenshots.
+- Ask yourself: could a 55-year-old shopkeeper do this without help?
 
-### Udhaar (credit)
-- Ledger of who owes what and payments.
-- Reminders shared as WhatsApp links to a simple balance page.
+========== VOICE: THE HEART OF THE APP ==========
+ONE MIC, EVERYWHERE
+A big mic button is on every screen, in the same spot. The owner presses it from anywhere and just talks. OmniOS works out the intent and goes to the right flow automatically:
+- "Sharma ji, 2 kilo cheeni, 1 Maggi" -> a bill
+- "Maal aaya, 10 Aashirvaad atta" -> stock added
+- "Gupta ji ne 500 diye" -> udhaar payment logged
+- "Cheeni kitni bachi?" -> answer shown and spoken back
+- "Galla mein 4,200 hai" -> cash count for the galla match
+- Mixed Hindi, Hinglish and English; brand names; numbers in words or digits.
 
-### Store order link (real or Coming soon — ask owner)
-- If real: per-store order page of in-stock items with prices (owner can hide items); orders land in an Orders tab and continue into a pre-filled bill; fulfilment by store helper (pay on delivery, cash/UPI) or pickup; printable QR poster.
+THE VOICE FLOW (always the same 3 steps)
+1. DICTATE: the owner speaks the whole task in one go and sees live words as they talk.
+2. REVIEW: a clean card shows exactly what OmniOS understood (items, qty, price, customer, total). Anything unsure is highlighted.
+3. CORRECT + DONE: the owner taps any line to fix it, by voice or by tap. One big ✓ "Done" saves.
+Nothing is ever saved without that review and ✓.
 
-### Money side
-- Terms & Conditions page with data-use clause (anonymised, aggregated data may be shared/sold).
-- Hidden "pitch mode" business model screen. Streams: brand promos/schemes; aggregated anonymised data sales; ad-printed carry bags; NBFC mini-loan referral commission (ledger-based); Phase 3 revenue: TBD; kirana subscription: TBD.
-- Coming soon: brand promo cards, loan eligibility.
+Tech
+- The browser's speech recognition (hi-IN, en-IN) for the words.
+- A rule-based intent and item parser first: a synonym list, fuzzy matching, units.
+- Gemini only when the rules aren't sure.
 
-### Admin dashboard (owner only), complete and organised
+========== PHASE 1: STORE APP (BUILD NOW) ==========
+
+SETUP
+- I create stores in the admin dashboard (store code + 4-digit PIN). No public sign-up.
+- The owner speaks the opening stock once, using the same dictate -> review -> done flow.
+
+DAILY LOGGING
+- Receipt photo -> stock (the differentiator):
+  1. The owner photographs the supplier receipt.
+  2. Gemini reads every line (item, qty, buying price, MRP if printed).
+  3. The review card highlights unclear lines; the owner fixes them by voice or tap, then ✓.
+  4. Stock updates, and a supplier due is created (paid or credit, with due date).
+  - OmniOS never places orders with suppliers.
+- Item name matching without AI where possible: cheeni = shakkar = sugar = Madhur Sugar 1kg. Fuzzy spelling and units. A new name asks once and remembers.
+- Billing by voice or search:
+  - Simple itemised bill (no GST). Cash or UPI recorded, never collected in-app.
+  - Walk-in customer: nothing required.
+  - Unrecorded item: allow the sale, flag "record a receipt".
+- The bill goes to the customer as a WhatsApp share link to a simple bill page, switchable Hindi/English (defaults to the customer's last choice, Hindi if new).
+- Udhaar ledger: credit added from bills, payments logged, reminders shared as WhatsApp links to a balance page.
+
+DAILY PAYOFF (the reason to open the app every day)
+- Aaj ka hisaab (daily close): today's sales, cash vs UPI, udhaar given and collected, supplier money due. NO profit (that comes in Phase 2).
+- Galla match: the owner speaks the cash in the drawer, and OmniOS shows whether it matches the cash bills. A gap shows as "kuch bill chhoot gaya?" (did a bill get missed?).
+- 3-item daily stock check: the owner counts 3 rotating items by voice. Mismatches flag missing entries and correct stock.
+- Morning briefing: yesterday's hisaab, what to restock, who to collect udhaar from.
+- Daily streak: "7 din ka hisaab poora" (7 days of accounts done). A light nudge, not a game.
+
+FORECAST (real, and it improves with time)
+- "Buy before it runs out": warns before stock runs short, based on sales speed and the learned delivery pattern of each supplier and item.
+- "This week will sell": a prediction from real sales history.
+- It needs data first. Show an honest "Seekh raha hai" (learning) state with a progress indicator, e.g. "Forecast gets better after 2-4 weeks of daily use."
+- Before enough data, show only simple low-stock alerts. Never invent predictions.
+
+CUSTOMER SIDE
+- Store order site: a per-store web page where customers browse in-stock items with prices, order online, and pick up later.
+  - The owner can hide items.
+  - Orders land in the app's Orders screen with a sound. The owner accepts, packs, marks it "Ready", and turns it into a bill.
+  - The customer sees the status on the page.
+  - No online payment: pay at pickup.
+  - A printable QR poster for the counter links to the site.
+- Free ad-printed carry bags: an app screen where the owner requests a free bag pack ("Free thaile mangao"), and I see the requests in admin. The bags carry ads from local businesses and brands. The app only handles the request and tracking; I handle supply.
+
+ADMIN DASHBOARD (only me): complete, organised
 - Create stores, reset PINs, pause/delete stores.
 - Read-only view of any store's data.
-- Usage stats per store (bills/day, receipts, voice entries, orders, active days, udhaar entries), CSV export, quotable pitch summary line.
-- Room for subscriptions and billing data later.
+- Usage per store (bills/day, receipts, voice commands, orders, galla matches, streaks, active days), CSV export, and a quotable pitch summary line.
+- Bag requests.
+- Room for subscriptions later.
 
-## Phase 2: AI agents (Coming soon in app)
-Agents section with Coming soon screens: 1) Udhaar collection (owner's rules, owner approval); 2) Customer orders; 3) Promo suggestions from slow/dead stock and brand schemes. Each says what the agent will do and that the owner stays in control (per task: autopilot or approve first).
+MONEY SIDE
+- A T&C page with a data-use clause (anonymised, aggregated data may be shared/sold).
+- Hidden "pitch mode" business model screen. Streams:
+  - ad-printed bags
+  - kirana subscription (price TBD, kept low)
+  - brand promos
+  - aggregated data
+  - NBFC loan referral commission
+  - Phase 3 revenue: TBD
 
-## Phase 3: quick-commerce nodes (Coming soon in app)
-One screen. Our consumer app sends orders to the nearest store with all items in stock; else splits across the 2 nearest stores that cover it. Offers the trusted local store, credit (store's own regulars only, store bears risk), cheaper prices, loose/local items, and works where quick commerce doesn't deliver.
+========== PHASE 2: SMART ASSISTANT (Coming soon screens) ==========
+- AI agents: udhaar collection (follows the owner's rules), customer orders, promo suggestions. Each task is set to autopilot or approve-first.
+- Khata (paper ledger) photo import. Offline mode.
+- Mini NBFC loans based on the store's ledger, to replace expensive supplier credit (lower costs, higher earnings). Via licensed partners; OmniOS earns a referral commission.
+- Profit tracking (last item in Phase 2).
 
-## Later (design data now, build only when told)
-Khata page photo import; offline-first hybrid mode; subscriptions in admin; real Phase 2 agents; real Phase 3 routing engine and consumer app.
+========== PHASE 3: NETWORK (Coming soon screens) ==========
+- Consumer quick-commerce app with delivery. Routing: the nearest store with every item, or a split across 2 nearby stores. Delivery by the store helper or a partner.
+- Customer credit from their own kirana (the store bears the risk).
+- Nearby-store trends, brand offers, data insights.
 
-## Tech
-- Hosting: Vercel. Data: owner's free Supabase.
-- Each store sees only its own data. Admin access locked to owner.
-- AI: Gemini free tier (ask owner for key), server-side as a Supabase secret, never in browser.
-- Voice: browser speech recognition (hi-IN, en-IN).
-- Seed an Indore kirana catalogue + 3 sample supplier receipts (one handwritten).
+TECH
+- Hosting: Vercel. Data: my free Supabase.
+- Each store sees only its own data. Admin access is locked to me.
+- Gemini free tier key (I'll create it when you ask), kept server-side as a Supabase secret, never in the browser.
+- Seed an Indore kirana catalogue with a Hindi/English/brand synonym list. Include 3 sample receipts (one handwritten) for testing.
 - Online only for now. ₹0 spend; ask before anything that costs money.
-- Test own work: run it, phone-size screenshots, tap tests before reporting.
 
-## Look and feel
-- Clean premium (minimal, generous space, one confident accent) mixed with warm local Indian-market feel (warmer colours, friendly bold type). Ease of use wins over style.
-- Exact values (colours, fonts, sizes, radius, spacing, motion) in DESIGN.md before the first screen.
-- Every tap responds within 0.1s. Loading, empty and error states friendly and in the owner's language.
+ACCEPTANCE (tap tests)
+1. Home -> mic -> "Sharma ji, 2 kilo cheeni, 1 Maggi" -> review card -> fix Maggi to 2 -> ✓ -> bill saved, stock drops, WhatsApp share ready.
+2. Bills screen -> mic -> "Maal aaya, 10 Aashirvaad" -> goes to stock review -> ✓ -> stock rises.
+3. Mic -> "Gupta ji ne 500 diye" -> udhaar payment review -> ✓ -> balance drops.
+4. Sample handwritten receipt -> unclear lines highlighted -> fix by voice -> ✓ -> stock and supplier due update.
+5. "Madhur Sugar 1kg" on a receipt -> matched to Cheeni (asks once if new).
+6. Speak galla cash 300 less than cash bills -> gap shown with a friendly message.
+7. New store forecast -> "learning" state, no invented numbers.
+8. Customer orders on the store site -> it appears in the app with a sound -> Ready -> customer page shows Ready -> converted to a bill.
+9. Any Phase 2/3 item -> clear Coming soon screen.
+10. From home, any feature is reachable in at most 2 taps. Admin: create a store -> log in on a phone -> only that store's data shows.
 
-## Acceptance (tap tests)
-1. Mic: "cheeni 25 kilo" → transcript shows. ✓ → stock is 25 kg.
-2. Sample receipt → overview with an unclear line highlighted. Fix by voice, ✓ → stock rises, supplier due created.
-3. Receipt "Madhur Sugar 1kg" → matched to Cheeni (asks once if new).
-4. Voice bill "2 kilo cheeni, 1 Maggi" → bill filled. Save → stock drops. Share → WhatsApp opens with bill link.
-5. Bill link on another phone → readable bill. Language toggle works.
-6. Bill an unrecorded item → sale goes through, item flagged.
-7. From home, bill / receipt / udhaar each open in ≤2 taps.
-8. Agents or Phase 3 → clear Coming soon screen, no fake data.
-9. Admin creates a store → log in on a phone → only that store's data. Usage stats rise, CSV downloads.
+OPEN DECISIONS (ask me with many options when you reach each)
+1. Build order: one feature at a time or all at once.
+2. Copy my default skills from my private "skill" repo first?
+3. App name owners see.
+4. Home screen layout and the 4 tabs.
+5. Selling-price rule. (Suggested: receipt MRP -> learned from the first voice bill -> cost + one category margin %; unpriced items hidden on the store site.)
+6. Bill edits and returns.
+7. Expiry date tracking.
+8. Whether the mic speaks answers aloud by default.
+9. Switching to offline hybrid.
+10. Anything that costs money or can't be undone.
 
-## Open decisions (ask when reached)
-1. Build order. 2. Copy default skills from private "skill" repo? 3. App name owners see. 4. Home screen layout. 5. Selling-price rule (suggested: receipt MRP → learned from first voice bill → cost + category margin %; unpriced items hidden from customers). 6. Bill edits and returns. 7. Expiry date tracking. 8. Store order link: real or Coming soon. 9. Semis additions and pilot timing. 10. Switching to hybrid offline. 11. Anything that costs money or can't be undone.
-
-Decided answers are logged in DECISIONS.md.
-
-## Report format after each chunk
-BUILT / LIVE (link) / SEEN WORKING / NOT TESTED / TAP TEST (3 lines) / DECIDED FOR YOU / KNOWN ISSUES / NEXT. "Fixed" only for things watched working after the change.
+REPORT BACK after each chunk
+BUILT / LIVE (link) / SEEN WORKING / NOT TESTED / TAP TEST (3 lines) / DECIDED FOR YOU / KNOWN ISSUES / NEXT.
+Write "fixed" only for things you watched work after the change.
