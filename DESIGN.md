@@ -67,7 +67,7 @@ Tabs: Ghar/घर/Home · Bill/बिल/Bill · Maal/माल/Stock · Udhaar/
 ## UX rules (v2, after owner review 21 Nov)
 1. **Different things never look alike.** Person = round avatar with initial + "Kiska bill?" label + outlined "Badlo" button. Items = rows inside one list card. Money choice = 3 big toggle buttons. Totals = biggest number on screen.
 2. **Fix by touching the thing itself.** Quantity has visible − / + buttons on every item row (no hidden "tap to edit"). An unsure item shows its 2–3 likely choices as big buttons right in the row.
-3. **The app never guesses silently.** Done stays disabled and says why ("Pehle Maggi chuno") until every unsure line is settled.
+3. **The app never guesses silently.** An unsure line shows the app's best guess pre-filled (so the total is always real), highlighted yellow with "Yahi wali?" + solid green "✓ Haan" and outlined "Doosri". Save stays amber ("↑ Pehle \"Haan\" dabao", tapping it pulses the Haan button) until every yellow line is answered; then the row turns white and Save turns green with the total ("✓ Save karo · ₹120").
 4. **Each section has its own colour + icon**, used on Home tiles and tab icons, so owners who read slowly recognise by colour/shape: Bill green #0F6B4B · Maal blue #1F5FA8 · Udhaar rust #A4461B · Hisaab purple #6B4FA0 · Galla haldi #8A6A00 · Orders teal #0E7490 · Thaile magenta #9D174D. Main actions stay accent green.
 5. **Teach by example, in place.** Home shows one real example sentence above the mic; the listening screen says how it ends.
 6. **Flow screens (listening, review, saved) hide the tab bar**; the bottom slot becomes the one main action. Mic keeps its exact spot.
@@ -75,3 +75,8 @@ Tabs: Ghar/घर/Home · Bill/बिल/Bill · Maal/माल/Stock · Udhaar/
 8. **After saving**: big tick, what changed in plain words ("Stock se 2 kg cheeni kam") with Undo, then WhatsApp + "Naya bill".
 9. Disabled buttons: #E4DCCB background, #594E43 text (still readable).
 10. **Nothing overlaps unless on purpose.** Every preview/screen is checked by script for overlapping blocks and cut-off text before it is shown.
+11. **Home is calm**: one sales card (Aaj ki bikri, "Aaj udhaar diya ₹X ›", "Pura hisaab dekho ›"), then full-width rows (Galla gino · Online orders · Free thaile mangao), then the example sentence above the mic. Cash/UPI split lives inside Hisaab.
+12. **Mic lives in the bottom bar**, centre, raised (76px), same spot on every screen. On flow screens the bar has no tabs and the one main action sits directly above it.
+13. **Udhaar is double-checked without a dialog**: choosing Udhaar shows the running balance before Save ("Pehle ₹340 + is bill ₹120 / Sharma ji ka kul udhaar: ₹460"); Saved repeats the new balance.
+14. **Undo is plain words**: "Galti hui? → Bill hatao" (outlined, apart from other buttons) → toast "Bill hat gaya, stock wapas" with "Wapas lao".
+15. Owner-test method: every design change is reviewed by two simulated owners (Ramesh ji 56, Sunita ji 42) at real phone size until both score every screen ease ≥ 9, calm ≥ 8. Real owners still decide; the pilot overrides the simulation.
