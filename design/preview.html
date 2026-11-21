@@ -42,7 +42,7 @@
 .it+.it{border-top:1px solid var(--line)}
 .nm{font-weight:700;font-size:20px;line-height:26px}.pr{color:var(--ink2);line-height:22px}
 .step{display:flex;align-items:center;border-radius:14px;height:56px;overflow:hidden;background:var(--s2);flex:none}
-.step i{width:52px;height:56px;display:grid;place-items:center;font:700 28px 'Baloo 2';color:var(--ac);font-style:normal}
+.step i{width:56px;height:56px;display:grid;place-items:center;font:700 28px 'Baloo 2';color:var(--ac);font-style:normal}
 .step em{min-width:52px;text-align:center;font:700 22px 'Baloo 2';font-style:normal;background:#fff;height:44px;line-height:44px;border-radius:10px}
 .u{background:var(--uns);display:block;box-shadow:inset 5px 0 0 var(--unsb)}
 .ask{color:#7A5600;font-weight:700;margin-bottom:12px}
@@ -53,7 +53,7 @@
 .pb.on{background:var(--acs);color:var(--ac);box-shadow:inset 0 0 0 2px var(--ac)}
 /* listening + saved */
 .live{font:600 32px/42px 'Baloo 2';margin-top:28px}.live .dim{color:#BBAE9B}
-.note{color:var(--ink2);margin-top:28px}
+.note{color:var(--ink);margin-top:28px}
 .ok{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:28px}
 .okc{width:88px;height:88px;border-radius:50%;background:var(--ac);display:grid;place-items:center}
 .changed{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--s);border-radius:16px;box-shadow:var(--sh);padding:12px 12px 12px 18px;margin-top:32px}
@@ -83,6 +83,7 @@
 .guess{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
 .gtxt{color:#7A5600;font-weight:600;font-size:18px}
 .chg{white-space:nowrap;height:56px;padding:0 16px;border-radius:14px;border:1.5px solid #C99A1E;color:#7A5600;display:flex;align-items:center;font-weight:700;background:#fff}
+.chg.yes{border-color:var(--ac);color:var(--ac)}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
 <symbol id="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
@@ -103,7 +104,7 @@
 <div class="wrap"><div class="cap">1 · Ghar (Home)</div><div class="ph"><div class="top"><div class="store">Sharma Kirana</div><div class="ghost"><svg width="22" height="22"><use href="#gear"/></svg>Settings</div></div>
 <div class="pad">
 <div class="sales"><div class="lab">Aaj ki bikri</div><div class="big">₹6,840</div>
-<div class="three"><div><div class="lab">Cash</div><div class="num">₹4,120</div></div><div><div class="lab">UPI</div><div class="num">₹2,720</div></div><div><div class="lab">Udhaar</div><div class="num" style="color:var(--ud)">₹560</div></div></div>
+<div class="three"><div><div class="lab">Cash</div><div class="num">₹4,120</div></div><div><div class="lab">UPI</div><div class="num">₹2,720</div></div><div><div class="lab">Udhaar</div><div class="num" style="color:var(--ud)">₹560 ›</div></div></div>
 <div class="more"><span>Pura hisaab dekho</span><span style="font:700 26px 'Baloo 2'">›</span></div></div>
 <div class="rows"><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-gal)"><svg width="24" height="24"><use href="#cash"/></svg></div></div><div class="grow">Galla gino</div><div class="chev">›</div></div><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-ord)"><svg width="24" height="24"><use href="#cart"/></svg></div><span class="badge">2</span></div><div class="grow">Online orders</div><div class="chev">›</div></div><div class="rowb"><div class="chipw"><div class="chip" style="background:var(--c-bag)"><svg width="24" height="24"><use href="#bag"/></svg></div></div><div class="grow">Free thaile mangao</div><div class="chev">›</div></div></div>
 </div>
@@ -121,7 +122,7 @@
 <div class="items">
 <div class="it"><div><div class="nm">Cheeni</div><div class="pr">₹46/kg · ₹92</div></div><div class="step"><i>−</i><em>2 kg</em><i>+</i></div></div>
 <div class="it u"><div class="qrow" style="margin:0"><div><div class="nm">Maggi chhota</div><div class="pr">₹14 ek</div></div><div class="step"><i>−</i><em>1</em><i>+</i></div></div>
-<div class="guess"><span class="gtxt">Yahi wali Maggi?</span><div class="chg">Doosra chuno</div></div></div>
+<div class="guess"><span class="gtxt">Yahi wali?</span><div style="display:flex;gap:10px"><div class="chg yes">✓ Haan</div><div class="chg">Doosri</div></div></div></div>
 </div>
 <div class="sec">Paise kaise mile?</div>
 <div class="pay"><div class="pb on">✓ Cash</div><div class="pb">UPI</div><div class="pb ud">Udhaar</div></div>
