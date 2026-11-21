@@ -40,8 +40,8 @@ export function Login() {
       <div className="field">
         <label htmlFor="code">{t('codeLabel')}</label>
         <input id="code" className="input" value={code} autoCapitalize="characters" autoComplete="off" spellCheck={false}
-          maxLength={8} onChange={(e) => setCode(e.target.value.replace(/\s/g, '').toUpperCase())}
-          onKeyDown={(e) => { if (e.key === 'Enter' && codeOk) setStep('pin') }} style={{ letterSpacing: 2, fontWeight: 700, fontSize: 24 }} />
+          maxLength={8} placeholder={t('codeExample')} onChange={(e) => setCode(e.target.value.replace(/\s/g, '').toUpperCase())}
+          onKeyDown={(e) => { if (e.key === 'Enter' && codeOk) setStep('pin') }} style={{ letterSpacing: 2, fontWeight: 700, fontSize: 24, minHeight: 64 }} />
         <span>{t('codeHint')}</span>
       </div>
       <div className="gap24" />
@@ -55,9 +55,9 @@ export function Login() {
     <main className="screen">
       <div className="top">
         <Tap className="ghost back" onClick={() => { setStep('code'); setPin(''); setErr('') }}><Icon name="back" size={22} stroke={2.4} />{t('changeCode')}</Tap>
-        <span className="num" style={{ letterSpacing: 2 }}>{code.toUpperCase()}</span>
       </div>
       <h1 className="h1 center" style={{ marginTop: 8 }}>{t('pinTitle')}</h1>
+      <p className="lab center">{t('shopLabel')}: <b style={{ color: 'var(--ink)' }}>{code.toUpperCase()}</b></p>
       <div className={`pins ${shake ? 'shake' : ''}`} aria-label={`${pin.length} of 4`}>{[0, 1, 2, 3].map((i) => <i key={i} className={i < pin.length ? 'on' : ''} />)}</div>
       <div className="msgslot" role="alert">{err ? <div className="err">{err}</div> : busy ? <p className="lab center">{t('loading')}</p> : null}</div>
       <div className="pad">

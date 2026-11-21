@@ -1,4 +1,5 @@
 import { useEffect, useState, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import { Icon } from './Icon'
 import { tapFx } from '../lib/feedback'
 import { goBack, navigate } from '../lib/router'
@@ -54,7 +55,8 @@ export function BottomBar({ active, flow = false, micLabel, listening = false, o
 
 export function Sheet({ open, onClose, children }: { open: boolean; onClose: () => void; children: ReactNode }) {
   if (!open) return null
-  return (<><div className="scrim" onClick={onClose} /><div className="sheet" role="dialog">{children}</div></>)
+  // Portal to <body> so the sheet always sits above the bottom bar and mic.
+  return createPortal(<><div className="scrim" onClick={onClose} /><div className="sheet" role="dialog" aria-modal="true">{children}</div></>, document.body)
 }
 
 // One toast at a time, with an optional undo action.
@@ -66,12 +68,11 @@ export function ToastHost() {
   useEffect(() => { push = (m) => setMsg(m) }, [])
   useEffect(() => { if (!msg) return; const id = setTimeout(() => setMsg(null), 6000); return () => clearTimeout(id) }, [msg])
   if (!msg) return null
-  return (
+  return createPortal(
     <div className="toast" role="status">
       <span>{msg.text}</span>
       {msg.action && <button onClick={() => { tapFx(); msg.action!.run(); setMsg(null) }}>{msg.action.label}</button>}
-    </div>
-  )
+    </div>, document.body)
 }
 
 export function RowButton({ icon, color, label, badge, onClick }: { icon: string; color: string; label: string; badge?: number; onClick: () => void }) {
