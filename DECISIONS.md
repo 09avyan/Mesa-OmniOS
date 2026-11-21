@@ -10,4 +10,5 @@
 | 4c | Settings | Gear + word on Home top bar |
 | 4d | Look | Warm market + premium (exact values in DESIGN.md) |
 | — | Database | Wipe old Supabase tables, rebuild clean in same project |
+| — | Vercel | Live project is `omnidukaan` |
 | — | Git | Push straight to `main` (owner override of the session's branch rule, 21 Nov) |

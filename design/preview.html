@@ -1,67 +1,64 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@500;600;700&display=block" rel="stylesheet">
 <style>
-:root{--bg:#FBF6EC;--s:#fff;--s2:#F3EADA;--line:#E6DAC4;--ink:#1F1A14;--ink2:#594E43;--ac:#0F6B4B;--acp:#0A5038;--acs:#DDEFE5;--uns:#FFF1C7;--unsb:#D99A00;--ud:#9A4A12;
---c-bill:#0F6B4B;--c-maal:#1F5FA8;--c-udh:#A4461B;--c-his:#6B4FA0;--c-gal:#8A6A00;--c-ord:#0E7490;--c-bag:#9D174D}
-*{box-sizing:border-box;margin:0}body{background:#d9d2c4;display:flex;gap:28px;padding:40px 28px 28px;font:500 18px/26px Mukta,sans-serif;color:var(--ink)}
-.wrap{position:relative}.cap{position:absolute;top:-28px;left:8px;font-size:17px;color:#4a4036;font-weight:600}
-.ph{width:390px;height:844px;background:var(--bg);border-radius:36px;overflow:hidden;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.18)}
-.top{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 16px 0 20px;margin-top:20px}
+:root{--bg:#FBF6EC;--s:#fff;--s2:#F3EADA;--line:#ECE2D0;--ink:#1F1A14;--ink2:#5F5448;--ac:#0F6B4B;--acs:#DDEFE5;--uns:#FFF4D1;--unsb:#D99A00;--ud:#9A4A12;
+--c-maal:#1F5FA8;--c-udh:#A4461B;--c-his:#6B4FA0;--c-gal:#8A6A00;--c-ord:#0E7490;--c-bag:#9D174D;--sh:0 1px 2px rgba(60,40,10,.05),0 6px 20px rgba(60,40,10,.05)}
+*{box-sizing:border-box;margin:0}body{background:#d9d2c4;display:flex;gap:32px;padding:44px 32px 32px;font:500 18px/26px Mukta,sans-serif;color:var(--ink)}
+.wrap{position:relative}.cap{position:absolute;top:-30px;left:8px;font-size:17px;color:#4a4036;font-weight:600}
+.ph{width:390px;height:844px;background:var(--bg);border-radius:36px;overflow:hidden;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.16)}
+.top{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 16px 0 24px;margin-top:20px}
 .store{font:700 22px/28px 'Baloo 2'}
-.btn2{height:56px;padding:0 16px;border-radius:16px;background:var(--s);border:1px solid var(--line);display:flex;gap:8px;align-items:center;font-weight:600}
-.pad{padding:0 20px}
-.card{background:var(--s);border-radius:18px;border:1px solid var(--line);box-shadow:0 1px 2px rgba(60,40,10,.06),0 4px 16px rgba(60,40,10,.06);padding:18px 20px;margin-bottom:14px}
-.lab{color:var(--ink2)}.big{font:800 44px/48px 'Baloo 2';font-variant-numeric:tabular-nums}
-.row{display:flex;justify-content:space-between;align-items:center}.num{font:700 22px/28px 'Baloo 2';font-variant-numeric:tabular-nums}
-.split{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}.split div{background:var(--s2);border-radius:12px;padding:8px 10px}.split .num{font-size:20px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.tile{background:var(--s);border:1px solid var(--line);border-radius:18px;height:92px;padding:14px;display:flex;gap:12px;align-items:center;font-weight:700;line-height:22px}
-.chip{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;flex:none;color:#fff}
-.badge{background:#C2410C;color:#fff;border-radius:999px;padding:0 9px;font-size:16px;line-height:24px;margin-left:4px}
-.hint{text-align:center;color:var(--ink2);font-size:18px;line-height:24px;position:absolute;left:20px;right:20px;bottom:186px}
-.hint b{color:var(--ink)}
-.mic{position:absolute;left:50%;transform:translateX(-50%);bottom:82px;display:flex;flex-direction:column;align-items:center;gap:0}
-.mic .c{width:72px;height:72px;border-radius:50%;background:var(--ac);display:grid;place-items:center;box-shadow:0 0 0 8px rgba(15,107,75,.12),0 6px 18px rgba(15,107,75,.35)}
-.mic span{font-weight:700;color:var(--ac)}
-.tabs{position:absolute;bottom:0;left:0;right:0;height:72px;background:var(--s2);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
-.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:600;color:var(--ink2);margin:6px;border-radius:14px;line-height:22px}
+.ghost{height:56px;padding:0 14px;border-radius:16px;display:flex;gap:8px;align-items:center;font-weight:600;color:var(--ink)}
+.pad{padding:0 24px}
+.lab{color:var(--ink2)}.num{font:700 22px/28px 'Baloo 2';font-variant-numeric:tabular-nums}
+.big{font:800 46px/50px 'Baloo 2';font-variant-numeric:tabular-nums}
+.sales{background:var(--s);border-radius:20px;box-shadow:var(--sh);padding:24px;margin-top:12px}
+.three{display:flex;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.three .lab{font-size:18px;line-height:22px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.tile{background:var(--s);border-radius:20px;box-shadow:var(--sh);height:108px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;font-weight:700;line-height:22px}
+.chip{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#fff}
+.badge{background:#C2410C;color:#fff;border-radius:999px;padding:0 9px;font-size:16px;line-height:24px;margin-left:6px}
+.hint{text-align:center;color:var(--ink2);position:absolute;left:24px;right:24px;bottom:204px;line-height:24px}
+.hint b{color:var(--ink);font-weight:600}
+.mic{position:absolute;left:50%;transform:translateX(-50%);bottom:92px;display:flex;flex-direction:column;align-items:center}
+.mic .c{width:72px;height:72px;border-radius:50%;background:var(--ac);display:grid;place-items:center;box-shadow:0 4px 12px rgba(15,107,75,.25)}
+.mic span{font-weight:700;color:var(--ac);line-height:24px;margin-top:2px}
+.tabs{position:absolute;bottom:0;left:0;right:0;height:76px;background:var(--bg);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);padding:6px 8px 8px}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:600;color:var(--ink2);border-radius:14px;line-height:22px}
 .tab.on{background:var(--acs);color:var(--ac);font-weight:700}
-.h1{font:700 28px/34px 'Baloo 2';margin:2px 0 12px}
-.heard{color:var(--ink2);margin-bottom:12px;font-size:18px}
+.bottom{position:absolute;left:16px;right:16px;bottom:8px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:10px;font:700 22px 'Baloo 2'}
+.done{background:var(--ac);color:#fff}.off{background:#E8E0D0;color:#5F5448}
+.outline{background:#fff;border:2px solid var(--ac);color:var(--ac)}
+.h1{font:700 28px/34px 'Baloo 2'}
 /* review */
-.who{display:flex;align-items:center;gap:14px;background:var(--s);border:2px solid var(--line);border-radius:18px;padding:12px 12px 12px 14px;margin-bottom:14px}
-.av{width:52px;height:52px;border-radius:50%;background:#F1DCC8;color:var(--ud);display:grid;place-items:center;font:800 24px 'Baloo 2';flex:none}
-.who .t{flex:1}.who small{display:block;color:var(--ink2);font-size:17px;line-height:20px}.who b{font:700 22px/28px 'Baloo 2'}
-.link{height:56px;padding:0 14px;border-radius:14px;border:1.5px solid var(--ac);color:var(--ac);display:flex;align-items:center;font-weight:700;background:#fff}
-.sec{font-weight:700;color:var(--ink2);margin:0 4px 8px;font-size:18px}
-.items{background:var(--s);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:14px}
-.it{padding:12px 14px;border-bottom:1px solid var(--line)}
-.it:last-child{border-bottom:0}
-.it .nm{font-weight:700;font-size:19px}.it .pr{color:var(--ink2);font-size:17px;line-height:22px}
-.step{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:14px;height:56px;overflow:hidden;background:#fff}
-.step i{width:52px;height:56px;display:grid;place-items:center;font:700 28px 'Baloo 2';color:var(--ac);font-style:normal;background:var(--s2)}
-.step em{min-width:56px;text-align:center;font:700 22px 'Baloo 2';font-style:normal}
-.it.u{background:var(--uns);border-left:6px solid var(--unsb)}
-.ask{color:#7A5600;font-weight:700;margin:6px 0 8px;font-size:18px}
-.opts{display:flex;gap:8px}.opt{flex:1;height:56px;border-radius:14px;background:#fff;border:2px solid #E7C66A;display:flex;flex-direction:column;justify-content:center;padding:0 10px;font-weight:700;line-height:20px;font-size:17px}.opt span{font-weight:500;color:var(--ink2);font-size:16px}
-.opt.sel{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
-.pay{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
-.pb{height:56px;border-radius:14px;border:2px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700}
-.pb.on{border-color:var(--ac);background:var(--acs);color:var(--ac)}
-.tot{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px}
-.donebar{position:absolute;left:0;right:0;bottom:0;height:72px;padding:0 16px 8px;background:var(--bg)}
-.done{height:64px;border-radius:16px;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font:700 24px 'Baloo 2'}
-/* listening */
-.live{font:600 30px/40px 'Baloo 2';color:var(--ink);margin-top:24px}.live .dim{color:#B6A895}
-.ring{position:absolute;left:50%;bottom:82px;transform:translateX(-50%);width:72px;height:72px;border-radius:50%;box-shadow:0 0 0 18px rgba(15,107,75,.10),0 0 0 36px rgba(15,107,75,.06)}
-.stop{position:absolute;left:16px;right:16px;bottom:8px;height:64px;border-radius:16px;border:2px solid var(--ac);color:var(--ac);display:flex;align-items:center;justify-content:center;font:700 22px 'Baloo 2';background:#fff}
-.ex{background:var(--s);border:1px dashed var(--line);border-radius:14px;padding:12px 14px;color:var(--ink2);margin-top:20px}
-/* success */
-.ok{display:flex;flex-direction:column;align-items:center;margin-top:36px}
-.okc{width:96px;height:96px;border-radius:50%;background:var(--ac);display:grid;place-items:center;box-shadow:0 0 0 12px var(--acs)}
-.wa{height:64px;border-radius:16px;background:#fff;border:2px solid #1FA855;color:#137A3C;display:flex;align-items:center;justify-content:center;gap:10px;font:700 22px 'Baloo 2';margin-top:14px}
-.toast{position:absolute;left:16px;right:16px;bottom:184px;height:64px;border-radius:16px;background:#1F1A14;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 18px;font-weight:600}
-.toast .u{height:48px;padding:0 16px;border-radius:12px;background:#3A332B;color:#FFD772;display:flex;align-items:center;font-weight:700}
+.heard{color:var(--ink2);font-size:18px;line-height:24px;margin-top:4px}
+.who{display:flex;align-items:center;gap:14px;margin-top:20px}
+.av{width:48px;height:48px;border-radius:50%;background:#F1DCC8;color:var(--ud);display:grid;place-items:center;font:800 22px 'Baloo 2';flex:none}
+.who .t{flex:1}
+.link{height:56px;padding:0 16px;border-radius:14px;border:1.5px solid var(--ac);color:var(--ac);display:flex;align-items:center;font-weight:700}
+.items{background:var(--s);border-radius:20px;box-shadow:var(--sh);overflow:hidden;margin-top:24px}
+.it{padding:16px 16px 16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.it+.it{border-top:1px solid var(--line)}
+.nm{font-weight:700;font-size:20px;line-height:26px}.pr{color:var(--ink2);line-height:22px}
+.step{display:flex;align-items:center;border-radius:14px;height:56px;overflow:hidden;background:var(--s2);flex:none}
+.step i{width:52px;height:56px;display:grid;place-items:center;font:700 28px 'Baloo 2';color:var(--ac);font-style:normal}
+.step em{min-width:52px;text-align:center;font:700 22px 'Baloo 2';font-style:normal;background:#fff;height:44px;line-height:44px;border-radius:10px}
+.u{background:var(--uns);display:block;box-shadow:inset 5px 0 0 var(--unsb)}
+.ask{color:#7A5600;font-weight:700;margin-bottom:12px}
+.opts{display:flex;gap:12px}.opt{flex:1;height:64px;border-radius:14px;background:#fff;border:2px solid #EBCB72;display:flex;flex-direction:column;justify-content:center;padding:0 12px;font-weight:700;line-height:22px}.opt span{font-weight:500;color:var(--ink2);font-size:17px}
+.sec{font-weight:700;color:var(--ink2);margin:24px 0 10px}
+.pay{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.pb{height:56px;border-radius:14px;background:#fff;box-shadow:var(--sh);display:flex;align-items:center;justify-content:center;font-weight:700}
+.pb.on{background:var(--acs);color:var(--ac);box-shadow:inset 0 0 0 2px var(--ac)}
+/* listening + saved */
+.live{font:600 32px/42px 'Baloo 2';margin-top:28px}.live .dim{color:#BBAE9B}
+.note{color:var(--ink2);margin-top:28px}
+.ok{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:48px}
+.okc{width:88px;height:88px;border-radius:50%;background:var(--ac);display:grid;place-items:center}
+.changed{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--s);border-radius:16px;box-shadow:var(--sh);padding:12px 12px 12px 18px;margin-top:32px}
+.undo{height:56px;padding:0 18px;border-radius:14px;background:var(--s2);font-weight:700;display:flex;align-items:center;flex:none}
+.wa{height:64px;border-radius:16px;background:#fff;box-shadow:var(--sh);display:flex;align-items:center;justify-content:center;gap:10px;font:700 22px 'Baloo 2';margin-top:16px}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
 <symbol id="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
@@ -76,67 +73,60 @@
 <symbol id="chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
 <symbol id="back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></symbol>
 <symbol id="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></symbol>
-<symbol id="phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
 <symbol id="wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l1.3-4A8 8 0 1 1 8 19z"/></symbol>
 </defs></svg>
 
-<!-- 1 HOME -->
 <div class="wrap"><div class="cap">1 · Ghar (Home)</div><div class="ph">
-<div class="top"><div class="store">Sharma Kirana</div><div class="btn2"><svg width="22" height="22"><use href="#gear"/></svg>Settings</div></div>
+<div class="top"><div class="store">Sharma Kirana</div><div class="ghost"><svg width="22" height="22"><use href="#gear"/></svg>Settings</div></div>
 <div class="pad">
-<div class="card"><div class="lab">Aaj ki bikri</div><div class="big">₹6,840</div>
-<div class="split"><div><div class="lab" style="font-size:17px">Cash</div><div class="num">₹4,120</div></div><div><div class="lab" style="font-size:17px">UPI</div><div class="num">₹2,720</div></div><div><div class="lab" style="font-size:17px">Udhaar</div><div class="num" style="color:var(--ud)">₹560</div></div></div></div>
+<div class="sales"><div class="lab">Aaj ki bikri</div><div class="big">₹6,840</div>
+<div class="three"><div><div class="lab">Cash</div><div class="num">₹4,120</div></div><div><div class="lab">UPI</div><div class="num">₹2,720</div></div><div><div class="lab">Udhaar</div><div class="num" style="color:var(--ud)">₹560</div></div></div></div>
 <div class="grid">
-<div class="tile"><div class="chip" style="background:var(--c-his)"><svg width="26" height="26"><use href="#chart"/></svg></div>Aaj ka hisaab</div>
-<div class="tile"><div class="chip" style="background:var(--c-gal)"><svg width="26" height="26"><use href="#cash"/></svg></div>Galla milao</div>
-<div class="tile"><div class="chip" style="background:var(--c-ord)"><svg width="26" height="26"><use href="#cart"/></svg></div><div>Orders<span class="badge">2</span></div></div>
-<div class="tile"><div class="chip" style="background:var(--c-bag)"><svg width="26" height="26"><use href="#bag"/></svg></div>Free thaile</div></div>
+<div class="tile"><div class="chip" style="background:var(--c-his)"><svg width="24" height="24"><use href="#chart"/></svg></div>Aaj ka hisaab</div>
+<div class="tile"><div class="chip" style="background:var(--c-gal)"><svg width="24" height="24"><use href="#cash"/></svg></div>Galla milao</div>
+<div class="tile"><div class="chip" style="background:var(--c-ord)"><svg width="24" height="24"><use href="#cart"/></svg></div><div>Orders<span class="badge">2</span></div></div>
+<div class="tile"><div class="chip" style="background:var(--c-bag)"><svg width="24" height="24"><use href="#bag"/></svg></div>Free thaile</div></div>
 </div>
-<div class="hint">Mic dabao aur bolo, jaise:<br><b>"Sharma ji, 2 kilo cheeni"</b></div>
-<div class="mic"><div class="c"><svg width="34" height="34" style="color:#fff"><use href="#mic"/></svg></div><span>Bolo</span></div>
-<div class="tabs"><div class="tab on"><svg width="26" height="26"><use href="#home"/></svg>Ghar</div><div class="tab"><svg width="26" height="26" style="color:var(--c-bill)"><use href="#bill"/></svg>Bill</div><div class="tab"><svg width="26" height="26" style="color:var(--c-maal)"><use href="#box"/></svg>Maal</div><div class="tab"><svg width="26" height="26" style="color:var(--c-udh)"><use href="#book"/></svg>Udhaar</div></div>
+<div class="hint">Jaise bolo: <b>"Sharma ji, 2 kilo cheeni"</b></div>
+<div class="mic"><div class="c"><svg width="32" height="32" style="color:#fff"><use href="#mic"/></svg></div><span>Bolo</span></div>
+<div class="tabs"><div class="tab on"><svg width="26" height="26"><use href="#home"/></svg>Ghar</div><div class="tab"><svg width="26" height="26" style="color:var(--ac)"><use href="#bill"/></svg>Bill</div><div class="tab"><svg width="26" height="26" style="color:var(--c-maal)"><use href="#box"/></svg>Maal</div><div class="tab"><svg width="26" height="26" style="color:var(--c-udh)"><use href="#book"/></svg>Udhaar</div></div>
 </div></div>
 
-<!-- 2 LISTENING -->
 <div class="wrap"><div class="cap">2 · Sun raha hai (Listening)</div><div class="ph">
-<div class="top"><div class="btn2"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div></div></div>
+<div class="top"><div class="ghost"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div></div></div>
 <div class="pad">
-<div class="h1" style="margin-top:12px">Boliye, main sun raha hoon…</div>
+<div class="h1" style="margin-top:16px">Boliye, sun raha hoon</div>
 <div class="live">Sharma ji, 2 kilo cheeni, 1 Maggi <span class="dim">…</span></div>
-<div class="ex">Rukne par apne aap aage badhega. Ya neeche <b>"Ho gaya"</b> dabaiye.</div>
+<div class="note">Bolna band karte hi aage badhega.</div>
 </div>
-<div class="ring"></div>
-<div class="mic"><div class="c" style="background:#C2410C;box-shadow:0 6px 18px rgba(194,65,12,.35)"><svg width="34" height="34" style="color:#fff"><use href="#mic"/></svg></div><span style="color:#C2410C">Sun raha hai</span></div>
-<div class="stop">Ho gaya, aage chalo</div>
+<div class="mic"><div class="c" style="background:#C2410C;box-shadow:0 4px 12px rgba(194,65,12,.25)"><svg width="32" height="32" style="color:#fff"><use href="#mic"/></svg></div><span style="color:#C2410C">Sun raha hai</span></div>
+<div class="bottom outline">Ho gaya, aage chalo</div>
 </div></div>
 
-<!-- 3 REVIEW -->
 <div class="wrap"><div class="cap">3 · Bill check karo (Review)</div><div class="ph">
-<div class="top"><div class="btn2"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div class="lab" style="font-size:17px">Suna: "Sharma ji, 2 kilo…"</div></div>
+<div class="top"><div class="ghost"><svg width="22" height="22"><use href="#back"/></svg>Peeche</div><div></div></div>
 <div class="pad">
-<div class="who"><div class="av">S</div><div class="t"><small>Kiska bill?</small><b>Sharma ji</b></div><div class="link">Badlo</div></div>
-<div class="sec">Saaman · 2</div>
+<div class="heard">Suna: "Sharma ji, 2 kilo cheeni, 1 Maggi"</div>
+<div class="who"><div class="av">S</div><div class="t"><div class="h1">Sharma ji ka bill</div></div><div class="link">Badlo</div></div>
 <div class="items">
-<div class="it"><div class="row"><div><div class="nm">Cheeni</div><div class="pr">₹46 / kg · <b style="color:var(--ink)">₹92</b></div></div><div class="step"><i>−</i><em>2 kg</em><i>+</i></div></div></div>
+<div class="it"><div><div class="nm">Cheeni</div><div class="pr">₹46/kg · ₹92</div></div><div class="step"><i>−</i><em>2 kg</em><i>+</i></div></div>
 <div class="it u"><div class="ask">Kaunsi Maggi? Ek chuno</div><div class="opts"><div class="opt">Maggi Masala<span>₹14 · chhoti</span></div><div class="opt">Maggi 4 pack<span>₹56</span></div></div></div>
 </div>
+<div class="sec">Paise kaise mile?</div>
 <div class="pay"><div class="pb on">Cash</div><div class="pb">UPI</div><div class="pb" style="color:var(--ud)">Udhaar</div></div>
-<div class="tot"><span class="num">Kul</span><span class="big" style="font-size:38px">₹92 <span style="font-size:18px;color:#7A5600;font-family:Mukta">+ Maggi</span></span></div>
 </div>
-<div class="mic"><div class="c"><svg width="34" height="34" style="color:#fff"><use href="#mic"/></svg></div><span>Bolke badlo</span></div>
-<div class="donebar"><div class="done" style="background:#E4DCCB;color:#594E43"><svg width="26" height="26"><use href="#tick"/></svg>Pehle Maggi chuno</div></div>
+<div class="mic"><div class="c"><svg width="32" height="32" style="color:#fff"><use href="#mic"/></svg></div><span>Bolke badlo</span></div>
+<div class="bottom off">Pehle Maggi chuno</div>
 </div></div>
 
-<!-- 4 SAVED -->
 <div class="wrap"><div class="cap">4 · Ho gaya (Saved)</div><div class="ph">
 <div class="pad">
-<div class="ok"><div class="okc"><svg width="54" height="54" style="color:#fff"><use href="#tick"/></svg></div>
-<div class="h1" style="margin-top:22px">Bill ban gaya</div><div class="lab">Sharma ji · Cash</div><div class="big" style="margin-top:6px">₹120</div></div>
-<div class="wa" style="margin-top:28px"><svg width="26" height="26"><use href="#wa"/></svg>WhatsApp pe bhejo</div>
-<div class="wa" style="border-color:var(--line);color:var(--ink)"><svg width="24" height="24"><use href="#bill"/></svg>Naya bill</div>
+<div class="ok"><div class="okc"><svg width="48" height="48" style="color:#fff"><use href="#tick"/></svg></div>
+<div class="h1" style="margin-top:24px">Bill ban gaya</div><div class="lab" style="margin-top:4px">Sharma ji · Cash</div><div class="big" style="margin-top:8px">₹120</div></div>
+<div class="changed"><span>Stock se 2 kg cheeni, 2 Maggi kam</span><div class="undo">Undo</div></div>
+<div class="wa" style="color:#137A3C;box-shadow:inset 0 0 0 2px #1FA855"><svg width="26" height="26"><use href="#wa"/></svg>WhatsApp pe bhejo</div>
 </div>
-<div class="toast"><span>Stock se 2 kg cheeni, 2 Maggi kam</span><div class="u">Undo</div></div>
-<div class="mic"><div class="c"><svg width="34" height="34" style="color:#fff"><use href="#mic"/></svg></div><span>Bolo</span></div>
-<div class="tabs"><div class="tab"><svg width="26" height="26"><use href="#home"/></svg>Ghar</div><div class="tab on"><svg width="26" height="26"><use href="#bill"/></svg>Bill</div><div class="tab"><svg width="26" height="26" style="color:var(--c-maal)"><use href="#box"/></svg>Maal</div><div class="tab"><svg width="26" height="26" style="color:var(--c-udh)"><use href="#book"/></svg>Udhaar</div></div>
+<div class="mic"><div class="c"><svg width="32" height="32" style="color:#fff"><use href="#mic"/></svg></div><span>Bolo</span></div>
+<div class="bottom done"><svg width="24" height="24"><use href="#bill"/></svg>Naya bill</div>
 </div></div>
 </body></html>

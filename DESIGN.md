@@ -38,8 +38,8 @@ Minimum anywhere: 18px. Numbers always ₹ with Indian grouping (₹1,24,500).
 
 ## Shape & space
 - Radius: card 18 · button 16 · input 14 · chip/mic pill 999.
-- Spacing scale: 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40. Screen side gutter 20. Gap between cards 16.
-- Shadow (cards): `0 1px 2px rgba(60,40,10,.06), 0 4px 16px rgba(60,40,10,.06)`. Nothing heavier.
+- Spacing scale: 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48. Screen side gutter **24**. Gap between cards/sections **24**, inside cards **20–24**. Leave ≥ 80px clear above the mic.
+- Cards: no borders; separation by space + one soft shadow `0 1px 2px rgba(60,40,10,.05), 0 6px 20px rgba(60,40,10,.05)`. Max one box level (no boxes inside boxes). Settings/Peeche are borderless text buttons (still 56px tall).
 
 ## Touch
 - Every button ≥ 56px tall, icon + word, never icon-only. Main action 64px, full width.
@@ -57,7 +57,7 @@ Minimum anywhere: 18px. Numbers always ₹ with Indian grouping (₹1,24,500).
 ## Motion
 - Enter: 180ms `cubic-bezier(0.2, 0.8, 0.2, 1)`, fade + 8px rise. Exit: 140ms ease-in.
 - Screen change: 200ms slide (forward from right, back to right). Sheets: 220ms from bottom.
-- Mic listening: soft breathing ring, 1.6s loop. Only transform/opacity animate.
+- Low-end phones first: animate only `opacity`/`transform`; at most ONE looping animation on screen (the listening mic: opacity 1→0.75→1, 1.6s). No glow rings, blurs, shadows that animate, or particle effects.
 - `prefers-reduced-motion`: fades only.
 
 ## Language
@@ -74,3 +74,4 @@ Tabs: Ghar/घर/Home · Bill/बिल/Bill · Maal/माल/Stock · Udhaar/
 7. **Listening state** turns the mic saffron #C2410C with "Sun raha hai", and shows live words at 30px.
 8. **After saving**: big tick, what changed in plain words ("Stock se 2 kg cheeni kam") with Undo, then WhatsApp + "Naya bill".
 9. Disabled buttons: #E4DCCB background, #594E43 text (still readable).
+10. **Nothing overlaps unless on purpose.** Every preview/screen is checked by script for overlapping blocks and cut-off text before it is shown.
