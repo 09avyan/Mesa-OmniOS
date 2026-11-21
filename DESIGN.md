@@ -63,3 +63,14 @@ Minimum anywhere: 18px. Numbers always ₹ with Indian grouping (₹1,24,500).
 ## Language
 Hindi (देवनागरी) · Hinglish (Roman) · English. Picked at first launch; Settings button on Home top bar. Every label exists in all three.
 Tabs: Ghar/घर/Home · Bill/बिल/Bill · Maal/माल/Stock · Udhaar/उधार/Udhaar.
+
+## UX rules (v2, after owner review 21 Nov)
+1. **Different things never look alike.** Person = round avatar with initial + "Kiska bill?" label + outlined "Badlo" button. Items = rows inside one list card. Money choice = 3 big toggle buttons. Totals = biggest number on screen.
+2. **Fix by touching the thing itself.** Quantity has visible − / + buttons on every item row (no hidden "tap to edit"). An unsure item shows its 2–3 likely choices as big buttons right in the row.
+3. **The app never guesses silently.** Done stays disabled and says why ("Pehle Maggi chuno") until every unsure line is settled.
+4. **Each section has its own colour + icon**, used on Home tiles and tab icons, so owners who read slowly recognise by colour/shape: Bill green #0F6B4B · Maal blue #1F5FA8 · Udhaar rust #A4461B · Hisaab purple #6B4FA0 · Galla haldi #8A6A00 · Orders teal #0E7490 · Thaile magenta #9D174D. Main actions stay accent green.
+5. **Teach by example, in place.** Home shows one real example sentence above the mic; the listening screen says how it ends.
+6. **Flow screens (listening, review, saved) hide the tab bar**; the bottom slot becomes the one main action. Mic keeps its exact spot.
+7. **Listening state** turns the mic saffron #C2410C with "Sun raha hai", and shows live words at 30px.
+8. **After saving**: big tick, what changed in plain words ("Stock se 2 kg cheeni kam") with Undo, then WhatsApp + "Naya bill".
+9. Disabled buttons: #E4DCCB background, #594E43 text (still readable).
