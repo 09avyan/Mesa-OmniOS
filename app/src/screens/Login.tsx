@@ -13,6 +13,7 @@ export function Login() {
   const [pin, setPin] = useState('')
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
+  const [shake, setShake] = useState(false)
 
   const codeOk = /^[A-Za-z0-9]{4,8}$/.test(code.trim())
 
@@ -26,7 +27,7 @@ export function Login() {
     const r = await storeLogin(code, next)
     setBusy(false)
     if (r === 'ok') { successFx(); try { localStorage.setItem('omni-code', code.trim().toUpperCase()) } catch { /* ignore */ } return }
-    errorFx(); setPin(''); setErr(r === 'wrong' ? t('wrongLogin') : t('offline'))
+    errorFx(); setPin(''); setShake(true); setTimeout(() => setShake(false), 400); setErr(r === 'wrong' ? t('wrongLogin') : t('offline'))
   }
 
   if (step === 'code') return (
@@ -41,10 +42,10 @@ export function Login() {
         <input id="code" className="input" value={code} autoCapitalize="characters" autoComplete="off" spellCheck={false}
           maxLength={8} onChange={(e) => setCode(e.target.value.replace(/\s/g, '').toUpperCase())}
           onKeyDown={(e) => { if (e.key === 'Enter' && codeOk) setStep('pin') }} style={{ letterSpacing: 2, fontWeight: 700, fontSize: 24 }} />
-        <span className="lab">{t('codeHint')}</span>
+        <span>{t('codeHint')}</span>
       </div>
       <div className="gap24" />
-      <Tap className="btn primary" disabled={!codeOk} onClick={() => { setStep('pin'); setPin(''); setErr('') }}>{t('next')}</Tap>
+      <Tap className="btn primary" disabled={!codeOk} onClick={() => { setStep('pin'); setPin(''); setErr('') }}>{codeOk ? t('next') : t('codeFirst')}</Tap>
       <div className="gap24" />
       <p className="lab center">{t('forgotCode')}</p>
     </main>
@@ -57,9 +58,8 @@ export function Login() {
         <span className="num" style={{ letterSpacing: 2 }}>{code.toUpperCase()}</span>
       </div>
       <h1 className="h1 center" style={{ marginTop: 8 }}>{t('pinTitle')}</h1>
-      <div className="pins" aria-label={`${pin.length} of 4`}>{[0, 1, 2, 3].map((i) => <i key={i} className={i < pin.length ? 'on' : ''} />)}</div>
-      {err && <><div className="err" role="alert">{err}</div><div className="gap16" /></>}
-      {busy && <p className="lab center" style={{ marginBottom: 16 }}>{t('loading')}</p>}
+      <div className={`pins ${shake ? 'shake' : ''}`} aria-label={`${pin.length} of 4`}>{[0, 1, 2, 3].map((i) => <i key={i} className={i < pin.length ? 'on' : ''} />)}</div>
+      <div className="msgslot" role="alert">{err ? <div className="err">{err}</div> : busy ? <p className="lab center">{t('loading')}</p> : null}</div>
       <div className="pad">
         {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((d) => <Tap key={d} className="key" onClick={() => press(d)}>{d}</Tap>)}
         <Tap className="key word" onClick={() => { setPin(''); setErr('') }}>{t('clear')}</Tap>

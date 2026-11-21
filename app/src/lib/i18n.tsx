@@ -21,13 +21,14 @@ const S = {
   // login
   loginTitle: { hinglish: 'Apni dukaan kholo', hi: 'अपनी दुकान खोलें', en: 'Open your shop' },
   codeLabel: { hinglish: 'Dukaan code', hi: 'दुकान कोड', en: 'Shop code' },
-  codeHint: { hinglish: 'Jo code OmniOS team ne diya', hi: 'जो कोड OmniOS टीम ने दिया', en: 'The code the OmniOS team gave you' },
+  codeHint: { hinglish: 'Dukaan ka code, jo aapko diya gaya', hi: 'दुकान का कोड, जो आपको दिया गया', en: 'Your shop code, the one you were given' },
+  codeFirst: { hinglish: 'Pehle code likho', hi: 'पहले कोड लिखें', en: 'Type the code first' },
   next: { hinglish: 'Aage', hi: 'आगे', en: 'Next' },
   pinTitle: { hinglish: '4 number ka PIN daalo', hi: '4 अंकों का PIN डालें', en: 'Enter your 4-digit PIN' },
-  clear: { hinglish: 'Mitao', hi: 'मिटाओ', en: 'Clear' },
+  clear: { hinglish: 'Saaf karo', hi: 'साफ़ करो', en: 'Clear' },
   wrongLogin: { hinglish: 'Code ya PIN galat hai. Dobara daalo.', hi: 'कोड या PIN गलत है। दोबारा डालें।', en: 'Code or PIN is wrong. Please try again.' },
   pausedStore: { hinglish: 'Yeh dukaan abhi band hai. OmniOS team se baat karo.', hi: 'यह दुकान अभी बंद है। OmniOS टीम से बात करें।', en: 'This shop is paused. Please talk to the OmniOS team.' },
-  forgotCode: { hinglish: 'Code ya PIN bhool gaye? OmniOS team ko call karo.', hi: 'कोड या PIN भूल गए? OmniOS टीम को कॉल करें।', en: 'Forgot code or PIN? Call the OmniOS team.' },
+  forgotCode: { hinglish: 'Code ya PIN bhool gaye? Jisne app lagaya, unhe call karo.', hi: 'कोड या PIN भूल गए? जिसने ऐप लगाया, उन्हें कॉल करें।', en: 'Forgot code or PIN? Call the person who set up the app.' },
   changeCode: { hinglish: 'Code badlo', hi: 'कोड बदलो', en: 'Change code' },
 
   // home
@@ -44,18 +45,21 @@ const S = {
 
   // settings
   language: { hinglish: 'Bhasha', hi: 'भाषा', en: 'Language' },
-  sound: { hinglish: 'Dabane par awaaz', hi: 'दबाने पर आवाज़', en: 'Tap sound' },
+  sound: { hinglish: 'Button dabane ki awaaz', hi: 'बटन दबाने की आवाज़', en: 'Sound when you tap' },
   on: { hinglish: 'Chalu', hi: 'चालू', en: 'On' },
   off: { hinglish: 'Band', hi: 'बंद', en: 'Off' },
   terms: { hinglish: 'Niyam aur shartein', hi: 'नियम और शर्तें', en: 'Terms and conditions' },
-  logout: { hinglish: 'Is phone se dukaan band karo', hi: 'इस फ़ोन से दुकान बंद करें', en: 'Log out of this phone' },
-  loggedOut: { hinglish: 'Dukaan band ho gayi', hi: 'दुकान बंद हो गई', en: 'Logged out' },
+  logout: { hinglish: 'Is phone se bahar niklo', hi: 'इस फ़ोन से बाहर निकलें', en: 'Log out of this phone' },
+  logoutSub: { hinglish: 'Dukaan ka hisaab surakshit rahega', hi: 'दुकान का हिसाब सुरक्षित रहेगा', en: 'Your shop data stays safe' },
+  loggedOut: { hinglish: 'Bahar nikal gaye', hi: 'बाहर निकल गए', en: 'Logged out' },
   shopCode: { hinglish: 'Dukaan code', hi: 'दुकान कोड', en: 'Shop code' },
   saved: { hinglish: 'Ho gaya', hi: 'हो गया', en: 'Done' },
 
   // feature not built yet (honest, temporary during build)
-  buildingTitle: { hinglish: 'Yeh hissa ban raha hai', hi: 'यह हिस्सा बन रहा है', en: 'This part is being built' },
-  buildingBody: { hinglish: 'Kuch hi dinon mein yahan kaam karega. Tab tak baaki app chalaiye.', hi: 'कुछ ही दिनों में यहाँ काम करेगा। तब तक बाकी ऐप चलाइए।', en: 'It will work here in a few days. Use the rest of the app meanwhile.' },
+  buildingTitle: { hinglish: 'Is hafte aa raha hai', hi: 'इस हफ़्ते आ रहा है', en: 'Arriving this week' },
+  buildingBody: { hinglish: 'Yeh hissa abhi tayyar ho raha hai.', hi: 'यह हिस्सा अभी तैयार हो रहा है।', en: 'This part is being made ready.' },
+  micSoonTitle: { hinglish: 'Bolkar bill banana is hafte aa raha hai', hi: 'बोलकर बिल बनाना इस हफ़्ते आ रहा है', en: 'Making bills by voice arrives this week' },
+  micSoonBody: { hinglish: 'Tab aap mic dabakar bolenge, aur bill apne aap banega.', hi: 'तब आप माइक दबाकर बोलेंगे, और बिल अपने आप बनेगा।', en: 'Then you tap the mic, speak, and the bill makes itself.' },
 } satisfies Record<string, Entry>
 
 export type Key = keyof typeof S

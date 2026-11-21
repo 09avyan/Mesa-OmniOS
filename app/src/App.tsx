@@ -51,8 +51,8 @@ function Owner({ path }: { path: string }) {
       {screen}
       <BottomBar active={tab} onMic={() => setSoon(true)} />
       <Sheet open={soon} onClose={() => setSoon(false)}>
-        <h2 className="h2">{t('buildingTitle')}</h2><div className="gap8" />
-        <p className="lab">{t('buildingBody')}</p><div className="gap24" />
+        <h2 className="h2">{t('micSoonTitle')}</h2><div className="gap8" />
+        <p className="lab">{t('micSoonBody')}</p><div className="gap24" />
         <Tap className="btn primary" onClick={() => setSoon(false)}>{t('ok')}</Tap>
       </Sheet>
     </div>

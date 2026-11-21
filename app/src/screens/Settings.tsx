@@ -20,12 +20,13 @@ export function Settings() {
     <main className="screen has-bar">
       <BackBar />
       <h1 className="h1">{t('settings')}</h1>
+      <div className="lab">{t('shopCode')}: <b style={{ color: 'var(--ink)', letterSpacing: 1 }}>{store?.code}</b></div>
       <div className="gap24" />
       <h2 className="h2" style={{ display: 'flex', gap: 10, alignItems: 'center' }}><Icon name="globe" />{t('language')}</h2>
       <div className="gap8" />
       <div className="stack">
         {LANGS.map((l) => (
-          <Tap key={l.id} className={`langbtn ${lang === l.id ? 'on' : ''}`} style={{ minHeight: 68 }} onClick={() => pickLang(l.id)}>
+          <Tap key={l.id} className={`langbtn ${lang === l.id ? 'on' : ''}`} style={{ minHeight: 64 }} onClick={() => pickLang(l.id)}>
             <span>{l.label}</span>{lang === l.id ? <span style={{ color: 'var(--ac)' }}><Icon name="tick" size={26} stroke={3} /></span> : <small>{l.sub}</small>}
           </Tap>
         ))}
@@ -36,9 +37,8 @@ export function Settings() {
           <Icon name="sound" /><span className="grow">{t('sound')}</span><span style={{ color: snd ? 'var(--ac)' : 'var(--ink2)' }}>{snd ? t('on') : t('off')}</span>
         </Tap>
         <Tap className="rowb" onClick={() => navigate('/terms')}><Icon name="doc" /><span className="grow">{t('terms')}</span><span className="chev">›</span></Tap>
-        <div className="rowb" style={{ boxShadow: 'none', background: 'none' }}><span className="grow lab" style={{ fontWeight: 500 }}>{t('shopCode')}</span><span className="num">{store?.code}</span></div>
         <Tap className="rowb" onClick={async () => { await supabase.auth.signOut(); navigate('/', true); toast({ text: t('loggedOut') }) }}>
-          <Icon name="out" color="var(--danger)" /><span className="grow" style={{ color: 'var(--danger)' }}>{t('logout')}</span>
+          <Icon name="out" /><span className="grow">{t('logout')}<span className="lab" style={{ display: 'block', fontWeight: 500, fontSize: 17, lineHeight: '22px' }}>{t('logoutSub')}</span></span>
         </Tap>
       </div>
     </main>
