@@ -6,13 +6,13 @@
 | Kirana subscription | Small monthly fee per store (price TBD, kept low) | Billing + admin plan screen (small) |
 | Branded carry bags | Brands/local businesses pay for ads on free bags given to kiranas ("Free thaile mangao") | Request flow exists; ad-order tracking in admin (small) |
 | Data selling | Anonymised, aggregated demand/sales insights sold to brands/distributors (T&C clause) | Aggregation + export reports (medium) |
+| Ads on WhatsApp bills | One local/brand offer on every customer bill page | Tiny (start now) |
 | Sponsored items in online store | Brands pay to boost products across stores/regions; **60% shared with stores** | Boost slots on store page, "Sponsored" label, payout ledger, admin (medium) — ask owner details |
 
 ## 2. Future
 | Source | How it earns | Effort vs payoff |
 |---|---|---|
 | Brand promos | Paid offers shown to kirana customers (bill page, store site) | Small build, steady income [likely] |
-| Ads on WhatsApp bills | Every customer bill page shows one local/brand offer | **Tiny build, can start now** — bills already reach customers [likely] |
 | POS for bigger stores | Paid edition for medium/big kiranas & mini-supermarkets: barcode, PC/tablet counter, printer, multi-cashier, GST bills, staff logins, purchase orders | Big build; high price per store; ask pricing/hardware [likely] |
 | Distributor ordering | Kiranas reorder from distributors in-app (from "Maange gaye" + low stock); commission from distributors | Medium–big; strong lock-in, uses data we already have [likely] |
 | Group buying | Pool orders across many stores for better rates; small cut | Medium; needs scale first [guessing] |
