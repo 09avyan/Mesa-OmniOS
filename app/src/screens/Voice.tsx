@@ -20,6 +20,8 @@ type Saved = { kind: 'bill'; billId: string; token: string; total: number; custo
   | { kind: 'stock'; lines: Line[] } | { kind: 'payment'; customer: string; amount: number; balance: number }
 
 const unitLabel = (u?: string) => ({ kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' } as Record<string, string>)[u ?? ''] ?? ''
+// Item name in the owner's language: catalogue has Hindi / Hinglish / English; the shop's own name wins for Hinglish
+const itemLabel = (m: ShopMatchable, lang: string) => lang === 'hi' ? m.hi : lang === 'en' ? m.en : m.shop?.name ?? m.hinglish
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 const fmtQty = (q: number | null, u?: string) => q == null ? '?' : `${+q.toFixed(3)}${unitLabel(u) ? ' ' + unitLabel(u) : ''}`
 
@@ -294,9 +296,12 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
               <div className="num">{draft.customerName} {t('udhaarTotal')}: {rupees(prevBal + net)}</div>
             </div>
           )}
-          <Tap className="linkrow" style={{ marginTop: 8 }} onClick={() => setDiscOpen(true)}>
-            <span>{t('discount')}</span><span>{disc ? `− ${rupees(disc)}` : '›'}</span>
-          </Tap>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 }}>
+            <Tap className="linkrow" style={{ flex: 1 }} onClick={() => setDiscOpen(true)}>
+              <span>{t('discount')}</span><span>{disc ? `− ${rupees(disc)}` : '›'}</span>
+            </Tap>
+            {disc > 0 && <Tap className="chg" style={{ minHeight: 48 }} onClick={() => setDisc(0)}>{t('remove')}</Tap>}
+          </div>
         </>}
         {!isBill && <div className="gap16" />}
       </main>
@@ -319,7 +324,8 @@ function LineRow({ l, isBill, onPick, onPad, fix, onRemove }: { l: Line; isBill:
   const { t } = useT()
   const unit = l.match?.shop?.unit ?? l.match?.unit
   const step = l.match?.loose && (unit === 'kg' || unit === 'l') ? 0.5 : 1
-  const name = l.match ? (l.match.shop?.name ?? l.match.hinglish) : `"${l.said}"`
+  const { lang } = useT()
+  const name = l.match ? itemLabel(l.match, lang) : `"${l.said}"`
   const stepper = (
     <div className="step">
       <Tap aria-label="minus" onClick={() => (l.qty ?? 0) - step <= 0 ? onRemove() : fix({ qty: +((l.qty ?? 0) - step).toFixed(3) })}><i>−</i></Tap>
@@ -355,7 +361,7 @@ function LineRow({ l, isBill, onPick, onPad, fix, onRemove }: { l: Line; isBill:
 }
 
 function ItemPicker({ open, line, shop, onClose, onPick }: { open: boolean; line: Line | null; shop: Shop; onClose: () => void; onPick: (m: ShopMatchable) => void }) {
-  const { t } = useT()
+  const { t, lang } = useT()
   const [q, setQ] = useState('')
   const list = q.trim() ? searchItems(q, shop, 8) : (line?.candidates.length ? line.candidates : searchItems(line?.said ?? '', shop, 8))
   return (
@@ -365,7 +371,7 @@ function ItemPicker({ open, line, shop, onClose, onPick }: { open: boolean; line
       <div className="stack" style={{ marginTop: 12 }}>
         {list.map((m) => (
           <Tap key={m.id} className="rowb" style={{ minHeight: 60 }} onClick={() => { setQ(''); onPick(m) }}>
-            <span className="grow">{m.shop?.name ?? m.hinglish}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500, lineHeight: '22px' }}>{m.hi}</span></span>
+            <span className="grow">{itemLabel(m, lang)}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500, lineHeight: '22px' }}>{lang === 'hi' ? m.hinglish : m.hi}</span></span>
             <span className="chev">›</span>
           </Tap>
         ))}

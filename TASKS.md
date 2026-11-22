@@ -25,6 +25,7 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ✅ Accent-proof matching — maida = meda, atta = aata, Eveready = "everyday"; 51 tests pass.
 - ✅ Mic listening — restarts quietly after pauses, waits 4 s, live list of items while speaking.
 - ✅ Review card — Haan/Doosri, −/+, price pad, items first then Cash/UPI/Udhaar, udhaar running balance.
+- ✅ Discount can be removed with one tap ("Hatao").
 - ✅ Save bill / stock / payment — one-step database saves, Undo puts stock and udhaar back (tested end to end).
 - ✅ Question + galla answers — "Cheeni kitni bachi?" spoken back; galla gap message.
 - ✅ Fix: bill disappearing when mic kept listening — new words now add to the current bill.
@@ -41,7 +42,7 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 
 ## S4 · Bills and udhaar
 - ✅ Bill tab — today's bills, bill detail, WhatsApp share, Bill hatao, bill by choosing items.
-- ✅ Branded customer bill page — receipt style, bill no., payment stamp, Hindi/English, remembers choice.
+- ✅ Branded customer bill page — receipt style, bill no., payment stamp, Hindi/Hinglish/English with proper item names, savings line.
 - ✅ Price learned after 3 bills (decision 5).
 - ⏳ Udhaar tab — customer balances, payment by tap, WhatsApp reminder + balance page.
 - ⏳ Returns by voice ("wapas …") updating the original bill (decision 6).
