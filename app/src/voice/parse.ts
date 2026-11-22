@@ -1,6 +1,7 @@
 import { readNumber, isNumberWord } from './numbers'
 import { FILLER, SEPARATORS, tokenize, unitOf, type Unit } from './normalize'
-import { isSure, matchName, type Candidate, type MatchIndex } from './match'
+import { dice, isSure, matchName, type Candidate, type MatchIndex } from './match'
+import { fold } from './normalize'
 
 export type Intent = 'bill' | 'stock_in' | 'payment' | 'query' | 'galla' | 'unknown'
 export type ParsedItem = {
@@ -15,6 +16,7 @@ export type Parsed = {
   intent: Intent
   text: string
   customer: string | null // as spoken, e.g. "Sharma ji"
+  customerSure: boolean    // false -> yellow "Yahi naam?" (could also be an item)
   items: ParsedItem[]
   amount: number | null   // payment / galla amount
   sure: boolean           // whole result confident (else Gemini may help)
@@ -36,24 +38,57 @@ function firstAmount(toks: string[]): number | null {
 }
 function cleanName(words: string[]) { return words.filter((w) => !FILLER.has(w) && !SEPARATORS.has(w)).join(' ').trim() }
 
-/** Name said before the items: "Sharma ji, ..." / "Sharma ji ka bill ...". Null for walk-in. */
-function splitCustomer(toks: string[], idx: MatchIndex): { customer: string | null; rest: string[] } {
+const stripHon = (s: string) => fold(s.split(' ').filter((w) => !HONORIFIC.has(w)).join(' '))
+/** Does this phrase sound like a customer we already know? */
+function knownCustomer(name: string, known: string[]): string | null {
+  const k = stripHon(name)
+  if (k.length < 2) return null
+  let best: string | null = null, score = 0
+  for (const c of known) { const d = dice(k, stripHon(c.toLowerCase())); if (d > score) { score = d; best = c } }
+  return score >= 0.8 ? best : null
+}
+function trimTail(head: string[]) {
+  for (const tail of CUSTOMER_TAIL) {
+    const t = tail.split(' ')
+    if (head.length > t.length && head.slice(-t.length).join(' ') === tail) return head.slice(0, -t.length)
+  }
+  return head
+}
+
+type Split = { customer: string | null; customerSure: boolean; rest: string[] }
+/**
+ * Who is the bill for? Name before the items ("Sharma ji, ..." / "Ramesh 2 kilo cheeni") or after them
+ * ("2 kilo cheeni Sharma ji ke liye"). Known customers and honorifics (ji, bhai...) are sure; a bare unknown
+ * word that is not an item is a guess the owner confirms ("Yahi naam?").
+ */
+function splitCustomer(toks: string[], idx: MatchIndex, known: string[]): Split {
   const comma = toks.indexOf(',')
   const num = firstNumberIndex(toks)
   const end = comma >= 0 && (num < 0 || comma < num) ? comma : num
-  if (end <= 0) return { customer: null, rest: toks }
-  let head = toks.slice(0, end)
-  for (const tail of CUSTOMER_TAIL) {
-    const t = tail.split(' ')
-    if (head.slice(-t.length).join(' ') === tail) head = head.slice(0, -t.length)
+  if (end > 0) {
+    const head = trimTail(toks.slice(0, end))
+    const name = head.join(' ').trim()
+    const rest = toks.slice(end + (toks[end] === ',' ? 1 : 0))
+    if (name) {
+      const person = head.some((w) => HONORIFIC.has(w))
+      const knownName = knownCustomer(name, known)
+      const itemScore = matchName(cleanName(head), idx, 1)[0]?.score ?? 0
+      if (knownName) return { customer: knownName, customerSure: true, rest }
+      if (person) return { customer: titleName(name), customerSure: true, rest }
+      if (itemScore < 0.7 && head.length <= 3 && cleanName(head)) return { customer: titleName(name), customerSure: false, rest }
+    }
   }
-  const name = head.join(' ').trim()
-  if (!name) return { customer: null, rest: toks }
-  const looksLikePerson = head.some((w) => HONORIFIC.has(w))
-  const looksLikeItem = matchName(cleanName(head), idx, 1)[0]?.score >= 0.85
-  if (!looksLikePerson && looksLikeItem) return { customer: null, rest: toks }
-  if (!looksLikePerson && comma < 0) return { customer: null, rest: toks }
-  return { customer: titleName(name), rest: toks.slice(end + (toks[end] === ',' ? 1 : 0)) }
+  // name at the end: "... Sharma ji ke liye" / "... Gupta ji ka"
+  const hon = toks.map((w, i) => (HONORIFIC.has(w) ? i : -1)).filter((i) => i > 0).pop()
+  if (hon !== undefined && hon >= toks.length - 3) {
+    let from = hon - 1
+    if (from > 0 && !isNumberWord(toks[from - 1]) && !unitOf(toks[from - 1]) && !SEPARATORS.has(toks[from - 1]) && matchName(toks[from - 1], idx, 1).length === 0) from--
+    const name = toks.slice(from, hon + 1).join(' ')
+    if ((matchName(toks[from], idx, 1)[0]?.score ?? 0) < 0.85) {
+      return { customer: knownCustomer(name, known) ?? titleName(name), customerSure: true, rest: toks.slice(0, from) }
+    }
+  }
+  return { customer: null, customerSure: true, rest: toks }
 }
 
 /** Items: "2 kilo cheeni 1 maggi", "cheeni 2 kilo, maggi ek", "50 rupaye ka dhaniya". */
@@ -94,9 +129,9 @@ export function parseItems(toks: string[], idx: MatchIndex): ParsedItem[] {
   }).filter((d) => d.said)
 }
 
-export function parse(text: string, idx: MatchIndex): Parsed {
+export function parse(text: string, idx: MatchIndex, knownCustomers: string[] = []): Parsed {
   const toks = tokenize(text)
-  const base = { text, customer: null, items: [], amount: null }
+  const base = { text, customer: null, customerSure: true, items: [], amount: null }
 
   // "Galla mein 4,200 hai"
   if (has(toks, GALLA)) { const amount = firstAmount(toks); return { ...base, intent: 'galla', amount, sure: amount !== null } }
@@ -105,7 +140,8 @@ export function parse(text: string, idx: MatchIndex): Parsed {
   const neIdx = toks.findIndex((t) => t === 'ne' || t === 'ने' || t === 'se' || t === 'से')
   if (neIdx > 0 && has(toks, [...PAY_VERBS, 'mile', 'mila', 'मिले', 'मिला'])) {
     const amount = firstAmount(toks.slice(neIdx))
-    const customer = titleName(toks.slice(0, neIdx).join(' '))
+    const said = toks.slice(0, neIdx).join(' ')
+    const customer = knownCustomer(said, knownCustomers) ?? titleName(said)
     return { ...base, intent: 'payment', customer, amount, sure: amount !== null && !!customer }
   }
 
@@ -124,8 +160,8 @@ export function parse(text: string, idx: MatchIndex): Parsed {
   }
 
   // Otherwise a bill: optional customer, then items.
-  const { customer, rest } = splitCustomer(toks, idx)
+  const { customer, customerSure, rest } = splitCustomer(toks, idx, knownCustomers)
   const items = parseItems(rest, idx)
-  if (items.length === 0) return { ...base, intent: 'unknown', customer, sure: false }
-  return { ...base, intent: 'bill', customer, items, sure: items.every((i) => i.sure) }
+  if (items.length === 0) return { ...base, intent: 'unknown', customer, customerSure, sure: false }
+  return { ...base, intent: 'bill', customer, customerSure, items, sure: customerSure && items.every((i) => i.sure) }
 }

@@ -91,3 +91,41 @@ describe('acceptance phrases', () => {
     expect(p.items[0].qty).toBe(2)
   })
 })
+
+describe('names vs items', () => {
+  const known = ['Ramesh', 'Sharma ji', 'Gupta ji']
+  it('known customer without "ji" or comma: "Ramesh 2 kilo cheeni"', () => {
+    const p = parse('Ramesh 2 kilo cheeni', idx, known)
+    expect(p).toMatchObject({ intent: 'bill', customer: 'Ramesh', customerSure: true })
+    expect(p.items[0].candidates[0].id).toBe('sugar-loose')
+  })
+  it('known customer with a small spelling change: "sharmaji 1 maggi"', () => {
+    expect(parse('sharmaji 1 maggi', idx, known)).toMatchObject({ customer: 'Sharma ji', customerSure: true })
+  })
+  it('name at the end: "2 kilo cheeni Sharma ji ke liye"', () => {
+    const p = parse('2 kilo cheeni Sharma ji ke liye', idx, known)
+    expect(p).toMatchObject({ customer: 'Sharma ji', customerSure: true })
+    expect(p.items).toHaveLength(1)
+    expect(p.items[0].candidates[0].id).toBe('sugar-loose')
+  })
+  it('name at the end, new person: "ek maggi verma ji ka"', () => {
+    const p = parse('ek maggi verma ji ka', idx)
+    expect(p.customer).toBe('Verma ji')
+    expect(p.items).toHaveLength(1)
+  })
+  it('unknown bare word before items is a guessed name (owner confirms): "Pappu 2 kilo cheeni"', () => {
+    expect(parse('Pappu 2 kilo cheeni', idx)).toMatchObject({ customer: 'Pappu', customerSure: false })
+  })
+  it('item first is not a name: "cheeni 2 kilo"', () => {
+    expect(parse('cheeni 2 kilo', idx).customer).toBeNull()
+  })
+  it('brand first is not a name: "maggi 2, parle g 1"', () => {
+    expect(parse('maggi 2, parle g 1', idx).customer).toBeNull()
+  })
+  it('walk-in, no name: "2 kilo cheeni 1 maggi"', () => {
+    expect(parse('2 kilo cheeni 1 maggi', idx)).toMatchObject({ customer: null, customerSure: true })
+  })
+  it('payment from a known customer without ji: "ramesh ne 200 diye"', () => {
+    expect(parse('ramesh ne 200 diye', idx, known)).toMatchObject({ intent: 'payment', customer: 'Ramesh', amount: 200 })
+  })
+})

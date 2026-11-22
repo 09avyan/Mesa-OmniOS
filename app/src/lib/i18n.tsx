@@ -87,6 +87,8 @@ const S = {
   addName: { hinglish: 'Naam jodo', hi: 'नाम जोड़ो', en: 'Add name' },
   change: { hinglish: 'Badlo', hi: 'बदलो', en: 'Change' },
   newCustomer: { hinglish: 'Naya grahak', hi: 'नया ग्राहक', en: 'New customer' },
+  thisName: { hinglish: 'Yahi naam?', hi: 'यही नाम?', en: 'Is this the name?' },
+  itsAnItem: { hinglish: 'Yeh saaman hai', hi: 'यह सामान है', en: 'It is an item' },
   thisOne: { hinglish: 'Yahi wali?', hi: 'यही वाली?', en: 'This one?' },
   yes: { hinglish: 'Haan', hi: 'हाँ', en: 'Yes' },
   other: { hinglish: 'Doosri', hi: 'दूसरी', en: 'Other' },

@@ -72,7 +72,7 @@ export function Voice() {
       }
       setDraft({ ...draft, lines }); setStage('review'); return
     }
-    const p = parse(text, s.index)
+    const p = parse(text, s.index, s.customers.map((c) => c.name))
     const d = buildDraft(p, s)
     setDraft(d); setStage('review')
     if (store) supabase.from('usage_events').insert({ store_id: store.id, kind: 'voice', meta: { intent: p.intent, sure: p.sure } }).then(() => {})
@@ -137,7 +137,7 @@ export function Voice() {
 
   // ---------- REVIEW: bill / stock in ----------
   const isBill = draft.intent === 'bill'
-  const ready = isBill ? linesReady(draft) : draft.lines.length > 0 && draft.lines.every((l) => l.sure && l.match && l.qty != null && l.qty > 0)
+  const ready = isBill ? linesReady(draft) && draft.customerSure : draft.lines.length > 0 && draft.lines.every((l) => l.sure && l.match && l.qty != null && l.qty > 0)
   const total = draftTotal(draft)
   const udhaarBlocked = isBill && draft.pay === 'udhaar' && !draft.customerName
   return (
@@ -174,7 +174,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   const [discOpen, setDiscOpen] = useState(false)
   const [custOpen, setCustOpen] = useState(false)
   const [busy, setBusy] = useState(false)
-  const pending = draft.lines.find((l) => !l.sure || !l.match)
+  const pending = draft.lines.find((l) => !l.sure || !l.match) ?? (isBill && !draft.customerSure ? draft.lines[0] : undefined)
   const reason = pending ? t('answerFirst') : isBill && draft.lines.some((l) => l.price == null) ? t('priceFirst') : t('fixFirst')
   const prevBal = draft.customer?.balance ?? 0
   const net = Math.max(0, total - disc)
@@ -221,6 +221,19 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
             <Tap className="ghost" style={{ color: 'var(--ac)', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 4 }} onClick={() => setCustOpen(true)}>{draft.customerName ? t('change') : t('addName')}</Tap>
           </div>
         ) : <h1 className="h1" style={{ marginTop: 8 }}>{t('stockInTitle')}</h1>}
+        {isBill && !draft.customerSure && draft.customerName && (
+          <div className="it u" style={{ borderRadius: 16, marginTop: 12 }}>
+            <div className="guess" style={{ marginTop: 0 }}><span className="gtxt">{t('thisName')}</span>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <Tap className="chg yes" onClick={() => setDraft({ ...draft, customerSure: true })}>✓ {t('yes')}</Tap>
+                <Tap className="chg" onClick={() => {
+                  const extra = parseItems(tokenize(draft.customerName!), shop.index).map((p) => lineFrom({ ...p, qty: p.qty ?? 1 }, shop))
+                  setDraft({ ...draft, customerName: null, customer: null, customerSure: true, lines: [...extra, ...draft.lines] })
+                }}>{t('itsAnItem')}</Tap>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="items">
           {draft.lines.map((l) => <LineRow key={l.key} l={l} isBill={isBill} onPick={() => setPick(l)} onPad={(field) => setPad({ line: l, field })} fix={fix(l)}
@@ -259,7 +272,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
         onClose={() => setPad(null)} onDone={(n) => pad && fix(pad.line)(pad.field === 'price' ? { price: n, priceSure: true } : { qty: n })} />
       <NumberSheet open={discOpen} title={t('discount')} initial={disc || null} unit="₹" onClose={() => setDiscOpen(false)} onDone={(n) => setDisc(Math.min(n, total))} />
       <CustomerPicker open={custOpen} shop={shop} current={draft.customerName} onClose={() => setCustOpen(false)}
-        onPick={(name, c) => { setDraft({ ...draft, customerName: name, customer: c }); setCustOpen(false) }} />
+        onPick={(name, c) => { setDraft({ ...draft, customerName: name, customer: c, customerSure: true }); setCustOpen(false) }} />
     </div>
   )
 }

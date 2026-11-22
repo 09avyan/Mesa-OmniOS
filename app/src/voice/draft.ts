@@ -18,6 +18,7 @@ export type Draft = {
   heard: string
   customerName: string | null
   customer: Customer | null       // existing customer if we recognised the name
+  customerSure: boolean           // false -> yellow "Yahi naam?"
   customerOthers: Customer[]
   lines: Line[]
   amount: number | null
@@ -56,6 +57,7 @@ export function buildDraft(parsed: Parsed, shop: Shop): Draft {
     heard: parsed.text,
     customerName: found.match?.name ?? parsed.customer,
     customer: found.match,
+    customerSure: parsed.customerSure,
     customerOthers: found.others,
     lines: parsed.items.map((p) => lineFrom(p, shop)),
     amount: parsed.amount,
