@@ -73,6 +73,12 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ⏳ Real professional item photos — plan needed (options: brand press kits/permission, licensed packshot databases, own photo shoots per item, shop-taken photos cleaned up); ask owner before any cost.
 - ⏳ NEW revenue stream: sponsored items — brands pay to boost their products across all stores or a region; 60% shared with stores. ASK OWNER PROPERLY LATER (pricing, how boosting shows, store payout, disclosure "Sponsored", admin screens). Add to pitch-mode business model.
 
+## S4e · Owner requests (24 Nov, evening)
+- ✅ Order screens show item names in the chosen language (was Hinglish "Cheeni" in Hindi mode).
+- ✅ Deleting a bill made from an online order: order goes back to "Taiyaar" + message to the owner.
+- 🔄 Branded staples: Silver Coin, Aashirvaad, Gangwal, Pillsbury, Fortune, Rajdhani… atta/maida/suji/besan/poha/rice by pack size (Haiku adding).
+- ⏳ Edge cases + safety checks — list and discuss with owner (negative stock, offline mid-save, duplicate bills, wrong customer, PIN guessing, fake orders, price errors, undo limits, data loss, privacy).
+
 ## NEXT BUILD
 - 🔄 Redo all UI — merchant side pass 1 done (Home hero, shared design polish, app-styled pop-ups, review fixes); next: deeper per-screen redesign + owner-test rounds ≥ 9/10; customer side later.
 

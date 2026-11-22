@@ -18,7 +18,7 @@ import { BillCard } from '../components/BillCard'
 import { UpiSheet } from '../components/UpiSheet'
 
 type Stage = 'listen' | 'review' | 'done'
-type Saved = { kind: 'bill'; billId: string; token: string; total: number; discount: number; phone?: string; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
+type Saved = { kind: 'bill'; billId: string; token: string; total: number; discount: number; phone?: string; fromOrder?: boolean; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
   | { kind: 'stock'; lines: Line[] } | { kind: 'payment'; customer: string; amount: number; balance: number }
 
 const unitLabel = (u?: string) => ({ kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' } as Record<string, string>)[u ?? ''] ?? ''
@@ -147,7 +147,7 @@ export function Voice() {
     if (saved.kind !== 'bill') return
     const { error } = await supabase.rpc('undo_bill', { p_bill: saved.billId })
     if (error) { errorFx(); toast({ text: t('saveFailed') }); return }
-    invalidateShop(); toast({ text: t('billRemoved') }); navigate('/', true)
+    invalidateShop(); toast({ text: saved.fromOrder ? t('orderBackReady') : t('billRemoved') }); navigate(saved.fromOrder ? '/orders' : '/', true)
   }} />
 
   if (!draft || !shop) return null
@@ -253,7 +253,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
     successFx(); invalidateShop()
     if (isBill) {
       const r = res.data as { bill_id: string; share_token: string; total: number; balance: number | null; has_unrecorded: boolean }
-      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, phone: (draft.phone ?? draft.customer?.phone ?? '').replace(/\D/g, ''), customer: draft.customerName, pay: draft.pay, balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
+      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, fromOrder: !!draft.orderId, phone: (draft.phone ?? draft.customer?.phone ?? '').replace(/\D/g, ''), customer: draft.customerName, pay: draft.pay, balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
     } else onSaved({ kind: 'stock', lines: draft.lines })
   }
 

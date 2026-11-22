@@ -7,8 +7,9 @@ import { navigate } from '../lib/router'
 import { errorFx, successFx } from '../lib/feedback'
 import { askText, BackBar, Tap, toast } from '../components/ui'
 import { Icon } from '../components/Icon'
+import { itemName } from '../components/BillCard'
 
-type OLine = { id: string; item_id: string | null; name: string; unit: string; qty: number; price: number; available: boolean }
+type OLine = { id: string; item_id: string | null; name: string; unit: string; qty: number; price: number; available: boolean; items?: { catalog_id: string | null; name_hi: string | null } | null }
 type Order = { id: string; token: string; customer_name: string; phone: string; status: string; reason: string | null; created_at: string; order_lines: OLine[] }
 type Req = { id: string; item_id: string; name: string; customer_name: string; phone: string; status: string; created_at: string }
 const time = (s: string) => new Date(s).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
@@ -38,8 +39,8 @@ export function Orders() {
   const [orders, setOrders] = useState<Order[] | null>(null)
   const [reqs, setReqs] = useState<Req[]>([])
   const load = () => {
-    supabase.from('orders').select('id,token,customer_name,phone,status,reason,created_at,order_lines(id,item_id,name,unit,qty,price,available)').order('created_at', { ascending: false }).limit(100)
-      .then(({ data }) => setOrders((data ?? []) as Order[]))
+    supabase.from('orders').select('id,token,customer_name,phone,status,reason,created_at,order_lines(id,item_id,name,unit,qty,price,available,items(catalog_id,name_hi))').order('created_at', { ascending: false }).limit(100)
+      .then(({ data }) => setOrders((data ?? []) as unknown as Order[]))
     supabase.from('item_requests').select('id,item_id,name,customer_name,phone,status,created_at').in('status', ['open', 'ordered']).order('created_at', { ascending: false })
       .then(({ data }) => setReqs((data ?? []) as Req[]))
   }
@@ -89,11 +90,11 @@ export function Orders() {
 }
 
 export function OrderDetail({ id }: { id: string }) {
-  const { t } = useT()
+  const { t, lang } = useT()
   const { store } = useStore()
   const [o, setO] = useState<Order | null | undefined>(undefined)
-  const load = () => supabase.from('orders').select('id,token,customer_name,phone,status,reason,created_at,order_lines(id,item_id,name,unit,qty,price,available)').eq('id', id).maybeSingle()
-    .then(({ data }) => setO(data as Order | null))
+  const load = () => supabase.from('orders').select('id,token,customer_name,phone,status,reason,created_at,order_lines(id,item_id,name,unit,qty,price,available,items(catalog_id,name_hi))').eq('id', id).maybeSingle()
+    .then(({ data }) => setO(data as unknown as Order | null))
   useEffect(() => { load() }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
   if (o === undefined) return <main className="screen has-bar"><BackBar fallback="/orders" /><div className="skel" style={{ height: 200 }} /></main>
   if (!o) return <main className="screen has-bar"><BackBar fallback="/orders" /><p>{t('noMatch')}</p></main>
@@ -113,7 +114,7 @@ export function OrderDetail({ id }: { id: string }) {
       <div className="card" style={{ marginTop: 12, padding: '4px 16px' }}>
         {o.order_lines.map((l, i) => (
           <div key={l.id} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500, borderTop: i ? '1px solid var(--line)' : 'none', minHeight: 60, opacity: l.available ? 1 : 0.55 }}>
-            <span>{l.name} × {+l.qty}<span className="lab" style={{ display: 'block', fontSize: 16 }}>{rupees(l.qty * l.price)}{!l.available ? ' · ' + t('notAvail') : ''}</span></span>
+            <span>{itemName({ ...l, amount: 0, catalog_id: l.items?.catalog_id, name_hi: l.items?.name_hi }, lang)} × {+l.qty}<span className="lab" style={{ display: 'block', fontSize: 16 }}>{rupees(l.qty * l.price)}{!l.available ? ' · ' + t('notAvail') : ''}</span></span>
             {canEdit && <Tap className={`chg ${l.available ? '' : 'yes'}`} onClick={() => toggle(l)}>{l.available ? t('notAvail') : t('available')}</Tap>}
           </div>))}
         <div className="bc-grand"><span>{t('total')}</span><span>{rupees(sum(o))}</span></div>

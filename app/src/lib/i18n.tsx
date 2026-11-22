@@ -233,6 +233,7 @@ const S = {
   upiMissing: { hinglish: 'UPI ID nahi daala', hi: 'UPI ID नहीं डाला', en: 'No UPI ID yet' },
   upiMissingBody: { hinglish: 'Settings mein "Mera UPI ID" daalo, phir yahan QR aayega.', hi: 'सेटिंग में "मेरा UPI ID" डालो, फिर यहाँ QR आएगा।', en: 'Add "My UPI ID" in Settings to show a QR here.' },
   namaste: { hinglish: 'Namaste 🙏', hi: 'नमस्ते 🙏', en: 'Namaste 🙏' },
+  orderBackReady: { hinglish: 'Bill hata. Yeh online order tha, wapas "Taiyaar" mein hai — dobara bill banao ya grahak ko batao.', hi: 'बिल हटा। यह ऑनलाइन ऑर्डर था, वापस "तैयार" में है — दोबारा बिल बनाओ या ग्राहक को बताओ।', en: 'Bill removed. This was an online order; it is back to "Ready" — bill it again or tell the customer.' },
 } satisfies Record<string, Entry>
 
 export type Key = keyof typeof S
