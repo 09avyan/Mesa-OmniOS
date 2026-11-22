@@ -35,17 +35,20 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 
 ## S3 · Stock in
 - ✅ "Maal aaya" by voice — adds stock (tested).
-- ⏳ Maal tab — stock list, low-stock warning, opening stock by voice.
+- ✅ Maal tab — stock list (low first), "Kam hai" tags, set own price, show/hide online, add stock by voice or by choosing.
 - ⏳ Receipt photo → Gemini reads lines → review → stock + supplier due.
 - ⏳ 3 sample receipts (one handwritten) for testing.
 - ⏳ "New name asks once, remembers" for receipts (voice already remembers).
 
 ## S4 · Bills and udhaar
 - ✅ Bill tab — today's bills, bill detail, WhatsApp share, Bill hatao, bill by choosing items.
+- ✅ Bill redone from scratch (modern card) — same design on customer page, "Bill ban gaya" screen and bill detail.
 - ✅ Branded customer bill page — receipt style, bill no., payment stamp, Hindi/Hinglish/English with proper item names, savings line.
 - ✅ Price learned after 3 bills (decision 5).
-- ⏳ Udhaar tab — customer balances, payment by tap, WhatsApp reminder + balance page.
+- ✅ Udhaar tab — total due, customers by balance, "Paise mile", phone number, WhatsApp reminder, customer's own balance page.
 - ⏳ Returns by voice ("wapas …") updating the original bill (decision 6).
+
+- ⏳ Mock bills — owner decided: none (everything real).
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.

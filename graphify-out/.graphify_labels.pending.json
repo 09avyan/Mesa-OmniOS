@@ -1,18 +1,12 @@
 {
-  "0": "parse.ts",
-  "1": "errorFx",
-  "2": "shop.ts",
-  "3": "Voice.tsx",
-  "4": "App.tsx",
-  "5": "ReviewScreen",
-  "6": "ui.tsx",
-  "7": "Tap",
-  "8": "Settings.tsx",
-  "9": "draft.ts",
-  "10": "prefs.ts",
-  "11": "Bills.tsx",
-  "12": "ai.ts",
-  "13": "store.tsx",
-  "14": "main.tsx",
-  "15": "vite-env.d.ts"
+  "0": "App.tsx",
+  "1": "Voice.tsx",
+  "2": "ui.tsx",
+  "3": "Udhaar.tsx",
+  "4": "parse.ts",
+  "5": "shop.ts",
+  "6": "Maal.tsx",
+  "7": "numbers.ts",
+  "8": "normalize.ts",
+  "9": "vite-env.d.ts"
 }
