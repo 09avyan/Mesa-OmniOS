@@ -68,6 +68,11 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ✅ QR icon next to Settings on Home (opens store QR).
 - ✅ Settings: merchant UPI ID; UPI payment shows QR with amount filled; close option (paid via printed QR).
 
+## S4d · Owner requests (24 Nov, later)
+- ⏳ Optimise Supabase (indexes, query count, RLS speed, advisors) and the site (bundle size, lazy screens, load time on cheap phones).
+- ⏳ Real professional item photos — plan needed (options: brand press kits/permission, licensed packshot databases, own photo shoots per item, shop-taken photos cleaned up); ask owner before any cost.
+- ⏳ NEW revenue stream: sponsored items — brands pay to boost their products across all stores or a region; 60% shared with stores. ASK OWNER PROPERLY LATER (pricing, how boosting shows, store payout, disclosure "Sponsored", admin screens). Add to pitch-mode business model.
+
 ## NEXT BUILD
 - ⏳ Redo all UI (every screen) with design skills, then owner-test rounds ≥ 9/10.
 
