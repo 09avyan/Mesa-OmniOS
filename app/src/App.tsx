@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { I18nProvider, savedLang, useT } from './lib/i18n'
 import { StoreProvider, useStore } from './lib/store'
 import { navigate, usePath } from './lib/router'
-import { BottomBar, Tap, ToastHost } from './components/ui'
+import { AskHost, BottomBar, Tap, ToastHost } from './components/ui'
 import { Language } from './screens/Language'
 import { Login } from './screens/Login'
 import { Home } from './screens/Home'
@@ -25,7 +25,7 @@ export default function App() {
   if (path.startsWith('/k/')) return <BalancePage token={path.slice(3)} />
   if (path.startsWith('/s/')) return <StorePage slug={path.slice(3)} />
   if (path.startsWith('/o/')) return <OrderPage token={path.slice(3)} />
-  return <I18nProvider><StoreProvider><Owner path={path} /><ToastHost /></StoreProvider></I18nProvider>
+  return <I18nProvider><StoreProvider><Owner path={path} /><ToastHost /><AskHost /></StoreProvider></I18nProvider>
 }
 
 function Owner({ path }: { path: string }) {

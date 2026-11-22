@@ -74,7 +74,7 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ⏳ NEW revenue stream: sponsored items — brands pay to boost their products across all stores or a region; 60% shared with stores. ASK OWNER PROPERLY LATER (pricing, how boosting shows, store payout, disclosure "Sponsored", admin screens). Add to pitch-mode business model.
 
 ## NEXT BUILD
-- ⏳ Redo all UI (every screen) with design skills, then owner-test rounds ≥ 9/10.
+- 🔄 Redo all UI — merchant side pass 1 done (Home hero, shared design polish, app-styled pop-ups, review fixes); next: deeper per-screen redesign + owner-test rounds ≥ 9/10; customer side later.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.

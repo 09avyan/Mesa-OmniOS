@@ -3,7 +3,7 @@ import { LANGS, useT } from '../lib/i18n'
 import { useStore } from '../lib/store'
 import { supabase } from '../lib/supabase'
 import { setSound, soundEnabled } from '../lib/feedback'
-import { BackBar, Sheet, Tap, toast } from '../components/ui'
+import { askText, BackBar, Sheet, Tap, toast } from '../components/ui'
 import { Icon } from '../components/Icon'
 import { navigate } from '../lib/router'
 
@@ -25,7 +25,7 @@ export function Settings() {
       <div className="lab">{t('shopCode')}: <b style={{ color: 'var(--ink)', letterSpacing: 1 }}>{store?.code}</b></div>
       <div className="gap24" />
       <div className="stack">
-        <Tap className="rowb" onClick={async () => { const v = (prompt(t('upiAsk'), store?.upi_id ?? '') ?? '').trim(); if (!v) return; const { error } = await supabase.from('stores').update({ upi_id: v }).eq('id', store!.id); if (error) { toast({ text: t('upiBad') }); return } toast({ text: t('saved') }); reload() }}>
+        <Tap className="rowb" onClick={async () => { const v = (await askText({ title: t('upiAsk'), initial: store?.upi_id ?? '' }) ?? '').trim(); if (!v) return; const { error } = await supabase.from('stores').update({ upi_id: v }).eq('id', store!.id); if (error) { toast({ text: t('upiBad') }); return } toast({ text: t('saved') }); reload() }}>
           <Icon name="qr" /><span className="grow">{t('upiId')}<span className="lab" style={{ display: 'block', fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>{store?.upi_id ?? t('upiNotSet')}</span></span><span className="chev">›</span>
         </Tap>
         <Tap className="rowb" onClick={() => setLangOpen(true)}>

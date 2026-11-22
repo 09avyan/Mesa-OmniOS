@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 import { navigate } from '../lib/router'
 import { invalidateShop } from '../lib/shop'
 import { errorFx, successFx } from '../lib/feedback'
-import { BackBar, Tap, toast } from '../components/ui'
+import { askText, BackBar, Tap, toast } from '../components/ui'
 import { Icon } from '../components/Icon'
 import { BillCard } from '../components/BillCard'
 import { useStore } from '../lib/store'
@@ -79,7 +79,7 @@ export function BillDetail({ id }: { id: string }) {
       <BillCard lang={lang} brand={false} b={{ store: store?.name ?? '', customer: b.customers?.name ?? null, pay: b.pay, subtotal: Number(b.subtotal), discount: Number(b.discount), total: Number(b.total),
         status: b.status, at: b.created_at, no: b.share_token.slice(0, 6).toUpperCase(),
         lines: b.bill_lines.map((l) => ({ ...l, catalog_id: l.items?.catalog_id ?? null, name_hi: l.items?.name_hi ?? null })) }} />
-      {b.customers && <Tap className="linkrow" style={{ marginTop: 12 }} onClick={async () => { const p = prompt(t('phoneOpt'), b.customers!.phone ?? '') ?? ''; const d = p.replace(/\D/g, ''); if (!d) return; const { error } = await supabase.from('customers').update({ phone: d }).eq('id', b.customers!.id); if (error) { errorFx(); return } successFx(); load() }}>
+      {b.customers && <Tap className="linkrow" style={{ marginTop: 12 }} onClick={async () => { const p = await askText({ title: t('phoneOpt'), initial: b.customers!.phone ?? '' }) ?? ''; const d = p.replace(/\D/g, ''); if (!d) return; const { error } = await supabase.from('customers').update({ phone: d }).eq('id', b.customers!.id); if (error) { errorFx(); return } successFx(); load() }}>
         <span>📞 {b.customers.phone ?? t('addPhone')}</span><span>{t('change')} ›</span></Tap>}
       {b.status === 'saved' && <>
         <a className="wa tap" href={wa} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}><Icon name="wa" size={26} />{t('sendWaWalkIn')}</a>

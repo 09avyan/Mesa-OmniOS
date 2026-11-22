@@ -83,3 +83,28 @@ export function RowButton({ icon, color, label, badge, onClick }: { icon: string
     </Tap>
   )
 }
+
+// App-styled text question (replaces the browser's plain prompt box). Usage: const v = await askText({ title })
+type Ask = { title: string; initial?: string; placeholder?: string; mode?: 'text' | 'tel' | 'email'; resolve: (v: string | null) => void }
+let pushAsk: (a: Ask) => void = () => {}
+export const askText = (o: Omit<Ask, 'resolve'>) => new Promise<string | null>((resolve) => pushAsk({ ...o, resolve }))
+export function AskHost() {
+  const { t } = useT()
+  const [a, setA] = useState<Ask | null>(null)
+  const [v, setV] = useState('')
+  useEffect(() => { pushAsk = (x) => { setV(x.initial ?? ''); setA(x) } }, [])
+  const done = (val: string | null) => { a?.resolve(val); setA(null) }
+  return (
+    <Sheet open={!!a} onClose={() => done(null)}>
+      {a && <>
+        <h2 className="h2">{a.title}</h2><div className="gap16" />
+        <input className="input" autoFocus inputMode={a.mode === 'tel' ? 'tel' : undefined} type={a.mode === 'email' ? 'email' : 'text'} placeholder={a.placeholder} value={v}
+          onChange={(e) => setV(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && v.trim() && done(v.trim())} />
+        <div className="gap16" />
+        <Tap className="btn primary" disabled={!v.trim()} onClick={() => done(v.trim())}>✓ {t('ok')}</Tap>
+        <div className="gap8" />
+        <Tap className="btn quiet" onClick={() => done(null)}>{t('back')}</Tap>
+      </>}
+    </Sheet>
+  )
+}

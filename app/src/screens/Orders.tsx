@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase'
 import { useStore } from '../lib/store'
 import { navigate } from '../lib/router'
 import { errorFx, successFx } from '../lib/feedback'
-import { BackBar, Tap, toast } from '../components/ui'
+import { askText, BackBar, Tap, toast } from '../components/ui'
 import { Icon } from '../components/Icon'
 
 type OLine = { id: string; item_id: string | null; name: string; unit: string; qty: number; price: number; available: boolean }
@@ -122,7 +122,7 @@ export function OrderDetail({ id }: { id: string }) {
       <div className="stack">
         {o.status === 'new' && <>
           <Tap className="btn primary" onClick={() => step('accepted')}>✓ {t('accept')}</Tap>
-          <Tap className="btn quiet" onClick={() => { const r = prompt(t('rejectWhy')) ?? ''; step('rejected', r) }}>{t('reject')}</Tap>
+          <Tap className="btn quiet" onClick={async () => { const r = await askText({ title: t('rejectWhy') }); if (r !== null) step('rejected', r) }}>{t('reject')}</Tap>
         </>}
         {(o.status === 'accepted' || o.status === 'packing') && <Tap className="btn primary" onClick={async () => { if (await step('ready')) window.open(wa(o.phone, `${store?.name}: ${o.customer_name} ji, aapka order taiyaar hai. ${link}`), '_blank') }}>✓ {t('markReady')}</Tap>}
         {['accepted', 'packing', 'ready', 'billing'].includes(o.status) && <Tap className="btn outline" onClick={() => navigate('/bolo?order=' + o.id)}><Icon name="bill" size={24} />{t('makeBill')}</Tap>}

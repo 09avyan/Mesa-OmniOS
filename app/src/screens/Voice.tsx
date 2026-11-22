@@ -11,7 +11,7 @@ import { askAi, needsAi } from '../voice/ai'
 import { buildDraft, draftTotal, lineFrom, lineTotal, linesReady, searchItems, type Draft, type Line } from '../voice/draft'
 import { goBack, navigate } from '../lib/router'
 import { errorFx, successFx } from '../lib/feedback'
-import { BackBar, BottomBar, Sheet, Tap, toast } from '../components/ui'
+import { askText, BackBar, BottomBar, Sheet, Tap, toast } from '../components/ui'
 import { NumberSheet } from '../components/Pad'
 import { Icon } from '../components/Icon'
 import { BillCard } from '../components/BillCard'
@@ -274,7 +274,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
           <div className="who">
             <div className="av">{(draft.customerName ?? '?').trim().charAt(0).toUpperCase()}</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div className="lab" style={{ lineHeight: '20px' }}>{t('billWhose')}{draft.customerName && !draft.customer ? ` · ${t('newCustomer')}` : ''}</div>
+              <div className="lab" style={{ lineHeight: '20px' }}>{t('billWhose')}{draft.customerName && !draft.customer && draft.customerOthers.length <= 1 ? ` · ${t('newCustomer')}` : ''}</div>
               <div className="h1" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{draft.customerName ?? <span className="lab" style={{ font: "600 20px Mukta" }}>{t('walkIn')}</span>}</div>
             </div>
             <Tap className="ghost" style={{ color: 'var(--ac)', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 4 }} onClick={() => setCustOpen(true)}>{draft.customerName ? t('change') : t('addName')}</Tap>
@@ -286,11 +286,11 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
             <div className="stack" style={{ marginTop: 8 }}>
               {draft.customerOthers.map((c) => <Tap key={c.id} className="rowb" style={{ minHeight: 56 }} onClick={() => setDraft({ ...draft, customer: c, customerName: c.name, customerSure: true, newCustomer: false })}>
                 <span className="grow">{custLabel(c)}</span>{c.balance > 0 && <span style={{ color: 'var(--ud)' }}>{rupees(c.balance)}</span>}</Tap>)}
-              <Tap className="chg" onClick={() => { const tg = prompt(t('tagAsk')) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>+ {t('newOne')} {draft.customerName}</Tap>
+              <Tap className="chg" onClick={async () => { const tg = await askText({ title: t('tagAsk') }) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>+ {t('newOne')} {draft.customerName}</Tap>
             </div>
           </div>
         )}
-        {isBill && draft.customer && <Tap className="ghost" style={{ marginLeft: -12, fontSize: 17, color: 'var(--ink2)' }} onClick={() => { const tg = prompt(t('tagAsk')) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>{t('notThisOne')}</Tap>}
+        {isBill && draft.customer && <Tap className="ghost" style={{ marginLeft: -12, fontSize: 17, color: 'var(--ink2)' }} onClick={async () => { const tg = await askText({ title: t('tagAsk') }) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>{t('notThisOne')}</Tap>}
         {isBill && !draft.customerSure && draft.customerName && draft.customerOthers.length <= 1 && (
           <div className="it u" style={{ borderRadius: 16, marginTop: 12 }}>
             <div className="guess" style={{ marginTop: 0 }}><span className="gtxt">{t('thisName')}</span>

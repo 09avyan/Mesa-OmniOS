@@ -231,3 +231,35 @@ input{font-size:20px}
 .sx-cart{width:100%;min-height:64px;border-radius:20px;background:#1F1A14;color:#fff;display:flex;align-items:center;gap:12px;padding:0 18px;font-weight:700;box-shadow:0 10px 28px rgba(0,0,0,.25)}
 .sx-cart b{margin-left:auto;font:800 20px 'Baloo 2'}
 .sx-cnt{background:var(--haldi,#F2B01E);color:#1F1A14;border-radius:999px;min-width:28px;height:28px;display:grid;place-items:center;font-weight:800}
+
+/* ---------- merchant UI v2 (24 Nov): calmer depth, one hero, consistent cards ---------- */
+:root{--bg:#FAF5EA;--line:#EDE3D1;--sh:0 1px 2px rgba(60,40,10,.04),0 8px 24px rgba(60,40,10,.06)}
+.screen.home{padding-top:0}
+.hx{margin:0 -24px 20px;padding:20px 24px 24px;color:#fff;border-radius:0 0 28px 28px;position:relative;overflow:hidden;
+  background:radial-gradient(120% 100% at 0% 0%,#1E8A61 0%,#0F6B4B 55%,#0A5038 100%);box-shadow:0 12px 30px rgba(15,107,75,.22)}
+.hx::after{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 100% 0%,rgba(242,176,30,.25),transparent 70%);pointer-events:none}
+.hx>*{position:relative;z-index:1}
+.hx-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.hx-hi{opacity:.85;font-size:16px}
+.hx-store{font:800 24px/28px 'Baloo 2';overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hx-ic{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.14);display:grid;place-items:center;color:#fff}
+.hx-lab{opacity:.85}
+.hx-big{font:800 52px/56px 'Baloo 2';font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.hx-note{opacity:.85;font-size:16px}
+.hx-chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.hx-chip{background:rgba(255,255,255,.12);border-radius:16px;padding:10px 14px;min-height:64px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;color:#fff;text-align:left}
+.hx-chip span{font-size:15px;opacity:.85;line-height:20px}.hx-chip b{font:800 22px 'Baloo 2'}
+.card,.rowb,.items,.pb,.langbtn{box-shadow:var(--sh);border:1px solid rgba(237,227,209,.7)}
+.rowb{border-radius:20px;min-height:72px}
+.chip{border-radius:16px;width:46px;height:46px}
+.h1{letter-spacing:-.2px}
+.top .title{font-size:24px}
+.band{box-shadow:0 -6px 20px rgba(60,40,10,.06);border-top:1px solid var(--line)}
+.tab.on{background:var(--acs)}
+.btn.primary{box-shadow:0 6px 16px rgba(15,107,75,.25)}
+.btn.quiet{border:1px solid var(--line)}
+.input{background:#fff;border-radius:16px}
+.sheet{border-radius:28px 28px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.12)}
+.sheet::before{content:"";display:block;width:44px;height:5px;border-radius:9px;background:var(--line);margin:-14px auto 14px}
+.screen.has-flow{padding-bottom:calc(240px + var(--safe-b))}
+.screen.home.has-bar{padding-bottom:calc(170px + var(--safe-b))}

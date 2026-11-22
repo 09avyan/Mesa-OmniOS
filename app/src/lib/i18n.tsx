@@ -232,6 +232,7 @@ const S = {
   upiClose: { hinglish: 'Band karo (printed QR se diya)', hi: 'बंद करो (छपे QR से दिया)', en: 'Close (paid via printed QR)' },
   upiMissing: { hinglish: 'UPI ID nahi daala', hi: 'UPI ID नहीं डाला', en: 'No UPI ID yet' },
   upiMissingBody: { hinglish: 'Settings mein "Mera UPI ID" daalo, phir yahan QR aayega.', hi: 'सेटिंग में "मेरा UPI ID" डालो, फिर यहाँ QR आएगा।', en: 'Add "My UPI ID" in Settings to show a QR here.' },
+  namaste: { hinglish: 'Namaste 🙏', hi: 'नमस्ते 🙏', en: 'Namaste 🙏' },
 } satisfies Record<string, Entry>
 
 export type Key = keyof typeof S
