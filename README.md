@@ -1,3 +1,32 @@
-# OmniOS
-Voice-first app that runs a kirana store. Fresh start on 21 Nov 2026.
-- Brief: PROJECT.md · Work plan: PLAN.md · Owner decisions: DECISIONS.md (created as decisions are made)
+# OmniOS Dukaan
+
+A voice-first app that runs a kirana (neighbourhood grocery) store. The owner speaks or taps; OmniOS makes the bill, updates stock and keeps the udhaar khata.
+
+- **Live:** omnidukaan.vercel.app · admin at `/admin` · customer bills at `/b/<code>`
+- **Try it:** shop code `TEST`, PIN `0000` (Chrome on Android for voice)
+- **Status:** see [TASKS.md](TASKS.md) · brief: [PROJECT.md](PROJECT.md) · plan: [PLAN.md](PLAN.md) · decisions: [DECISIONS.md](DECISIONS.md) · look: [DESIGN.md](DESIGN.md)
+
+## What works today
+- Language choice (Hindi / Hinglish / English), shop code + PIN login, Home with today's real sales.
+- One mic on every screen: "Sharma ji, 2 kilo cheeni, 1 Maggi" → review card → ✓ → bill saved, stock drops, WhatsApp link.
+- "Maal aaya, 10 Aashirvaad atta" adds stock · "Gupta ji ne 500 diye" records udhaar payment · "Cheeni kitni bachi?" answers aloud · "Galla mein 4,200 hai" checks the cash drawer.
+- Bill tab: today's bills, bill detail, Undo, bill by choosing items; branded receipt page for customers.
+- Admin: create stores, reset PIN, pause, delete.
+
+## How it is built
+| Part | Where |
+|---|---|
+| App (React + Vite, deployed on Vercel) | `app/` |
+| Voice understanding (rules first, 51 tests) | `app/src/voice/` |
+| Screens | `app/src/screens/` |
+| Database tables + money functions (Supabase) | `supabase/migrations/` |
+| Server functions (admin, Gemini helper) | `supabase/functions/` |
+| Item catalogue (232 Indore items + synonyms) | `supabase/seed/catalog.json` |
+| Code map | `graphify-out/GRAPH_REPORT.md` |
+
+## For developers
+```bash
+cd app && npm ci && npm run dev    # local app
+npm test                           # voice tests
+graphify update app/src            # refresh the code map after changes
+```
