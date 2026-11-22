@@ -1,17 +1,17 @@
-import { fold } from './normalize'
+import { fold, soundKey } from './normalize'
 
 // Anything that can be matched by name: catalogue items now, the shop's own items/learned names later.
 export type Matchable = { id: string; hinglish: string; hi: string; en: string; brand: string | null; unit: string; loose: boolean; aliases: string[] }
 export type Candidate = { id: string; score: number; item: Matchable }
 
-type Entry = { key: string; words: string[]; item: Matchable; exact: string }
+type Entry = { key: string; sound: string; words: string[]; item: Matchable; exact: string }
 export type MatchIndex = { entries: Entry[]; byId: Map<string, Matchable> }
 
 export function buildIndex(items: Matchable[]): MatchIndex {
   const entries: Entry[] = []
   for (const item of items) {
     const names = new Set([...item.aliases, item.hinglish, item.en, item.hi].map((a) => a.toLowerCase().trim()).filter(Boolean))
-    for (const a of names) entries.push({ key: fold(a), words: a.split(/\s+/), item, exact: a })
+    for (const a of names) entries.push({ key: fold(a), sound: soundKey(a), words: a.split(/\s+/), item, exact: a })
   }
   return { entries, byId: new Map(items.map((i) => [i.id, i])) }
 }
@@ -33,6 +33,7 @@ export function matchName(phrase: string, idx: MatchIndex, limit = 3): Candidate
   const p = phrase.toLowerCase().trim()
   if (!p) return []
   const pf = fold(p)
+  const ps = soundKey(p)
   const pWords = p.split(/\s+/)
   const best = new Map<string, Candidate>()
   for (const e of idx.entries) {
@@ -45,6 +46,8 @@ export function matchName(phrase: string, idx: MatchIndex, limit = 3): Candidate
       if (contained) s = Math.max(s, 0.9)
       // Spoken name is the first word(s) of a longer alias ("maggi" vs "maggi 4 pack").
       if (e.exact.startsWith(p + ' ')) s = Math.max(s, 0.8)
+      // same sound, different spelling/accent (maida ~ meda, eveready ~ everyday)
+      if (ps.length >= 3 && e.sound.length >= 3) { const d = dice(ps, e.sound); if (ps === e.sound) s = Math.max(s, 0.9); else if (d >= 0.75) s = Math.max(s, d * 0.92) }
     }
     const prev = best.get(e.item.id)
     if (!prev || s > prev.score) best.set(e.item.id, { id: e.item.id, score: s, item: e.item })

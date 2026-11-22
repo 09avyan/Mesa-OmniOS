@@ -186,7 +186,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   const [custOpen, setCustOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const pending = draft.lines.find((l) => !l.sure || !l.match) ?? (isBill && !draft.customerSure ? draft.lines[0] : undefined)
-  const reason = pending ? t('answerFirst') : isBill && draft.lines.some((l) => l.price == null) ? t('priceFirst') : t('fixFirst')
+  const reason = draft.lines.length === 0 ? t('sayItems') : pending ? t('answerFirst') : isBill && draft.lines.some((l) => l.price == null) ? t('priceFirst') : t('fixFirst')
   const prevBal = draft.customer?.balance ?? 0
   const net = Math.max(0, total - disc)
 

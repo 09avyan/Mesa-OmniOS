@@ -129,3 +129,14 @@ describe('names vs items', () => {
     expect(parse('ramesh ne 200 diye', idx, known)).toMatchObject({ intent: 'payment', customer: 'Ramesh', amount: 200 })
   })
 })
+
+describe('accents and spellings', () => {
+  it.each([
+    ['1 kilo meda', 'maida'], ['1 kilo maida', 'maida'], ['2 kilo aata', 'atta'], ['5 kilo ata', 'atta'],
+    ['4 everyday battery', 'eveready'], ['ek evreday battery', 'eveready'], ['1 ashirwad aata', 'aashirvaad'],
+    ['2 kilo shakkar', 'sugar'], ['1 dhaniya', 'dhaniya'], ['2 kilo poha', 'poha'],
+  ])('%s -> contains %s', (text, want) => {
+    const c = parse(text, idx).items[0].candidates[0]
+    expect((c.item.id + ' ' + c.item.en + ' ' + c.item.hinglish).toLowerCase()).toContain(want)
+  })
+})

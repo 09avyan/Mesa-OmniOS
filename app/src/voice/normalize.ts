@@ -33,6 +33,20 @@ export function tokenize(text: string): string[] {
   return s.split(/\s+/).filter(Boolean)
 }
 
+/**
+ * Sound key: how a word SOUNDS, ignoring accent and spelling — maida = meda = maidaa, eveready = everyday-ish,
+ * aashirvaad = ashirwad. Aspirates dropped (bh->b, dh->d), vowels collapsed, w=v, z=j.
+ */
+export function soundKey(s: string): string {
+  return s.toLowerCase()
+    .replace(/[^a-z\u0900-\u097f ]/g, '')
+    .replace(/([bcdgjkpt])h/g, '$1').replace(/sh/g, 's').replace(/ph/g, 'f')
+    .replace(/w/g, 'v').replace(/z/g, 'j').replace(/q/g, 'k').replace(/x/g, 'ks').replace(/ck/g, 'k')
+    .replace(/(ai|ae|ei|ay|ey)/g, 'e').replace(/(au|ou|aw)/g, 'o').replace(/(ee|ii|y)/g, 'i').replace(/(oo|uu)/g, 'u')
+    .replace(/a+/g, 'a').replace(/([a-z])\1+/g, '$1')
+    .replace(/\s+/g, '')
+}
+
 /** Fold for fuzzy comparison: drop spaces/hyphens, simplify common Hinglish spelling variants. */
 export function fold(s: string): string {
   return s.toLowerCase()
