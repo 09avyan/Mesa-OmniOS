@@ -29,7 +29,7 @@ export function dice(a: string, b: string): number {
 }
 
 /** Best candidates for a spoken item name, best first (one per item). */
-export function matchName(phrase: string, idx: MatchIndex, limit = 3): Candidate[] {
+export function matchName(phrase: string, idx: MatchIndex, limit = 6): Candidate[] {
   const p = phrase.toLowerCase().trim()
   if (!p) return []
   const pf = fold(p)

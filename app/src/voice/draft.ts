@@ -20,6 +20,9 @@ export type Draft = {
   customer: Customer | null       // existing customer if we recognised the name
   customerSure: boolean           // false -> yellow "Yahi naam?"
   customerOthers: Customer[]
+  newCustomer?: boolean            // owner said "Yeh nahi, naya …"
+  tag?: string                     // pehchaan for a new same-name customer
+  phone?: string                   // typed after payment; WhatsApp goes here
   lines: Line[]
   amount: number | null
   pay: 'cash' | 'upi' | 'udhaar'
@@ -57,7 +60,7 @@ export function buildDraft(parsed: Parsed, shop: Shop): Draft {
     heard: parsed.text,
     customerName: found.match?.name ?? parsed.customer,
     customer: found.match,
-    customerSure: parsed.customerSure,
+    customerSure: parsed.customerSure && !(parsed.customer && !found.match && found.others.length > 1),
     customerOthers: found.others,
     lines: parsed.items.map((p) => lineFrom(p, shop)),
     amount: parsed.amount,

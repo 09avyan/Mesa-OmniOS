@@ -140,3 +140,19 @@ describe('accents and spellings', () => {
     expect((c.item.id + ' ' + c.item.en + ' ' + c.item.hinglish).toLowerCase()).toContain(want)
   })
 })
+
+describe('chips flavours', () => {
+  const top = (t: string) => parse(t, idx).items[0]
+  it('exact flavour + size is sure', () => {
+    const i = top('2 lays magic masala 10 wala')
+    expect(i.candidates[0].item.hinglish.toLowerCase()).toContain('magic masala')
+  })
+  it('colour nickname: neela lays -> magic masala', () => {
+    expect(top('ek neela lays').candidates[0].item.hinglish.toLowerCase()).toContain('magic masala')
+  })
+  it('brand only asks which flavour', () => {
+    const i = top('2 kurkure')
+    expect(i.sure).toBe(false)
+    expect(i.candidates.length).toBeGreaterThan(1)
+  })
+})

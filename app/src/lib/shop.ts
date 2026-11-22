@@ -4,7 +4,9 @@ import { buildIndex, dice, type Matchable, type MatchIndex } from '../voice/matc
 import { fold } from '../voice/normalize'
 
 export type ShopItem = { id: string; catalog_id: string | null; name: string; name_hi: string | null; unit: string; loose: boolean; price: number | null; learned_price: number | null; stock: number; stock_known: boolean; hidden_online: boolean }
-export type Customer = { id: string; name: string; phone: string | null; balance: number }
+export type Customer = { id: string; name: string; tag: string | null; phone: string | null; balance: number }
+/** 'Sharma ji · gali 4' — tag tells same-name customers apart */
+export const custLabel = (c: { name: string; tag?: string | null }) => c.tag ? `${c.name} · ${c.tag}` : c.name
 
 // One matchable per thing the shop can sell: catalogue items merged with the shop's own items + learned names.
 export type ShopMatchable = Matchable & { shop?: ShopItem; lastPrice?: number }
@@ -21,7 +23,7 @@ export async function loadShop(): Promise<Shop> {
     const [it, al, cu, lp] = await Promise.all([
       supabase.from('items').select('id,catalog_id,name,name_hi,unit,loose,price,learned_price,stock,stock_known,hidden_online'),
       supabase.from('item_aliases').select('alias,item_id'),
-      supabase.from('customer_balances').select('id,name,phone,balance').order('last_at', { ascending: false, nullsFirst: false }),
+      supabase.from('customer_balances').select('id,name,tag,phone,balance').order('last_at', { ascending: false, nullsFirst: false }),
       supabase.from('bill_lines').select('item_id,price,bills!inner(created_at,status)').eq('bills.status', 'saved').order('created_at', { referencedTable: 'bills', ascending: false }).limit(500),
     ])
     const items = (it.data ?? []).map((x) => ({ ...x, price: num(x.price), learned_price: num(x.learned_price), stock: Number(x.stock) })) as ShopItem[]
@@ -60,5 +62,11 @@ export function findCustomer(name: string, customers: Customer[]): { match: Cust
   const key = fold(name.replace(/\b(ji|jee|bhai|bhaiya|didi|sahab|जी|भाई)\b/gi, ''))
   const scored = customers.map((c) => ({ c, s: dice(key, fold(c.name.replace(/\b(ji|jee|bhai|bhaiya|didi|sahab|जी|भाई)\b/gi, ''))) }))
     .filter((x) => x.s >= 0.6).sort((a, b) => b.s - a.s)
-  return { match: scored[0] && scored[0].s >= 0.8 ? scored[0].c : null, others: scored.slice(0, 4).map((x) => x.c) }
+  // a tag said aloud picks the exact person ("sharma ji gali 4")
+  const byTag = customers.filter((c) => c.tag && fold(name).includes(fold(c.tag)))
+  if (byTag.length === 1) return { match: byTag[0], others: [] }
+  const strong = scored.filter((x) => x.s >= 0.8)
+  // two people with the same name: don't guess, ask
+  if (strong.length > 1 && strong[1].s >= strong[0].s - 0.05) return { match: null, others: strong.slice(0, 5).map((x) => x.c) }
+  return { match: strong[0]?.c ?? null, others: scored.slice(0, 4).map((x) => x.c) }
 }

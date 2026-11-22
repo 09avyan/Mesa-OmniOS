@@ -1,0 +1,2 @@
+-- Applied 23 Nov via Supabase MCP: customers.tag + unique(name, tag); customer_balances with tag; add_customer();
+-- set_stock(); bill_customer() used by save_bill (customer_id / new_customer+tag / phone). See git history for full SQL.

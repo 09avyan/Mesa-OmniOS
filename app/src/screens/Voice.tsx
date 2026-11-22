@@ -4,7 +4,7 @@ import { useStore } from '../lib/store'
 import { supabase } from '../lib/supabase'
 import { listen, speak, speechSupported, type ListenError } from '../lib/speech'
 import { speakOn, speakRate } from '../lib/prefs'
-import { invalidateShop, loadShop, type Customer, type Shop, type ShopMatchable } from '../lib/shop'
+import { custLabel, invalidateShop, loadShop, type Customer, type Shop, type ShopMatchable } from '../lib/shop'
 import { parse, parseItems } from '../voice/parse'
 import { tokenize } from '../voice/normalize'
 import { askAi, needsAi } from '../voice/ai'
@@ -17,7 +17,7 @@ import { Icon } from '../components/Icon'
 import { BillCard } from '../components/BillCard'
 
 type Stage = 'listen' | 'review' | 'done'
-type Saved = { kind: 'bill'; billId: string; token: string; total: number; discount: number; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
+type Saved = { kind: 'bill'; billId: string; token: string; total: number; discount: number; phone?: string; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
   | { kind: 'stock'; lines: Line[] } | { kind: 'payment'; customer: string; amount: number; balance: number }
 
 const unitLabel = (u?: string) => ({ kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' } as Record<string, string>)[u ?? ''] ?? ''
@@ -228,14 +228,14 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
       unit: l.match!.shop?.unit ?? l.match!.unit, loose: l.match!.loose, said: l.said, qty: l.qty, price: l.price,
     }))
     const res = isBill
-      ? await supabase.rpc('save_bill', { p: { customer: draft.customerName, pay: draft.pay, discount: disc, voice_text: draft.heard, lines } })
+      ? await supabase.rpc('save_bill', { p: { customer: draft.customerName, customer_id: draft.customer?.id ?? null, new_customer: !!draft.newCustomer, tag: draft.tag ?? null, phone: draft.phone ?? draft.customer?.phone ?? null, pay: draft.pay, discount: disc, voice_text: draft.heard, lines } })
       : await supabase.rpc('add_stock', { p: { reason: 'stock_in', lines } })
     setBusy(false)
     if (res.error) { errorFx(); toast({ text: t('saveFailed') }); return }
     successFx(); invalidateShop()
     if (isBill) {
       const r = res.data as { bill_id: string; share_token: string; total: number; balance: number | null; has_unrecorded: boolean }
-      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, customer: draft.customerName, pay: draft.pay, balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
+      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, phone: (draft.phone ?? draft.customer?.phone ?? '').replace(/\D/g, ''), customer: draft.customerName, pay: draft.pay, balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
     } else onSaved({ kind: 'stock', lines: draft.lines })
   }
 
@@ -262,7 +262,18 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
             <Tap className="ghost" style={{ color: 'var(--ac)', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 4 }} onClick={() => setCustOpen(true)}>{draft.customerName ? t('change') : t('addName')}</Tap>
           </div>
         ) : <h1 className="h1" style={{ marginTop: 8 }}>{t('stockInTitle')}</h1>}
-        {isBill && !draft.customerSure && draft.customerName && (
+        {isBill && draft.customerName && !draft.customer && draft.customerOthers.length > 1 && !draft.customerSure && (
+          <div className="it u" style={{ borderRadius: 16, marginTop: 12 }}>
+            <div className="ask">{t('whichOne')}</div>
+            <div className="stack" style={{ marginTop: 8 }}>
+              {draft.customerOthers.map((c) => <Tap key={c.id} className="rowb" style={{ minHeight: 56 }} onClick={() => setDraft({ ...draft, customer: c, customerName: c.name, customerSure: true, newCustomer: false })}>
+                <span className="grow">{custLabel(c)}</span>{c.balance > 0 && <span style={{ color: 'var(--ud)' }}>{rupees(c.balance)}</span>}</Tap>)}
+              <Tap className="chg" onClick={() => { const tg = prompt(t('tagAsk')) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>+ {t('newOne')} {draft.customerName}</Tap>
+            </div>
+          </div>
+        )}
+        {isBill && draft.customer && <Tap className="ghost" style={{ marginLeft: -12, fontSize: 17, color: 'var(--ink2)' }} onClick={() => { const tg = prompt(t('tagAsk')) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>{t('notThisOne')}</Tap>}
+        {isBill && !draft.customerSure && draft.customerName && draft.customerOthers.length <= 1 && (
           <div className="it u" style={{ borderRadius: 16, marginTop: 12 }}>
             <div className="guess" style={{ marginTop: 0 }}><span className="gtxt">{t('thisName')}</span>
               <div style={{ display: 'flex', gap: 10 }}>
@@ -293,6 +304,13 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
               </Tap>
             ))}
           </div>
+          {draft.customerName && (
+            <div className="field" style={{ marginTop: 14 }}>
+              <label htmlFor="ph">{t('phoneOpt')}</label>
+              <input id="ph" className="input" inputMode="tel" maxLength={13} placeholder="98xxxxxxxx" value={draft.phone ?? draft.customer?.phone ?? ''}
+                onChange={(e) => setDraft({ ...draft, phone: e.target.value.replace(/[^\d+]/g, '') })} />
+            </div>
+          )}
           {draft.pay === 'udhaar' && draft.customerName && (
             <div className="udnote">
               <div style={{ fontWeight: 600 }}>{t('udhaarBefore')} {rupees(prevBal)} + {t('udhaarThisBill')} {rupees(net)}</div>
@@ -395,7 +413,7 @@ function CustomerPicker({ open, shop, current, onClose, onPick }: { open: boolea
         <Tap className="btn primary small" style={{ minWidth: 72 }} disabled={!q.trim()} onClick={() => { onPick(q.trim(), shop.customers.find((c) => c.name.toLowerCase() === q.trim().toLowerCase()) ?? null); setQ('') }}>{t('ok')}</Tap>
       </div>
       <div className="stack" style={{ marginTop: 12 }}>
-        {list.map((c) => <Tap key={c.id} className="rowb" style={{ minHeight: 60 }} onClick={() => { onPick(c.name, c); setQ('') }}><span className="grow">{c.name}</span>{c.balance > 0 && <span style={{ color: 'var(--ud)' }}>{rupees(c.balance)}</span>}</Tap>)}
+        {list.map((c) => <Tap key={c.id} className="rowb" style={{ minHeight: 60 }} onClick={() => { onPick(c.name, c); setQ('') }}><span className="grow">{custLabel(c)}</span>{c.balance > 0 && <span style={{ color: 'var(--ud)' }}>{rupees(c.balance)}</span>}</Tap>)}
         <Tap className="rowb" style={{ minHeight: 60, boxShadow: 'inset 0 0 0 2px var(--line)', background: 'none' }} onClick={() => onPick(null, null)}><span className="grow lab">{t('walkIn')}</span></Tap>
       </div>
     </Sheet>
@@ -543,14 +561,14 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
         </>}
         {saved.kind === 'bill' && saved.unrecorded && <p className="lab" style={{ marginTop: 12 }}>{t('unrecordedNote')}</p>}
         {saved.kind === 'bill' && <>
-          <a className="wa tap" href={`https://wa.me/?text=${waText}`} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}>
+          <a className="wa tap" href={`https://wa.me/${saved.kind === 'bill' && saved.phone ? (saved.phone.length === 10 ? '91' + saved.phone : saved.phone) : ''}?text=${waText}`} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}>
             <Icon name="wa" size={26} />{saved.customer ? `${saved.customer} ${t('sendWa')}` : t('sendWaWalkIn')}
           </a>
           <div className="undorow" style={{ marginTop: 36 }}><span className="lab">{t('mistake')}</span>
             <Tap className="undo" style={{ height: 56, padding: '0 22px', background: '#fff', boxShadow: 'inset 0 0 0 2px #8A7A66' }} onClick={onUndo}>{t('removeBill')}</Tap></div>
         </>}
       </main>
-      <div className="flowact"><Tap className="btn primary" onClick={() => navigate('/bolo?new=' + Date.now(), true)}><Icon name="mic" size={24} />{t('newBill')}</Tap></div>
+      <div className="flowact"><Tap className="btn primary" onClick={() => navigate('/', true)}><Icon name="home" size={24} />{t('goHome')}</Tap></div>
       <BottomBar flow onMic={() => navigate('/bolo?new=' + Date.now(), true)} />
     </div>
   )

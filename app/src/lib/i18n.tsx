@@ -181,6 +181,17 @@ const S = {
   sellPrice: { hinglish: 'Bechne ka daam', hi: 'बेचने का दाम', en: 'Selling price' },
   learnedNote: { hinglish: 'Yeh daam 3 bill se seekha gaya', hi: 'यह दाम 3 बिल से सीखा गया', en: 'Price learned from 3 bills' },
   showOnline: { hinglish: 'Online dukaan pe dikhao', hi: 'ऑनलाइन दुकान पर दिखाओ', en: 'Show on online store' },
+  phoneOpt: { hinglish: 'Number (WhatsApp bill ke liye, zaroori nahi)', hi: 'नंबर (व्हाट्सऐप बिल के लिए, ज़रूरी नहीं)', en: 'Number (for WhatsApp bill, optional)' },
+  goHome: { hinglish: 'Ghar', hi: 'घर', en: 'Home' },
+  whichOne: { hinglish: 'Kaunse? Ek chuno', hi: 'कौन से? एक चुनो', en: 'Which one? Choose' },
+  newOne: { hinglish: 'Naya', hi: 'नया', en: 'New' },
+  notThisOne: { hinglish: 'Yeh nahi, naya grahak hai', hi: 'यह नहीं, नया ग्राहक है', en: 'Not this one, new customer' },
+  tagAsk: { hinglish: 'Pehchaan likho (jaise gali 4, doodh wale)', hi: 'पहचान लिखो (जैसे गली 4, दूध वाले)', en: 'Add a tag (e.g. lane 4, milkman)' },
+  addPerson: { hinglish: 'Naya grahak jodo', hi: 'नया ग्राहक जोड़ो', en: 'Add customer' },
+  nameWord: { hinglish: 'Naam', hi: 'नाम', en: 'Name' },
+  oldUdhaar: { hinglish: 'Purana udhaar ₹ (khata se, zaroori nahi)', hi: 'पुराना उधार ₹ (खाते से, ज़रूरी नहीं)', en: 'Old udhaar ₹ (optional)' },
+  sameNameExists: { hinglish: 'Is naam ka grahak pehle se hai. Pehchaan likho.', hi: 'इस नाम का ग्राहक पहले से है। पहचान लिखो।', en: 'Name exists. Add a tag.' },
+  howManyNow: { hinglish: 'Abhi kitna hai?', hi: 'अभी कितना है?', en: 'How many now?' },
 } satisfies Record<string, Entry>
 
 export type Key = keyof typeof S

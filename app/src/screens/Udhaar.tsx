@@ -5,13 +5,13 @@ import { supabase } from '../lib/supabase'
 import { SUPABASE_KEY, SUPABASE_URL } from '../lib/config'
 import { useStore } from '../lib/store'
 import { navigate } from '../lib/router'
-import { invalidateShop } from '../lib/shop'
+import { custLabel, invalidateShop } from '../lib/shop'
 import { errorFx, successFx } from '../lib/feedback'
-import { BackBar, Tap, toast } from '../components/ui'
+import { BackBar, Sheet, Tap, toast } from '../components/ui'
 import { NumberSheet } from '../components/Pad'
 import { Icon } from '../components/Icon'
 
-type Cust = { id: string; name: string; phone: string | null; share_token: string; balance: number; last_at: string | null }
+type Cust = { id: string; name: string; tag: string | null; phone: string | null; share_token: string; balance: number; last_at: string | null }
 type Entry = { id: number; amount: number; kind: string; created_at: string; bill_id: string | null }
 const ago = (s: string | null) => s ? new Date(s).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : ''
 
@@ -20,8 +20,9 @@ export function UdhaarList() {
   const { t } = useT()
   const [list, setList] = useState<Cust[] | null>(null)
   const [q, setQ] = useState('')
+  const [adding, setAdding] = useState(false)
   useEffect(() => {
-    supabase.from('customer_balances').select('id,name,phone,share_token,balance,last_at').order('balance', { ascending: false })
+    supabase.from('customer_balances').select('id,name,tag,phone,share_token,balance,last_at').order('balance', { ascending: false })
       .then(({ data }) => setList(((data ?? []) as Cust[]).map((c) => ({ ...c, balance: Number(c.balance) }))))
   }, [])
   const owing = (list ?? []).filter((c) => c.balance > 0)
@@ -37,6 +38,8 @@ export function UdhaarList() {
         <div className="lab" style={{ marginTop: 4 }}>{owing.length} {t('peopleOwe')}</div>
       </div>
       <div className="gap16" />
+      <Tap className="btn quiet" onClick={() => setAdding(true)}>+ {t('addPerson')}</Tap>
+      <div className="gap16" />
       <input className="input" placeholder={t('searchName')} value={q} onChange={(e) => setQ(e.target.value)} />
       <div className="gap16" />
       {!list ? <div className="stack"><div className="skel" style={{ height: 68 }} /><div className="skel" style={{ height: 68 }} /></div>
@@ -45,13 +48,14 @@ export function UdhaarList() {
           <Tap key={c.id} className="rowb" onClick={() => navigate('/udhaar/' + c.id)}>
             <div className="av" style={{ width: 44, height: 44, fontSize: 20 }}>{c.name.charAt(0).toUpperCase()}</div>
             <div className="grow" style={{ minWidth: 0 }}>
-              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.name}</div>
+              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{custLabel(c)}</div>
               <div className="lab" style={{ fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>{ago(c.last_at)}</div>
             </div>
             <div className="num" style={{ color: c.balance > 0 ? 'var(--ud)' : 'var(--ac)' }}>{rupees(Math.abs(c.balance))}</div>
             <div className="chev">›</div>
           </Tap>
         ))}</div>}
+      <AddPerson open={adding} onClose={() => setAdding(false)} />
     </main>
   )
 }
@@ -65,7 +69,7 @@ export function UdhaarCustomer({ id }: { id: string }) {
   const [pay, setPay] = useState(false)
   const [phoneOpen, setPhoneOpen] = useState(false)
   const load = () => {
-    supabase.from('customer_balances').select('id,name,phone,share_token,balance,last_at').eq('id', id).maybeSingle()
+    supabase.from('customer_balances').select('id,name,tag,phone,share_token,balance,last_at').eq('id', id).maybeSingle()
       .then(({ data }) => setC(data ? { ...(data as Cust), balance: Number((data as Cust).balance) } : null))
     supabase.from('udhaar_entries').select('id,amount,kind,created_at,bill_id').eq('customer_id', id).order('created_at', { ascending: false }).limit(50)
       .then(({ data }) => setEntries((data ?? []) as Entry[]))
@@ -97,7 +101,7 @@ export function UdhaarCustomer({ id }: { id: string }) {
     <main className="screen has-bar">
       <BackBar fallback="/udhaar" />
       <div className="who"><div className="av">{c.name.charAt(0).toUpperCase()}</div>
-        <div style={{ flex: 1, minWidth: 0 }}><div className="h1">{c.name}</div>
+        <div style={{ flex: 1, minWidth: 0 }}><div className="h1">{c.name}</div>{c.tag && <div className="lab">{c.tag}</div>}
           <Tap className="ghost" style={{ marginLeft: -12, color: 'var(--ac)', fontWeight: 600 }} onClick={() => setPhoneOpen(true)}>{c.phone ? `📞 ${c.phone}` : `+ ${t('addPhone')}`}</Tap></div></div>
       <div className="card center" style={{ marginTop: 12 }}>
         <div className="lab">{c.balance >= 0 ? t('balanceNow') : t('advance')}</div>
@@ -119,6 +123,30 @@ export function UdhaarCustomer({ id }: { id: string }) {
       <NumberSheet open={pay} title={`${c.name} — ${t('amount')}`} initial={c.balance > 0 ? c.balance : null} unit="₹" onClose={() => setPay(false)} onDone={collect} />
       <NumberSheet open={phoneOpen} title={t('addPhone')} initial={c.phone ? Number(c.phone) : null} decimals={false} onClose={() => setPhoneOpen(false)} onDone={savePhone} />
     </main>
+  )
+}
+
+// Add a person: name, phone, old udhaar from the paper khata; asks a pehchaan (tag) if the name already exists.
+function AddPerson({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { t } = useT()
+  const [f, setF] = useState({ name: '', phone: '', tag: '', old: '' })
+  const [needTag, setNeedTag] = useState(false)
+  async function save() {
+    const { data, error } = await supabase.rpc('add_customer', { p_name: f.name, p_phone: f.phone, p_tag: f.tag, p_opening: Number(f.old) || 0 })
+    if (error) { errorFx(); if (error.message.includes('same_name')) { setNeedTag(true); toast({ text: t('sameNameExists') }) } else toast({ text: t('saveFailed') }); return }
+    successFx(); invalidateShop(); onClose(); setF({ name: '', phone: '', tag: '', old: '' }); setNeedTag(false); navigate('/udhaar/' + data)
+  }
+  return (
+    <Sheet open={open} onClose={onClose}>
+      <h2 className="h2">{t('addPerson')}</h2>
+      <div className="stack" style={{ marginTop: 12 }}>
+        <input className="input" placeholder={t('nameWord')} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} />
+        {needTag && <input className="input" style={{ boxShadow: 'inset 0 0 0 2px var(--unsb)' }} placeholder={t('tagAsk')} value={f.tag} onChange={(e) => setF({ ...f, tag: e.target.value })} />}
+        <input className="input" inputMode="tel" placeholder={t('phoneOpt')} value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value.replace(/[^\d+]/g, '') })} />
+        <input className="input" inputMode="decimal" placeholder={t('oldUdhaar')} value={f.old} onChange={(e) => setF({ ...f, old: e.target.value.replace(/[^\d.]/g, '') })} />
+        <Tap className="btn primary" disabled={f.name.trim().length < 2 || (needTag && !f.tag.trim())} onClick={save}>✓ {t('ok')}</Tap>
+      </div>
+    </Sheet>
   )
 }
 

@@ -21,6 +21,7 @@ export function Maal() {
   const [q, setQ] = useState('')
   const [open, setOpen] = useState<ShopItem | null>(null)
   const [priceOpen, setPriceOpen] = useState(false)
+  const [countOpen, setCountOpen] = useState(false)
   const load = () => supabase.from('items').select('id,catalog_id,name,name_hi,unit,loose,price,learned_price,stock,stock_known,hidden_online').order('name')
     .then(({ data }) => setItems(((data ?? []) as ShopItem[]).map((i) => ({ ...i, stock: Number(i.stock), price: i.price == null ? null : Number(i.price), learned_price: i.learned_price == null ? null : Number(i.learned_price) }))))
   useEffect(() => { load() }, [])
@@ -70,11 +71,11 @@ export function Maal() {
           </Tap>
         ))}</div>}
 
-      <Sheet open={!!open && !priceOpen} onClose={() => setOpen(null)}>
+      <Sheet open={!!open && !priceOpen && !countOpen} onClose={() => setOpen(null)}>
         {open && <>
           <h2 className="h2">{nameOf(open)}</h2>
           <div className="card" style={{ marginTop: 12 }}>
-            <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }}><span className="lab">{t('inStock')}</span><span className="num">{open.stock_known ? `${fmt(Math.max(0, open.stock))} ${units[open.unit]}` : t('stockNotKnown')}</span></div>
+            <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => setCountOpen(true)}><span className="lab">{t('inStock')}</span><span className="num">{open.stock_known ? `${fmt(Math.max(0, open.stock))} ${units[open.unit]}` : t('stockNotKnown')} ›</span></Tap>
             <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => setPriceOpen(true)}>
               <span className="lab">{t('sellPrice')}</span><span className="num">{price(open) != null ? rupees(price(open)!) : t('priceAsk')} ›</span>
             </Tap>
@@ -88,6 +89,8 @@ export function Maal() {
           <Tap className="btn primary" onClick={() => setOpen(null)}>{t('ok')}</Tap>
         </>}
       </Sheet>
+      <NumberSheet open={countOpen} title={`${open ? nameOf(open) : ''} — ${t('howManyNow')}`} initial={open?.stock_known ? Math.max(0, open.stock) : null} unit={open ? units[open.unit] : ''}
+        onClose={() => setCountOpen(false)} onDone={async (n) => { if (!open) return; const { error } = await supabase.rpc('set_stock', { p_item: open.id, p_qty: n }); if (error) { errorFx(); toast({ text: t('saveFailed') }); return } successFx(); invalidateShop(); setOpen({ ...open, stock: n, stock_known: true }); load() }} />
       <NumberSheet open={priceOpen} title={`${open ? nameOf(open) : ''} — ${t('sellPrice')}`} initial={open ? price(open) : null} unit="₹"
         onClose={() => setPriceOpen(false)} onDone={(n) => update({ price: n })} />
     </main>
