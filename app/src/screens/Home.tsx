@@ -19,7 +19,10 @@ export function Home() {
     <main className="screen has-bar">
       <div className="top">
         <span className="title">{store?.name}</span>
-        <Tap className="ghost" onClick={() => navigate('/settings')}><Icon name="gear" size={22} />{t('settings')}</Tap>
+        <div style={{ display: 'flex' }}>
+          <Tap className="ghost" aria-label={t('myStore')} onClick={() => navigate('/dukaan')}><Icon name="qr" size={24} />QR</Tap>
+          <Tap className="ghost" onClick={() => navigate('/settings')}><Icon name="gear" size={22} />{t('settings')}</Tap>
+        </div>
       </div>
       <section className="card">
         <div className="lab">{t('todaySales')}</div>

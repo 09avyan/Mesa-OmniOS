@@ -18,6 +18,7 @@ const P: Record<string, string> = {
   sound: '<path d="M4 10v4h4l5 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6"/>',
   doc: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',
   out: '<path d="M10 4H5v16h5"/><path d="M14 8l4 4-4 4M18 12H9"/>',
+  qr: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v1M14 20h1M17 17h4v4h-4"/>',
   tools: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
 }
 export function Icon({ name, size = 24, stroke = 2, color }: { name: keyof typeof P | string; size?: number; stroke?: number; color?: string }) {

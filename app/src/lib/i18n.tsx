@@ -223,6 +223,15 @@ const S = {
   st_done: { hinglish: 'Ho gaya', hi: 'हो गया', en: 'Done' },
   st_cancelled: { hinglish: 'Radd', hi: 'रद्द', en: 'Cancelled' },
   st_rejected: { hinglish: 'Mana kiya', hi: 'मना किया', en: 'Rejected' },
+  upiId: { hinglish: 'Mera UPI ID', hi: 'मेरा UPI ID', en: 'My UPI ID' },
+  upiNotSet: { hinglish: 'Abhi nahi daala', hi: 'अभी नहीं डाला', en: 'Not set' },
+  upiAsk: { hinglish: 'UPI ID likho ya paste karo (jaise: 98xxxxxxxx@ybl)', hi: 'UPI ID लिखो या पेस्ट करो (जैसे: 98xxxxxxxx@ybl)', en: 'Type or paste UPI ID (e.g. 98xxxxxxxx@ybl)' },
+  upiBad: { hinglish: 'UPI ID sahi nahi lag raha. Jaise: naam@okaxis', hi: 'UPI ID सही नहीं लग रहा। जैसे: naam@okaxis', en: 'UPI ID looks wrong. e.g. name@okaxis' },
+  upiScan: { hinglish: 'Grahak scan karke paise bheje', hi: 'ग्राहक स्कैन करके पैसे भेजे', en: 'Customer scans and pays' },
+  upiDone: { hinglish: 'Paise aa gaye', hi: 'पैसे आ गए', en: 'Payment received' },
+  upiClose: { hinglish: 'Band karo (printed QR se diya)', hi: 'बंद करो (छपे QR से दिया)', en: 'Close (paid via printed QR)' },
+  upiMissing: { hinglish: 'UPI ID nahi daala', hi: 'UPI ID नहीं डाला', en: 'No UPI ID yet' },
+  upiMissingBody: { hinglish: 'Settings mein "Mera UPI ID" daalo, phir yahan QR aayega.', hi: 'सेटिंग में "मेरा UPI ID" डालो, फिर यहाँ QR आएगा।', en: 'Add "My UPI ID" in Settings to show a QR here.' },
 } satisfies Record<string, Entry>
 
 export type Key = keyof typeof S

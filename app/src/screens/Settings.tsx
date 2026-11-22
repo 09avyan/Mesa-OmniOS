@@ -9,7 +9,7 @@ import { navigate } from '../lib/router'
 
 export function Settings() {
   const { t, lang, setLang } = useT()
-  const { store } = useStore()
+  const { store, reload } = useStore()
   const [snd, setSnd] = useState(soundEnabled())
   const [langOpen, setLangOpen] = useState(false)
   const [askOut, setAskOut] = useState(false)
@@ -25,6 +25,9 @@ export function Settings() {
       <div className="lab">{t('shopCode')}: <b style={{ color: 'var(--ink)', letterSpacing: 1 }}>{store?.code}</b></div>
       <div className="gap24" />
       <div className="stack">
+        <Tap className="rowb" onClick={async () => { const v = (prompt(t('upiAsk'), store?.upi_id ?? '') ?? '').trim(); if (!v) return; const { error } = await supabase.from('stores').update({ upi_id: v }).eq('id', store!.id); if (error) { toast({ text: t('upiBad') }); return } toast({ text: t('saved') }); reload() }}>
+          <Icon name="qr" /><span className="grow">{t('upiId')}<span className="lab" style={{ display: 'block', fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>{store?.upi_id ?? t('upiNotSet')}</span></span><span className="chev">›</span>
+        </Tap>
         <Tap className="rowb" onClick={() => setLangOpen(true)}>
           <Icon name="globe" /><span className="grow">{t('language')}</span><span style={{ color: 'var(--ac)' }}>{LANGS.find((l) => l.id === lang)?.label}</span><span className="chev">›</span>
         </Tap>

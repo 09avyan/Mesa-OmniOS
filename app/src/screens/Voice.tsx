@@ -15,6 +15,7 @@ import { BackBar, BottomBar, Sheet, Tap, toast } from '../components/ui'
 import { NumberSheet } from '../components/Pad'
 import { Icon } from '../components/Icon'
 import { BillCard } from '../components/BillCard'
+import { UpiSheet } from '../components/UpiSheet'
 
 type Stage = 'listen' | 'review' | 'done'
 type Saved = { kind: 'bill'; billId: string; token: string; total: number; discount: number; phone?: string; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
@@ -230,6 +231,8 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   const [discOpen, setDiscOpen] = useState(false)
   const [custOpen, setCustOpen] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [upiOpen, setUpiOpen] = useState(false)
+  const { store } = useStore()
   const pending = draft.lines.find((l) => !l.sure || !l.match) ?? (isBill && !draft.customerSure ? draft.lines[0] : undefined)
   const reason = draft.lines.length === 0 ? t('sayItems') : pending ? t('answerFirst') : isBill && draft.lines.some((l) => l.price == null) ? t('priceFirst') : t('fixFirst')
   const prevBal = draft.customer?.balance ?? 0
@@ -314,7 +317,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
           <div className="sec">{t('howPaid')}</div>
           <div className="pay">
             {(['cash', 'upi', 'udhaar'] as const).map((p) => (
-              <Tap key={p} className={`pb ${draft.pay === p ? 'on' : ''} ${p === 'udhaar' ? 'ud' : ''}`} onClick={() => setDraft({ ...draft, pay: p })}>
+              <Tap key={p} className={`pb ${draft.pay === p ? 'on' : ''} ${p === 'udhaar' ? 'ud' : ''}`} onClick={() => { setDraft({ ...draft, pay: p }); if (p === 'upi') setUpiOpen(true) }}>
                 {draft.pay === p && '✓ '}{t(p)}
               </Tap>
             ))}
@@ -349,6 +352,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
       <NumberSheet open={!!pad} title={pad?.field === 'price' ? `${pad.line.match?.hinglish ?? ''} — ${t('priceAsk')}` : `${pad?.line.match?.hinglish ?? ''} — ${t('qtyAsk')}`}
         initial={pad ? (pad.field === 'price' ? pad.line.price : pad.line.qty) : null} unit={pad?.field === 'qty' ? unitLabel(pad.line.match?.unit) : '₹'}
         onClose={() => setPad(null)} onDone={(n) => pad && fix(pad.line)(pad.field === 'price' ? { price: n, priceSure: true } : { qty: n })} />
+      <UpiSheet open={upiOpen} upi={store?.upi_id ?? null} name={store?.name ?? ''} amount={net} onClose={() => setUpiOpen(false)} />
       <NumberSheet open={discOpen} title={t('discount')} initial={disc || null} unit="₹" onClose={() => setDiscOpen(false)} onDone={(n) => setDisc(Math.min(n, total))} />
       <CustomerPicker open={custOpen} shop={shop} current={draft.customerName} onClose={() => setCustOpen(false)}
         onPick={(name, c) => { setDraft({ ...draft, customerName: name, customer: c, customerSure: true }); setCustOpen(false) }} />

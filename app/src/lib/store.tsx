@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from './supabase'
 
-export type Store = { id: string; code: string; name: string; owner_name: string | null; language: 'hi' | 'hinglish' | 'en'; status: string }
+export type Store = { id: string; code: string; name: string; upi_id: string | null; owner_name: string | null; language: 'hi' | 'hinglish' | 'en'; status: string }
 type State = { session: Session | null; store: Store | null; ready: boolean; storeMissing: boolean; reload: () => void }
 const Ctx = createContext<State>({ session: null, store: null, ready: false, storeMissing: false, reload: () => {} })
 
@@ -23,7 +23,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     if (!session) return
     let live = true
     setReady(false)
-    supabase.from('stores').select('id,code,name,owner_name,language,status').maybeSingle().then(({ data }) => {
+    supabase.from('stores').select('id,code,name,owner_name,language,status,upi_id').maybeSingle().then(({ data }) => {
       if (!live) return
       setStore(data as Store | null); setMissing(!data); setReady(true)
       if (data) logUsage(data.id, 'open')
