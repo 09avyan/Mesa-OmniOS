@@ -7,6 +7,7 @@ import { speakOn, speakRate } from '../lib/prefs'
 import { invalidateShop, loadShop, type Customer, type Shop, type ShopMatchable } from '../lib/shop'
 import { parse, parseItems } from '../voice/parse'
 import { tokenize } from '../voice/normalize'
+import { askAi, needsAi } from '../voice/ai'
 import { buildDraft, draftTotal, lineFrom, lineTotal, linesReady, searchItems, type Draft, type Line } from '../voice/draft'
 import { goBack, navigate } from '../lib/router'
 import { errorFx, successFx } from '../lib/feedback'
@@ -72,7 +73,13 @@ export function Voice() {
       }
       setDraft({ ...draft, lines }); setStage('review'); return
     }
-    const p = parse(text, s.index, s.customers.map((c) => c.name))
+    let p = parse(text, s.index, s.customers.map((c) => c.name))
+    if (needsAi(p)) {
+      setWords(t('understanding'))
+      const ai = await askAi(text, s.index, s.customers.map((c) => c.name))
+      setWords(text)
+      if (ai && (p.intent === 'unknown' || ai.items.filter((i) => i.candidates.length).length >= p.items.filter((i) => i.candidates.length).length)) p = ai
+    }
     const d = buildDraft(p, s)
     setDraft(d); setStage('review')
     if (store) supabase.from('usage_events').insert({ store_id: store.id, kind: 'voice', meta: { intent: p.intent, sure: p.sure } }).then(() => {})
