@@ -50,6 +50,14 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 
 - ⏳ Mock bills — owner decided: none (everything real).
 
+## S4b · Owner requests (23 Nov)
+- ⏳ Add customer in Udhaar tab (name, phone, opening udhaar).
+- ⏳ Same-name customers: tell apart (phone / area / nickname) in voice, review and Udhaar.
+- ⏳ After saving: show "Ghar" (home) button instead of "Naya bill".
+- ⏳ Maal item sheet: set available quantity directly.
+- ⏳ Chips/namkeen flavours: catalogue variants (Lays, Balaji, Bingo, Kurkure… by flavour + size) and voice auto-detect.
+- ⏳ Online store: full merchant flow + customer flow + how customers find the store (questions pending).
+
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
 - ⏳ Aaj ka hisaab screen — sales, cash vs UPI, udhaar given/collected, supplier dues.
