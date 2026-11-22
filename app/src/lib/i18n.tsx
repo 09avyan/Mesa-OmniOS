@@ -69,7 +69,7 @@ const S = {
 
   // voice flow
   listenTitle: { hinglish: 'Boliye, sun raha hoon', hi: 'बोलिए, सुन रहा हूँ', en: 'Speak, I am listening' },
-  listenNote: { hinglish: 'Bolna band karte hi aage badhega.', hi: 'बोलना बंद करते ही आगे बढ़ेगा।', en: 'It moves on when you stop speaking.' },
+  listenNote: { hinglish: 'Saara saaman bol dijiye. Ruk kar sochna theek hai. Khatam hone par "Ho gaya" dabaiye.', hi: 'सारा सामान बोल दीजिए। रुककर सोचना ठीक है। खत्म होने पर "हो गया" दबाइए।', en: 'Say all the items. Pausing is fine. Tap "Done" when finished.' },
   listenDone: { hinglish: 'Ho gaya, aage chalo', hi: 'हो गया, आगे चलो', en: 'Done, continue' },
   listenAgain: { hinglish: 'Phir se bolo', hi: 'फिर से बोलो', en: 'Speak again' },
   micSpeaking: { hinglish: 'Sun raha hai', hi: 'सुन रहा है', en: 'Listening' },

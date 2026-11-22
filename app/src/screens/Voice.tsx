@@ -47,6 +47,7 @@ export function Voice() {
     if (!append) setStage('listen')
     stopRef.current = listen({
       lang: lang === 'en' ? 'en-IN' : 'hi-IN',
+      silenceMs: 4000, // shopkeepers pause between items; wait before moving to review
       onWords: setWords,
       onDone: (text) => { setListening(false); understand(text, append) },
       onError: (e) => { setListening(false); setErr(e); if (e === 'no-speech' || e === 'other' || e === 'network') errorFx() },
@@ -101,7 +102,8 @@ export function Voice() {
           <BackBar />
           <h1 className="h1" style={{ marginTop: 8 }}>{listening ? t('listenTitle') : msg ? t('notUnderstood') : t('listenTitle')}</h1>
           <p className="live" aria-live="polite">{words || (listening ? '…' : '')}</p>
-          {listening && <p style={{ marginTop: 24 }}>{t('listenNote')}</p>}
+          {listening && shop && words && <LivePreview words={words} shop={shop} />}
+          {listening && <p style={{ marginTop: 20 }}>{t('listenNote')}</p>}
           {msg && <><div className="gap16" /><div className="err" role="alert">{msg}</div></>}
           {!listening && <TypeBox value={typed} onChange={setTyped} onGo={() => typed.trim() && understand(typed.trim(), false)} />}
         </main>
@@ -157,6 +159,23 @@ export function Voice() {
       fix={fix} bar={listenBar} listening={listening} words={appendMode ? words : ''}
       onSaved={(s) => { setSaved(s); setStage('done') }}
     />
+  )
+}
+
+// While speaking: show what is being understood, item by item, so the owner can keep going.
+function LivePreview({ words, shop }: { words: string; shop: Shop }) {
+  const p = parse(words, shop.index, shop.customers.map((c) => c.name))
+  if (!p.customer && p.items.length === 0) return null
+  return (
+    <div className="card" style={{ marginTop: 20, padding: '14px 18px' }}>
+      {p.customer && <div className="h2" style={{ marginBottom: 6 }}>{p.customer}</div>}
+      {p.items.map((i, k) => (
+        <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', fontWeight: 600 }}>
+          <span>{i.candidates[0] ? (i.candidates[0].item as ShopMatchable).shop?.name ?? i.candidates[0].item.hinglish : `"${i.said}"`}</span>
+          <span className="lab">{i.qty ?? ''} {i.unit ?? ''}</span>
+        </div>
+      ))}
+    </div>
   )
 }
 
