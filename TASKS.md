@@ -76,7 +76,7 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 ## S4e · Owner requests (24 Nov, evening)
 - ✅ Order screens show item names in the chosen language (was Hinglish "Cheeni" in Hindi mode).
 - ✅ Deleting a bill made from an online order: order goes back to "Taiyaar" + message to the owner.
-- 🔄 Branded staples: Silver Coin, Aashirvaad, Gangwal, Pillsbury, Fortune, Rajdhani… atta/maida/suji/besan/poha/rice by pack size (Haiku adding).
+- ✅ Branded staples: Silver Coin, Aashirvaad, Gangwal, Pillsbury, Fortune, Rajdhani… atta/maida/suji/besan/poha/rice by pack size (38 items, voice-tested).
 - ⏳ Edge cases + safety checks — list and discuss with owner (negative stock, offline mid-save, duplicate bills, wrong customer, PIN guessing, fake orders, price errors, undo limits, data loss, privacy).
 
 ## NEXT BUILD

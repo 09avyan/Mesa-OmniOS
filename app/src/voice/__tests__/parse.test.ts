@@ -156,3 +156,9 @@ describe('chips flavours', () => {
     expect(i.candidates.length).toBeGreaterThan(1)
   })
 })
+
+describe('branded staples', () => {
+  const top = (t: string) => parse(t, idx).items[0].candidates[0].item.hinglish.toLowerCase()
+  it('silver coin atta 5 kilo wala', () => expect(top('ek silver coin atta 5 kilo wala')).toContain('silver coin'))
+  it('gangwal maida', () => expect(top('2 gangwal maida')).toContain('gangwal'))
+})
