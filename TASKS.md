@@ -80,6 +80,7 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ⏳ Edge cases + safety checks — list and discuss with owner (negative stock, offline mid-save, duplicate bills, wrong customer, PIN guessing, fake orders, price errors, undo limits, data loss, privacy).
 
 ## NEXT BUILD
+- ⏳ Full UI redo again (all merchant + customer screens), design-skill led, owner-test rounds ≥ 9/10.
 - 🔄 Redo all UI — merchant side pass 1 done (Home hero, shared design polish, app-styled pop-ups, review fixes); next: deeper per-screen redesign + owner-test rounds ≥ 9/10; customer side later.
 
 ## S5 · Daily payoff
