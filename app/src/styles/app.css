@@ -154,3 +154,30 @@ input{font-size:20px}
 .undorow{display:flex;justify-content:space-between;align-items:center;padding:0 4px}
 .undo{border-radius:14px;font-weight:700;display:flex;align-items:center}
 .pill.pay-cash{background:var(--acs);color:var(--ac)}.pill.pay-upi{background:#E3ECF8;color:var(--c-maal)}.pill.pay-udhaar{background:var(--udsoft);color:var(--ud)}
+
+/* ---------- branded customer bill (/b/...) ---------- */
+.rcpt-page{min-height:100dvh;background:#F3EADA;padding:16px 16px 32px;display:flex;flex-direction:column;align-items:center}
+.rcpt-top{width:100%;max-width:420px;display:flex;justify-content:flex-end;margin-bottom:10px}
+.rcpt-lang{min-height:44px;padding:0 16px;border-radius:999px;background:#fff;box-shadow:var(--sh);font-weight:700;color:var(--ac)}
+.rcpt{width:100%;max-width:420px;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 8px 28px rgba(60,40,10,.10);position:relative;padding-bottom:22px;animation:enter .25s var(--ease) both;
+  -webkit-mask:radial-gradient(circle 7px at 9px 100%,#0000 98%,#000) bottom/18px 100% repeat-x;mask:radial-gradient(circle 7px at 9px 100%,#0000 98%,#000) bottom/18px 100% repeat-x}
+.rcpt-head{background:var(--ac);color:#fff;border-radius:18px 18px 0 0;padding:22px 20px 18px;text-align:center}
+.rcpt-store{font:800 26px/32px 'Baloo 2'}
+.rcpt-area{opacity:.85;font-size:17px}
+.rcpt-meta{display:flex;justify-content:space-between;gap:12px;padding:14px 20px 10px;font-size:16px;line-height:22px}
+.rcpt-meta span{display:block;color:var(--ink2)}
+.rcpt-cust{padding:0 20px 10px;font-size:18px}
+.rcpt-lines{margin:0 20px;border-top:2px dashed var(--line)}
+.rcpt-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.rcpt-th{color:var(--ink2);font-size:16px;font-weight:700;padding:10px 0 6px;letter-spacing:.3px}
+.rcpt-name{font-weight:700}.rcpt-sub{color:var(--ink2);font-size:16px}
+.rcpt-amt{font:700 20px 'Baloo 2';font-variant-numeric:tabular-nums;white-space:nowrap}
+.rcpt-tot{padding:12px 20px 0;position:relative}
+.rcpt-row2{display:flex;justify-content:space-between;color:var(--ink2)}
+.rcpt-grand{display:flex;justify-content:space-between;align-items:baseline;font:800 34px/40px 'Baloo 2';margin-top:6px}
+.rcpt-grand span:first-child{font:700 22px 'Baloo 2'}
+.rcpt-stamp{display:inline-block;margin-top:12px;padding:4px 12px;border:2px solid currentColor;border-radius:10px;font-weight:800;letter-spacing:.5px;transform:rotate(-3deg);font-size:16px}
+.rcpt-stamp.paid{color:var(--ac)}.rcpt-stamp.ud{color:var(--ud)}
+.rcpt-foot{text-align:center;color:var(--ink2);margin-top:18px;padding:0 20px}
+.rcpt-brand{margin-top:18px;display:flex;align-items:center;gap:8px;color:var(--ink2);font-size:16px}
+.rcpt-logo{width:22px;height:22px;border-radius:7px;background:var(--ac);display:grid;place-items:center}

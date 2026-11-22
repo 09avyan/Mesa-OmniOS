@@ -37,6 +37,8 @@ export function Voice() {
   const [appendMode, setAppendMode] = useState(false)
   const stopRef = useRef<{ stop(): void } | null>(null)
   const startRef = useRef<(append: boolean) => void>(() => {})
+  const draftRef = useRef<Draft | null>(null)
+  draftRef.current = draft
 
   useEffect(() => { loadShop().then(setShop) }, [])
 
@@ -66,16 +68,20 @@ export function Voice() {
   async function understand(text: string, append: boolean) {
     const s = shop ?? await loadShop()
     setShop(s)
-    if (append && draft) {
+    const cur = draftRef.current // latest bill, not the one from when listening started
+    if (append && cur) {
       // more items or corrections while reviewing: same item again = new quantity, otherwise add
-      const items = parseItems(tokenize(text), s.index)
-      const lines = [...draft.lines]
+      // a name said now (e.g. "Sharma ji ka hai") fills the customer; the rest are items
+      const full = parse(text, s.index, s.customers.map((c) => c.name))
+      const items = full.intent === 'bill' || full.intent === 'stock_in' ? full.items : parseItems(tokenize(text), s.index)
+      const lines = [...cur.lines]
+      if (full.customer && !cur.customerName && cur.intent === 'bill') { cur.customerName = full.customer; cur.customerSure = full.customerSure; cur.customer = s.customers.find((c) => c.name === full.customer) ?? null }
       for (const p of items) {
         const nl = lineFrom(p, s)
         const i = lines.findIndex((l) => l.match && nl.match && l.match.id === nl.match.id)
         if (i >= 0) lines[i] = { ...lines[i], qty: nl.qty ?? lines[i].qty }; else lines.push(nl)
       }
-      setDraft({ ...draft, lines }); setStage('review'); return
+      setDraft({ ...cur, lines }); setStage('review'); return
     }
     let p = parse(text, s.index, s.customers.map((c) => c.name))
     if (needsAi(p)) {
