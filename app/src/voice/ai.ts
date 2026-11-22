@@ -26,4 +26,4 @@ export async function askAi(text: string, idx: MatchIndex, customers: string[]):
 
 /** Should we ask the AI? Only when the rules clearly struggled. */
 export const needsAi = (p: Parsed) =>
-  p.intent === 'unknown' || p.items.some((i) => i.candidates.length === 0) || (p.intent === 'bill' && !p.customerSure)
+  p.intent === 'unknown' || (p.intent === 'bill' && p.items.length === 0 && !p.customer) || p.items.some((i) => i.candidates.length === 0) || (p.intent === 'bill' && !p.customerSure)

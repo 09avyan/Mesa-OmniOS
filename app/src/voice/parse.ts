@@ -162,6 +162,7 @@ export function parse(text: string, idx: MatchIndex, knownCustomers: string[] = 
   // Otherwise a bill: optional customer, then items.
   const { customer, customerSure, rest } = splitCustomer(toks, idx, knownCustomers)
   const items = parseItems(rest, idx)
-  if (items.length === 0) return { ...base, intent: 'unknown', customer, customerSure, sure: false }
+  // just a name (Sharma ji): start that customer's bill and listen for the items next
+  if (items.length === 0) return { ...base, intent: customer ? 'bill' : 'unknown', customer, customerSure, sure: false }
   return { ...base, intent: 'bill', customer, customerSure, items, sure: customerSure && items.every((i) => i.sure) }
 }

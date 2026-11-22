@@ -10,6 +10,7 @@ import { Settings } from './screens/Settings'
 import { Building } from './screens/Building'
 import { Admin } from './screens/Admin'
 import { Voice } from './screens/Voice'
+import { Bills, BillDetail } from './screens/Bills'
 import { BillPage } from './screens/BillPage'
 import { supabase } from './lib/supabase'
 
@@ -39,7 +40,7 @@ function Owner({ path }: { path: string }) {
   switch (path) {
     case '/': screen = <Home />; break
     case '/settings': screen = <Settings />; break
-    case '/bill': screen = <Building title={t('tabBill')} tabRoot />; break
+    case '/bill': screen = <Bills />; break
     case '/maal': screen = <Building title={t('tabMaal')} tabRoot />; break
     case '/udhaar': screen = <Building title={t('tabUdhaar')} tabRoot />; break
     case '/hisaab': screen = <Building title={t('fullHisaab')} />; break
@@ -47,7 +48,9 @@ function Owner({ path }: { path: string }) {
     case '/orders': screen = <Building title={t('rowOrders')} />; break
     case '/bags': screen = <Building title={t('rowBags')} />; break
     case '/terms': screen = <Building title={t('terms')} />; break
-    default: navigate('/', true); return null
+    default:
+      if (path.startsWith('/bill/')) { screen = <BillDetail id={path.slice(6)} />; break }
+      navigate('/', true); return null
   }
   return (
     <div className="app" key={path}>

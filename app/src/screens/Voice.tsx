@@ -36,6 +36,7 @@ export function Voice() {
   const [saved, setSaved] = useState<Saved | null>(null)
   const [appendMode, setAppendMode] = useState(false)
   const stopRef = useRef<{ stop(): void } | null>(null)
+  const startRef = useRef<(append: boolean) => void>(() => {})
 
   useEffect(() => { loadShop().then(setShop) }, [])
 
@@ -51,10 +52,12 @@ export function Voice() {
       onError: (e) => { setListening(false); setErr(e); if (e === 'no-speech' || e === 'other' || e === 'network') errorFx() },
     })
   }
+  startRef.current = start
   // Start listening as soon as the screen opens (the owner already pressed the mic). ?say= lets tests and demos inject words.
   useEffect(() => {
-    const say = new URLSearchParams(location.search).get('say')
-    if (say) { setWords(say); loadShop().then(() => understand(say, false)) } else start(false)
+    const q = new URLSearchParams(location.search), say = q.get('say')
+    if (q.get('manual')) { loadShop().then((s) => { setShop(s); setDraft({ intent: 'bill', heard: '', customerName: null, customer: null, customerSure: true, customerOthers: [], lines: [], amount: null, pay: 'cash' }); setStage('review') }) }
+    else if (say) { setWords(say); loadShop().then(() => understand(say, false)) } else start(false)
     return () => stopRef.current?.stop()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -82,6 +85,7 @@ export function Voice() {
     }
     const d = buildDraft(p, s)
     setDraft(d); setStage('review')
+    if (d.intent === 'bill' && d.lines.length === 0) setTimeout(() => startRef.current(true), 400)
     if (store) supabase.from('usage_events').insert({ store_id: store.id, kind: 'voice', meta: { intent: p.intent, sure: p.sure } }).then(() => {})
     if (d.intent === 'query' && speakOn()) speak(queryAnswer(d, t, lang), lang, speakRate())
   }
@@ -90,7 +94,7 @@ export function Voice() {
 
   // ---------- LISTEN ----------
   if (stage === 'listen') {
-    const msg = err === 'denied' ? t('micDenied') : err === 'no-speech' ? t('noSpeech') : err === 'unsupported' ? t('noMicSupport') : err ? t('offline') : null
+    const msg = err === 'denied' ? t('micDenied') : err === 'unsupported' ? t('noMicSupport') : err === 'network' ? t('offline') : err ? t('noSpeech') : null
     return (
       <div className="app">
         <main className="screen has-flow">
@@ -123,7 +127,7 @@ export function Voice() {
   // ---------- REVIEW: question / galla / unknown ----------
   if (draft.intent === 'query') return <AnswerView draft={draft} bar={listenBar} />
   if (draft.intent === 'galla') return <GallaView amount={draft.amount} bar={listenBar} />
-  if (draft.intent === 'unknown' || (draft.intent !== 'payment' && draft.lines.length === 0)) return (
+  if (draft.intent === 'unknown' || (draft.intent !== 'payment' && draft.intent !== 'bill' && draft.lines.length === 0)) return (
     <div className="app">
       <main className="screen has-flow">
         <BackBar />
@@ -242,11 +246,13 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
           </div>
         )}
 
-        <div className="items">
+        {isBill && draft.lines.length === 0 && <p className="h2" style={{ marginTop: 20, color: 'var(--ac)' }}>{t('sayItems')}</p>}
+        <div className="items" style={draft.lines.length ? undefined : { display: 'none' }}>
           {draft.lines.map((l) => <LineRow key={l.key} l={l} isBill={isBill} onPick={() => setPick(l)} onPad={(field) => setPad({ line: l, field })} fix={fix(l)}
             onRemove={() => setDraft({ ...draft, lines: draft.lines.filter((x) => x.key !== l.key) })} />)}
         </div>
         {listening && <p className="live" style={{ fontSize: 24, marginTop: 16 }}>{words || '…'}</p>}
+        <Tap className="linkrow" style={{ marginTop: 12 }} onClick={() => setPick({ key: 'new', said: '', match: null, candidates: [], sure: true, qty: 1, price: null, priceSure: false })}><span>+ {t('addItem')}</span><span>›</span></Tap>
 
         {isBill && ready && <>
           <div className="sec">{t('howPaid')}</div>
@@ -273,7 +279,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
       {bar}
 
       <ItemPicker open={!!pick} line={pick} shop={shop} onClose={() => setPick(null)}
-        onPick={(m) => { if (pick) { const pr = m.shop?.price ?? m.shop?.learned_price ?? m.lastPrice ?? null; fix(pick)({ match: m, sure: true, price: pr, priceSure: m.shop?.price != null || m.shop?.learned_price != null, qty: pick.qty ?? 1 }) } setPick(null) }} />
+        onPick={(m) => { if (pick && pick.key === 'new') { const pr = m.shop?.price ?? m.shop?.learned_price ?? m.lastPrice ?? null; setDraft({ ...draft, lines: [...draft.lines, { key: 'n' + Date.now(), said: '', match: m, candidates: [m], sure: true, qty: 1, price: pr, priceSure: m.shop?.price != null || m.shop?.learned_price != null }] }) } else if (pick) { const pr = m.shop?.price ?? m.shop?.learned_price ?? m.lastPrice ?? null; fix(pick)({ match: m, sure: true, price: pr, priceSure: m.shop?.price != null || m.shop?.learned_price != null, qty: pick.qty ?? 1 }) } setPick(null) }} />
       <NumberSheet open={!!pad} title={pad?.field === 'price' ? `${pad.line.match?.hinglish ?? ''} — ${t('priceAsk')}` : `${pad?.line.match?.hinglish ?? ''} — ${t('qtyAsk')}`}
         initial={pad ? (pad.field === 'price' ? pad.line.price : pad.line.qty) : null} unit={pad?.field === 'qty' ? unitLabel(pad.line.match?.unit) : '₹'}
         onClose={() => setPad(null)} onDone={(n) => pad && fix(pad.line)(pad.field === 'price' ? { price: n, priceSure: true } : { qty: n })} />

@@ -18,40 +18,65 @@ export type ListenError = 'denied' | 'no-speech' | 'network' | 'unsupported' | '
 export function listen(opts: {
   lang: 'hi-IN' | 'en-IN'
   onWords: (text: string) => void          // live words (final + interim)
-  onDone: (finalText: string) => void      // owner stopped / pause
+  onDone: (finalText: string) => void      // owner finished (pause after speaking)
   onError: (e: ListenError) => void
   silenceMs?: number
 }) {
   if (!RecCtor) { opts.onError('unsupported'); return { stop() {} } }
-  const rec = new RecCtor()
-  rec.lang = opts.lang; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1
-  let finalText = '', interim = '', ended = false, timer: ReturnType<typeof setTimeout> | undefined
-  const silence = opts.silenceMs ?? 1800
-  const arm = () => { clearTimeout(timer); timer = setTimeout(() => rec.stop(), silence) }
+  // Android Chrome ends a recognition session after every short pause and sometimes reports "network"
+  // for that. So: short sessions, restarted quietly, words kept across sessions; we decide when the owner is done.
+  const silence = opts.silenceMs ?? 2000
+  const started = Date.now()
+  let kept = '', interim = '', lastWords = 0, finished = false, userStop = false, fails = 0
+  let rec: Rec | null = null
+  let timer: ReturnType<typeof setInterval> | undefined
 
-  rec.onresult = (e) => {
-    interim = ''
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const r = e.results[i]
-      if (r.isFinal) finalText += r[0].transcript + ' '; else interim += r[0].transcript
+  const text = () => (kept + ' ' + interim).replace(/\s+/g, ' ').trim()
+  const finish = (err?: ListenError) => {
+    if (finished) return
+    finished = true; clearInterval(timer)
+    try { rec?.abort() } catch { /* ignore */ }
+    const t = text()
+    if (t) opts.onDone(t); else opts.onError(err ?? 'no-speech')
+  }
+  const startOne = () => {
+    if (finished) return
+    const r = new RecCtor!()
+    rec = r
+    r.lang = opts.lang; r.interimResults = true; r.continuous = false; r.maxAlternatives = 1
+    r.onresult = (e) => {
+      interim = ''
+      let fin = ''
+      for (let i = 0; i < e.results.length; i++) {
+        const x = e.results[i]
+        if (x.isFinal) fin += x[0].transcript + ' '; else interim += x[0].transcript
+      }
+      if (fin) { kept = (kept + ' ' + fin).trim(); interim = '' }
+      lastWords = Date.now(); fails = 0
+      opts.onWords(text())
     }
-    opts.onWords((finalText + interim).trim())
-    arm()
+    r.onerror = (e) => {
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { finish('denied'); return }
+      if (e.error === 'network' || e.error === 'audio-capture') fails++
+      // 'no-speech' / 'aborted' / brief 'network': onend restarts quietly
+    }
+    r.onend = () => {
+      if (finished) return
+      if (interim) { kept = (kept + ' ' + interim).trim(); interim = '' }
+      if (userStop) { finish(); return }
+      if (fails >= 3) { finish(navigator.onLine ? 'other' : 'network'); return }
+      setTimeout(startOne, 120)
+    }
+    try { r.start() } catch { setTimeout(startOne, 300) }
   }
-  rec.onerror = (e) => {
-    if (e.error === 'no-speech') return // keep waiting; onend handles empty
-    ended = true; clearTimeout(timer)
-    opts.onError(e.error === 'not-allowed' || e.error === 'service-not-allowed' ? 'denied' : e.error === 'network' ? 'network' : 'other')
-  }
-  rec.onend = () => {
-    clearTimeout(timer)
-    if (ended) return
-    ended = true
-    const text = (finalText + interim).trim()
-    if (text) opts.onDone(text); else opts.onError('no-speech')
-  }
-  try { rec.start(); arm(); timer = setTimeout(() => rec.stop(), 8000) } catch { opts.onError('other') }
-  return { stop() { try { rec.stop() } catch { /* already stopped */ } } }
+  timer = setInterval(() => {
+    const now = Date.now()
+    if (text() && now - lastWords > silence) { userStop = true; finish() }     // spoke, then paused
+    else if (!text() && now - started > 9000) finish('no-speech')              // nothing heard
+    else if (now - started > 25000) finish()                                   // safety cap
+  }, 250)
+  startOne()
+  return { stop() { userStop = true; finish() } }
 }
 
 // Speak an answer aloud (decision 8). Uses the phone's own Hindi/English voice.
