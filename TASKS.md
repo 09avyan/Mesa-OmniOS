@@ -62,6 +62,15 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ⏳ PIN lockout + logged-in phones list (owner + admin).
 - ⏳ Khata photo import (OCR) — after receipts; brief had it in Phase 2.
 
+## S4c · Owner requests (24 Nov)
+- ⏳ Mock data in TEST store only (customers, items with prices, bills, udhaar, orders, requests); never deleted unless owner asks.
+- ⏳ Online store redesign — make it beautiful, not bland.
+- ⏳ QR icon next to Settings on Home (opens store QR).
+- ⏳ Settings: merchant UPI ID; UPI payment shows QR with amount filled; close option (paid via printed QR).
+
+## NEXT BUILD
+- ⏳ Redo all UI (every screen) with design skills, then owner-test rounds ≥ 9/10.
+
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
 - ⏳ Aaj ka hisaab screen — sales, cash vs UPI, udhaar given/collected, supplier dues.
