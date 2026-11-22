@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 const depth = () => (history.state as { d?: number } | null)?.d ?? 0
 
 export function navigate(path: string, replace = false) {
-  if (path === location.pathname) return
+  if (path === location.pathname + location.search) return
   if (replace) history.replaceState({ d: depth() }, '', path)
   else history.pushState({ d: depth() + 1 }, '', path)
   window.dispatchEvent(new PopStateEvent('popstate'))
@@ -16,8 +16,9 @@ export function goBack(fallback = '/') {
 }
 export function usePath() {
   const [path, setPath] = useState(location.pathname)
+  const [, bump] = useState(0)
   useEffect(() => {
-    const on = () => setPath(location.pathname)
+    const on = () => { setPath(location.pathname); bump((n) => n + 1) }
     window.addEventListener('popstate', on)
     return () => window.removeEventListener('popstate', on)
   }, [])

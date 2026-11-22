@@ -2,18 +2,21 @@ import { useState } from 'react'
 import { I18nProvider, savedLang, useT } from './lib/i18n'
 import { StoreProvider, useStore } from './lib/store'
 import { navigate, usePath } from './lib/router'
-import { BottomBar, Sheet, Tap, ToastHost } from './components/ui'
+import { BottomBar, Tap, ToastHost } from './components/ui'
 import { Language } from './screens/Language'
 import { Login } from './screens/Login'
 import { Home } from './screens/Home'
 import { Settings } from './screens/Settings'
 import { Building } from './screens/Building'
 import { Admin } from './screens/Admin'
+import { Voice } from './screens/Voice'
+import { BillPage } from './screens/BillPage'
 import { supabase } from './lib/supabase'
 
 export default function App() {
   const path = usePath()
   if (path.startsWith('/admin')) return <><Admin /><ToastHost /></>
+  if (path.startsWith('/b/')) return <BillPage token={path.slice(3)} />
   return <I18nProvider><StoreProvider><Owner path={path} /><ToastHost /></StoreProvider></I18nProvider>
 }
 
@@ -21,7 +24,6 @@ function Owner({ path }: { path: string }) {
   const { t } = useT()
   const { session, store, ready, storeMissing } = useStore()
   const [langChosen, setLangChosen] = useState(!!savedLang())
-  const [soon, setSoon] = useState(false)
 
   if (!langChosen) return <Language onDone={() => setLangChosen(true)} />
   if (!ready) return <main className="screen"><div style={{ height: 80 }} /><div className="skel" style={{ width: '60%' }} /><div className="gap16" /><div className="skel" style={{ height: 160 }} /></main>
@@ -31,6 +33,7 @@ function Owner({ path }: { path: string }) {
       <Tap className="btn quiet" onClick={() => supabase.auth.signOut()}>{t('logout')}</Tap></main>
   )
 
+  if (path === '/bolo') return <Voice key={location.search} />
   const tab = path === '/' ? 'home' : path.startsWith('/bill') ? 'bill' : path.startsWith('/maal') ? 'maal' : path.startsWith('/udhaar') ? 'udhaar' : undefined
   let screen
   switch (path) {
@@ -49,12 +52,7 @@ function Owner({ path }: { path: string }) {
   return (
     <div className="app" key={path}>
       {screen}
-      <BottomBar active={tab} onMic={() => setSoon(true)} />
-      <Sheet open={soon} onClose={() => setSoon(false)}>
-        <h2 className="h2">{t('micSoonTitle')}</h2><div className="gap8" />
-        <p className="lab">{t('micSoonBody')}</p><div className="gap24" />
-        <Tap className="btn primary" onClick={() => setSoon(false)}>{t('ok')}</Tap>
-      </Sheet>
+      <BottomBar active={tab} onMic={() => navigate('/bolo')} />
     </div>
   )
 }
