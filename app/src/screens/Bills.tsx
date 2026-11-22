@@ -6,10 +6,11 @@ import { invalidateShop } from '../lib/shop'
 import { errorFx, successFx } from '../lib/feedback'
 import { BackBar, Tap, toast } from '../components/ui'
 import { Icon } from '../components/Icon'
+import { BillCard } from '../components/BillCard'
+import { useStore } from '../lib/store'
 
-type BillRow = { id: string; total: number; pay: 'cash' | 'upi' | 'udhaar'; status: string; created_at: string; share_token: string; customers: { name: string } | null; bill_lines: { name: string; qty: number; unit: string; price: number; amount: number }[] }
+type BillRow = { id: string; total: number; pay: 'cash' | 'upi' | 'udhaar'; status: string; created_at: string; share_token: string; customers: { name: string } | null; bill_lines: { name: string; qty: number; unit: string; price: number; amount: number; items: { catalog_id: string | null; name_hi: string | null } | null }[]; subtotal: number; discount: number }
 const time = (s: string) => new Date(s).toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' })
-const units: Record<string, string> = { kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' }
 
 // Bill tab: make a bill (voice or by choosing items) + today's bills.
 export function Bills() {
@@ -17,7 +18,7 @@ export function Bills() {
   const [bills, setBills] = useState<BillRow[] | null>(null)
   useEffect(() => {
     const start = new Date(); start.setHours(0, 0, 0, 0)
-    supabase.from('bills').select('id,total,pay,status,created_at,share_token,customers(name),bill_lines(name,qty,unit,price,amount)')
+    supabase.from('bills').select('id,total,subtotal,discount,pay,status,created_at,share_token,customers(name),bill_lines(name,qty,unit,price,amount,items(catalog_id,name_hi))')
       .gte('created_at', start.toISOString()).order('created_at', { ascending: false }).limit(100)
       .then(({ data }) => setBills((data ?? []) as unknown as BillRow[]))
   }, [])
@@ -57,8 +58,9 @@ export function Bills() {
 
 export function BillDetail({ id }: { id: string }) {
   const { t, lang } = useT()
+  const { store } = useStore()
   const [b, setB] = useState<BillRow | null | undefined>(undefined)
-  const load = () => supabase.from('bills').select('id,total,pay,status,created_at,share_token,customers(name),bill_lines(name,qty,unit,price,amount)').eq('id', id).maybeSingle()
+  const load = () => supabase.from('bills').select('id,total,subtotal,discount,pay,status,created_at,share_token,customers(name),bill_lines(name,qty,unit,price,amount,items(catalog_id,name_hi))').eq('id', id).maybeSingle()
     .then(({ data }) => setB(data as unknown as BillRow | null))
   useEffect(() => { load() }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
   if (b === undefined) return <main className="screen has-bar"><BackBar fallback="/bill" /><div className="skel" style={{ height: 200 }} /></main>
@@ -73,18 +75,9 @@ export function BillDetail({ id }: { id: string }) {
   return (
     <main className="screen has-bar">
       <BackBar fallback="/bill" />
-      <h1 className="h1">{b.customers?.name ?? t('walkIn')}</h1>
-      <p className="lab">{time(b.created_at)} · {t(b.pay as Key)}{b.status !== 'saved' ? ' · ' + t('removedWord') : ''}</p>
-      <div className="card" style={{ marginTop: 16, padding: '12px 20px' }}>
-        {b.bill_lines.map((l, i) => (
-          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, padding: '10px 0', borderTop: i ? '1px solid var(--line)' : 'none' }}>
-            <div><b>{l.name}</b><div className="lab" style={{ fontSize: 17 }}>{+Number(l.qty).toFixed(3)} {units[l.unit] ?? ''} × ₹{+Number(l.price).toFixed(2)}</div></div>
-            <div className="num" style={{ fontSize: 20 }}>{rupees(l.amount)}</div>
-          </div>
-        ))}
-        <div className="divider" />
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}><span className="h2">{t('total')}</span><span className="big" style={{ fontSize: 38 }}>{rupees(b.total)}</span></div>
-      </div>
+      <BillCard lang={lang} brand={false} b={{ store: store?.name ?? '', customer: b.customers?.name ?? null, pay: b.pay, subtotal: Number(b.subtotal), discount: Number(b.discount), total: Number(b.total),
+        status: b.status, at: b.created_at, no: b.share_token.slice(0, 6).toUpperCase(),
+        lines: b.bill_lines.map((l) => ({ ...l, catalog_id: l.items?.catalog_id ?? null, name_hi: l.items?.name_hi ?? null })) }} />
       {b.status === 'saved' && <>
         <a className="wa tap" href={wa} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}><Icon name="wa" size={26} />{t('sendWaWalkIn')}</a>
         <div className="undorow" style={{ marginTop: 32 }}><span className="lab">{t('mistake')}</span>

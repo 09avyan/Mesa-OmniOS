@@ -14,9 +14,10 @@ import { errorFx, successFx } from '../lib/feedback'
 import { BackBar, BottomBar, Sheet, Tap, toast } from '../components/ui'
 import { NumberSheet } from '../components/Pad'
 import { Icon } from '../components/Icon'
+import { BillCard } from '../components/BillCard'
 
 type Stage = 'listen' | 'review' | 'done'
-type Saved = { kind: 'bill'; billId: string; token: string; total: number; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
+type Saved = { kind: 'bill'; billId: string; token: string; total: number; discount: number; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
   | { kind: 'stock'; lines: Line[] } | { kind: 'payment'; customer: string; amount: number; balance: number }
 
 const unitLabel = (u?: string) => ({ kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' } as Record<string, string>)[u ?? ''] ?? ''
@@ -232,7 +233,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
     successFx(); invalidateShop()
     if (isBill) {
       const r = res.data as { bill_id: string; share_token: string; total: number; balance: number | null; has_unrecorded: boolean }
-      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), customer: draft.customerName, pay: draft.pay, balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
+      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, customer: draft.customerName, pay: draft.pay, balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
     } else onSaved({ kind: 'stock', lines: draft.lines })
   }
 
@@ -519,19 +520,25 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
   return (
     <div className="app">
       <main className="screen has-flow">
-        <div className="ok"><div className="okc"><Icon name="tick" size={48} stroke={3} /></div>
-          <h1 className="h1" style={{ marginTop: 22 }}>{saved.kind === 'bill' ? t('billSaved') : saved.kind === 'stock' ? t('stockAdded') : t('paySaved')}</h1>
-          {saved.kind === 'bill' && <><div className="lab" style={{ marginTop: 4 }}>{saved.customer ?? t('walkIn')} · {t(saved.pay as Key)}</div><div className="big" style={{ marginTop: 6 }}>{rupees(saved.total)}</div></>}
-          {saved.kind === 'payment' && <><div className="lab" style={{ marginTop: 4 }}>{saved.customer}</div><div className="big" style={{ marginTop: 6 }}>{rupees(saved.amount)}</div></>}
-        </div>
-        <div className="changed">
-          <span>
-            {saved.kind === 'bill' && saved.pay === 'udhaar' && saved.balance != null && <>{saved.customer} {t('udhaarTotal')}: <b>{rupees(saved.balance)}</b><br /></>}
-            {saved.kind === 'bill' && <>{t('stockLess')}: {lineSummary}</>}
+        {saved.kind === 'bill' ? (
+          <div style={{ marginTop: 4 }}>
+            <BillCard lang={lang} brand={false} b={{
+              store: store?.name ?? '', customer: saved.customer, pay: saved.pay, subtotal: saved.total + saved.discount, discount: saved.discount, total: saved.total, status: 'saved',
+              at: new Date().toISOString(), no: saved.token.slice(0, 6).toUpperCase(),
+              lines: saved.lines.map((l) => ({ name: l.match?.shop?.name ?? l.match?.hinglish ?? '', name_hi: l.match?.hi, catalog_id: l.match && !l.match.id.startsWith('shop:') ? l.match.id : null, qty: l.qty ?? 0, unit: l.match?.shop?.unit ?? l.match?.unit ?? 'pc', price: l.price ?? 0, amount: lineTotal(l) })),
+            }} />
+            {saved.pay === 'udhaar' && saved.balance != null && <div className="udnote">{saved.customer} {t('udhaarTotal')}: {rupees(saved.balance)}</div>}
+          </div>
+        ) : <>
+          <div className="ok"><div className="okc"><Icon name="tick" size={48} stroke={3} /></div>
+            <h1 className="h1" style={{ marginTop: 22 }}>{saved.kind === 'stock' ? t('stockAdded') : t('paySaved')}</h1>
+            {saved.kind === 'payment' && <><div className="lab" style={{ marginTop: 4 }}>{saved.customer}</div><div className="big" style={{ marginTop: 6 }}>{rupees(saved.amount)}</div></>}
+          </div>
+          <div className="changed"><span>
             {saved.kind === 'stock' && <>+ {lineSummary}</>}
             {saved.kind === 'payment' && <>{t('balanceAfter')}: <b>{rupees(saved.balance)}</b></>}
-          </span>
-        </div>
+          </span></div>
+        </>}
         {saved.kind === 'bill' && saved.unrecorded && <p className="lab" style={{ marginTop: 12 }}>{t('unrecordedNote')}</p>}
         {saved.kind === 'bill' && <>
           <a className="wa tap" href={`https://wa.me/?text=${waText}`} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}>
