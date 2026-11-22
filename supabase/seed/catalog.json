@@ -5239,5 +5239,742 @@
       "एक्ट टू चीज़",
       "चीज़ एक्ट"
     ]
+  },
+  {
+    "id": "silver-coin-atta-1kg",
+    "hinglish": "Silver Coin Atta 1kg",
+    "hi": "सिल्वर कॉइन आटा 1 किलो",
+    "en": "Silver Coin Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin atta 1kg",
+      "silver coin atta 1 kilo",
+      "silwar coin aata 1kg",
+      "silvercoin aata 1kg",
+      "silver coin ka atta ek kilo",
+      "silver coin atta ek kilo wala",
+      "सिल्वर कॉइन आटा 1 किलो",
+      "सिल्वर कॉइन आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-atta-5kg",
+    "hinglish": "Silver Coin Atta 5kg",
+    "hi": "सिल्वर कॉइन आटा 5 किलो",
+    "en": "Silver Coin Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin atta 5kg",
+      "silver coin atta 5 kilo",
+      "silwar coin aata 5kg",
+      "silvercoin aata 5kg",
+      "silver coin ka atta paanch kilo",
+      "silver coin atta paanch kilo wala",
+      "सिल्वर कॉइन आटा 5 किलो",
+      "सिल्वर कॉइन आटा पांच किलो वाला",
+      "सिल्वर कॉइन आटा"
+    ]
+  },
+  {
+    "id": "silver-coin-atta-10kg",
+    "hinglish": "Silver Coin Atta 10kg",
+    "hi": "सिल्वर कॉइन आटा 10 किलो",
+    "en": "Silver Coin Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin atta 10kg",
+      "silver coin atta 10 kilo",
+      "silwar coin aata 10kg",
+      "silvercoin aata 10kg",
+      "silver coin ka atta das kilo",
+      "silver coin atta das kilo wala",
+      "सिल्वर कॉइन आटा 10 किलो",
+      "सिल्वर कॉइन आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "aashirvaad-atta-1kg",
+    "hinglish": "Aashirvaad Atta 1kg",
+    "hi": "आशीर्वाद आटा 1 किलो",
+    "en": "Aashirvaad Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Aashirvaad",
+    "aliases": [
+      "aashirvaad atta 1kg",
+      "aashirvaad atta 1 kilo",
+      "ashirwad aata 1kg",
+      "aashirwad aata 1kg",
+      "aashirvaad ka atta ek kilo",
+      "aashirvaad atta ek kilo wala",
+      "आशीर्वाद आटा 1 किलो",
+      "आशीर्वाद आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "pillsbury-chakki-fresh-atta-1kg",
+    "hinglish": "Pillsbury Chakki Fresh Atta 1kg",
+    "hi": "पिल्सबरी चक्की फ्रेश आटा 1 किलो",
+    "en": "Pillsbury Chakki Fresh Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Pillsbury",
+    "aliases": [
+      "pillsbury chakki fresh atta 1kg",
+      "pillsbury chakki fresh atta 1 kilo",
+      "pillsberry chakki fresh aata 1kg",
+      "pillsbury chakki aata 1kg",
+      "pillsbury chakki fresh ka atta ek kilo",
+      "pillsbury chakki fresh atta ek kilo wala",
+      "पिल्सबरी चक्की फ्रेश आटा 1 किलो",
+      "पिल्सबरी चक्की फ्रेश आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "pillsbury-chakki-fresh-atta-10kg",
+    "hinglish": "Pillsbury Chakki Fresh Atta 10kg",
+    "hi": "पिल्सबरी चक्की फ्रेश आटा 10 किलो",
+    "en": "Pillsbury Chakki Fresh Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Pillsbury",
+    "aliases": [
+      "pillsbury chakki fresh atta 10kg",
+      "pillsbury chakki fresh atta 10 kilo",
+      "pillsberry chakki fresh aata 10kg",
+      "pillsbury chakki aata 10kg",
+      "pillsbury chakki fresh ka atta das kilo",
+      "pillsbury chakki fresh atta das kilo wala",
+      "पिल्सबरी चक्की फ्रेश आटा 10 किलो",
+      "पिल्सबरी चक्की फ्रेश आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "fortune-chakki-fresh-atta-1kg",
+    "hinglish": "Fortune Chakki Fresh Atta 1kg",
+    "hi": "फॉर्च्यून चक्की फ्रेश आटा 1 किलो",
+    "en": "Fortune Chakki Fresh Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Fortune",
+    "aliases": [
+      "fortune chakki fresh atta 1kg",
+      "fortune chakki fresh atta 1 kilo",
+      "fortun chakki fresh aata 1kg",
+      "fortune chakki fresh ka atta ek kilo",
+      "fortune chakki fresh atta ek kilo wala",
+      "फॉर्च्यून चक्की फ्रेश आटा 1 किलो",
+      "फॉर्च्यून चक्की फ्रेश आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "fortune-chakki-fresh-atta-10kg",
+    "hinglish": "Fortune Chakki Fresh Atta 10kg",
+    "hi": "फॉर्च्यून चक्की फ्रेश आटा 10 किलो",
+    "en": "Fortune Chakki Fresh Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Fortune",
+    "aliases": [
+      "fortune chakki fresh atta 10kg",
+      "fortune chakki fresh atta 10 kilo",
+      "fortun chakki fresh aata 10kg",
+      "fortune chakki fresh ka atta das kilo",
+      "fortune chakki fresh atta das kilo wala",
+      "फॉर्च्यून चक्की फ्रेश आटा 10 किलो",
+      "फॉर्च्यून चक्की फ्रेश आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "shaktibhog-atta-1kg",
+    "hinglish": "Shaktibhog Atta 1kg",
+    "hi": "शक्तिभोग आटा 1 किलो",
+    "en": "Shaktibhog Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Shaktibhog",
+    "aliases": [
+      "shaktibhog atta 1kg",
+      "shaktibhog atta 1 kilo",
+      "shakti bhog aata 1kg",
+      "shaktibhog ka atta ek kilo",
+      "shaktibhog atta ek kilo wala",
+      "शक्तिभोग आटा 1 किलो",
+      "शक्तिभोग आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "shaktibhog-atta-5kg",
+    "hinglish": "Shaktibhog Atta 5kg",
+    "hi": "शक्तिभोग आटा 5 किलो",
+    "en": "Shaktibhog Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Shaktibhog",
+    "aliases": [
+      "shaktibhog atta 5kg",
+      "shaktibhog atta 5 kilo",
+      "shakti bhog aata 5kg",
+      "shaktibhog ka atta paanch kilo",
+      "shaktibhog atta paanch kilo wala",
+      "शक्तिभोग आटा 5 किलो",
+      "शक्तिभोग आटा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "shaktibhog-atta-10kg",
+    "hinglish": "Shaktibhog Atta 10kg",
+    "hi": "शक्तिभोग आटा 10 किलो",
+    "en": "Shaktibhog Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Shaktibhog",
+    "aliases": [
+      "shaktibhog atta 10kg",
+      "shaktibhog atta 10 kilo",
+      "shakti bhog aata 10kg",
+      "shaktibhog ka atta das kilo",
+      "shaktibhog atta das kilo wala",
+      "शक्तिभोग आटा 10 किलो",
+      "शक्तिभोग आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "annapurna-atta-1kg",
+    "hinglish": "Annapurna Atta 1kg",
+    "hi": "अन्नपूर्णा आटा 1 किलो",
+    "en": "Annapurna Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Annapurna",
+    "aliases": [
+      "annapurna atta 1kg",
+      "annapurna atta 1 kilo",
+      "annpurna aata 1kg",
+      "annapurna ka atta ek kilo",
+      "annapurna atta ek kilo wala",
+      "अन्नपूर्णा आटा 1 किलो",
+      "अन्नपूर्णा आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "annapurna-atta-5kg",
+    "hinglish": "Annapurna Atta 5kg",
+    "hi": "अन्नपूर्णा आटा 5 किलो",
+    "en": "Annapurna Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Annapurna",
+    "aliases": [
+      "annapurna atta 5kg",
+      "annapurna atta 5 kilo",
+      "annpurna aata 5kg",
+      "annapurna ka atta paanch kilo",
+      "annapurna atta paanch kilo wala",
+      "अन्नपूर्णा आटा 5 किलो",
+      "अन्नपूर्णा आटा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "annapurna-atta-10kg",
+    "hinglish": "Annapurna Atta 10kg",
+    "hi": "अन्नपूर्णा आटा 10 किलो",
+    "en": "Annapurna Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Annapurna",
+    "aliases": [
+      "annapurna atta 10kg",
+      "annapurna atta 10 kilo",
+      "annpurna aata 10kg",
+      "annapurna ka atta das kilo",
+      "annapurna atta das kilo wala",
+      "अन्नपूर्णा आटा 10 किलो",
+      "अन्नपूर्णा आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "patanjali-atta-1kg",
+    "hinglish": "Patanjali Atta 1kg",
+    "hi": "पतंजलि आटा 1 किलो",
+    "en": "Patanjali Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Patanjali",
+    "aliases": [
+      "patanjali atta 1kg",
+      "patanjali atta 1 kilo",
+      "patanjli aata 1kg",
+      "patanjali ka atta ek kilo",
+      "patanjali atta ek kilo wala",
+      "पतंजलि आटा 1 किलो",
+      "पतंजलि आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "patanjali-atta-5kg",
+    "hinglish": "Patanjali Atta 5kg",
+    "hi": "पतंजलि आटा 5 किलो",
+    "en": "Patanjali Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Patanjali",
+    "aliases": [
+      "patanjali atta 5kg",
+      "patanjali atta 5 kilo",
+      "patanjli aata 5kg",
+      "patanjali ka atta paanch kilo",
+      "patanjali atta paanch kilo wala",
+      "पतंजलि आटा 5 किलो",
+      "पतंजलि आटा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "patanjali-atta-10kg",
+    "hinglish": "Patanjali Atta 10kg",
+    "hi": "पतंजलि आटा 10 किलो",
+    "en": "Patanjali Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Patanjali",
+    "aliases": [
+      "patanjali atta 10kg",
+      "patanjali atta 10 kilo",
+      "patanjli aata 10kg",
+      "patanjali ka atta das kilo",
+      "patanjali atta das kilo wala",
+      "पतंजलि आटा 10 किलो",
+      "पतंजलि आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-atta-1kg",
+    "hinglish": "Rajdhani Atta 1kg",
+    "hi": "राजधानी आटा 1 किलो",
+    "en": "Rajdhani Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani atta 1kg",
+      "rajdhani atta 1 kilo",
+      "rajdani aata 1kg",
+      "rajdhani ka atta ek kilo",
+      "rajdhani atta ek kilo wala",
+      "राजधानी आटा 1 किलो",
+      "राजधानी आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-atta-5kg",
+    "hinglish": "Rajdhani Atta 5kg",
+    "hi": "राजधानी आटा 5 किलो",
+    "en": "Rajdhani Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani atta 5kg",
+      "rajdhani atta 5 kilo",
+      "rajdani aata 5kg",
+      "rajdhani ka atta paanch kilo",
+      "rajdhani atta paanch kilo wala",
+      "राजधानी आटा 5 किलो",
+      "राजधानी आटा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-atta-10kg",
+    "hinglish": "Rajdhani Atta 10kg",
+    "hi": "राजधानी आटा 10 किलो",
+    "en": "Rajdhani Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani atta 10kg",
+      "rajdhani atta 10 kilo",
+      "rajdani aata 10kg",
+      "rajdhani ka atta das kilo",
+      "rajdhani atta das kilo wala",
+      "राजधानी आटा 10 किलो",
+      "राजधानी आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-maida-1kg",
+    "hinglish": "Silver Coin Maida 1kg",
+    "hi": "सिल्वर कॉइन मैदा 1 किलो",
+    "en": "Silver Coin Maida 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin maida 1kg",
+      "silver coin maida 1 kilo",
+      "silwar coin maida 1kg",
+      "silver coin ka maida ek kilo",
+      "silver coin maida ek kilo wala",
+      "सिल्वर कॉइन मैदा 1 किलो",
+      "सिल्वर कॉइन मैदा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-maida-5kg",
+    "hinglish": "Silver Coin Maida 5kg",
+    "hi": "सिल्वर कॉइन मैदा 5 किलो",
+    "en": "Silver Coin Maida 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin maida 5kg",
+      "silver coin maida 5 kilo",
+      "silwar coin maida 5kg",
+      "silver coin ka maida paanch kilo",
+      "silver coin maida paanch kilo wala",
+      "सिल्वर कॉइन मैदा 5 किलो",
+      "सिल्वर कॉइन मैदा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-maida-1kg",
+    "hinglish": "Gangwal Maida 1kg",
+    "hi": "गंगवाल मैदा 1 किलो",
+    "en": "Gangwal Maida 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal maida 1kg",
+      "gangwal maida 1 kilo",
+      "gangval maida 1kg",
+      "gangwaal maida 1kg",
+      "gangwal ka maida ek kilo",
+      "gangwal maida ek kilo wala",
+      "गंगवाल मैदा 1 किलो",
+      "गंगवाल मैदा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-maida-5kg",
+    "hinglish": "Gangwal Maida 5kg",
+    "hi": "गंगवाल मैदा 5 किलो",
+    "en": "Gangwal Maida 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal maida 5kg",
+      "gangwal maida 5 kilo",
+      "gangval maida 5kg",
+      "gangwaal maida 5kg",
+      "gangwal ka maida paanch kilo",
+      "gangwal maida paanch kilo wala",
+      "गंगवाल मैदा 5 किलो",
+      "गंगवाल मैदा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-maida-1kg",
+    "hinglish": "Rajdhani Maida 1kg",
+    "hi": "राजधानी मैदा 1 किलो",
+    "en": "Rajdhani Maida 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani maida 1kg",
+      "rajdhani maida 1 kilo",
+      "rajdani maida 1kg",
+      "rajdhani ka maida ek kilo",
+      "rajdhani maida ek kilo wala",
+      "राजधानी मैदा 1 किलो",
+      "राजधानी मैदा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-maida-5kg",
+    "hinglish": "Rajdhani Maida 5kg",
+    "hi": "राजधानी मैदा 5 किलो",
+    "en": "Rajdhani Maida 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani maida 5kg",
+      "rajdhani maida 5 kilo",
+      "rajdani maida 5kg",
+      "rajdhani ka maida paanch kilo",
+      "rajdhani maida paanch kilo wala",
+      "राजधानी मैदा 5 किलो",
+      "राजधानी मैदा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-suji-1kg",
+    "hinglish": "Gangwal Suji 1kg",
+    "hi": "गंगवाल सूजी 1 किलो",
+    "en": "Gangwal Suji 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal suji 1kg",
+      "gangwal suji 1 kilo",
+      "gangval suji 1kg",
+      "gangwaal suji 1kg",
+      "gangwal ka suji ek kilo",
+      "gangwal suji ek kilo wala",
+      "गंगवाल सूजी 1 किलो",
+      "गंगवाल सूजी एक किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-suji-500g",
+    "hinglish": "Gangwal Suji 500g",
+    "hi": "गंगवाल सूजी 500 ग्राम",
+    "en": "Gangwal Suji 500g",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal suji 500g",
+      "gangwal suji 500 gram",
+      "gangval suji 500g",
+      "gangwaal suji 500g",
+      "gangwal ka suji aadha kilo",
+      "gangwal suji aadha kilo wala",
+      "गंगवाल सूजी 500 ग्राम",
+      "गंगवाल सूजी आधा किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-suji-1kg",
+    "hinglish": "Silver Coin Suji 1kg",
+    "hi": "सिल्वर कॉइन सूजी 1 किलो",
+    "en": "Silver Coin Suji 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin suji 1kg",
+      "silver coin suji 1 kilo",
+      "silwar coin suji 1kg",
+      "silver coin ka suji ek kilo",
+      "silver coin suji ek kilo wala",
+      "सिल्वर कॉइन सूजी 1 किलो",
+      "सिल्वर कॉइन सूजी एक किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-suji-500g",
+    "hinglish": "Silver Coin Suji 500g",
+    "hi": "सिल्वर कॉइन सूजी 500 ग्राम",
+    "en": "Silver Coin Suji 500g",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin suji 500g",
+      "silver coin suji 500 gram",
+      "silwar coin suji 500g",
+      "silver coin ka suji aadha kilo",
+      "silver coin suji aadha kilo wala",
+      "सिल्वर कॉइन सूजी 500 ग्राम",
+      "सिल्वर कॉइन सूजी आधा किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-besan-1kg",
+    "hinglish": "Gangwal Besan 1kg",
+    "hi": "गंगवाल बेसन 1 किलो",
+    "en": "Gangwal Besan 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal besan 1kg",
+      "gangwal besan 1 kilo",
+      "gangval besan 1kg",
+      "gangwaal besan 1kg",
+      "gangwal ka besan ek kilo",
+      "gangwal besan ek kilo wala",
+      "गंगवाल बेसन 1 किलो",
+      "गंगवाल बेसन एक किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-besan-1kg",
+    "hinglish": "Rajdhani Besan 1kg",
+    "hi": "राजधानी बेसन 1 किलो",
+    "en": "Rajdhani Besan 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani besan 1kg",
+      "rajdhani besan 1 kilo",
+      "rajdani besan 1kg",
+      "rajdhani ka besan ek kilo",
+      "rajdhani besan ek kilo wala",
+      "राजधानी बेसन 1 किलो",
+      "राजधानी बेसन एक किलो वाला"
+    ]
+  },
+  {
+    "id": "tata-sampann-besan-500g",
+    "hinglish": "Tata Sampann Besan 500g",
+    "hi": "टाटा संपन्न बेसन 500 ग्राम",
+    "en": "Tata Sampann Besan 500g",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Tata Sampann",
+    "aliases": [
+      "tata sampann besan 500g",
+      "tata sampann besan 500 gram",
+      "tata sampan besan 500g",
+      "tata sampann ka besan aadha kilo",
+      "tata sampann besan aadha kilo wala",
+      "टाटा संपन्न बेसन 500 ग्राम",
+      "टाटा संपन्न बेसन आधा किलो वाला"
+    ]
+  },
+  {
+    "id": "tata-sampann-besan-1kg",
+    "hinglish": "Tata Sampann Besan 1kg",
+    "hi": "टाटा संपन्न बेसन 1 किलो",
+    "en": "Tata Sampann Besan 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Tata Sampann",
+    "aliases": [
+      "tata sampann besan 1kg",
+      "tata sampann besan 1 kilo",
+      "tata sampan besan 1kg",
+      "tata sampann ka besan ek kilo",
+      "tata sampann besan ek kilo wala",
+      "टाटा संपन्न बेसन 1 किलो",
+      "टाटा संपन्न बेसन एक किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-poha-1kg",
+    "hinglish": "Gangwal Poha 1kg",
+    "hi": "गंगवाल पोहा 1 किलो",
+    "en": "Gangwal Poha 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal poha 1kg",
+      "gangwal poha 1 kilo",
+      "gangval poha 1kg",
+      "gangwaal poha 1kg",
+      "gangwal ka poha ek kilo",
+      "gangwal poha ek kilo wala",
+      "गंगवाल पोहा 1 किलो",
+      "गंगवाल पोहा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-poha-1kg",
+    "hinglish": "Silver Coin Poha 1kg",
+    "hi": "सिल्वर कॉइन पोहा 1 किलो",
+    "en": "Silver Coin Poha 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin poha 1kg",
+      "silver coin poha 1 kilo",
+      "silwar coin poha 1kg",
+      "silver coin ka poha ek kilo",
+      "silver coin poha ek kilo wala",
+      "सिल्वर कॉइन पोहा 1 किलो",
+      "सिल्वर कॉइन पोहा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "india-gate-basmati-5kg",
+    "hinglish": "India Gate Basmati 5kg",
+    "hi": "इंडिया गेट बासमती चावल 5 किलो",
+    "en": "India Gate Basmati 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "India Gate",
+    "aliases": [
+      "india gate basmati 5kg",
+      "india gate basmati 5 kilo",
+      "indiya gate basmati 5kg",
+      "india get basmati 5kg",
+      "india gate ka basmati paanch kilo",
+      "india gate basmati paanch kilo wala",
+      "इंडिया गेट बासमती चावल 5 किलो",
+      "इंडिया गेट बासमती चावल पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "daawat-basmati-1kg",
+    "hinglish": "Daawat Basmati 1kg",
+    "hi": "दावत बासमती चावल 1 किलो",
+    "en": "Daawat Basmati 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Daawat",
+    "aliases": [
+      "daawat basmati 1kg",
+      "daawat basmati 1 kilo",
+      "dawat basmati 1kg",
+      "daavat basmati 1kg",
+      "daawat ka basmati ek kilo",
+      "daawat basmati ek kilo wala",
+      "दावत बासमती चावल 1 किलो",
+      "दावत बासमती चावल एक किलो वाला"
+    ]
   }
 ]
