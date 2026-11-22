@@ -87,12 +87,6 @@ Deno.serve(async (req) => {
       const { error } = await db.auth.admin.updateUserById(su.user_id, { password: storePassword(s.code, pin) });
       return error ? fail(error.message) : json({ ok: true });
     }
-    case "set_slug": {
-      const slug = String(body.slug ?? "").toLowerCase();
-      if (!/^[a-z0-9-]{4,40}$/.test(slug)) return fail("Link: 4-40 letters, numbers or -");
-      const { error } = await db.from("stores").update({ public_slug: slug }).eq("id", body.store_id);
-      return error ? fail(error.code === "23505" ? "That link is taken" : error.message) : json({ ok: true });
-    }
     case "set_status": {
       const status = body.status === "paused" ? "paused" : "active";
       const { error } = await db.from("stores").update({ status }).eq("id", body.store_id);

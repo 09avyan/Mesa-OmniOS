@@ -1,12 +1,10 @@
 {
   "0": "App.tsx",
-  "1": "Voice.tsx",
-  "2": "ui.tsx",
-  "3": "Udhaar.tsx",
-  "4": "parse.ts",
-  "5": "shop.ts",
+  "1": "parse.ts",
+  "2": "Voice.tsx",
+  "3": "errorFx",
+  "4": "Udhaar.tsx",
+  "5": "BillPage.tsx",
   "6": "Maal.tsx",
-  "7": "numbers.ts",
-  "8": "normalize.ts",
-  "9": "vite-env.d.ts"
+  "7": "vite-env.d.ts"
 }
