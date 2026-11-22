@@ -20,6 +20,7 @@ const CATS: Record<string, [string, string, string]> = {
   'personal-care': ['Saabun-Shampoo', 'साबुन-शैम्पू', 'Personal care'], cleaning: ['Safai', 'सफ़ाई', 'Cleaning'], household: ['Ghar ka saaman', 'घर का सामान', 'Household'],
   baby: ['Bacche', 'बच्चे', 'Baby'], 'frozen-misc': ['Aur', 'और', 'Other'],
 }
+const EMO: Record<string, string> = { 'atta-rice-dal': '🌾', 'oil-ghee': '🫙', spices: '🌶️', 'sugar-salt': '🧂', 'tea-coffee': '☕', 'snacks-biscuits': '🍪', 'noodles-pasta': '🍜', 'dairy-bread': '🥛', beverages: '🥤', 'personal-care': '🧴', cleaning: '🧽', household: '🏠', baby: '🍼', 'frozen-misc': '🛍️' }
 const T = {
   hi: { search: 'सामान ढूंढो', all: 'सब', add: '+ जोड़ो', out: 'खत्म है', ask: 'मंगवाओ', asked: 'माँगा ✓', cart: 'टोकरी', order: 'ऑर्डर भेजो', name: 'आपका नाम', phone: 'मोबाइल नंबर', closed: 'अभी ऑनलाइन ऑर्डर बंद है। सामान देख सकते हैं।', pickup: 'दुकान से उठाना है · पैसे दुकान पर', again: 'पिछला ऑर्डर दोबारा', needInfo: 'नाम और 10 अंक का नंबर डालें', tooMany: 'आपके 3 ऑर्डर पहले से चल रहे हैं', askedNote: 'दुकान को बता दिया। आने पर खबर मिलेगी।', none: 'दुकान नहीं मिली', total: 'कुल', items: 'सामान' },
   hinglish: { search: 'Saaman dhundho', all: 'Sab', add: '+ Jodo', out: 'Khatam hai', ask: 'Mangwao', asked: 'Maanga ✓', cart: 'Tokri', order: 'Order bhejo', name: 'Aapka naam', phone: 'Mobile number', closed: 'Abhi online order band hai. Saaman dekh sakte hain.', pickup: 'Dukaan se uthana hai · Paise dukaan par', again: 'Pichhla order dobara', needInfo: 'Naam aur 10 ank ka number daalein', tooMany: 'Aapke 3 order pehle se chal rahe hain', askedNote: 'Dukaan ko bata diya. Aane par khabar milegi.', none: 'Dukaan nahi mili', total: 'Kul', items: 'saaman' },
@@ -90,35 +91,41 @@ export function StorePage({ slug }: { slug: string }) {
   )
   return (
     <main className="shop">
-      <header className="shop-head">
-        <div className="bc-av">{d.name.charAt(0).toUpperCase()}</div>
-        <div style={{ flex: 1, minWidth: 0 }}><div className="bc-store">{d.name}</div><div className="bc-area">{d.area ? d.area + ' · ' : ''}{L.pickup}</div></div>
-        <select className="shop-lang" value={lang} onChange={(e) => { setLang(e.target.value as Lang); put('omni-bill-lang', e.target.value) }} aria-label="language">
-          <option value="hi">हिंदी</option><option value="hinglish">Hinglish</option><option value="en">English</option>
-        </select>
+      <header className="sx-hero">
+        <div className="sx-top">
+          <select className="shop-lang" value={lang} onChange={(e) => { setLang(e.target.value as Lang); put('omni-bill-lang', e.target.value) }} aria-label="language">
+            <option value="hi">हिंदी</option><option value="hinglish">Hinglish</option><option value="en">English</option>
+          </select>
+        </div>
+        <div className="sx-av">{d.name.charAt(0).toUpperCase()}</div>
+        <h1 className="sx-name">{d.name}</h1>
+        {d.area && <div className="sx-area">📍 {d.area}</div>}
+        <div className={`sx-open ${d.online_on ? 'on' : ''}`}>{d.online_on ? '● ' + L.pickup : L.closed}</div>
       </header>
-      {!d.online_on && <div className="udnote" style={{ margin: '12px 16px 0' }}>{L.closed}</div>}
-      <div style={{ padding: '12px 16px 0' }}>
-        <input className="input" placeholder={L.search} value={q} onChange={(e) => setQ(e.target.value)} />
-        {last && d.online_on && <button className="tap linkrow" onClick={() => { const ls = JSON.parse(last) as { item_id: string; qty: number }[]; setCart(Object.fromEntries(ls.map((l) => [l.item_id, l.qty]))) }}><span>↻ {L.again}</span><span>›</span></button>}
+      <div className="sx-search">
+        <input className="input" placeholder={'🔍  ' + L.search} value={q} onChange={(e) => setQ(e.target.value)} />
       </div>
+      {last && d.online_on && <button className="tap sx-again" onClick={() => { const ls = JSON.parse(last) as { item_id: string; qty: number }[]; setCart(Object.fromEntries(ls.map((l) => [l.item_id, l.qty]))) }}>↻ {L.again}</button>}
       <div className="shop-cats">
-        <button className={`tap ${!cat ? 'on' : ''}`} onClick={() => setCat('')}>{L.all}</button>
-        {cats.map((c) => <button key={c} className={`tap ${cat === c ? 'on' : ''}`} onClick={() => setCat(c)}>{CATS[c]?.[lang === 'hi' ? 1 : lang === 'en' ? 2 : 0] ?? c}</button>)}
+        <button className={`tap ${!cat ? 'on' : ''}`} onClick={() => setCat('')}>✨ {L.all}</button>
+        {cats.map((c) => <button key={c} className={`tap ${cat === c ? 'on' : ''}`} onClick={() => setCat(c)}>{EMO[c] ?? '🛍️'} {CATS[c]?.[lang === 'hi' ? 1 : lang === 'en' ? 2 : 0] ?? c}</button>)}
       </div>
-      <div className="shop-list">
+      <div className="sx-grid">
         {shown.map((i) => (
-          <div key={i.id} className="shop-item">
-            <div style={{ minWidth: 0, flex: 1 }}><div className="bc-name">{nm(i)}</div><div className="bc-sub">₹{+Number(i.price).toFixed(2)}{units[i.unit] ? ' / ' + units[i.unit] : ''}</div></div>
-            {!i.in_stock ? (asked[i.id] ? <span className="pill" style={{ background: 'var(--acs)', color: 'var(--ac)' }}>{L.asked}</span>
-              : <button className="tap chg" onClick={() => request(i)}>{L.ask}</button>)
-              : !d.online_on ? null
-              : cart[i.id] ? <div className="step"><button className="tap" onClick={() => add(i.id, -1)}><i>−</i></button><em>{cart[i.id]}</em><button className="tap" onClick={() => add(i.id, 1)}><i>+</i></button></div>
-              : <button className="tap chg yes" onClick={() => add(i.id, 1)}>{L.add}</button>}
+          <div key={i.id} className={`sx-card ${!i.in_stock ? 'out' : ''}`}>
+            <div className={`sx-pic c-${catOf(i)}`}>{EMO[catOf(i)] ?? '🛍️'}</div>
+            <div className="sx-nm">{nm(i)}</div>
+            <div className="sx-pr">₹{+Number(i.price).toFixed(2)}<span>{units[i.unit] ? ' / ' + units[i.unit] : ''}</span></div>
+            <div className="sx-act">
+              {!i.in_stock ? (asked[i.id] ? <span className="sx-asked">{L.asked}</span> : <button className="tap sx-ask" onClick={() => request(i)}>{L.out} · {L.ask}</button>)
+                : !d.online_on ? null
+                : cart[i.id] ? <div className="sx-step"><button className="tap" onClick={() => add(i.id, -1)}>−</button><b>{cart[i.id]}</b><button className="tap" onClick={() => add(i.id, 1)}>+</button></div>
+                : <button className="tap sx-add" onClick={() => add(i.id, 1)}>{L.add}</button>}
+            </div>
           </div>
         ))}
       </div>
-      {lines.length > 0 && d.online_on && <div className="shop-bar"><button className="tap btn primary" onClick={() => setCheckout(true)}>{L.cart} · {lines.length} {L.items} · {rupees(total)}</button></div>}
+      {lines.length > 0 && d.online_on && <div className="shop-bar"><button className="tap sx-cart" onClick={() => setCheckout(true)}><span className="sx-cnt">{lines.reduce((a, [, n]) => a + n, 0)}</span><span>{L.cart}</span><b>{rupees(total)} ›</b></button></div>}
       {(checkout || askFor) && <>
         <div className="scrim" onClick={() => { setCheckout(false); setAskFor(null) }} />
         <div className="sheet" role="dialog">
