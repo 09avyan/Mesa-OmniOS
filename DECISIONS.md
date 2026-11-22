@@ -15,3 +15,7 @@
 | 8 | Mic speaks answers aloud | Yes for answers to questions ("Cheeni kitni bachi?"); bills/stock show the review card silently. Settings: speak answers on/off + speed (slow/normal) |
 | — | Vercel | Owner (21 Nov, later): `omnios-dukaan` must NOT be deleted; it is the publish target. Both `omnios-dukaan` and `omnidukaan` build from `main` (root `app`). |
 | — | Admin login | admin@omni.in (created 21 Nov). Password set by owner; change it before real pilots. |
+| 5 | Selling price | Owner's manual price, else learned: a price becomes the item's price after it is billed 3 times at that price. Until then the bill line asks for the price (prefilled with the last one, highlighted). One discount field per bill. |
+| 6 | Bill edits / returns | By voice: owner says "wapas" + item names (+ customer). OmniOS finds that customer's latest bill with those items and updates it (stock back, total and udhaar adjusted) after the review ✓. Plus Undo right after saving. |
+| 7 | Expiry dates | Not in Phase 1. |
+| — | Gemini key | Ask again in the next iteration (before receipts, S3). |
