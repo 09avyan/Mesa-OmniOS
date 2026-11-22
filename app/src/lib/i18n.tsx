@@ -109,6 +109,7 @@ const S = {
   discount: { hinglish: 'Chhoot (discount)', hi: 'छूट (डिस्काउंट)', en: 'Discount' },
   total: { hinglish: 'Kul', hi: 'कुल', en: 'Total' },
   answerFirst: { hinglish: 'pehle "Haan" dabao', hi: 'पहले "हाँ" दबाओ', en: 'tap "Yes" first' },
+  priceFirst: { hinglish: 'Pehle daam likho', hi: 'पहले दाम लिखो', en: 'Enter the price first' },
   fixFirst: { hinglish: 'Pehle peeli line theek karo', hi: 'पहले पीली लाइन ठीक करो', en: 'Fix the yellow line first' },
   saveBill: { hinglish: 'Save karo', hi: 'सेव करो', en: 'Save' },
   addMore: { hinglish: 'Aur saaman', hi: 'और सामान', en: 'More items' },

@@ -19,6 +19,7 @@ type Saved = { kind: 'bill'; billId: string; token: string; total: number; custo
   | { kind: 'stock'; lines: Line[] } | { kind: 'payment'; customer: string; amount: number; balance: number }
 
 const unitLabel = (u?: string) => ({ kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' } as Record<string, string>)[u ?? ''] ?? ''
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 const fmtQty = (q: number | null, u?: string) => q == null ? '?' : `${+q.toFixed(3)}${unitLabel(u) ? ' ' + unitLabel(u) : ''}`
 
 export function Voice() {
@@ -174,6 +175,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   const [custOpen, setCustOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const pending = draft.lines.find((l) => !l.sure || !l.match)
+  const reason = pending ? t('answerFirst') : isBill && draft.lines.some((l) => l.price == null) ? t('priceFirst') : t('fixFirst')
   const prevBal = draft.customer?.balance ?? 0
   const net = Math.max(0, total - disc)
 
@@ -197,8 +199,8 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   }
 
   const cta = !ready
-    ? <Tap className="btn warn" onClick={() => document.querySelector('.it.u')?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
-        {isBill && total > 0 ? `${t('total')} ${rupees(net)} · ` : ''}{pending ? t('answerFirst') : t('fixFirst')}
+    ? <Tap className="btn warn" onClick={() => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
+        {isBill && total > 0 ? `${t('total')} ${rupees(net)} · ${reason}` : cap(reason)}
       </Tap>
     : udhaarBlocked
       ? <Tap className="btn warn" onClick={() => setCustOpen(true)}>{t('udhaarNeedsName')}</Tap>

@@ -20,6 +20,7 @@ export type Parsed = {
   sure: boolean           // whole result confident (else Gemini may help)
 }
 
+const titleName = (s: string) => s.split(' ').map((w) => HONORIFIC.has(w) ? w : w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 const has = (toks: string[], words: string[]) => words.some((w) => w.includes(' ') ? toks.join(' ').includes(w) : toks.includes(w))
 const STOCK_IN = ['maal aaya', 'maal aya', 'maal aa gaya', 'maal aagaya', 'stock aaya', 'stock aya', 'naya maal', 'maal', 'aaya', 'aya', 'aa gaya', 'aagaya', 'aaye', 'received', 'माल', 'आया', 'आ गया', 'आए']
 const PAY_VERBS = ['diye', 'diya', 'de diye', 'jama', 'jamaa', 'chukaye', 'chukaya', 'lautaye', 'paid', 'pay', 'दिए', 'दिया', 'दिये', 'जमा', 'चुकाए']
@@ -52,7 +53,7 @@ function splitCustomer(toks: string[], idx: MatchIndex): { customer: string | nu
   const looksLikeItem = matchName(cleanName(head), idx, 1)[0]?.score >= 0.85
   if (!looksLikePerson && looksLikeItem) return { customer: null, rest: toks }
   if (!looksLikePerson && comma < 0) return { customer: null, rest: toks }
-  return { customer: name.replace(/(^|\s)\S/g, (c) => c.toUpperCase()), rest: toks.slice(end + (toks[end] === ',' ? 1 : 0)) }
+  return { customer: titleName(name), rest: toks.slice(end + (toks[end] === ',' ? 1 : 0)) }
 }
 
 /** Items: "2 kilo cheeni 1 maggi", "cheeni 2 kilo, maggi ek", "50 rupaye ka dhaniya". */
@@ -104,7 +105,7 @@ export function parse(text: string, idx: MatchIndex): Parsed {
   const neIdx = toks.findIndex((t) => t === 'ne' || t === 'ने' || t === 'se' || t === 'से')
   if (neIdx > 0 && has(toks, [...PAY_VERBS, 'mile', 'mila', 'मिले', 'मिला'])) {
     const amount = firstAmount(toks.slice(neIdx))
-    const customer = toks.slice(0, neIdx).join(' ').replace(/(^|\s)\S/g, (c) => c.toUpperCase())
+    const customer = titleName(toks.slice(0, neIdx).join(' '))
     return { ...base, intent: 'payment', customer, amount, sure: amount !== null && !!customer }
   }
 

@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { useT, rupees } from '../lib/i18n'
+import { supabase } from '../lib/supabase'
 import { useStore } from '../lib/store'
 import { navigate } from '../lib/router'
 import { RowButton, Tap } from '../components/ui'
@@ -8,7 +10,9 @@ import { Icon } from '../components/Icon'
 export function Home() {
   const { t } = useT()
   const { store } = useStore()
-  const sales = 0, udhaar = 0, newOrders = 0
+  const [sum, setSum] = useState<{ sales: number; udhaar_given: number } | null>(null)
+  useEffect(() => { supabase.rpc('today_summary').then(({ data }) => data && setSum({ sales: Number(data.sales), udhaar_given: Number(data.udhaar_given) })) }, [])
+  const sales = sum?.sales ?? 0, udhaar = sum?.udhaar_given ?? 0, newOrders = 0
   return (
     <main className="screen has-bar">
       <div className="top">
@@ -17,8 +21,8 @@ export function Home() {
       </div>
       <section className="card">
         <div className="lab">{t('todaySales')}</div>
-        <div className="big">{rupees(sales)}</div>
-        {sales === 0 && <div className="lab" style={{ marginTop: 4 }}>{t('firstBillHint')}</div>}
+        {sum ? <div className="big">{rupees(sales)}</div> : <div className="skel" style={{ height: 50, width: '50%', margin: '0' }} />}
+        {sum && sales === 0 && <div className="lab" style={{ marginTop: 4 }}>{t('firstBillHint')}</div>}
         <div className="divider" />
         <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => navigate('/udhaar', true)}>
           <span className="lab">{t('udhaarToday')}</span><span className="num" style={{ color: 'var(--ud)' }}>{rupees(udhaar)} ›</span>

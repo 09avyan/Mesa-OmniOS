@@ -19,7 +19,7 @@ describe('acceptance phrases', () => {
   it('bill with customer: "Sharma ji, 2 kilo cheeni, 1 Maggi"', () => {
     const p = parse('Sharma ji, 2 kilo cheeni, 1 Maggi', idx)
     expect(p.intent).toBe('bill')
-    expect(p.customer).toBe('Sharma Ji')
+    expect(p.customer).toBe('Sharma ji')
     expect(p.items).toHaveLength(2)
     expect(p.items[0]).toMatchObject({ qty: 2, unit: 'kg', sure: true })
     expect(p.items[0].candidates[0].id).toBe('sugar-loose')
@@ -29,7 +29,7 @@ describe('acceptance phrases', () => {
   })
   it('same bill without commas, as speech often comes', () => {
     const p = parse('sharma ji 2 kilo cheeni 1 maggi', idx)
-    expect(p.customer).toBe('Sharma Ji')
+    expect(p.customer).toBe('Sharma ji')
     expect(ids('sharma ji 2 kilo cheeni 1 maggi')).toEqual(['sugar-loose', 'maggi-masala-70g'])
   })
   it('Devanagari speech: "शर्मा जी 2 किलो चीनी 1 मैगी"', () => {
@@ -52,7 +52,7 @@ describe('acceptance phrases', () => {
   })
   it('payment: "Gupta ji ne 500 diye"', () => {
     const p = parse('Gupta ji ne 500 diye', idx)
-    expect(p).toMatchObject({ intent: 'payment', customer: 'Gupta Ji', amount: 500 })
+    expect(p).toMatchObject({ intent: 'payment', customer: 'Gupta ji', amount: 500 })
   })
   it('payment in Hindi: "गुप्ता जी ने पांच सौ दिए"', () => {
     expect(parse('गुप्ता जी ने पांच सौ दिए', idx)).toMatchObject({ intent: 'payment', amount: 500 })
