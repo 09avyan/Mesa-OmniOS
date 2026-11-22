@@ -13,6 +13,8 @@ import { Voice } from './screens/Voice'
 import { Bills, BillDetail } from './screens/Bills'
 import { UdhaarList, UdhaarCustomer, BalancePage } from './screens/Udhaar'
 import { Maal } from './screens/Maal'
+import { StorePage, OrderPage } from './screens/Store'
+import { Orders, OrderDetail, MyStore } from './screens/Orders'
 import { BillPage } from './screens/BillPage'
 import { supabase } from './lib/supabase'
 
@@ -21,6 +23,8 @@ export default function App() {
   if (path.startsWith('/admin')) return <><Admin /><ToastHost /></>
   if (path.startsWith('/b/')) return <BillPage token={path.slice(3)} />
   if (path.startsWith('/k/')) return <BalancePage token={path.slice(3)} />
+  if (path.startsWith('/s/')) return <StorePage slug={path.slice(3)} />
+  if (path.startsWith('/o/')) return <OrderPage token={path.slice(3)} />
   return <I18nProvider><StoreProvider><Owner path={path} /><ToastHost /></StoreProvider></I18nProvider>
 }
 
@@ -48,11 +52,13 @@ function Owner({ path }: { path: string }) {
     case '/udhaar': screen = <UdhaarList />; break
     case '/hisaab': screen = <Building title={t('fullHisaab')} />; break
     case '/galla': screen = <Building title={t('rowGalla')} />; break
-    case '/orders': screen = <Building title={t('rowOrders')} />; break
+    case '/orders': screen = <Orders />; break
+    case '/dukaan': screen = <MyStore />; break
     case '/bags': screen = <Building title={t('rowBags')} />; break
     case '/terms': screen = <Building title={t('terms')} />; break
     default:
       if (path.startsWith('/bill/')) { screen = <BillDetail id={path.slice(6)} />; break }
+      if (path.startsWith('/orders/')) { screen = <OrderDetail id={path.slice(8)} />; break }
       if (path.startsWith('/udhaar/')) { screen = <UdhaarCustomer id={path.slice(8)} />; break }
       navigate('/', true); return null
   }

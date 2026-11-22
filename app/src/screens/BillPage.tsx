@@ -5,8 +5,9 @@ import { BillCard, type BillData, type BillLine, type L3 } from '../components/B
 
 // Public bill page the customer opens from WhatsApp. No login; shows only this one bill.
 const pub = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } })
-type Raw = Omit<BillData, 'no' | 'lines'> & { lang: string; lines: BillLine[] }
+type Raw = Omit<BillData, 'no' | 'lines'> & { lang: string; slug: string | null; lines: BillLine[] }
 const LANGS: { id: L3; label: string }[] = [{ id: 'hi', label: 'हिंदी' }, { id: 'hinglish', label: 'Hinglish' }, { id: 'en', label: 'English' }]
+const ORDER: Record<L3, string> = { hi: 'अगली बार ऑनलाइन ऑर्डर करें', hinglish: 'Agli baar online order karein', en: 'Order online next time' }
 const NONE: Record<L3, string> = { hi: 'बिल नहीं मिला', hinglish: 'Bill nahi mila', en: 'Bill not found' }
 
 export function BillPage({ token }: { token: string }) {
@@ -30,7 +31,8 @@ export function BillPage({ token }: { token: string }) {
       </div>
       {bill === undefined ? <div className="skel" style={{ width: '100%', maxWidth: 420, height: 420, borderRadius: 24 }} />
         : !bill ? <h1 className="h1" style={{ marginTop: 40 }}>{NONE[lang]}</h1>
-        : <BillCard lang={lang} b={{ ...bill, no: token.slice(0, 6).toUpperCase() }} />}
+        : <><BillCard lang={lang} b={{ ...bill, no: token.slice(0, 6).toUpperCase() }} />
+          {bill.slug && <a className="tap btn primary" style={{ maxWidth: 420, marginTop: 16, textDecoration: 'none' }} href={'/s/' + bill.slug}>🛒 {ORDER[lang]}</a>}</>}
     </main>
   )
 }

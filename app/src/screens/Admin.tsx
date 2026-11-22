@@ -133,6 +133,7 @@ function StoreRow({ s, act }: { s: Store; act: (fn: () => Promise<unknown>, done
         <td>{s.owner_name ?? '—'}<div className="lab" style={{ fontSize: 16 }}>{s.phone ?? ''}</div></td>
         <td><span className={`pill ${s.status === 'active' ? 'ok' : 'off'}`}>{s.status}</span></td>
         <td style={{ whiteSpace: 'nowrap' }}>
+          <Tap className="ghost" onClick={() => { const v = prompt('Public store link name (a-z, 0-9, -), e.g. sharma-kirana-rajwada', '') ?? ''; if (v) act(() => call('set_slug', { store_id: s.id, slug: v.trim().toLowerCase() }), `Link set: /s/${v.trim().toLowerCase()}`) }}>Store link</Tap>
           <Tap className="ghost" onClick={() => setOpen(open === 'pin' ? '' : 'pin')}>Reset PIN</Tap>
           <Tap className="ghost" onClick={() => act(() => call('set_status', { store_id: s.id, status: s.status === 'active' ? 'paused' : 'active' }), `${s.code} ${s.status === 'active' ? 'paused' : 'resumed'}.`)}>
             {s.status === 'active' ? 'Pause' : 'Resume'}

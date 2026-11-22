@@ -31,6 +31,7 @@ export function Settings() {
         <Tap className="rowb" onClick={() => { setSound(!snd); setSnd(!snd) }}>
           <Icon name="sound" /><span className="grow">{t('sound')}</span><span style={{ color: snd ? 'var(--ac)' : 'var(--ink2)' }}>{snd ? t('on') : t('off')}</span>
         </Tap>
+        <Tap className="rowb" onClick={() => navigate('/dukaan')}><Icon name="globe" /><span className="grow">{t('myStore')}</span><span className="chev">›</span></Tap>
         <Tap className="rowb" onClick={() => navigate('/terms')}><Icon name="doc" /><span className="grow">{t('terms')}</span><span className="chev">›</span></Tap>
       </div>
       <div style={{ height: 40 }} />

@@ -23,6 +23,7 @@ export type Draft = {
   newCustomer?: boolean            // owner said "Yeh nahi, naya …"
   tag?: string                     // pehchaan for a new same-name customer
   phone?: string                   // typed after payment; WhatsApp goes here
+  orderId?: string                 // bill made from an online order
   lines: Line[]
   amount: number | null
   pay: 'cash' | 'upi' | 'udhaar'

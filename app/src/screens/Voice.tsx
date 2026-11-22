@@ -63,6 +63,21 @@ export function Voice() {
   useEffect(() => {
     const q = new URLSearchParams(location.search), say = q.get('say')
     if (q.get('manual')) { loadShop().then((s) => { setShop(s); setDraft({ intent: q.get('manual') === 'stock' ? 'stock_in' : 'bill', heard: '', customerName: null, customer: null, customerSure: true, customerOthers: [], lines: [], amount: null, pay: 'cash' }); setStage('review') }) }
+    else if (q.get('order')) {
+      // online order -> bill: available lines become bill lines; customer + phone prefilled
+      Promise.all([loadShop(), supabase.from('orders').select('id,customer_name,phone,order_lines(item_id,name,unit,qty,price,available)').eq('id', q.get('order')!).maybeSingle()]).then(([s, { data }]) => {
+        setShop(s)
+        const o = data as { id: string; customer_name: string; phone: string; order_lines: { item_id: string; qty: number; price: number; available: boolean }[] } | null
+        if (!o) return
+        const lines = o.order_lines.filter((l) => l.available).map((l, i) => {
+          const m = [...s.byMatchId.values()].find((x) => x.shop?.id === l.item_id) ?? null
+          return { key: 'o' + i, said: '', match: m, candidates: m ? [m] : [], sure: !!m, qty: Number(l.qty), price: Number(l.price), priceSure: true }
+        })
+        const c = s.customers.find((x) => x.phone === o.phone) ?? null
+        setDraft({ intent: 'bill', heard: '', customerName: c?.name ?? o.customer_name, customer: c, customerSure: true, customerOthers: [], lines, amount: null, pay: 'cash', phone: o.phone, orderId: o.id })
+        setStage('review')
+      })
+    }
     else if (say) { setWords(say); loadShop().then(() => understand(say, false)) } else start(false)
     return () => stopRef.current?.stop()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -228,7 +243,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
       unit: l.match!.shop?.unit ?? l.match!.unit, loose: l.match!.loose, said: l.said, qty: l.qty, price: l.price,
     }))
     const res = isBill
-      ? await supabase.rpc('save_bill', { p: { customer: draft.customerName, customer_id: draft.customer?.id ?? null, new_customer: !!draft.newCustomer, tag: draft.tag ?? null, phone: draft.phone ?? draft.customer?.phone ?? null, pay: draft.pay, discount: disc, voice_text: draft.heard, lines } })
+      ? await supabase.rpc('save_bill', { p: { customer: draft.customerName, customer_id: draft.customer?.id ?? null, order_id: draft.orderId ?? null, new_customer: !!draft.newCustomer, tag: draft.tag ?? null, phone: draft.phone ?? draft.customer?.phone ?? null, pay: draft.pay, discount: disc, voice_text: draft.heard, lines } })
       : await supabase.rpc('add_stock', { p: { reason: 'stock_in', lines } })
     setBusy(false)
     if (res.error) { errorFx(); toast({ text: t('saveFailed') }); return }

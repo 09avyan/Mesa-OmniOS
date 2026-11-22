@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useT, rupees } from '../lib/i18n'
 import { supabase } from '../lib/supabase'
+import { useNewOrders } from './Orders'
 import { useStore } from '../lib/store'
 import { navigate } from '../lib/router'
 import { RowButton, Tap } from '../components/ui'
@@ -12,7 +13,8 @@ export function Home() {
   const { store } = useStore()
   const [sum, setSum] = useState<{ sales: number; udhaar_given: number } | null>(null)
   useEffect(() => { supabase.rpc('today_summary').then(({ data }) => data && setSum({ sales: Number(data.sales), udhaar_given: Number(data.udhaar_given) })) }, [])
-  const sales = sum?.sales ?? 0, udhaar = sum?.udhaar_given ?? 0, newOrders = 0
+  const newOrders = useNewOrders()
+  const sales = sum?.sales ?? 0, udhaar = sum?.udhaar_given ?? 0
   return (
     <main className="screen has-bar">
       <div className="top">
