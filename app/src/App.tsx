@@ -11,6 +11,8 @@ import { Building } from './screens/Building'
 import { Admin } from './screens/Admin'
 import { Voice } from './screens/Voice'
 import { Bills, BillDetail } from './screens/Bills'
+import { UdhaarList, UdhaarCustomer, BalancePage } from './screens/Udhaar'
+import { Maal } from './screens/Maal'
 import { BillPage } from './screens/BillPage'
 import { supabase } from './lib/supabase'
 
@@ -18,6 +20,7 @@ export default function App() {
   const path = usePath()
   if (path.startsWith('/admin')) return <><Admin /><ToastHost /></>
   if (path.startsWith('/b/')) return <BillPage token={path.slice(3)} />
+  if (path.startsWith('/k/')) return <BalancePage token={path.slice(3)} />
   return <I18nProvider><StoreProvider><Owner path={path} /><ToastHost /></StoreProvider></I18nProvider>
 }
 
@@ -41,8 +44,8 @@ function Owner({ path }: { path: string }) {
     case '/': screen = <Home />; break
     case '/settings': screen = <Settings />; break
     case '/bill': screen = <Bills />; break
-    case '/maal': screen = <Building title={t('tabMaal')} tabRoot />; break
-    case '/udhaar': screen = <Building title={t('tabUdhaar')} tabRoot />; break
+    case '/maal': screen = <Maal />; break
+    case '/udhaar': screen = <UdhaarList />; break
     case '/hisaab': screen = <Building title={t('fullHisaab')} />; break
     case '/galla': screen = <Building title={t('rowGalla')} />; break
     case '/orders': screen = <Building title={t('rowOrders')} />; break
@@ -50,6 +53,7 @@ function Owner({ path }: { path: string }) {
     case '/terms': screen = <Building title={t('terms')} />; break
     default:
       if (path.startsWith('/bill/')) { screen = <BillDetail id={path.slice(6)} />; break }
+      if (path.startsWith('/udhaar/')) { screen = <UdhaarCustomer id={path.slice(8)} />; break }
       navigate('/', true); return null
   }
   return (

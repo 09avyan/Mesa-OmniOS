@@ -62,7 +62,7 @@ export function Voice() {
   // Start listening as soon as the screen opens (the owner already pressed the mic). ?say= lets tests and demos inject words.
   useEffect(() => {
     const q = new URLSearchParams(location.search), say = q.get('say')
-    if (q.get('manual')) { loadShop().then((s) => { setShop(s); setDraft({ intent: 'bill', heard: '', customerName: null, customer: null, customerSure: true, customerOthers: [], lines: [], amount: null, pay: 'cash' }); setStage('review') }) }
+    if (q.get('manual')) { loadShop().then((s) => { setShop(s); setDraft({ intent: q.get('manual') === 'stock' ? 'stock_in' : 'bill', heard: '', customerName: null, customer: null, customerSure: true, customerOthers: [], lines: [], amount: null, pay: 'cash' }); setStage('review') }) }
     else if (say) { setWords(say); loadShop().then(() => understand(say, false)) } else start(false)
     return () => stopRef.current?.stop()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,6 +87,8 @@ export function Voice() {
       setDraft({ ...cur, lines }); setStage('review'); return
     }
     let p = parse(text, s.index, s.customers.map((c) => c.name))
+    // opened from the Maal tab: whatever is said is stock coming in
+    if (new URLSearchParams(location.search).get('stock') && (p.intent === 'bill' || p.intent === 'unknown') && p.items.length) p = { ...p, intent: 'stock_in', customer: null, customerSure: true }
     if (needsAi(p)) {
       setWords(t('understanding'))
       const ai = await askAi(text, s.index, s.customers.map((c) => c.name))
