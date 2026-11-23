@@ -86,6 +86,19 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 ## S4f · Owner requests (23 Nov)
 - ✅ TEST shop: top 150 kirana items (loose, branded staples, chips/namkeen flavours, dairy, care, cleaning) with Indore prices + stock.
 
+## OWNER APPROVALS (23 Nov) — build order
+Approved, in this order:
+1. Receipt photo → stock + supplier dues (+ 3 sample receipts).
+2. Morning briefing (yesterday's hisaab + who to collect udhaar from) + daily streak + 3-item stock check. NOTE: "what to restock" waits for the forecast, once there is enough data to train it.
+3. Forecast "Seekh raha hai" state + simple low-stock alerts.
+4. Returns by voice ("wapas").
+5. Admin usage per store + CSV + pitch line + read-only store view.
+6. Full UI redo + owner-test rounds ≥ 9/10.
+7. Speed (Supabase + site) + spoken-answer settings.
+- ✅ T&C wording approved by owner (lawyer check before real pilots).
+- ⏸ Not approved yet: hidden pitch-mode screen.
+- ⏸ DISCUSS LATER — remind owner: edge cases + safety, sponsored items, item photos plan, khata photo import (Phase 2 vs now).
+
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
 - ✅ Aaj ka hisaab screen — Aaj/Kal/7/30 din: sales, cash/UPI/udhaar split, udhaar collected, avg bill, busiest hour, top 5 items. Supplier dues shown once receipts exist.
