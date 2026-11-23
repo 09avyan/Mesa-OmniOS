@@ -152,11 +152,11 @@ function AddPerson({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 // Public page the customer opens from the reminder: their balance and recent entries. No login.
 const pub = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } })
-type Pub = { store: string; area: string | null; customer: string; balance: number; entries: { amount: number; kind: string; at: string; bill: string | null }[] }
+type Pub = { store: string; area: string | null; phone: string | null; upi: string | null; updated: string | null; customer: string; balance: number; entries: { amount: number; kind: string; at: string; bill: string | null }[] }
 const BT = {
-  hi: { hi: 'नमस्ते', due: 'उधार बाकी', clear: 'सब चुकता', hisaab: 'हिसाब', took: 'सामान लिया', paid: 'जमा किया', none: 'हिसाब नहीं मिला' },
-  hinglish: { hi: 'Namaste', due: 'Udhaar baaki', clear: 'Sab chukta', hisaab: 'Hisaab', took: 'Saaman liya', paid: 'Jama kiya', none: 'Hisaab nahi mila' },
-  en: { hi: 'Hello', due: 'Balance due', clear: 'All paid', hisaab: 'Account', took: 'Bought', paid: 'Paid', none: 'Account not found' },
+  hi: { hi: 'नमस्ते', due: 'उधार बाकी', clear: 'सब चुकता', hisaab: 'हिसाब', took: 'सामान लिया', paid: 'पैसे जमा किए', none: 'हिसाब नहीं मिला', upi: 'UPI से दें', shop: 'या दुकान पर नकद दे सकते हैं', call: 'दुकान को कॉल करें', after: 'उसके बाद बाकी', upd: 'अपडेट', see: 'बिल देखें' },
+  hinglish: { hi: 'Namaste', due: 'Udhaar baaki', clear: 'Sab chukta', hisaab: 'Hisaab', took: 'Saaman liya', paid: 'Paise jama kiye', none: 'Hisaab nahi mila', upi: 'UPI se dein', shop: 'Ya dukaan par cash de sakte hain', call: 'Dukaan ko call karein', after: 'Uske baad baaki', upd: 'Update', see: 'Bill dekhein' },
+  en: { hi: 'Hello', due: 'Balance due', clear: 'All paid', hisaab: 'Account', took: 'Bought items', paid: 'Paid', none: 'Account not found', upi: 'Pay by UPI', shop: 'Or pay cash at the shop', call: 'Call the shop', after: 'Balance after', upd: 'Updated', see: 'See bill' },
 }
 export function BalancePage({ token }: { token: string }) {
   const [d, setD] = useState<Pub | null | undefined>(undefined)
@@ -166,6 +166,9 @@ export function BalancePage({ token }: { token: string }) {
   if (d === undefined) return <main className="bc-page"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 24 }} /></main>
   if (!d) return <main className="bc-page"><h1 className="h1">{B.none}</h1></main>
   const bal = Number(d.balance)
+  const fmtD = (iso: string) => new Date(iso).toLocaleDateString(bl === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short' })
+  let run = bal
+  const rows = d.entries.map((e) => { const r = { ...e, after: run }; run -= Number(e.amount); return r })
   return (
     <main className="bc-page">
       <div className="bc-langs">{(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={bl === l ? 'on' : ''} onClick={() => { setBl(l); try { localStorage.setItem('omni-bill-lang', l) } catch { /* ignore */ } }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}</div>
@@ -175,15 +178,21 @@ export function BalancePage({ token }: { token: string }) {
           <div className="bc-meta" style={{ marginTop: 0 }}>{B.hi} {d.customer}</div>
           <div className="bc-total" style={{ color: bal > 0 ? 'var(--ud)' : 'var(--ac)', marginTop: 6 }}>{rupees(Math.abs(bal))}</div>
           <div className={`bc-status ${bal > 0 ? 'ud' : 'ok'}`}>{bal > 0 ? B.due : B.clear}</div>
+          {d.updated && <div className="bc-meta">{B.upd}: {fmtD(d.updated)}</div>}
         </section>
+        <div className="cx-pay">
+          {bal > 0 && d.upi && <a className="tap btn primary" href={`upi://pay?pa=${encodeURIComponent(d.upi)}&pn=${encodeURIComponent(d.store)}&am=${bal.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Udhaar ' + d.customer)}`}>{B.upi} · {rupees(bal)}</a>}
+          {bal > 0 && <p className="lab center" style={{ fontSize: 18 }}>{B.shop}</p>}
+          {d.phone && <a className="tap btn quiet" href={'tel:' + d.phone}><Icon name="phone" size={22} />{B.call}</a>}
+        </div>
         <section className="bc-items">
           <div className="bc-ih">{B.hisaab}</div>
-          {d.entries.map((e, i) => (
-            <div key={i} className="bc-row">
-              <div><div className="bc-name">{Number(e.amount) > 0 ? B.took : B.paid}</div><div className="bc-sub">{ago(e.at)}</div></div>
-              <div className="bc-amt" style={{ color: Number(e.amount) > 0 ? 'var(--ud)' : 'var(--ac)' }}>{Number(e.amount) > 0 ? '+' : '−'} {rupees(Math.abs(Number(e.amount)))}</div>
-            </div>
-          ))}
+          {rows.map((e, i) => {
+            const took = Number(e.amount) > 0
+            const inner = <><div style={{ minWidth: 0 }}><div className="bc-name">{took ? B.took : B.paid}</div><div className="bc-sub">{fmtD(e.at)} · {B.after} {rupees(e.after)}</div></div>
+              <div className="bc-amt" style={{ color: took ? 'var(--ud)' : 'var(--ac)' }}>{rupees(Math.abs(Number(e.amount)))}</div></>
+            return e.bill ? <a key={i} className="bc-row tap" href={'/b/' + e.bill} style={{ color: 'inherit', textDecoration: 'none' }} aria-label={B.see}>{inner}</a> : <div key={i} className="bc-row">{inner}</div>
+          })}
         </section>
         <div className="bc-brand"><span className="bc-logo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.8" strokeLinecap="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></svg></span>OmniOS Dukaan</div>
       </article>

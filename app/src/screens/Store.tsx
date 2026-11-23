@@ -1,3 +1,4 @@
+import { itemName } from '../components/BillCard'
 import { Icon } from '../components/Icon'
 import { useEffect, useMemo, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
@@ -98,12 +99,14 @@ export function StorePage({ slug }: { slug: string }) {
         <div className="cx-shop"><div className="cx-av">{d.name.charAt(0).toUpperCase()}</div>
           <div style={{ minWidth: 0 }}><h1 className="cx-name">{d.name}</h1>{d.area && <div className="cx-area"><Icon name="pin" size={18} />{d.area}</div>}</div></div>
         <div className={`cx-open ${d.online_on ? 'on' : ''}`}>{d.online_on ? L.pickup : L.closed}</div>
-        <label className="cx-search"><Icon name="search" size={22} /><input placeholder={L.search} value={q} onChange={(e) => setQ(e.target.value)} /></label>
       </header>
       {last && d.online_on && <button className="tap cx-again" onClick={() => { const ls = JSON.parse(last) as { item_id: string; qty: number }[]; setCart(Object.fromEntries(ls.map((l) => [l.item_id, l.qty]))) }}><Icon name="back" size={20} />{L.again}</button>}
+      <div className="cx-sticky">
+      <label className="cx-search"><Icon name="search" size={22} /><input placeholder={L.search} value={q} onChange={(e) => setQ(e.target.value)} /></label>
       <div className="shop-cats cx-cats">
         <button className={`tap ${!cat ? 'on' : ''}`} onClick={() => setCat('')}>{L.all}</button>
         {cats.map((c) => <button key={c} className={`tap ${cat === c ? 'on' : ''}`} onClick={() => setCat(c)}>{CATS[c]?.[lang === 'hi' ? 1 : lang === 'en' ? 2 : 0] ?? c}</button>)}
+      </div>
       </div>
       <div className="cx-list">
         {shown.map((i) => (
@@ -143,43 +146,52 @@ export function StorePage({ slug }: { slug: string }) {
   )
 }
 
-// Order status page (/o/<token>): live steps, edit/cancel while not started.
+// Order status page (/o/<token>): live steps; a declined order says clearly that nothing is owed.
 const S = {
-  hi: { steps: ['भेजा', 'मान लिया', 'पैक हो रहा', 'तैयार है'], ready: 'आपका सामान तैयार है! दुकान से ले लें।', done: 'हो गया · धन्यवाद', cancelled: 'ऑर्डर रद्द', rejected: "दुकान ने यह ऑर्डर नहीं लिया", cancel: 'ऑर्डर रद्द करो', na: 'नहीं है', total: 'कुल', bill: 'बिल देखो', back: 'दुकान पर वापस', edit: 'ऑर्डर बदलो' },
-  hinglish: { steps: ['Bheja', 'Maan liya', 'Pack ho raha', 'Taiyaar hai'], ready: 'Aapka saaman taiyaar hai! Dukaan se le lein.', done: 'Ho gaya · Dhanyavaad', cancelled: 'Order radd', rejected: "Dukaan ne yeh order nahi liya", cancel: 'Order radd karo', na: 'Nahi hai', total: 'Kul', bill: 'Bill dekho', back: 'Dukaan par wapas', edit: 'Order badlo' },
-  en: { steps: ['Sent', 'Accepted', 'Packing', 'Ready'], ready: 'Your order is ready! Pick it up at the shop.', done: 'Done · Thank you', cancelled: 'Order cancelled', rejected: "The shop could not take this order", cancel: 'Cancel order', na: 'Not available', total: 'Total', bill: 'See bill', back: 'Back to shop', edit: 'Change order' },
+  hi: { steps: ['भेजा', 'मान लिया', 'पैक हो रहा', 'तैयार है'], ready: 'आपका सामान तैयार है! दुकान से ले लें।', done: 'हो गया · धन्यवाद', cancelled: 'आपने यह ऑर्डर रद्द किया', rejected: 'दुकान यह ऑर्डर नहीं ले पाई', oos: 'सामान स्टॉक में नहीं है', nothing: 'आपको कुछ नहीं देना है', cancel: 'ऑर्डर रद्द करो', na: 'नहीं मिला', total: 'कुल', bill: 'बिल देखो', back: 'दुकान पर वापस', again: 'दोबारा ऑर्डर करो', call: 'दुकान को कॉल करें', edit: 'ऑर्डर बदलो', order: 'ऑर्डर', why: 'कारण' },
+  hinglish: { steps: ['Bheja', 'Maan liya', 'Pack ho raha', 'Taiyaar hai'], ready: 'Aapka saaman taiyaar hai! Dukaan se le lein.', done: 'Ho gaya · Dhanyavaad', cancelled: 'Aapne yeh order radd kiya', rejected: 'Dukaan yeh order nahi le payi', oos: 'Saaman stock mein nahi hai', nothing: 'Aapko kuch nahi dena hai', cancel: 'Order radd karo', na: 'Nahi mila', total: 'Kul', bill: 'Bill dekho', back: 'Dukaan par wapas', again: 'Dobara order karo', call: 'Dukaan ko call karein', edit: 'Order badlo', order: 'Order', why: 'Kaaran' },
+  en: { steps: ['Sent', 'Accepted', 'Packing', 'Ready'], ready: 'Your order is ready! Pick it up at the shop.', done: 'Done · Thank you', cancelled: 'You cancelled this order', rejected: 'The shop could not take this order', oos: 'Items are out of stock', nothing: 'You owe nothing', cancel: 'Cancel order', na: 'Not available', total: 'Total', bill: 'See bill', back: 'Back to shop', again: 'Order again', call: 'Call the shop', edit: 'Change order', order: 'Order', why: 'Reason' },
 }
-type OS = { store: string; slug: string; status: string; reason: string | null; name: string; bill: string | null; lines: { item_id: string; name: string; unit: string; qty: number; price: number; available: boolean }[] }
+type OS = { store: string; slug: string; phone: string | null; status: string; reason: string | null; name: string; at: string; bill: string | null; lines: { item_id: string; name: string; catalog_id: string | null; name_hi: string | null; unit: string; qty: number; price: number; available: boolean }[] }
 export function OrderPage({ token }: { token: string }) {
   const [o, setO] = useState<OS | null | undefined>(undefined)
-  const lang = (get('omni-bill-lang', 'hi') as Lang) || 'hi'
+  const [lang, setLang] = useState<Lang>(() => (get('omni-bill-lang', 'hi') as Lang) || 'hi')
   const L = S[lang] ?? S.hi
   const load = () => pub.rpc('order_status', { p_token: token }).then(({ data }) => setO((data as OS) ?? null))
   useEffect(() => { load(); const t = setInterval(load, 15000); return () => clearInterval(t) }, [token]) // eslint-disable-line react-hooks/exhaustive-deps
   if (o === undefined) return <main className="bc-page"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 24 }} /></main>
   if (!o) return <main className="bc-page"><h1 className="h1">—</h1></main>
   const idx = { new: 0, accepted: 1, packing: 2, ready: 3, billing: 3, done: 4 }[o.status as 'new'] ?? -1
+  const closed = o.status === 'rejected' || o.status === 'cancelled'
   const total = o.lines.filter((l) => l.available).reduce((s, l) => s + l.qty * l.price, 0)
+  const reason = o.reason && /out of stock|stock/i.test(o.reason) ? L.oos : o.reason
+  const nmL = (l: OS['lines'][number]) => itemName({ ...l, amount: 0 }, lang)
+  const when = new Date(o.at).toLocaleString(lang === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
   return (
     <main className="bc-page">
+      <div className="bc-langs">{(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={lang === l ? 'on' : ''} onClick={() => { setLang(l); put('omni-bill-lang', l) }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}</div>
       <article className="bc">
-        <header className="bc-shop"><div className="bc-av">{o.store.charAt(0)}</div><div className="bc-store">{o.store}</div></header>
+        <header className="bc-shop"><div className="bc-av">{o.store.charAt(0)}</div><div><div className="bc-store">{o.store}</div><div className="bc-area">{L.order} {token.slice(0, 4).toUpperCase()} · {when}</div></div></header>
         <section className="bc-hero">
-          {idx >= 0 && idx < 4 && <div className="ostep">{L.steps.map((s, i) => <div key={s} className={i <= idx ? 'on' : ''}><i />{s}</div>)}</div>}
-          <div className="h2" style={{ marginTop: 12, color: o.status === 'rejected' || o.status === 'cancelled' ? 'var(--ink)' : 'var(--ac)' }}>
-            {o.status === 'ready' || o.status === 'billing' ? L.ready : o.status === 'done' ? L.done : o.status === 'cancelled' ? L.cancelled : o.status === 'rejected' ? `${L.rejected}${o.reason ? ': ' + o.reason : ''}` : L.steps[idx]}
+          {idx >= 0 && idx < 4 && <div className="ostep">{L.steps.map((st, i) => <div key={st} className={i <= idx ? 'on' : ''}><i />{st}</div>)}</div>}
+          <div className="h2" style={{ marginTop: idx >= 0 && idx < 4 ? 14 : 0, color: closed ? 'var(--ink)' : 'var(--ac)' }}>
+            {o.status === 'ready' || o.status === 'billing' ? L.ready : o.status === 'done' ? L.done : o.status === 'cancelled' ? L.cancelled : o.status === 'rejected' ? L.rejected : L.steps[idx]}
           </div>
+          {o.status === 'rejected' && reason && <p className="bc-meta">{L.why}: {reason}</p>}
+          {closed && <div className="bc-status ok" style={{ marginTop: 12 }}>{L.nothing}</div>}
         </section>
-        <section className="bc-items">
-          {o.lines.map((l) => <div key={l.item_id} className="bc-row" style={{ opacity: l.available ? 1 : 0.5 }}>
-            <div><div className="bc-name">{l.name}</div><div className="bc-sub">{+l.qty} {units[l.unit]} × ₹{+l.price}{!l.available && ' · ' + L.na}</div></div>
-            <div className="bc-amt" style={{ textDecoration: l.available ? 'none' : 'line-through' }}>{rupees(l.qty * l.price)}</div></div>)}
-          <div className="bc-grand"><span>{L.total}</span><span>{rupees(total)}</span></div>
+        <section className="bc-items" style={closed ? { opacity: 0.75 } : undefined}>
+          {o.lines.map((l) => <div key={l.item_id} className="bc-row">
+            <div><div className="bc-name">{nmL(l)}</div><div className="bc-sub">{+l.qty} {units[l.unit]} × ₹{+l.price}{!l.available && ' · ' + L.na}</div></div>
+            <div className="bc-amt" style={{ textDecoration: l.available && !closed ? 'none' : 'line-through', color: closed ? 'var(--ink2)' : undefined }}>{rupees(l.qty * l.price)}</div></div>)}
+          {!closed && <div className="bc-grand"><span>{L.total}</span><span>{rupees(total)}</span></div>}
         </section>
-        <div style={{ padding: '0 20px 18px' }} className="stack">
+        <div style={{ padding: '4px 20px 18px' }} className="stack">
           {o.bill && <button className="tap btn primary" onClick={() => navigate('/b/' + o.bill)}>{L.bill}</button>}
+          {closed && <button className="tap btn primary" onClick={() => navigate('/s/' + o.slug)}>{L.again}</button>}
           {o.status === 'new' && <><button className="tap btn quiet" onClick={() => navigate('/s/' + o.slug + '?edit=' + token)}>{L.edit}</button><button className="tap btn quiet" onClick={async () => { await pub.rpc('customer_edit_order', { p_token: token, p_lines: [], p_cancel: true }); load() }}>{L.cancel}</button></>}
-          <button className="tap btn quiet" onClick={() => navigate('/s/' + o.slug)}>{L.back}</button>
+          {o.phone && <a className="tap btn quiet" style={{ textDecoration: 'none' }} href={'tel:' + o.phone}><Icon name="phone" size={22} />{L.call}</a>}
+          {!closed && <button className="tap btn quiet" onClick={() => navigate('/s/' + o.slug)}>{L.back}</button>}
         </div>
       </article>
     </main>

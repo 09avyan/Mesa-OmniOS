@@ -37,7 +37,7 @@ export function BillCard({ b, lang, brand = true }: { b: BillData; lang: L3; bra
         <div className={`bc-badge ${removed ? 'off' : ud ? 'ud' : 'ok'}`} aria-hidden="true">{removed ? '×' : ud ? '₹' : '✓'}</div>
         <div className="bc-total">{rupees(b.total)}</div>
         <div className={`bc-status ${removed ? 'off' : ud ? 'ud' : 'ok'}`}>{removed ? L.removed : ud ? L.udhaar : `${L.paid} · ${L.via[b.pay as 'cash' | 'upi']}`}</div>
-        <div className="bc-meta">{b.customer ? `${L.to}: ${b.customer} · ` : ''}{L.bill} #{b.no}</div>
+        <div className="bc-meta">{b.customer ? `${L.to}: ${b.customer} · ` : ''}{L.bill} {lang === 'hi' ? 'नं.' : 'no.'} {b.no}</div>
         <div className="bc-meta">{date}</div>
       </section>
       <section className="bc-items">

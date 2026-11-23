@@ -1,0 +1,2 @@
+-- public_bill (+phone, upi, khata token, bill no), order_status (+phone, item catalog ids), public_balance (+phone, upi, updated).
+-- Applied via MCP 23 Nov 2026 ("public_pages_contact_pay"). TEST store got mock phone/UPI for demos.
