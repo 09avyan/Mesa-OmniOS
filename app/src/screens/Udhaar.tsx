@@ -49,7 +49,7 @@ export function UdhaarList() {
             <div className="av" style={{ width: 44, height: 44, fontSize: 20 }}>{c.name.charAt(0).toUpperCase()}</div>
             <div className="grow" style={{ minWidth: 0 }}>
               <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{custLabel(c)}</div>
-              <div className="lab" style={{ fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>{ago(c.last_at)}</div>
+              <div className="lab" style={{ fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{ago(c.last_at)}</div>
             </div>
             <div className="num" style={{ color: c.balance > 0 ? 'var(--ud)' : 'var(--ac)' }}>{rupees(Math.abs(c.balance))}</div>
             <div className="chev">›</div>
@@ -115,7 +115,7 @@ export function UdhaarCustomer({ id }: { id: string }) {
         {entries.length === 0 ? <p className="lab" style={{ padding: '14px 0' }}>{t('noUdhaar')}</p> : entries.map((e, i) => (
           <Tap key={e.id} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500, borderTop: i ? '1px solid var(--line)' : 'none', minHeight: 56 }}
             onClick={() => e.bill_id && navigate('/bill/' + e.bill_id)}>
-            <span>{label[e.kind] ?? e.kind}<span className="lab" style={{ display: 'block', fontSize: 16, lineHeight: '20px' }}>{ago(e.created_at)}</span></span>
+            <span>{label[e.kind] ?? e.kind}<span className="lab" style={{ display: 'block', fontSize: 17, lineHeight: '20px' }}>{ago(e.created_at)}</span></span>
             <span className="num" style={{ color: Number(e.amount) > 0 ? 'var(--ud)' : 'var(--ac)' }}>{Number(e.amount) > 0 ? '+' : '−'} {rupees(Math.abs(Number(e.amount)))}</span>
           </Tap>
         ))}

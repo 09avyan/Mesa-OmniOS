@@ -19,7 +19,7 @@ export function UpiSheet({ open, upi, name, amount, onClose }: { open: boolean; 
           <div className="lab">{t('upiScan')}</div>
           <div className="big">{rupees(amount)}</div>
           {img && <img src={img} alt="UPI QR" style={{ width: '100%', maxWidth: 260, margin: '12px auto', display: 'block' }} />}
-          <div className="lab" style={{ fontSize: 16 }}>{upi}</div>
+          <div className="lab" style={{ fontSize: 17 }}>{upi}</div>
         </div>
         <div className="gap16" />
         <Tap className="btn primary" onClick={onClose}>✓ {t('upiDone')}</Tap>

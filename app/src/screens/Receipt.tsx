@@ -103,7 +103,7 @@ export function Receipt() {
       <Tap className="btn primary" disabled={!shop} onClick={() => fileRef.current?.click()}><Icon name="camera" size={26} />{t('rcTake')}</Tap>
       <div className="gap8" />
       <Tap className="btn quiet" onClick={() => setPhase('review')}>{t('rcNoPhoto')}</Tap>
-      <p className="lab center" style={{ marginTop: 20, fontSize: 16 }}>{t('rcTip')}</p>
+      <p className="lab center" style={{ marginTop: 20, fontSize: 17 }}>{t('rcTip')}</p>
     </main>
   )
   if (phase === 'reading') return (
@@ -131,7 +131,7 @@ export function Receipt() {
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <Tap className="grow" style={{ textAlign: 'left', fontWeight: 700, fontSize: 19, minHeight: 48, flex: 1 }} onClick={() => setPick(l)}>
                   {l.match && l.sure ? nm(l.match) : `${t('rcWhich')} "${l.said}"`}
-                  {l.match && l.sure && l.said !== nm(l.match).toLowerCase() && <span className="lab" style={{ display: 'block', fontSize: 15, fontWeight: 500 }}>{t('rcOnParchi')}: {l.said}</span>}
+                  {l.match && l.sure && l.said !== nm(l.match).toLowerCase() && <span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500 }}>{t('rcOnParchi')}: {l.said}</span>}
                 </Tap>
                 <Tap className="ghost" aria-label="remove" style={{ minWidth: 48, minHeight: 48, color: 'var(--ink2)' }} onClick={() => setLines((ls) => ls.filter((x) => x.key !== l.key))}>✕</Tap>
               </div>
@@ -147,7 +147,7 @@ export function Receipt() {
         {lines.length > 0 && (
           <div className="card" style={{ marginTop: 16 }}>
             <div className="linkrow" style={{ color: 'var(--ink)' }}><span>{t('total')}</span><span className="num">{rupees(total)}</span></div>
-            {printed != null && Math.abs(printed - total) > 1 && <p className="lab" style={{ fontSize: 16 }}>{t('rcPrinted').replace('{x}', rupees(printed))}</p>}
+            {printed != null && Math.abs(printed - total) > 1 && <p className="lab" style={{ fontSize: 17 }}>{t('rcPrinted').replace('{x}', rupees(printed))}</p>}
             {supplier && <>
               <Tap className="linkrow" onClick={() => setNum({ field: 'paid' })}><span>{t('rcPaid')}</span><span className="num">{rupees(paid)}</span></Tap>
               <div className="linkrow" style={{ color: 'var(--c-udh)' }}><span>{t('rcDue')}</span><span className="num">{rupees(Math.max(0, total - paid))}</span></div>
@@ -196,7 +196,7 @@ export function Suppliers() {
       <h1 className="h1">{t('supTitle')}</h1>
       {!list ? <div className="skel" style={{ height: 120, marginTop: 16 }} /> : !list.length ? <p className="lab" style={{ marginTop: 16 }}>{t('supNone')}</p> : (
         <div className="stack" style={{ marginTop: 16 }}>{list.map((s) => (
-          <div key={s.id} className="rowb" style={{ cursor: 'default' }}><Icon name="truck" /><span className="grow">{s.name}<span className="lab" style={{ display: 'block', fontSize: 16, fontWeight: 500 }}>{s.due > 0 ? t('rcDue') : t('supClear')}</span></span>
+          <div key={s.id} className="rowb" style={{ cursor: 'default' }}><Icon name="truck" /><span className="grow">{s.name}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500 }}>{s.due > 0 ? t('rcDue') : t('supClear')}</span></span>
             <span className="num" style={{ color: s.due > 0 ? 'var(--c-udh)' : 'var(--ac)' }}>{rupees(s.due)}</span>
             {s.due > 0 && <Tap className="btn outline small" onClick={() => setPayTo(s)}>{t('supPay')}</Tap>}</div>
         ))}</div>

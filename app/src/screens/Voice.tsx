@@ -234,7 +234,8 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   const [upiOpen, setUpiOpen] = useState(false)
   const { store } = useStore()
   const pending = draft.lines.find((l) => !l.sure || !l.match) ?? (isBill && !draft.customerSure ? draft.lines[0] : undefined)
-  const reason = draft.lines.length === 0 ? t('sayItems') : pending ? t('answerFirst') : isBill && draft.lines.some((l) => l.price == null) ? t('priceFirst') : t('fixFirst')
+  const custPending = isBill && !draft.customerSure
+  const reason = draft.lines.length === 0 ? t('sayItems') : custPending ? t('pickCustFirst').replace('{name}', draft.customerName ?? '') : pending ? t('answerFirst') : isBill && draft.lines.some((l) => l.price == null) ? t('priceFirst') : t('fixFirst')
   const prevBal = draft.customer?.balance ?? 0
   const net = Math.max(0, total - disc)
 
@@ -259,7 +260,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
 
   const after = draft.pay === 'udhaar' && draft.customerName ? t('dkUdhaar').replace('{name}', draft.customerName).replace('{x}', rupees(prevBal + net))
     : draft.pay === 'upi' ? t('dkUpi').replace('{x}', rupees(net)) : t('dkCash').replace('{x}', rupees(net))
-  const fixFirst = () => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  const fixFirst = () => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const cta = !ready
     ? <Tap className="btn dk-wait" onClick={fixFirst}><span>{isBill ? t('saveBill') : t('stockAdd')}</span><small>{cap(reason)}</small></Tap>
     : udhaarBlocked

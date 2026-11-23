@@ -67,7 +67,7 @@ export function Hisaab() {
         <div className="card" style={{ padding: '6px 20px' }}>
           {s.top.map((it, i) => (
             <div key={i} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600, borderTop: i ? '1px solid var(--line, #E4E7EC)' : 'none' }}>
-              <span style={{ minWidth: 0 }}>{itemName({ ...it, price: 0 }, lang)}<span className="lab" style={{ display: 'block', fontSize: 16, fontWeight: 500 }}>{+it.qty} {it.unit}</span></span>
+              <span style={{ minWidth: 0 }}>{itemName({ ...it, price: 0 }, lang)}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500 }}>{+it.qty} {it.unit}</span></span>
               <span className="num" style={{ fontSize: 20 }}>{rupees(+it.amount)}</span>
             </div>
           ))}
@@ -76,7 +76,7 @@ export function Hisaab() {
       {s && s.bills === 0 && <p className="lab center" style={{ marginTop: 20 }}>{t('noBillsRange')}</p>}
       {s && s.suppliers > 0
         ? <Tap className="rowb" style={{ marginTop: 16 }} onClick={() => navigate('/suppliers')}><span className="grow">{t('supTitle')}</span><span className="num" style={{ color: 'var(--c-udh)' }}>{rupees(+(s.supplier_due ?? 0))}</span><span className="chev">›</span></Tap>
-        : <p className="lab" style={{ margin: '20px 4px 0', fontSize: 16 }}>{t('supplierSoon')}</p>}
+        : <p className="lab" style={{ margin: '20px 4px 0', fontSize: 17 }}>{t('supplierSoon')}</p>}
       <div className="gap16" />
       {range === 'today' && <Tap className="btn primary" onClick={() => navigate('/galla')}>{t('rowGalla')}</Tap>}
     </main>
@@ -107,7 +107,7 @@ export function Galla() {
       <div className="card" style={{ marginTop: 16 }}>
         <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600 }}><span className="lab">{t('gallaBills')}</span><span className="num">{s ? rupees(s.cash) : '…'}</span></div>
         <Tap className="linkrow" onClick={() => setPad(true)}><span>{t('gallaSaid')}</span><span className="num">{said != null ? rupees(said) : t('gallaType')}</span></Tap>
-        {s && s.udhaar_collected > 0 && <p className="lab" style={{ fontSize: 16, marginTop: 6 }}>{t('gallaUdhaarNote').replace('{x}', rupees(s.udhaar_collected))}</p>}
+        {s && s.udhaar_collected > 0 && <p className="lab" style={{ fontSize: 17, marginTop: 6 }}>{t('gallaUdhaarNote').replace('{x}', rupees(s.udhaar_collected))}</p>}
       </div>
       {gap != null && (
         <div className={gap === 0 ? 'card' : 'udnote'} style={{ marginTop: 16, ...(gap === 0 ? { background: 'var(--acs)', color: 'var(--ac)' } : {}) }}>

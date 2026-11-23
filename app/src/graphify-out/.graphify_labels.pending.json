@@ -3,10 +3,12 @@
   "1": "Udhaar.tsx",
   "2": "Voice.tsx",
   "3": "errorFx",
-  "4": "Receipt.tsx",
+  "4": "shop.ts",
   "5": "BillCard.tsx",
   "6": "App.tsx",
   "7": "ui.tsx",
   "8": "Admin.tsx",
+  "9": "draft.ts",
+  "10": "prefs.ts",
   "14": "vite-env.d.ts"
 }

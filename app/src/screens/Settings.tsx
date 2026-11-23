@@ -27,7 +27,7 @@ export function Settings() {
       <div className="gap24" />
       <div className="stack">
         <Tap className="rowb" onClick={async () => { const v = (await askText({ title: t('upiAsk'), initial: store?.upi_id ?? '' }) ?? '').trim(); if (!v) return; const { error } = await supabase.from('stores').update({ upi_id: v }).eq('id', store!.id); if (error) { toast({ text: t('upiBad') }); return } toast({ text: t('saved') }); reload() }}>
-          <Icon name="qr" /><span className="grow">{t('upiId')}<span className="lab" style={{ display: 'block', fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>{store?.upi_id ?? t('upiNotSet')}</span></span><span className="chev">›</span>
+          <Icon name="qr" /><span className="grow">{t('upiId')}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{store?.upi_id ?? t('upiNotSet')}</span></span><span className="chev">›</span>
         </Tap>
         <Tap className="rowb" onClick={() => setLangOpen(true)}>
           <Icon name="globe" /><span className="grow">{t('language')}</span><span style={{ color: 'var(--ac)' }}>{LANGS.find((l) => l.id === lang)?.label}</span><span className="chev">›</span>
@@ -91,7 +91,7 @@ function Phones() {
     <div className="stack">
       {list.map((d) => (
         <div key={d.id} className="rowb" style={{ cursor: 'default' }}>
-          <span className="grow">{d.label}<span className="lab" style={{ display: 'block', fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>
+          <span className="grow">{d.label}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>
             {d.session_id === mine ? t('thisPhone') : `${t('lastSeen')}: ${when(d.last_seen)}`}</span></span>
           {d.session_id !== mine && <Tap className="btn outline small" onClick={async () => {
             const { error } = await supabase.rpc('device_revoke', { p_id: d.id })

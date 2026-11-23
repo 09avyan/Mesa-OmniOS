@@ -65,12 +65,12 @@ export function Maal() {
           <Tap key={i.id} className="rowb" onClick={() => setOpen(i)}>
             <div className="grow" style={{ minWidth: 0 }}>
               <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{nameOf(i)}</div>
-              <div className="lab" style={{ fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>{price(i) != null ? `₹${fmt(price(i)!)}${units[i.unit] ? '/' + units[i.unit] : ''}` : t('noPrice')}</div>
+              <div className="lab" style={{ fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{price(i) != null ? `₹${fmt(price(i)!)}${units[i.unit] ? '/' + units[i.unit] : ''}` : t('noPrice')}</div>
             </div>
             <div style={{ textAlign: 'right' }}>
               <div className="num" style={{ color: low(i) ? 'var(--ud)' : 'var(--ink)' }}>{i.stock_known ? `${fmt(Math.max(0, i.stock))} ${units[i.unit]}` : '—'}</div>
               {low(i) ? <span className="pill" style={{ background: 'var(--udsoft)', color: 'var(--ud)' }}>{t('lowOne')}</span>
-                : !i.stock_known && <span className="lab" style={{ fontSize: 15 }}>{t('stockNotKnown')}</span>}
+                : !i.stock_known && <span className="lab" style={{ fontSize: 17 }}>{t('stockNotKnown')}</span>}
             </div>
           </Tap>
         ))}</div>}
@@ -83,7 +83,7 @@ export function Maal() {
             <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => setPriceOpen(true)}>
               <span className="lab">{t('sellPrice')}</span><span className="num">{price(open) != null ? rupees(price(open)!) : t('priceAsk')} ›</span>
             </Tap>
-            {open.price == null && open.learned_price != null && <p className="lab" style={{ fontSize: 16 }}>{t('learnedNote')}</p>}
+            {open.price == null && open.learned_price != null && <p className="lab" style={{ fontSize: 17 }}>{t('learnedNote')}</p>}
           </div>
           <div className="gap16" />
           <Tap className="rowb" onClick={() => update({ hidden_online: !open.hidden_online })}>

@@ -67,7 +67,7 @@ export function Terms() {
       <div className="stack" style={{ marginTop: 16 }}>
         {TERMS.map(([h, b]) => <div key={h} className="card" style={{ padding: '18px 20px' }}><div className="h2" style={{ fontSize: 20 }}>{t(h)}</div><p style={{ marginTop: 6, lineHeight: '26px' }}>{t(b)}</p></div>)}
       </div>
-      <p className="lab center" style={{ marginTop: 16, fontSize: 16 }}>{t('tUpdated')}</p>
+      <p className="lab center" style={{ marginTop: 16, fontSize: 17 }}>{t('tUpdated')}</p>
     </main>
   )
 }

@@ -73,7 +73,7 @@ export function Orders() {
         byItem.length === 0 ? <div className="card center"><p className="lab">{t('noReq')}</p></div> : <div className="stack">{byItem.map((g) => (
           <div key={g.item_id} className="card" style={{ padding: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}><b>{g.name}</b><span className="pill" style={{ background: 'var(--uns)', color: '#7A5600' }}>{g.people.length} {t('peopleAsked')}</span></div>
-            <p className="lab" style={{ fontSize: 16 }}>{g.people.map((p) => `${p.customer_name} (${time(p.created_at)})`).join(', ')}</p>
+            <p className="lab" style={{ fontSize: 17 }}>{g.people.map((p) => `${p.customer_name} (${time(p.created_at)})`).join(', ')}</p>
             <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
               {g.status === 'open' && <Tap className="chg" onClick={() => reqStatus(g.item_id, 'ordered', g.people, g.name)}>{t('willOrder')}</Tap>}
               <Tap className="chg yes" onClick={() => reqStatus(g.item_id, 'arrived', g.people, g.name)}>{t('arrivedTell')}</Tap>
@@ -82,7 +82,7 @@ export function Orders() {
       ) : shown.length === 0 ? <div className="card center"><p className="lab">{t('noOrders')}</p></div> : <div className="stack">{shown.map((o) => (
         <Tap key={o.id} className="rowb" onClick={() => navigate('/orders/' + o.id)}>
           <div className="grow" style={{ minWidth: 0 }}><div>{o.customer_name}</div>
-            <div className="lab" style={{ fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>{time(o.created_at)} · {o.order_lines.length} {t('itemsWord')}</div></div>
+            <div className="lab" style={{ fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{time(o.created_at)} · {o.order_lines.length} {t('itemsWord')}</div></div>
           <div style={{ textAlign: 'right' }}><div className="num">{rupees(sum(o))}</div><span className="pill pay-cash">{t(('st_' + o.status) as 'st_new')}</span></div>
         </Tap>))}</div>}
     </main>
@@ -114,7 +114,7 @@ export function OrderDetail({ id }: { id: string }) {
       <div className="card" style={{ marginTop: 12, padding: '4px 16px' }}>
         {o.order_lines.map((l, i) => (
           <div key={l.id} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500, borderTop: i ? '1px solid var(--line)' : 'none', minHeight: 60, opacity: l.available ? 1 : 0.55 }}>
-            <span>{itemName({ ...l, amount: 0, catalog_id: l.items?.catalog_id, name_hi: l.items?.name_hi }, lang)} × {+l.qty}<span className="lab" style={{ display: 'block', fontSize: 16 }}>{rupees(l.qty * l.price)}{!l.available ? ' · ' + t('notAvail') : ''}</span></span>
+            <span>{itemName({ ...l, amount: 0, catalog_id: l.items?.catalog_id, name_hi: l.items?.name_hi }, lang)} × {+l.qty}<span className="lab" style={{ display: 'block', fontSize: 17 }}>{rupees(l.qty * l.price)}{!l.available ? ' · ' + t('notAvail') : ''}</span></span>
             {canEdit && <Tap className={`chg ${l.available ? '' : 'yes'}`} onClick={() => toggle(l)}>{l.available ? t('notAvail') : t('available')}</Tap>}
           </div>))}
         <div className="bc-grand"><span>{t('total')}</span><span>{rupees(sum(o))}</span></div>
