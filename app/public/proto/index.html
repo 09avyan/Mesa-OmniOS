@@ -20,6 +20,8 @@
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font:500 18px/26px "Anek Latin","Anek Devanagari",system-ui,sans-serif;max-width:440px;margin:0 auto;font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+body.hi *{letter-spacing:0!important}
+body.hi button,body.hi .btn{padding-top:4px}
 body.hi{font-family:"Anek Devanagari","Anek Latin",system-ui,sans-serif}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
 svg{flex:none}
@@ -37,9 +39,9 @@ svg{flex:none}
 .hd::after{content:"";position:absolute;left:0;right:0;bottom:-13px;height:14px;
   background:radial-gradient(circle at 13px 0,var(--g) 12.5px,transparent 13px) 0 0/26px 14px repeat-x}
 .hd-row{display:flex;align-items:center;gap:12px;min-height:56px}
-.mark{width:46px;height:46px;flex:none}
+.mark{width:54px;height:54px;flex:none}
 .shop{flex:1;min-width:0}
-.shop b{display:block;font-size:20px;line-height:25px;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:800;letter-spacing:-.2px}
+.shop b{display:block;font-size:20px;line-height:30px;padding-top:3px;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:800;letter-spacing:-.2px}
 .shop span{display:block;font-size:17px;color:#BBD5C8}
 .hbtn{min-height:56px;min-width:56px;padding:0 12px;border-radius:14px;border:1.5px solid rgba(255,255,255,.28);display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:600;font-size:17px;color:#fff}
 .lang{display:flex;gap:4px;margin-top:10px}
@@ -57,12 +59,12 @@ svg{flex:none}
 .speak q{display:block;font-weight:700;color:var(--ink);transition:opacity .25s;quotes:"“" "”"}
 
 /* ---------- money: ledger equation ---------- */
-.card{margin:18px 0 0;background:var(--paper) repeating-linear-gradient(transparent 0 45px,#E9E4D8 45px 46px) 0 96px/100% 46px no-repeat;background-size:100% 100%;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 20px;position:relative}
-.card::before{content:'';position:absolute;top:0;bottom:0;left:52px;width:1px;background:#E8B8A0;opacity:.6}
+.card{margin:18px 0 0;background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 20px;position:relative}
+.card::before{content:none}
 .k{font-size:17px;color:var(--ink2);font-weight:600}
 .total{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:2px}
 .total b{font-size:46px;line-height:50px;font-weight:800;letter-spacing:-1px;color:var(--g)}
-.total span{font-size:17px;font-weight:700;color:var(--ink2);white-space:nowrap}
+.total span{font-size:18px;font-weight:700;color:var(--ink2);white-space:nowrap}
 .eq{margin-top:14px;border-top:1px solid var(--line2)}
 .eq div{display:flex;justify-content:space-between;align-items:center;min-height:46px;border-bottom:1px solid #E9E4D8}
 .eq div span{display:flex;align-items:center;gap:10px;font-size:18px;color:var(--ink2);font-weight:600}
@@ -82,10 +84,10 @@ svg{flex:none}
 .row+.row{border-top:1px solid var(--line2)}
 .rt{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .rt b{font-size:19px;font-weight:700}.rt .n{font-size:21px}
-.rs{font-size:17px;color:var(--ink2);margin-top:2px}
+.rs{font-size:18px;color:var(--ink2);margin-top:2px}
 .rb{display:flex;gap:8px;margin-top:10px}
 .btn{min-height:56px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:17px;padding:0 16px}
-.btn.wa{flex:1;background:var(--g);color:#fff}
+.btn.wa{flex:1;background:#fff;color:var(--g);border:1.5px solid var(--g)}
 .btn.ln{flex:1;border:1.5px solid var(--line);background:#fff}
 .btn.go{background:#fff;color:var(--g);border:1.5px solid var(--g)}.btn.go.main{background:var(--g);color:#fff}
 .todo .row{display:flex;align-items:center;gap:14px}
@@ -119,7 +121,7 @@ svg{flex:none}
 @keyframes slide{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
 .it .rt b{font-size:20px}.it .rt .n{font-size:22px}
 .it .ctl{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.it .ctl span{font-size:17px;color:var(--ink2)}
+.it .ctl span{font-size:18px;color:var(--ink2)}
 .stp{display:flex;align-items:center;height:56px;border:1.5px solid var(--line);border-radius:14px;background:#fff}
 .stp button{width:56px;height:56px;display:grid;place-items:center;color:var(--g)}
 .stp em{min-width:56px;text-align:center;font-style:normal;font-weight:700;font-size:19px}
@@ -163,7 +165,7 @@ svg{flex:none}
 .btn.waf{background:var(--g);color:#fff}
 .undo{margin:14px 16px 0;padding:14px 16px;border-radius:16px;border:1.5px dashed var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:17px;color:var(--ink2)}
 .undo .btn{flex:none;border:1.5px solid var(--ink2);color:var(--ink);background:#fff}
-.note{margin:26px 16px 0;text-align:center;font-size:14px;color:var(--ink2)}
+.note{display:none;margin:26px 16px 0;text-align:center;font-size:14px;color:var(--ink2)}
 </style>
 </head>
 <body>
@@ -285,7 +287,7 @@ const T = {
 let L = new URLSearchParams(location.search).get('lang') || 'hinglish', view = 'home', pay = null, open = true
 const $ = (s) => document.querySelector(s), wait = (ms) => new Promise((r) => setTimeout(r, ms)), fmt = (n) => '₹' + Math.round(n).toLocaleString('en-IN')
 function paint(){ const D = T[L]; document.body.classList.toggle('hi', L === 'hi')
-  document.querySelectorAll('[data-t]').forEach((el) => { const v = D[el.dataset.t]; if (typeof v === 'string') el.textContent = v })
+  document.querySelectorAll('[data-t]').forEach((el) => { const v = D[el.dataset.t]; if (typeof v === 'string') el.textContent = v.replace(/\s?·\s?/g, '\u2002·\u2002') })
   document.querySelectorAll('.lang button').forEach((b) => b.classList.toggle('on', b.dataset.l === L)); $('#hint').textContent = D.hints[0]; $('#nml').textContent = view === 'home' ? D.mic : D.micB; state() }
 document.querySelectorAll('.lang button').forEach((b) => b.onclick = () => { L = b.dataset.l; paint() })
 function countUp(){ document.querySelectorAll('[data-count]').forEach((el) => { const to = +el.dataset.count, t0 = performance.now(); const f = (t) => { const p = Math.min(1, (t - t0) / 900); el.textContent = fmt(to * (1 - Math.pow(1 - p, 4))); if (p < 1) requestAnimationFrame(f) }; requestAnimationFrame(f) }) }
@@ -301,7 +303,8 @@ async function listen(){ pay = null; open = true; $('#items').innerHTML = ''; $(
   for (let i = 0; i < w.length; i++) { await wait(230); $('#htxt').textContent += (i ? ' ' : '') + w[i]
     if (i === 1) { $('#cname').textContent = L === 'hi' ? 'शर्मा जी · गली 4' : 'Sharma ji · gali 4'; $('#cdue').style.transition = 'opacity .3s'; $('#cdue').style.opacity = 1 }
     if (i === 4) add(0); if (i === 6) add(1); if (i === 10) add(2) }
-  await wait(400); $('#ghosts').style.display = 'none'; $('#bsum').style.visibility = 'visible'; $('#dock').style.display = 'block'; state(); fitDock() }
+  await wait(400); $('#ghosts').style.display = 'none'; $('#bsum').style.visibility = 'visible'; $('#dock').style.display = 'block'; state(); fitDock()
+  setTimeout(() => { const a = $('.it.ask'); if (a) { const r = a.getBoundingClientRect(), lim = innerHeight - $('#dock').offsetHeight - 16; if (r.bottom > lim) scrollBy({ top: r.bottom - lim, behavior: 'smooth' }) } }, 60) }
 function fitDock(){ requestAnimationFrame(() => { $('#bill').style.paddingBottom = ($('#dock').offsetHeight + 24) + 'px' }) }
 function add(i){ $('#items').insertAdjacentHTML('beforeend', item(i)); const g = $('#ghosts .ghost'); if (g && i) g.remove(); const r = $('#run'); r.style.display = 'block'; r.textContent = T[L].sofar + ' ₹' + AMT.slice(0, i + 1).reduce((a, b) => a + b, 0) }
 function ok(b){ const it = b.closest('.it'); it.classList.remove('ask'); it.querySelector('.askq').remove(); it.querySelector('b').textContent = T[L].names[1].replace('?', ''); open = false; state() }
