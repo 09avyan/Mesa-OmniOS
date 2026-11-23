@@ -3,8 +3,8 @@ import { Sheet, Tap } from './ui'
 import { useT } from '../lib/i18n'
 
 // Big number keypad in a sheet, for quantity / price / amount. Same keys as the PIN pad.
-export function NumberSheet({ open, title, initial, unit, decimals = true, onClose, onDone }: {
-  open: boolean; title: string; initial: number | null; unit?: string; decimals?: boolean; onClose: () => void; onDone: (n: number) => void
+export function NumberSheet({ open, title, initial, unit, decimals = true, zero = false, onClose, onDone }: {
+  open: boolean; title: string; initial: number | null; unit?: string; decimals?: boolean; zero?: boolean; onClose: () => void; onDone: (n: number) => void
 }) {
   const { t } = useT()
   const [v, setV] = useState('')
@@ -27,7 +27,7 @@ export function NumberSheet({ open, title, initial, unit, decimals = true, onClo
           k ? <Tap key={i} className={`key ${k === '⌫' || k === '.' ? 'word' : ''}`} onClick={() => press(k)} aria-label={k === '⌫' ? 'delete' : k}>{k}</Tap> : <div key={i} />)}
       </div>
       <div className="gap16" />
-      <Tap className="btn primary" disabled={!(n > 0)} onClick={() => { onDone(n); onClose() }}>✓ {t('ok')}</Tap>
+      <Tap className="btn primary" disabled={!(n > 0 || (zero && n === 0))} onClick={() => { onDone(n); onClose() }}>✓ {t('ok')}</Tap>
     </Sheet>
   )
 }

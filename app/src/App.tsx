@@ -18,6 +18,7 @@ import { BillPage } from './screens/BillPage'
 import { Hisaab, Galla } from './screens/Hisaab'
 import { Bags, Terms, Soon } from './screens/Extras'
 import { Receipt, Suppliers } from './screens/Receipt'
+import { StockCheck } from './screens/Briefing'
 import { supabase } from './lib/supabase'
 
 export default function App() {
@@ -60,6 +61,7 @@ function Owner({ path }: { path: string }) {
     case '/bags': screen = <Bags />; break
     case '/soon': screen = <Soon />; break
     case '/suppliers': screen = <Suppliers />; break
+    case '/check': screen = <StockCheck />; break
     case '/terms': screen = <Terms />; break
     default:
       if (path.startsWith('/bill/')) { screen = <BillDetail id={path.slice(6)} />; break }

@@ -1,8 +1,8 @@
 {
   "App.tsx": {
-    "mtime": 1795441583.2942288,
-    "seen": 1795443128.2961588,
-    "ast_hash": "92e1a997a80b505ddcf5657503526bfd",
+    "mtime": 1795443736.061588,
+    "seen": 1795443805.8644097,
+    "ast_hash": "52693ea7a7757ebc16b5311350cb14ef",
     "semantic_hash": ""
   },
   "components/BillCard.tsx": {
@@ -18,9 +18,9 @@
     "semantic_hash": ""
   },
   "components/Pad.tsx": {
-    "mtime": 1795336821.1016614,
-    "seen": 1795432089.2112958,
-    "ast_hash": "9cfe23adbbea44cc80ef501a91ce08bb",
+    "mtime": 1795443736.0594122,
+    "seen": 1795443805.8644252,
+    "ast_hash": "7b71398d85ce8ef55612cb831026e78c",
     "semantic_hash": ""
   },
   "components/UpiSheet.tsx": {
@@ -54,9 +54,9 @@
     "semantic_hash": ""
   },
   "lib/i18n.tsx": {
-    "mtime": 1795441583.289126,
-    "seen": 1795443128.2962363,
-    "ast_hash": "417fe2b9ac83c00384ac78c9ac2bb2b3",
+    "mtime": 1795443736.0609982,
+    "seen": 1795443805.864437,
+    "ast_hash": "f8b4536e72687aa116a9de3729722d92",
     "semantic_hash": ""
   },
   "lib/prefs.ts": {
@@ -126,9 +126,9 @@
     "semantic_hash": ""
   },
   "screens/Home.tsx": {
-    "mtime": 1795440331.9309688,
-    "seen": 1795440424.0283964,
-    "ast_hash": "0a4a425e6c029227f64e7c64f379d03f",
+    "mtime": 1795443736.0617902,
+    "seen": 1795443805.86446,
+    "ast_hash": "fa2bde2ea387eecd9fea78402f7fa90c",
     "semantic_hash": ""
   },
   "screens/Language.tsx": {
@@ -240,15 +240,21 @@
     "semantic_hash": ""
   },
   "screens/Hisaab.tsx": {
-    "mtime": 1795441583.2951822,
-    "seen": 1795443128.2962618,
-    "ast_hash": "111f6c57947a4b4be9517931c5195f72",
+    "mtime": 1795443736.0598252,
+    "seen": 1795443805.8644583,
+    "ast_hash": "f7480736aef48fbf89ed991c5dd50c26",
     "semantic_hash": ""
   },
   "screens/Receipt.tsx": {
     "mtime": 1795442541.2028046,
     "seen": 1795443128.2962737,
     "ast_hash": "85dce302f31b2b84e308196167bccdf5",
+    "semantic_hash": ""
+  },
+  "screens/Briefing.tsx": {
+    "mtime": 1795443736.059558,
+    "seen": 1795443805.8644528,
+    "ast_hash": "6fcf4483dec240031911d527dec2c3d8",
     "semantic_hash": ""
   }
 }

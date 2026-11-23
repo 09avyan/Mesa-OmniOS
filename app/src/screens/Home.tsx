@@ -6,6 +6,7 @@ import { useStore } from '../lib/store'
 import { navigate } from '../lib/router'
 import { RowButton, Tap } from '../components/ui'
 import { Icon } from '../components/Icon'
+import { BriefingCard } from './Briefing'
 
 // Today at a glance. Numbers are real: bills arrive in S4, so until then they are honestly ₹0.
 export function Home() {
@@ -33,7 +34,7 @@ export function Home() {
           <Tap className="hx-chip" onClick={() => navigate('/bill', true)}><span>{t('todayBills')}</span><b>{sum?.bills ?? 0}</b></Tap>
         </div>
       </header>
-      <div className="gap24" />
+      <BriefingCard />
       <div className="stack">
         <RowButton icon="chart" color="var(--c-his)" label={t('fullHisaab')} onClick={() => navigate('/hisaab')} />
         <RowButton icon="cash" color="var(--c-gal)" label={t('rowGalla')} onClick={() => navigate('/galla')} />

@@ -105,7 +105,7 @@ Approved, in this order:
 - ✅ Home shows real today's sales and udhaar.
 - ✅ Aaj ka hisaab screen — Aaj/Kal/7/30 din: sales, cash/UPI/udhaar split, udhaar collected, avg bill, busiest hour, top 5 items. Supplier dues shown once receipts exist.
 - ✅ Galla screen — type or say drawer cash, compared with today's cash bills.
-- ⏳ 3-item daily stock check, morning briefing, daily streak.
+- ✅ Morning briefing card on Home (yesterday, who to collect udhaar from + days waiting, streak) + daily 3-item count (/check: corrects stock, shows gaps). Restock advice waits for forecast (owner).
 - ⏳ Forecast "Seekh raha hai" state + low-stock alerts (no invented numbers).
 
 ## S6 · Customer side

@@ -267,3 +267,4 @@ input{font-size:20px}
 .segs{padding-left:0;padding-right:0}.segs button{min-height:56px;padding:0 18px;font-size:18px}
 .hs-bar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#EDE3D1;margin:14px 0 4px;gap:2px}
 .hs-bar i{display:block;height:100%}
+.bf{padding:18px 20px 16px;margin-bottom:20px}.bf-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 8px;margin-bottom:4px}.bf-top .h2{white-space:nowrap}.bf-streak{font-size:15px;white-space:nowrap}

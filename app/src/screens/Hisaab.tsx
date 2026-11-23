@@ -35,7 +35,7 @@ export function useSummary(from: string, to: string) {
 // Aaj ka hisaab: real numbers only. No profit (Phase 2), supplier dues come with receipts.
 export function Hisaab() {
   const { t, lang } = useT()
-  const [range, setRange] = useState<'today' | 'yday' | 'week' | 'month'>('today')
+  const [range, setRange] = useState<'today' | 'yday' | 'week' | 'month'>(() => (new URLSearchParams(location.search).get('r') === 'yday' ? 'yday' : 'today'))
   const [from, to] = range === 'today' ? [day(), day()] : range === 'yday' ? [day(1), day(1)] : range === 'week' ? [day(6), day()] : [day(29), day()]
   const s = useSummary(from, to)
   const pct = (n: number) => (s && s.sales ? (n / s.sales) * 100 : 0)
