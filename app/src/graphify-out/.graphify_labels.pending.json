@@ -6,5 +6,7 @@
   "4": "Receipt.tsx",
   "5": "BillCard.tsx",
   "6": "App.tsx",
+  "7": "ui.tsx",
+  "8": "Admin.tsx",
   "14": "vite-env.d.ts"
 }

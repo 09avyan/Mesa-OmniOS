@@ -26,7 +26,7 @@ export type Draft = {
   orderId?: string                 // bill made from an online order
   lines: Line[]
   amount: number | null
-  pay: 'cash' | 'upi' | 'udhaar'
+  pay: 'cash' | 'upi' | 'udhaar' | null   // nothing pre-selected: owner must choose
 }
 
 let n = 0
@@ -65,7 +65,7 @@ export function buildDraft(parsed: Parsed, shop: Shop): Draft {
     customerOthers: found.others,
     lines: parsed.items.map((p) => lineFrom(p, shop)),
     amount: parsed.amount,
-    pay: 'cash',
+    pay: null,
   }
 }
 

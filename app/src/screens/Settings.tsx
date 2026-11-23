@@ -40,7 +40,7 @@ export function Settings() {
         <Tap className="rowb" onClick={() => navigate('/terms')}><Icon name="doc" /><span className="grow">{t('terms')}</span><span className="chev">›</span></Tap>
       </div>
       <div style={{ height: 40 }} />
-      <Tap className="rowb" style={{ background: 'none', boxShadow: 'inset 0 0 0 2px #8A7A66' }} onClick={() => setAskOut(true)}>
+      <Tap className="rowb" style={{ background: 'none', boxShadow: 'inset 0 0 0 2px #2B313A' }} onClick={() => setAskOut(true)}>
         <Icon name="out" /><span className="grow">{t('logout')}</span>
       </Tap>
       <Sheet open={langOpen} onClose={() => setLangOpen(false)}>

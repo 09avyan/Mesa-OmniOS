@@ -8,12 +8,19 @@ import { itemName } from '../components/BillCard'
 import { custLabel } from '../lib/shop'
 import { invalidateShop } from '../lib/shop'
 import { successFx, errorFx } from '../lib/feedback'
+import { Icon } from '../components/Icon'
+
+const waLink = (c: { phone: string | null; share_token: string; balance: number }, msg: string) => {
+  const p = (c.phone ?? '').replace(/\D/g, '')
+  const text = msg.replace('{x}', rupees(+c.balance)).replace('{link}', `${location.origin}/k/${c.share_token}`)
+  return `https://wa.me/${p ? (p.length === 10 ? '91' + p : p) : ''}?text=${encodeURIComponent(text)}`
+}
 
 type CheckItem = { id: string; catalog_id: string | null; name: string; name_hi: string | null; unit: string; loose: boolean; stock: number }
 type Brief = {
   yday: { sales: number; bills: number; udhaar_given: number; udhaar_collected: number }
   udhaar_total: number
-  collect: { id: string; name: string; tag: string | null; balance: number; days: number | null }[]
+  collect: { id: string; name: string; tag: string | null; phone: string | null; share_token: string; balance: number; days: number | null }[]
   streak: number; check_done: boolean; check: CheckItem[]
 }
 const useBrief = () => {
@@ -29,28 +36,32 @@ export function BriefingCard() {
   const b = useBrief()
   if (!b) return <div className="skel" style={{ height: 150, marginBottom: 16 }} />
   return (
-    <div className="card bf">
+    <section className="card bf">
       <div className="bf-top">
-        <div className="h2" style={{ fontSize: 20 }}>{t('bfTitle')}</div>
-        {b.streak >= 2 && <span className="pill ok bf-streak">{t('bfStreak').replace('{n}', String(b.streak))}</span>}
+        <h2 className="h2" style={{ fontSize: 22 }}>{t('bfTitle')}</h2>
+        {b.streak >= 2 && <span className="bf-streak">{t('bfStreak').replace('{n}', String(b.streak))} ✓</span>}
       </div>
-      <Tap className="linkrow" onClick={() => navigate('/hisaab?r=yday')}>
-        <span className="lab" style={{ fontWeight: 500 }}>{t('bfYday')}</span>
-        <span style={{ color: 'var(--ink)' }}>{b.yday.bills ? `${rupees(+b.yday.sales)} · ${b.yday.bills} ${t('billsWord')}` : t('bfNoBills')}</span>
+      <Tap className="lab" style={{ display: 'block', textAlign: 'left', minHeight: 44, fontSize: 18 }} onClick={() => navigate('/hisaab?r=yday')}>
+        {b.yday.bills ? t('bfYdayLine').replace('{x}', rupees(+b.yday.sales)).replace('{n}', String(b.yday.bills)) : `${t('bfYday')}: ${t('bfNoBills')}`}
       </Tap>
+      {b.check.length > 0 && (b.check_done
+        ? <p style={{ color: 'var(--ac)', fontWeight: 700, minHeight: 44 }}>✓ {t('bfCheckDone')}</p>
+        : <Tap className="btn primary" style={{ marginTop: 4 }} onClick={() => navigate('/check')}><Icon name="box" size={24} />{t('bfCheck')}</Tap>)}
       {b.collect.length > 0 && <>
-        <div className="lab" style={{ marginTop: 8, fontWeight: 500 }}>{t('bfCollect')}</div>
+        <h3 style={{ fontSize: 20, fontWeight: 700, margin: '18px 0 2px' }}>{t('bfCollect')}</h3>
         {b.collect.map((c) => (
-          <Tap key={c.id} className="linkrow" onClick={() => navigate('/udhaar/' + c.id)}>
-            <span style={{ color: 'var(--ink)' }}>{custLabel(c)}{c.days != null && c.days >= 3 && <span className="lab" style={{ fontWeight: 500, fontSize: 16 }}> · {t('bfDays').replace('{n}', String(c.days))}</span>}</span>
-            <span style={{ color: 'var(--c-udh)' }}>{rupees(+c.balance)}</span>
-          </Tap>
+          <div key={c.id} className="bf-row">
+            <Tap className="bf-who" onClick={() => navigate('/udhaar/' + c.id)}>
+              <b>{custLabel(c)}</b><span className="ud-amt" style={{ fontSize: 21 }}>{rupees(+c.balance)}</span>
+            </Tap>
+            <div className="bf-sub">
+              <span className="lab">{c.days != null && c.days >= 1 ? t('bfDays').replace('{n}', String(c.days)) : t('bfDue')}</span>
+              <a className="wa-btn" href={waLink(c, t('waRemind'))} target="_blank" rel="noreferrer"><Icon name="wa" size={20} />{t('bfRemind')}</a>
+            </div>
+          </div>
         ))}
       </>}
-      {b.check.length > 0 && (b.check_done
-        ? <p className="lab" style={{ marginTop: 10 }}>✓ {t('bfCheckDone')}</p>
-        : <Tap className="btn outline small" style={{ width: '100%', marginTop: 12 }} onClick={() => navigate('/check')}>{t('bfCheck')}</Tap>)}
-    </div>
+    </section>
   )
 }
 

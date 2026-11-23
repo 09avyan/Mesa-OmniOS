@@ -84,7 +84,7 @@ export function BillDetail({ id }: { id: string }) {
       {b.status === 'saved' && <>
         <a className="wa tap" href={wa} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}><Icon name="wa" size={26} />{t('sendWaWalkIn')}</a>
         <div className="undorow" style={{ marginTop: 32 }}><span className="lab">{t('mistake')}</span>
-          <Tap className="undo" style={{ height: 56, padding: '0 22px', background: '#fff', boxShadow: 'inset 0 0 0 2px #8A7A66' }} onClick={remove}>{t('removeBill')}</Tap></div>
+          <Tap className="undo" style={{ height: 56, padding: '0 22px', background: '#fff', boxShadow: 'inset 0 0 0 2px #2B313A' }} onClick={remove}>{t('removeBill')}</Tap></div>
       </>}
     </main>
   )

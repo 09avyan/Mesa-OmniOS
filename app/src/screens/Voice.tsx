@@ -63,7 +63,7 @@ export function Voice() {
   // Start listening as soon as the screen opens (the owner already pressed the mic). ?say= lets tests and demos inject words.
   useEffect(() => {
     const q = new URLSearchParams(location.search), say = q.get('say')
-    if (q.get('manual')) { loadShop().then((s) => { setShop(s); setDraft({ intent: q.get('manual') === 'stock' ? 'stock_in' : 'bill', heard: '', customerName: null, customer: null, customerSure: true, customerOthers: [], lines: [], amount: null, pay: 'cash' }); setStage('review') }) }
+    if (q.get('manual')) { loadShop().then((s) => { setShop(s); setDraft({ intent: q.get('manual') === 'stock' ? 'stock_in' : 'bill', heard: '', customerName: null, customer: null, customerSure: true, customerOthers: [], lines: [], amount: null, pay: null }); setStage('review') }) }
     else if (q.get('order')) {
       // online order -> bill: available lines become bill lines; customer + phone prefilled
       Promise.all([loadShop(), supabase.from('orders').select('id,customer_name,phone,order_lines(item_id,name,unit,qty,price,available)').eq('id', q.get('order')!).maybeSingle()]).then(([s, { data }]) => {
@@ -75,7 +75,7 @@ export function Voice() {
           return { key: 'o' + i, said: '', match: m, candidates: m ? [m] : [], sure: !!m, qty: Number(l.qty), price: Number(l.price), priceSure: true }
         })
         const c = s.customers.find((x) => x.phone === o.phone) ?? null
-        setDraft({ intent: 'bill', heard: '', customerName: c?.name ?? o.customer_name, customer: c, customerSure: true, customerOthers: [], lines, amount: null, pay: 'cash', phone: o.phone, orderId: o.id })
+        setDraft({ intent: 'bill', heard: '', customerName: c?.name ?? o.customer_name, customer: c, customerSure: true, customerOthers: [], lines, amount: null, pay: null, phone: o.phone, orderId: o.id })
         setStage('review')
       })
     }
@@ -253,29 +253,48 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
     successFx(); invalidateShop()
     if (isBill) {
       const r = res.data as { bill_id: string; share_token: string; total: number; balance: number | null; has_unrecorded: boolean }
-      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, fromOrder: !!draft.orderId, phone: (draft.phone ?? draft.customer?.phone ?? '').replace(/\D/g, ''), customer: draft.customerName, pay: draft.pay, balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
+      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, fromOrder: !!draft.orderId, phone: (draft.phone ?? draft.customer?.phone ?? '').replace(/\D/g, ''), customer: draft.customerName, pay: draft.pay ?? "cash", balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
     } else onSaved({ kind: 'stock', lines: draft.lines })
   }
 
+  const after = draft.pay === 'udhaar' && draft.customerName ? t('dkUdhaar').replace('{name}', draft.customerName).replace('{x}', rupees(prevBal + net))
+    : draft.pay === 'upi' ? t('dkUpi').replace('{x}', rupees(net)) : t('dkCash').replace('{x}', rupees(net))
+  const fixFirst = () => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   const cta = !ready
-    ? <Tap className="btn warn" onClick={() => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
-        {isBill && total > 0 ? `${t('total')} ${rupees(net)} · ${reason}` : cap(reason)}
-      </Tap>
+    ? <Tap className="btn dk-wait" onClick={fixFirst}><span>{isBill ? t('saveBill') : t('stockAdd')}</span><small>{cap(reason)}</small></Tap>
     : udhaarBlocked
-      ? <Tap className="btn warn" onClick={() => setCustOpen(true)}>{t('udhaarNeedsName')}</Tap>
-      : <Tap className="btn primary" disabled={busy} onClick={save}><Icon name="tick" size={24} stroke={3} />
-          {busy ? t('saving') : isBill ? `${t('saveBill')} · ${rupees(net)}` : t('stockAdd')}</Tap>
+      ? <Tap className="btn dk-wait" onClick={() => setCustOpen(true)}><span>{t('saveBill')}</span><small>{t('udhaarNeedsName')}</small></Tap>
+      : isBill && !draft.pay
+        ? <div className="btn dk-wait" aria-disabled="true"><span>{t('saveBill')} · {rupees(net)}</span><small>{t('dkChoose')}</small></div>
+        : <Tap className="btn primary dk-go" disabled={busy} onClick={save}>
+            <span><Icon name="tick" size={22} stroke={3} /> {busy ? t('saving') : isBill ? `${t('saveBill')} · ${rupees(net)}` : t('stockAdd')}</span>
+            {isBill && !busy && <small>{after}</small>}
+          </Tap>
+  const dock = isBill ? (
+    <div className="paydock">
+      <div className="dk-head"><b>{t('howPaid')}</b><b className="num">{rupees(net)}</b></div>
+      <div className="dk-tiles">
+        {(['cash', 'upi', 'udhaar'] as const).map((p) => (
+          <Tap key={p} className={`dk-tile ${draft.pay === p ? (p === 'udhaar' ? 'onu' : 'on') : ''}`} aria-pressed={draft.pay === p}
+            onClick={() => { setDraft({ ...draft, pay: p }); if (p === 'upi') setUpiOpen(true) }}>
+            {draft.pay === p ? <Icon name="tick" size={20} stroke={3} /> : <Icon name={p === 'cash' ? 'cash' : p === 'upi' ? 'qr' : 'book'} size={20} />}{t(p)}
+          </Tap>
+        ))}
+      </div>
+      {cta}
+    </div>
+  ) : <div className="flowact">{cta}</div>
 
   return (
     <div className="app">
-      <main className="screen has-flow">
+      <main className={`screen ${isBill ? "has-dock" : "has-flow"}`}>
         <BackBar />
         {isBill ? (
           <div className="who">
             <div className="av">{(draft.customerName ?? '?').trim().charAt(0).toUpperCase()}</div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div className="lab" style={{ lineHeight: '20px' }}>{t('billWhose')}{draft.customerName && !draft.customer && draft.customerOthers.length <= 1 ? ` · ${t('newCustomer')}` : ''}</div>
-              <div className="h1" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{draft.customerName ?? <span className="lab" style={{ font: "600 20px Mukta" }}>{t('walkIn')}</span>}</div>
+              <div className="h1" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{draft.customerName ?? <span className="lab" style={{ font: "600 20px Hind" }}>{t('walkIn')}</span>}</div>
             </div>
             <Tap className="ghost" style={{ color: 'var(--ac)', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 4 }} onClick={() => setCustOpen(true)}>{draft.customerName ? t('change') : t('addName')}</Tap>
           </div>
@@ -314,14 +333,6 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
         <Tap className="linkrow" style={{ marginTop: 12 }} onClick={() => setPick({ key: 'new', said: '', match: null, candidates: [], sure: true, qty: 1, price: null, priceSure: false })}><span>+ {t('addItem')}</span><span>›</span></Tap>
 
         {isBill && ready && <>
-          <div className="sec">{t('howPaid')}</div>
-          <div className="pay">
-            {(['cash', 'upi', 'udhaar'] as const).map((p) => (
-              <Tap key={p} className={`pb ${draft.pay === p ? 'on' : ''} ${p === 'udhaar' ? 'ud' : ''}`} onClick={() => { setDraft({ ...draft, pay: p }); if (p === 'upi') setUpiOpen(true) }}>
-                {draft.pay === p && '✓ '}{t(p)}
-              </Tap>
-            ))}
-          </div>
           {draft.customerName && (
             <div className="field" style={{ marginTop: 14 }}>
               <label htmlFor="ph">{t('phoneOpt')}</label>
@@ -344,7 +355,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
         </>}
         {!isBill && <div className="gap16" />}
       </main>
-      <div className="flowact">{cta}</div>
+      {dock}
       {bar}
 
       <ItemPicker open={!!pick} line={pick} shop={shop} onClose={() => setPick(null)}
@@ -559,35 +570,27 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
   return (
     <div className="app">
       <main className="screen has-flow">
-        {saved.kind === 'bill' ? (
-          <div style={{ marginTop: 4 }}>
-            <BillCard lang={lang} brand={false} b={{
-              store: store?.name ?? '', customer: saved.customer, pay: saved.pay, subtotal: saved.total + saved.discount, discount: saved.discount, total: saved.total, status: 'saved',
-              at: new Date().toISOString(), no: saved.token.slice(0, 6).toUpperCase(),
-              lines: saved.lines.map((l) => ({ name: l.match?.shop?.name ?? l.match?.hinglish ?? '', name_hi: l.match?.hi, catalog_id: l.match && !l.match.id.startsWith('shop:') ? l.match.id : null, qty: l.qty ?? 0, unit: l.match?.shop?.unit ?? l.match?.unit ?? 'pc', price: l.price ?? 0, amount: lineTotal(l) })),
-            }} />
-            {saved.pay === 'udhaar' && saved.balance != null && <div className="udnote">{saved.customer} {t('udhaarTotal')}: {rupees(saved.balance)}</div>}
-          </div>
-        ) : <>
-          <div className="ok"><div className="okc"><Icon name="tick" size={48} stroke={3} /></div>
-            <h1 className="h1" style={{ marginTop: 22 }}>{saved.kind === 'stock' ? t('stockAdded') : t('paySaved')}</h1>
-            {saved.kind === 'payment' && <><div className="lab" style={{ marginTop: 4 }}>{saved.customer}</div><div className="big" style={{ marginTop: 6 }}>{rupees(saved.amount)}</div></>}
-          </div>
-          <div className="changed"><span>
-            {saved.kind === 'stock' && <>+ {lineSummary}</>}
-            {saved.kind === 'payment' && <>{t('balanceAfter')}: <b>{rupees(saved.balance)}</b></>}
-          </span></div>
-        </>}
+        <div className="ok"><div className="okc"><Icon name="tick" size={48} stroke={3} /></div>
+          <h1 className="h1" style={{ marginTop: 18 }}>{saved.kind === 'bill' ? t('billMade') : saved.kind === 'stock' ? t('stockAdded') : t('paySaved')}</h1>
+          {saved.kind === 'bill' && <p className="sv-sum">{rupees(saved.total)} · {t(saved.pay as 'cash')}{saved.pay === 'udhaar' && saved.customer && saved.balance != null && <><br />{t('svKhata').replace('{name}', saved.customer).replace('{x}', rupees(saved.balance))}</>}</p>}
+          {saved.kind === 'payment' && <><div className="lab" style={{ marginTop: 4 }}>{saved.customer}</div><div className="big" style={{ marginTop: 6 }}>{rupees(saved.amount)}</div><p className="sv-sum">{t('balanceAfter')}: <b>{rupees(saved.balance)}</b></p></>}
+          {saved.kind === 'stock' && <p className="sv-sum">+ {lineSummary}</p>}
+        </div>
+        <div className="stack" style={{ marginTop: 20 }}>
+          {saved.kind === 'bill' && <a className="btn sv-wa" href={`https://wa.me/${saved.phone ? (saved.phone.length === 10 ? '91' + saved.phone : saved.phone) : ''}?text=${waText}`} target="_blank" rel="noreferrer">
+            <Icon name="wa" size={24} />{saved.customer ? `${saved.customer} ${t('sendWa')}` : t('sendWaWalkIn')}</a>}
+          <Tap className="btn sv-home" onClick={() => navigate('/', true)}><Icon name="home" size={24} />{t('goHome')}</Tap>
+        </div>
         {saved.kind === 'bill' && saved.unrecorded && <p className="lab" style={{ marginTop: 12 }}>{t('unrecordedNote')}</p>}
-        {saved.kind === 'bill' && <>
-          <a className="wa tap" href={`https://wa.me/${saved.kind === 'bill' && saved.phone ? (saved.phone.length === 10 ? '91' + saved.phone : saved.phone) : ''}?text=${waText}`} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}>
-            <Icon name="wa" size={26} />{saved.customer ? `${saved.customer} ${t('sendWa')}` : t('sendWaWalkIn')}
-          </a>
-          <div className="undorow" style={{ marginTop: 36 }}><span className="lab">{t('mistake')}</span>
-            <Tap className="undo" style={{ height: 56, padding: '0 22px', background: '#fff', boxShadow: 'inset 0 0 0 2px #8A7A66' }} onClick={onUndo}>{t('removeBill')}</Tap></div>
-        </>}
+        {saved.kind === 'bill' && <div className="sv-undo"><p>{t('svUndoNote')}</p><Tap className="btn sv-home" onClick={onUndo}>↶ {t('svUndo')}</Tap></div>}
+        {saved.kind === 'bill' && <div style={{ marginTop: 20 }}>
+          <BillCard lang={lang} brand={false} b={{
+            store: store?.name ?? '', customer: saved.customer, pay: saved.pay, subtotal: saved.total + saved.discount, discount: saved.discount, total: saved.total, status: 'saved',
+            at: new Date().toISOString(), no: saved.token.slice(0, 6).toUpperCase(),
+            lines: saved.lines.map((l) => ({ name: l.match?.shop?.name ?? l.match?.hinglish ?? '', name_hi: l.match?.hi, catalog_id: l.match && !l.match.id.startsWith('shop:') ? l.match.id : null, qty: l.qty ?? 0, unit: l.match?.shop?.unit ?? l.match?.unit ?? 'pc', price: l.price ?? 0, amount: lineTotal(l) })),
+          }} />
+        </div>}
       </main>
-      <div className="flowact"><Tap className="btn primary" onClick={() => navigate('/', true)}><Icon name="home" size={24} />{t('goHome')}</Tap></div>
       <BottomBar flow onMic={() => navigate('/bolo?new=' + Date.now(), true)} />
     </div>
   )

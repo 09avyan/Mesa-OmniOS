@@ -66,7 +66,7 @@ export function Hisaab() {
         <h2 className="h2" style={{ margin: '24px 4px 8px' }}>{t('topItems')}</h2>
         <div className="card" style={{ padding: '6px 20px' }}>
           {s.top.map((it, i) => (
-            <div key={i} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600, borderTop: i ? '1px solid var(--line, #EDE3D1)' : 'none' }}>
+            <div key={i} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600, borderTop: i ? '1px solid var(--line, #E4E7EC)' : 'none' }}>
               <span style={{ minWidth: 0 }}>{itemName({ ...it, price: 0 }, lang)}<span className="lab" style={{ display: 'block', fontSize: 16, fontWeight: 500 }}>{+it.qty} {it.unit}</span></span>
               <span className="num" style={{ fontSize: 20 }}>{rupees(+it.amount)}</span>
             </div>

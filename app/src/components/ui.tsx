@@ -37,7 +37,7 @@ export function BottomBar({ active, flow = false, micLabel, listening = false, o
   const { t } = useT()
   const tab = (x: (typeof TABS)[number]) => (
     <Tap key={x.id} className={`tab ${active === x.id ? 'on' : ''}`} onClick={() => navigate(x.path, true)} aria-current={active === x.id ? 'page' : undefined}>
-      <Icon name={x.icon} size={26} color={active === x.id ? undefined : x.color} />{t(x.key)}
+      <Icon name={x.icon} size={26} />{t(x.key)}
     </Tap>
   )
   return (

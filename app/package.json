@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@fontsource/baloo-2": "^5.3.0",
+    "@fontsource/hind": "^5.3.0",
     "@fontsource/mukta": "^5.3.0",
     "@supabase/supabase-js": "^2.119.2",
     "qrcode": "^1.5.4",
