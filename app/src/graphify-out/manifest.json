@@ -54,9 +54,9 @@
     "semantic_hash": ""
   },
   "lib/i18n.tsx": {
-    "mtime": 1795445677.5880842,
-    "seen": 1795445744.8422017,
-    "ast_hash": "65f84e122e5182a0d67bbe1cd2a86828",
+    "mtime": 1795445899.4761043,
+    "seen": 1795445956.5886474,
+    "ast_hash": "316475b6f1c61bb16c7924f95c024879",
     "semantic_hash": ""
   },
   "lib/prefs.ts": {
@@ -174,9 +174,9 @@
     "semantic_hash": ""
   },
   "screens/Voice.tsx": {
-    "mtime": 1795445677.5869107,
-    "seen": 1795445744.8422341,
-    "ast_hash": "700c6b0035acf064ba7937e0d8429a76",
+    "mtime": 1795445899.4771953,
+    "seen": 1795445956.5886824,
+    "ast_hash": "cbc54acf1619a77ce21b92469bc5d6be",
     "semantic_hash": ""
   },
   "vite-env.d.ts": {

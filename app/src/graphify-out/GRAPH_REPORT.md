@@ -1,7 +1,7 @@
 # Graph Report - src  (2026-11-23)
 
 ## Corpus Check
-- 44 files · ~36,992 words
+- 44 files · ~37,023 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 1 file(s) not represented in the graph (top: .css 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `aaa7d97e`
+- Built from commit: `4b3ea9e1`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -41,16 +41,16 @@
 10. `Owner()` - 29 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `UpiSheet()` --calls--> `Sheet()`  [EXTRACTED]
-  app/src/components/UpiSheet.tsx → app/src/components/ui.tsx
-- `UpiSheet()` --calls--> `Tap()`  [EXTRACTED]
-  app/src/components/UpiSheet.tsx → app/src/components/ui.tsx
-- `UpiSheet()` --calls--> `rupees()`  [EXTRACTED]
-  app/src/components/UpiSheet.tsx → app/src/lib/i18n.tsx
-- `UpiSheet()` --calls--> `useT()`  [EXTRACTED]
-  app/src/components/UpiSheet.tsx → app/src/lib/i18n.tsx
 - `Owner()` --calls--> `savedLang()`  [EXTRACTED]
   app/src/App.tsx → app/src/lib/i18n.tsx
+- `NumberSheet()` --calls--> `useT()`  [EXTRACTED]
+  app/src/components/Pad.tsx → app/src/lib/i18n.tsx
+- `UpiSheet()` --calls--> `useT()`  [EXTRACTED]
+  app/src/components/UpiSheet.tsx → app/src/lib/i18n.tsx
+- `BillDetail()` --calls--> `useT()`  [EXTRACTED]
+  app/src/screens/Bills.tsx → app/src/lib/i18n.tsx
+- `ForecastCard()` --calls--> `useT()`  [EXTRACTED]
+  app/src/screens/Forecast.tsx → app/src/lib/i18n.tsx
 
 ## Import Cycles
 - None detected.

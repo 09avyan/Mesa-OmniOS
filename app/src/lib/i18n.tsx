@@ -172,7 +172,7 @@ const S = {
   bfDue: { hinglish: 'baaki hai', hi: 'बाकी है', en: 'due' },
   bfRemind: { hinglish: 'WhatsApp pe yaad', hi: 'WhatsApp पर याद', en: 'WhatsApp reminder' },
   waRemind: { hinglish: 'Namaste ji, aapka udhaar {x} baaki hai. Hisaab dekhein: {link}', hi: 'नमस्ते जी, आपका उधार {x} बाकी है। हिसाब देखें: {link}', en: 'Hello, your balance of {x} is due. See details: {link}' },
-  dkChoose: { hinglish: 'Upar se chuno: Cash, UPI ya Udhaar', hi: 'ऊपर से चुनें: कैश, UPI या उधार', en: 'Choose above: Cash, UPI or Udhaar' },
+  dkChoose: { hinglish: 'Pehle Cash, UPI ya Udhaar chuno', hi: 'पहले कैश, UPI या उधार चुनें', en: 'First choose Cash, UPI or Udhaar' },
   dkCash: { hinglish: 'Cash {x} mila', hi: 'नकद {x} मिला', en: 'Cash {x} received' },
   dkUpi: { hinglish: 'UPI se {x} mila', hi: 'UPI से {x} मिला', en: '{x} received by UPI' },
   dkUdhaar: { hinglish: 'Udhaar → {name} ka khata (ab {x})', hi: 'उधार → {name} का खाता (अब {x})', en: 'Udhaar → khata of {name} (now {x})' },

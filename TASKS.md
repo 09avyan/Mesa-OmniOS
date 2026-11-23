@@ -81,7 +81,8 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ⏳ Edge cases + safety checks — list and discuss with owner (negative stock, offline mid-save, duplicate bills, wrong customer, PIN guessing, fake orders, price errors, undo limits, data loss, privacy).
 
 ## NEXT BUILD
-- ⏳ Full UI redo again (all merchant + customer screens), design-skill led, owner-test rounds ≥ 9/10.
+- 🔄 Full UI redo from scratch (owner, 23 Nov): look chosen by test (3 versions → 'clean counter' won), 6 prototype rounds + 3 real-app rounds → ✅ MERCHANT PASSED (all 4 owner personas 9/9/9). Next: customer pages (customer panel) → admin (admin panel). DESIGN.md v3.
+- ⏳ Maal tab: 150+ items make a very long list — search-first / sections (panel note).
 - 🔄 Redo all UI — merchant side pass 1 done (Home hero, shared design polish, app-styled pop-ups, review fixes); next: deeper per-screen redesign + owner-test rounds ≥ 9/10; customer side later.
 
 ## S4f · Owner requests (23 Nov)

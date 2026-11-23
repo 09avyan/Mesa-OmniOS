@@ -310,7 +310,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
             </div>
           </div>
         )}
-        {isBill && draft.customer && <Tap className="ghost" style={{ marginLeft: -12, fontSize: 17, color: 'var(--ink2)' }} onClick={async () => { const tg = await askText({ title: t('tagAsk') }) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>{t('notThisOne')}</Tap>}
+        {isBill && draft.customer && <Tap className="ghost" style={{ marginLeft: -12, fontSize: 18, color: 'var(--ink)', textDecoration: 'underline', textUnderlineOffset: 4 }} onClick={async () => { const tg = await askText({ title: t('tagAsk') }) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>{t('notThisOne')}</Tap>}
         {isBill && !draft.customerSure && draft.customerName && draft.customerOthers.length <= 1 && (
           <div className="it u" style={{ borderRadius: 16, marginTop: 12 }}>
             <div className="guess" style={{ marginTop: 0 }}><span className="gtxt">{t('thisName')}</span>
