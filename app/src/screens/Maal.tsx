@@ -8,6 +8,7 @@ import { errorFx, successFx } from '../lib/feedback'
 import { Sheet, Tap, toast } from '../components/ui'
 import { NumberSheet } from '../components/Pad'
 import { Icon } from '../components/Icon'
+import { ForecastCard } from './Forecast'
 
 const CAT = new Map(CATALOG.map((c) => [c.id, c]))
 const units: Record<string, string> = { kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' }
@@ -48,6 +49,7 @@ export function Maal() {
       <div className="gap8" />
       <Tap className="btn quiet" onClick={() => navigate('/bolo?manual=stock')}><Icon name="box" size={24} />{t('stockByPick')}</Tap>
       <div className="gap24" />
+      <ForecastCard />
       {items && items.length > 0 && <>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
           <h2 className="h2">{items.length} {t('itemsWord')}</h2>

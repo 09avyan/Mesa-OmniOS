@@ -54,9 +54,9 @@
     "semantic_hash": ""
   },
   "lib/i18n.tsx": {
-    "mtime": 1795443736.0609982,
-    "seen": 1795443805.864437,
-    "ast_hash": "f8b4536e72687aa116a9de3729722d92",
+    "mtime": 1795443905.8960512,
+    "seen": 1795443956.5289207,
+    "ast_hash": "71c5241855e8d7eeaa67b068ba605b14",
     "semantic_hash": ""
   },
   "lib/prefs.ts": {
@@ -144,9 +144,9 @@
     "semantic_hash": ""
   },
   "screens/Maal.tsx": {
-    "mtime": 1795441583.2947671,
-    "seen": 1795443128.296269,
-    "ast_hash": "c198621db374593f15663015def9a722",
+    "mtime": 1795443905.8965285,
+    "seen": 1795443956.5289488,
+    "ast_hash": "83cfefb1c340a8305dc8d62f5ec610d9",
     "semantic_hash": ""
   },
   "screens/Orders.tsx": {
@@ -255,6 +255,12 @@
     "mtime": 1795443736.059558,
     "seen": 1795443805.8644528,
     "ast_hash": "6fcf4483dec240031911d527dec2c3d8",
+    "semantic_hash": ""
+  },
+  "screens/Forecast.tsx": {
+    "mtime": 1795443905.895028,
+    "seen": 1795443956.5289419,
+    "ast_hash": "1907ebcca4d0a0ec304b2c8a3ef1dbee",
     "semantic_hash": ""
   }
 }

@@ -106,7 +106,7 @@ Approved, in this order:
 - ✅ Aaj ka hisaab screen — Aaj/Kal/7/30 din: sales, cash/UPI/udhaar split, udhaar collected, avg bill, busiest hour, top 5 items. Supplier dues shown once receipts exist.
 - ✅ Galla screen — type or say drawer cash, compared with today's cash bills.
 - ✅ Morning briefing card on Home (yesterday, who to collect udhaar from + days waiting, streak) + daily 3-item count (/check: corrects stock, shows gaps). Restock advice waits for forecast (owner).
-- ⏳ Forecast "Seekh raha hai" state + low-stock alerts (no invented numbers).
+- ✅ Forecast card on Maal: 'Seekh raha hai' with progress until 14 sale-days, simple low-stock meanwhile; then 'Jaldi khatam hoga' with ~days left from last 14 days of real sales. 'This week will sell' prediction still pending (needs more data).
 
 ## S6 · Customer side
 - ⏳ Store order site, orders screen with sound, Ready → bill, customer status page, QR poster.
