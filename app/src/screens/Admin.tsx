@@ -124,7 +124,7 @@ function Dashboard() {
 
 function StoreRow({ s, act }: { s: Store; act: (fn: () => Promise<unknown>, done: string) => void }) {
   const [pin, setPin] = useState(''), [confirmDel, setConfirmDel] = useState('')
-  const [open, setOpen] = useState<'' | 'pin' | 'del'>('')
+  const [open, setOpen] = useState<'' | 'pin' | 'del' | 'phones'>('')
   return (
     <>
       <tr>
@@ -134,6 +134,7 @@ function StoreRow({ s, act }: { s: Store; act: (fn: () => Promise<unknown>, done
         <td><span className={`pill ${s.status === 'active' ? 'ok' : 'off'}`}>{s.status}</span></td>
         <td style={{ whiteSpace: 'nowrap' }}>
           <Tap className="ghost" onClick={() => { const v = prompt('Public store link name (a-z, 0-9, -), e.g. sharma-kirana-rajwada', '') ?? ''; if (v) act(async () => { const { error } = await adb.rpc('set_store_slug', { p_store: s.id, p_slug: v.trim().toLowerCase() }); if (error) throw new Error(error.message.includes('taken') ? 'That link is taken' : 'Link: 4-40 letters, numbers or -') }, `Link set: /s/${v.trim().toLowerCase()}`) }}>Store link</Tap>
+          <Tap className="ghost" onClick={() => setOpen(open === 'phones' ? '' : 'phones')}>Phones</Tap>
           <Tap className="ghost" onClick={() => setOpen(open === 'pin' ? '' : 'pin')}>Reset PIN</Tap>
           <Tap className="ghost" onClick={() => act(() => call('set_status', { store_id: s.id, status: s.status === 'active' ? 'paused' : 'active' }), `${s.code} ${s.status === 'active' ? 'paused' : 'resumed'}.`)}>
             {s.status === 'active' ? 'Pause' : 'Resume'}
@@ -141,6 +142,7 @@ function StoreRow({ s, act }: { s: Store; act: (fn: () => Promise<unknown>, done
           <Tap className="ghost" style={{ color: 'var(--danger)' }} onClick={() => setOpen(open === 'del' ? '' : 'del')}>Delete</Tap>
         </td>
       </tr>
+      {open === 'phones' && <tr><td colSpan={5}><AdminPhones storeId={s.id} act={act} /></td></tr>}
       {open === 'pin' && (
         <tr><td colSpan={5}>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -184,4 +186,20 @@ function CreateStore({ onCreate }: { onCreate: (b: { code: string; pin: string; 
       <Tap className="btn primary" disabled={!ok} onClick={() => { onCreate(f); setF({ ...f, code: '', pin: '', name: '', owner_name: '', phone: '' }) }}>Create store</Tap>
     </section>
   )
+}
+
+function AdminPhones({ storeId, act }: { storeId: string; act: (fn: () => Promise<unknown>, done: string) => void }) {
+  const [list, setList] = useState<{ id: string; label: string; last_seen: string }[] | null>(null)
+  const [n, setN] = useState(0)
+  useEffect(() => {
+    adb.from('store_devices').select('id,label,last_seen').eq('store_id', storeId).eq('revoked', false).order('last_seen', { ascending: false })
+      .then(({ data }) => setList(data ?? []))
+  }, [storeId, n])
+  if (!list) return <span className="lab">Loading…</span>
+  if (!list.length) return <span className="lab">No phones logged in.</span>
+  return <div className="stack">{list.map((d) => (
+    <div key={d.id} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+      <span className="grow">{d.label} <span className="lab" style={{ fontSize: 16 }}>· last used {new Date(d.last_seen).toLocaleString('en-IN')}</span></span>
+      <Tap className="ghost" style={{ color: 'var(--danger)' }} onClick={() => act(async () => { const { error } = await adb.rpc('device_revoke', { p_id: d.id }); if (error) throw new Error(error.message); setN((x) => x + 1) }, 'Phone removed.')}>Remove</Tap>
+    </div>))}</div>
 }

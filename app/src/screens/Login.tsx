@@ -12,7 +12,7 @@ export function Login() {
   const [step, setStep] = useState<'code' | 'pin'>(code ? 'pin' : 'code')
   const [pin, setPin] = useState('')
   const [busy, setBusy] = useState(false)
-  const [err, setErr] = useState('')
+  const [err, setErr] = useState(() => { try { if (sessionStorage.getItem('omni-removed')) { sessionStorage.removeItem('omni-removed'); return 'removed' } } catch { /* ignore */ } return '' })
   const [shake, setShake] = useState(false)
 
   const codeOk = /^[A-Za-z0-9]{4,8}$/.test(code.trim())
@@ -26,8 +26,11 @@ export function Login() {
     setBusy(true)
     const r = await storeLogin(code, next)
     setBusy(false)
-    if (r === 'ok') { successFx(); try { localStorage.setItem('omni-code', code.trim().toUpperCase()) } catch { /* ignore */ } return }
-    errorFx(); setPin(''); setShake(true); setTimeout(() => setShake(false), 400); setErr(r === 'wrong' ? t('wrongLogin') : t('offline'))
+    if (r.kind === 'ok') { successFx(); try { localStorage.setItem('omni-code', code.trim().toUpperCase()) } catch { /* ignore */ } return }
+    errorFx(); setPin(''); setShake(true); setTimeout(() => setShake(false), 400)
+    if (r.kind === 'locked') { const m = Math.max(1, Math.ceil((new Date(r.until).getTime() - Date.now()) / 60000)); setErr(t('pinLocked').replace('{m}', String(m))) }
+    else if (r.kind === 'wrong') setErr(r.left !== undefined && r.left <= 2 ? `${t('wrongLogin')} ${t('triesLeft').replace('{n}', String(r.left))}` : t('wrongLogin'))
+    else setErr(t('offline'))
   }
 
   if (step === 'code') return (
@@ -59,7 +62,7 @@ export function Login() {
       <h1 className="h1 center" style={{ marginTop: 8 }}>{t('pinTitle')}</h1>
       <p className="lab center">{t('shopLabel')}: <b style={{ color: 'var(--ink)' }}>{code.toUpperCase()}</b></p>
       <div className={`pins ${shake ? 'shake' : ''}`} aria-label={`${pin.length} of 4`}>{[0, 1, 2, 3].map((i) => <i key={i} className={i < pin.length ? 'on' : ''} />)}</div>
-      <div className="msgslot" role="alert">{err ? <div className="err">{err}</div> : busy ? <p className="lab center">{t('loading')}</p> : null}</div>
+      <div className="msgslot" role="alert">{err ? <div className="err">{err === 'removed' ? t('removedHere') : err}</div> : busy ? <p className="lab center">{t('loading')}</p> : null}</div>
       <div className="pad">
         {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((d) => <Tap key={d} className="key" onClick={() => press(d)}>{d}</Tap>)}
         <Tap className="key word" onClick={() => { setPin(''); setErr('') }}>{t('clear')}</Tap>

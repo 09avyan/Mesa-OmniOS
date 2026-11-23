@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { LANGS, useT } from '../lib/i18n'
 import { useStore } from '../lib/store'
 import { supabase } from '../lib/supabase'
@@ -13,6 +13,7 @@ export function Settings() {
   const [snd, setSnd] = useState(soundEnabled())
   const [langOpen, setLangOpen] = useState(false)
   const [askOut, setAskOut] = useState(false)
+  const [phonesOpen, setPhonesOpen] = useState(false)
 
   function pickLang(l: typeof lang) {
     setLang(l)
@@ -34,6 +35,7 @@ export function Settings() {
         <Tap className="rowb" onClick={() => { setSound(!snd); setSnd(!snd) }}>
           <Icon name="sound" /><span className="grow">{t('sound')}</span><span style={{ color: snd ? 'var(--ac)' : 'var(--ink2)' }}>{snd ? t('on') : t('off')}</span>
         </Tap>
+        <Tap className="rowb" onClick={() => setPhonesOpen(true)}><Icon name="lock" /><span className="grow">{t('phones')}</span><span className="chev">›</span></Tap>
         <Tap className="rowb" onClick={() => navigate('/dukaan')}><Icon name="globe" /><span className="grow">{t('myStore')}</span><span className="chev">›</span></Tap>
         <Tap className="rowb" onClick={() => navigate('/terms')}><Icon name="doc" /><span className="grow">{t('terms')}</span><span className="chev">›</span></Tap>
       </div>
@@ -53,6 +55,13 @@ export function Settings() {
         <div className="gap16" />
         <Tap className="btn quiet" onClick={() => setLangOpen(false)}>{t('ok')}</Tap>
       </Sheet>
+      <Sheet open={phonesOpen} onClose={() => setPhonesOpen(false)}>
+        <h2 className="h2">{t('phones')}</h2><div className="gap8" />
+        <p className="lab">{t('phonesBody')}</p><div className="gap16" />
+        {phonesOpen && <Phones />}
+        <div className="gap16" />
+        <Tap className="btn quiet" onClick={() => setPhonesOpen(false)}>{t('ok')}</Tap>
+      </Sheet>
       <Sheet open={askOut} onClose={() => setAskOut(false)}>
         <h2 className="h2">{t('logoutAsk')}</h2><div className="gap8" />
         <p style={{ color: 'var(--ink)' }}>{t('logoutAskBody')}</p><div className="gap24" />
@@ -62,5 +71,34 @@ export function Settings() {
         </div>
       </Sheet>
     </main>
+  )
+}
+
+type Device = { id: string; session_id: string; label: string; last_seen: string }
+const sessionIdOf = (jwt?: string) => { try { return JSON.parse(atob((jwt ?? '').split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).session_id as string } catch { return '' } }
+
+function Phones() {
+  const { t, lang } = useT()
+  const { session } = useStore()
+  const [list, setList] = useState<Device[] | null>(null)
+  const mine = sessionIdOf(session?.access_token)
+  const load = () => supabase.from('store_devices').select('id,session_id,label,last_seen').eq('revoked', false).order('last_seen', { ascending: false })
+    .then(({ data }) => setList((data as Device[]) ?? []))
+  useEffect(() => { load() }, [])
+  const when = (iso: string) => new Date(iso).toLocaleString(lang === 'en' ? 'en-IN' : 'hi-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
+  if (!list) return <div className="skel" style={{ height: 72 }} />
+  return (
+    <div className="stack">
+      {list.map((d) => (
+        <div key={d.id} className="rowb" style={{ cursor: 'default' }}>
+          <span className="grow">{d.label}<span className="lab" style={{ display: 'block', fontSize: 16, fontWeight: 500, lineHeight: '20px' }}>
+            {d.session_id === mine ? t('thisPhone') : `${t('lastSeen')}: ${when(d.last_seen)}`}</span></span>
+          {d.session_id !== mine && <Tap className="btn outline small" onClick={async () => {
+            const { error } = await supabase.rpc('device_revoke', { p_id: d.id })
+            toast({ text: error ? t('offline') : t('phoneRemoved') }); if (!error) load()
+          }}>{t('removePhone')}</Tap>}
+        </div>
+      ))}
+    </div>
   )
 }

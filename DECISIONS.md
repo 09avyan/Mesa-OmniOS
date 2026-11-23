@@ -26,3 +26,9 @@
 | — | Add person (Udhaar) | Name + phone + old udhaar (optional). Khata photo OCR requested now (brief had it in Phase 2) — after receipts. |
 | — | Security | PIN lockout 5 tries/10 min; logged-in phones visible to owner and admin with log-out. |
 | — | Phone at billing | Optional keypad after payment; WhatsApp to that number; editable from Bill detail. |
+
+## Login security (23 Nov 2026)
+- Login goes through the `login` edge function. The real password is HMAC(service key, CODE:PIN), so PINs can't be guessed against Supabase directly. Old-style passwords move over on first login.
+- 5 wrong PINs lock that shop code for 10 minutes. Trade-off: someone could lock a shop out on purpose; admin "Reset PIN" clears it.
+- Removing a phone blocks its data access at once (database check on its session); the phone is sent to the login screen next time it opens. Reset PIN removes all phones.
+- If the Supabase service key is ever rotated, every shop needs a PIN reset from /admin.

@@ -16,9 +16,13 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 const fail = (msg: string, status = 400) => json({ error: msg }, status);
 
-// Must match app/src/lib/auth.ts
+// Must match supabase/functions/login/index.ts
 const storeEmail = (code: string) => `${code.toLowerCase()}@store.omnidukaan.app`;
-const storePassword = (code: string, pin: string) => `omni-${code.toUpperCase()}-${pin}`;
+async function storePassword(code: string, pin: string) {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(SERVICE), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(`${code.toUpperCase()}:${pin}`));
+  return "v2-" + [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
 const validCode = (c: unknown): c is string => typeof c === "string" && /^[A-Z0-9]{4,8}$/.test(c);
 const validPin = (p: unknown): p is string => typeof p === "string" && /^\d{4}$/.test(p);
 
@@ -72,7 +76,7 @@ Deno.serve(async (req) => {
       }).select().single();
       if (error) return fail(error.code === "23505" ? "That store code is taken" : error.message);
       const { data: u, error: uerr } = await db.auth.admin.createUser({
-        email: storeEmail(code), password: storePassword(code, pin), email_confirm: true,
+        email: storeEmail(code), password: await storePassword(code, pin), email_confirm: true,
       });
       if (uerr || !u.user) { await db.from("stores").delete().eq("id", store.id); return fail(uerr?.message ?? "Could not create login"); }
       await db.from("store_users").insert({ user_id: u.user.id, store_id: store.id });
@@ -84,8 +88,12 @@ Deno.serve(async (req) => {
       const { data: s } = await db.from("stores").select("code").eq("id", store_id).single();
       const { data: su } = await db.from("store_users").select("user_id").eq("store_id", store_id).maybeSingle();
       if (!s || !su) return fail("Store not found", 404);
-      const { error } = await db.auth.admin.updateUserById(su.user_id, { password: storePassword(s.code, pin) });
-      return error ? fail(error.message) : json({ ok: true });
+      const { error } = await db.auth.admin.updateUserById(su.user_id, { password: await storePassword(s.code, pin) });
+      if (error) return fail(error.message);
+      // new PIN: clear any lockout and log out every phone
+      await db.from("login_attempts").delete().eq("code", s.code);
+      await db.from("store_devices").update({ revoked: true }).eq("store_id", store_id);
+      return json({ ok: true });
     }
     case "set_status": {
       const status = body.status === "paused" ? "paused" : "active";

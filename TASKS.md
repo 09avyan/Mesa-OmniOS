@@ -59,7 +59,7 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ✅ Online store — customer page /s/<name> (search, categories, cart, 'Mangwao' requests, repeat order), order status/edit/cancel /o/…, shop Orders (Naye/Chal rahe/Ho gaye/Maange gaye), packing 'Nahi hai', Ready → WhatsApp, order → bill, Meri online dukaan (QR, share, print, on/off), Home badge + chime, 'order online' on bills; tested end to end.
 - ⏳ Admin: set store link (button added in /admin → 'Store link'; TEST = test-dukaan).
 - ✅ Phone number after payment (optional) → WhatsApp to that number; editable in bill detail.
-- ⏳ PIN lockout + logged-in phones list (owner + admin).
+- ✅ PIN lockout (5 wrong → 10 min) + logged-in phones list with Remove (Settings + /admin "Phones"); PIN secret now server-side; PIN reset logs out all phones.
 - ⏳ Khata photo import (OCR) — after receipts; brief had it in Phase 2.
 
 ## S4c · Owner requests (24 Nov)
