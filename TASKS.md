@@ -83,24 +83,28 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 - ⏳ Full UI redo again (all merchant + customer screens), design-skill led, owner-test rounds ≥ 9/10.
 - 🔄 Redo all UI — merchant side pass 1 done (Home hero, shared design polish, app-styled pop-ups, review fixes); next: deeper per-screen redesign + owner-test rounds ≥ 9/10; customer side later.
 
+## S4f · Owner requests (23 Nov)
+- ✅ TEST shop: top 150 kirana items (loose, branded staples, chips/namkeen flavours, dairy, care, cleaning) with Indore prices + stock.
+
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
-- ⏳ Aaj ka hisaab screen — sales, cash vs UPI, udhaar given/collected, supplier dues.
-- ⏳ Galla gino screen (galla by voice already works).
+- ✅ Aaj ka hisaab screen — Aaj/Kal/7/30 din: sales, cash/UPI/udhaar split, udhaar collected, avg bill, busiest hour, top 5 items. Supplier dues shown once receipts exist.
+- ✅ Galla screen — type or say drawer cash, compared with today's cash bills.
 - ⏳ 3-item daily stock check, morning briefing, daily streak.
 - ⏳ Forecast "Seekh raha hai" state + low-stock alerts (no invented numbers).
 
 ## S6 · Customer side
 - ⏳ Store order site, orders screen with sound, Ready → bill, customer status page, QR poster.
-- ⏳ "Free thaile mangao" request + admin list.
+- ✅ "Free thaile mangao" — request 100/250/500, status; admin list with Sent/Delivered/Cancel.
 
 ## S7 · Admin and money
 - ⏳ Admin usage per store, CSV, pitch line, read-only store view, bag requests.
-- ⏳ T&C page with data-use clause; hidden pitch-mode screen.
+- ✅ T&C page (6 plain sections incl. anonymised data-use clause) — needs owner approval of wording.
+- ⏳ Hidden pitch-mode screen.
 - ⏳ Change admin password before real pilots (owner).
 
 ## S8 · Phase 2 and 3 groundwork
-- ⏳ Coming-soon screens for every Phase 2/3 item + "Mujhe chahiye" interest counter.
+- ✅ Coming-soon page (10 Phase 2/3 items) + "Mujhe chahiye" counter; admin sees demand per feature.
 
 ## S9 · Polish and acceptance
 - ⏳ All 10 tap tests on phone-size screens; real-phone check by owner.

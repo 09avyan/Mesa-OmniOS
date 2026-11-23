@@ -1,17 +1,11 @@
 {
   "0": "parse.ts",
-  "1": "Store.tsx",
+  "1": "Udhaar.tsx",
   "2": "Voice.tsx",
   "3": "errorFx",
-  "4": "Tap",
-  "5": "navigate",
-  "6": "Orders.tsx",
-  "7": "store.tsx",
-  "8": "App.tsx",
-  "9": "useT",
-  "10": "Settings.tsx",
-  "11": "Udhaar.tsx",
-  "12": "i18n.tsx",
-  "13": "main.tsx",
+  "4": "rupees",
+  "5": "BillCard.tsx",
+  "6": "App.tsx",
+  "7": "Tap",
   "14": "vite-env.d.ts"
 }

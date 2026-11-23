@@ -7,7 +7,6 @@ import { Language } from './screens/Language'
 import { Login } from './screens/Login'
 import { Home } from './screens/Home'
 import { Settings } from './screens/Settings'
-import { Building } from './screens/Building'
 import { Admin } from './screens/Admin'
 import { Voice } from './screens/Voice'
 import { Bills, BillDetail } from './screens/Bills'
@@ -16,6 +15,8 @@ import { Maal } from './screens/Maal'
 import { StorePage, OrderPage } from './screens/Store'
 import { Orders, OrderDetail, MyStore } from './screens/Orders'
 import { BillPage } from './screens/BillPage'
+import { Hisaab, Galla } from './screens/Hisaab'
+import { Bags, Terms, Soon } from './screens/Extras'
 import { supabase } from './lib/supabase'
 
 export default function App() {
@@ -50,12 +51,13 @@ function Owner({ path }: { path: string }) {
     case '/bill': screen = <Bills />; break
     case '/maal': screen = <Maal />; break
     case '/udhaar': screen = <UdhaarList />; break
-    case '/hisaab': screen = <Building title={t('fullHisaab')} />; break
-    case '/galla': screen = <Building title={t('rowGalla')} />; break
+    case '/hisaab': screen = <Hisaab />; break
+    case '/galla': screen = <Galla />; break
     case '/orders': screen = <Orders />; break
     case '/dukaan': screen = <MyStore />; break
-    case '/bags': screen = <Building title={t('rowBags')} />; break
-    case '/terms': screen = <Building title={t('terms')} />; break
+    case '/bags': screen = <Bags />; break
+    case '/soon': screen = <Soon />; break
+    case '/terms': screen = <Terms />; break
     default:
       if (path.startsWith('/bill/')) { screen = <BillDetail id={path.slice(6)} />; break }
       if (path.startsWith('/orders/')) { screen = <OrderDetail id={path.slice(8)} />; break }

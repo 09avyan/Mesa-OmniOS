@@ -39,6 +39,7 @@ export function Home() {
         <RowButton icon="cash" color="var(--c-gal)" label={t('rowGalla')} onClick={() => navigate('/galla')} />
         <RowButton icon="cart" color="var(--c-ord)" label={t('rowOrders')} badge={newOrders} onClick={() => navigate('/orders')} />
         <RowButton icon="bag" color="var(--c-bag)" label={t('rowBags')} onClick={() => navigate('/bags')} />
+        <RowButton icon="tools" color="var(--c-his)" label={t('rowSoon')} onClick={() => navigate('/soon')} />
       </div>
       <div className="gap24" />
       <p className="center" style={{ lineHeight: '26px' }}>{t('sayHint')}<br /><b>{t('sayExample')}</b></p>

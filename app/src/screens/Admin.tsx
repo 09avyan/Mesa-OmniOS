@@ -118,6 +118,8 @@ function Dashboard() {
           </table>
         )}
       </div>
+      {stores && <AdminBags stores={stores} act={act} />}
+      {stores && <AdminInterest />}
     </main>
   )
 }
@@ -202,4 +204,37 @@ function AdminPhones({ storeId, act }: { storeId: string; act: (fn: () => Promis
       <span className="grow">{d.label} <span className="lab" style={{ fontSize: 16 }}>· last used {new Date(d.last_seen).toLocaleString('en-IN')}</span></span>
       <Tap className="ghost" style={{ color: 'var(--danger)' }} onClick={() => act(async () => { const { error } = await adb.rpc('device_revoke', { p_id: d.id }); if (error) throw new Error(error.message); setN((x) => x + 1) }, 'Phone removed.')}>Remove</Tap>
     </div>))}</div>
+}
+
+function AdminBags({ stores, act }: { stores: Store[]; act: (fn: () => Promise<unknown>, done: string) => void }) {
+  const [list, setList] = useState<{ id: string; store_id: string; qty: number; status: string; created_at: string }[] | null>(null)
+  const [n, setN] = useState(0)
+  useEffect(() => { adb.from('bag_requests').select('id,store_id,qty,status,created_at').order('created_at', { ascending: false }).limit(50).then(({ data }) => setList(data ?? [])) }, [n])
+  const code = (id: string) => stores.find((s) => s.id === id)?.code ?? '?'
+  const set = (id: string, status: string) => act(async () => { const { error } = await adb.from('bag_requests').update({ status, updated_at: new Date().toISOString() }).eq('id', id); if (error) throw new Error(error.message); setN((x) => x + 1) }, `Bag request marked ${status}.`)
+  return <>
+    <div className="gap24" /><h2 className="h2">Bag requests {list && `(${list.filter((r) => r.status === 'new').length} new)`}</h2><div className="gap8" />
+    <div className="card" style={{ padding: '8px 16px', overflowX: 'auto' }}>
+      {!list ? <div className="skel" /> : !list.length ? <p className="lab" style={{ padding: 16 }}>No requests yet.</p> : (
+        <table className="table"><thead><tr><th>Store</th><th>Bags</th><th>Asked</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>{list.map((r) => <tr key={r.id}><td><b>{code(r.store_id)}</b></td><td>{r.qty}</td><td>{new Date(r.created_at).toLocaleDateString('en-IN')}</td>
+            <td><span className={`pill ${r.status === 'done' ? 'ok' : 'off'}`}>{r.status}</span></td>
+            <td style={{ whiteSpace: 'nowrap' }}>{r.status === 'new' && <Tap className="ghost" onClick={() => set(r.id, 'sent')}>Sent</Tap>}{r.status !== 'done' && r.status !== 'cancelled' && <><Tap className="ghost" onClick={() => set(r.id, 'done')}>Delivered</Tap><Tap className="ghost" style={{ color: 'var(--danger)' }} onClick={() => set(r.id, 'cancelled')}>Cancel</Tap></>}</td></tr>)}</tbody></table>
+      )}
+    </div>
+  </>
+}
+
+function AdminInterest() {
+  const [rows, setRows] = useState<[string, number][] | null>(null)
+  useEffect(() => { adb.from('feature_interest').select('feature').then(({ data }) => {
+    const m = new Map<string, number>(); (data ?? []).forEach((r) => m.set(r.feature, (m.get(r.feature) ?? 0) + 1))
+    setRows([...m.entries()].sort((a, b) => b[1] - a[1]))
+  }) }, [])
+  return <>
+    <div className="gap24" /><h2 className="h2">Coming-soon demand ("I want this")</h2><div className="gap8" />
+    <div className="card" style={{ padding: '12px 16px' }}>
+      {!rows ? <div className="skel" /> : !rows.length ? <p className="lab">No votes yet.</p> : rows.map(([f, c]) => <div key={f} className="linkrow" style={{ color: 'var(--ink)' }}><span>{f}</span><b>{c} store{c > 1 ? 's' : ''}</b></div>)}
+    </div>
+  </>
 }
