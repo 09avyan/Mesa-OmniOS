@@ -102,6 +102,9 @@ Approved, in this order:
 - ⏸ Not approved yet: hidden pitch-mode screen.
 - ⏸ DISCUSS LATER — remind owner: edge cases + safety, sponsored items, item photos plan, khata photo import (Phase 2 vs now).
 
+## UI REDO #3 (owner, 23 Nov)
+- 🔄 Prototype Home + bill flow (new look + flows) → 3-merchant panel → owner approves on phone → rebuild all merchant, customer, admin screens.
+
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
 - ✅ Aaj ka hisaab screen — Aaj/Kal/7/30 din: sales, cash/UPI/udhaar split, udhaar collected, avg bill, busiest hour, top 5 items. Supplier dues shown once receipts exist.

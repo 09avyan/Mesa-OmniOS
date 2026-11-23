@@ -37,3 +37,9 @@
 - Look chosen by test: 3 internal versions → simulated owner panel → "Standard clean" (white + green) won round 1 (7.6 vs 6.6 signboard, 5.3 khata).
 - From now on: ONE design per round, tested by the people who use it (merchants for merchant screens, customers for customer pages, the admin persona for /admin). Pass = every persona ≥ 9/10 on ease, calm, trust → ship. Fail → back to the drawing board (new design, not a patch).
 - Text minimum stays 18px (brief) even if a panel suggests smaller.
+
+## UI redo #3 (23 Nov 2026, owner)
+- Current UI rejected as "hollow": too empty/plain, no personality, lifeless.
+- Redo look AND flows from scratch (within the brief: 4 tabs + one mic, dictate → review → ✓).
+- Test: 3 totally different simulated merchants must all review the look and feel positively (plus designer "not AI" check).
+- Owner approves a live prototype (Home + bill flow) on his phone BEFORE any full rebuild.
