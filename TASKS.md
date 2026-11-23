@@ -103,7 +103,8 @@ Approved, in this order:
 - ⏸ DISCUSS LATER — remind owner: edge cases + safety, sponsored items, item photos plan, khata photo import (Phase 2 vs now).
 
 ## UI REDO #3 (owner, 23 Nov)
-- 🔄 Prototype Home + bill flow (new look + flows) → 3-merchant panel → owner approves on phone → rebuild all merchant, customer, admin screens.
+- ✅ Prototype v6 (Home + bill flow) PASSED panel: 5 merchants (Shyam ji, Aman, Rekha, Pooja, Baldev) 9/9/9 + designer 9/9/9. Live at /proto/ (?lang=hi for Hindi).
+- ⏳ Owner approves prototype on phone → then rebuild all merchant, customer, admin screens in this design.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
