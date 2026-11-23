@@ -21,7 +21,11 @@
 html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font:500 18px/26px "Anek Latin","Anek Devanagari",system-ui,sans-serif;max-width:440px;margin:0 auto;font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
 body.hi *{letter-spacing:0!important}
-body.hi button,body.hi .btn{padding-top:4px}
+body.hi button,body.hi .btn,body.hi .pay,body.hi .o,body.hi .save,body.hi .wait{padding-top:7px;line-height:1.2}
+body.hi b,body.hi h2,body.hi h3,body.hi .speak b,body.hi .who b,body.hi .total b{line-height:1.4}
+body.hi .speak{padding-top:22px}
+body.hi .stp em{font-size:18px;min-width:76px}
+body.hi .bhd{padding-top:10px}
 body.hi{font-family:"Anek Devanagari","Anek Latin",system-ui,sans-serif}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
 svg{flex:none}
@@ -61,6 +65,7 @@ svg{flex:none}
 /* ---------- money: ledger equation ---------- */
 .card{margin:18px 0 0;background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 20px;position:relative}
 .card::before{content:none}
+.card,.rcpt{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .25 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .k{font-size:17px;color:var(--ink2);font-weight:600}
 .total{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:2px}
 .total b{font-size:46px;line-height:50px;font-weight:800;letter-spacing:-1px;color:var(--g)}
@@ -76,7 +81,7 @@ svg{flex:none}
 
 /* ---------- sections ---------- */
 .sec{display:flex;justify-content:space-between;align-items:baseline;margin:26px 20px 10px}
-.sec h3{font-size:22px;font-weight:800;color:var(--g)}
+.sec h3{font-size:22px;font-weight:800;color:var(--g);padding-bottom:8px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='8' viewBox='0 0 120 8'%3E%3Cpath d='M2 5.5c14-3 26-3.6 40-2.2s28 2.6 42 .6S108 1.6 118 3' fill='none' stroke='%23E9A21A' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") left bottom/96px 8px no-repeat}
 .sec span{font-size:17px;font-weight:700;color:var(--ud)}
 .list{margin:0;background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .list .row{padding:14px 20px}
@@ -93,7 +98,7 @@ svg{flex:none}
 .todo .row{display:flex;align-items:center;gap:14px}
 .todo .row .t{flex:1;min-width:0}
 .todo .row .t b{display:block;font-size:19px;line-height:24px}
-.todo .btn{flex:none;min-width:104px}
+.todo .btn{flex:none;min-width:104px}.todo button.row{min-height:76px}.chev{color:var(--g);font-weight:700;font-size:17px;display:flex;align-items:center;gap:4px;white-space:nowrap}.chev::after{content:'';width:9px;height:9px;border-right:2.5px solid currentColor;border-top:2.5px solid currentColor;transform:rotate(45deg);margin-left:4px}
 
 /* ---------- nav ---------- */
 .nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;height:86px;background:var(--paper);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 96px 1fr 1fr;padding-bottom:env(safe-area-inset-bottom);z-index:40}
@@ -124,8 +129,8 @@ svg{flex:none}
 .it .ctl span{font-size:18px;color:var(--ink2)}
 .stp{display:flex;align-items:center;height:56px;border:1.5px solid var(--line);border-radius:14px;background:#fff}
 .stp button{width:56px;height:56px;display:grid;place-items:center;color:var(--g)}
-.stp em{min-width:56px;text-align:center;font-style:normal;font-weight:700;font-size:19px}
-.ghost{margin:0 16px;padding:16px;border:1.5px dashed var(--line);border-radius:18px;margin-top:10px;display:grid;gap:10px}.ghost i{display:block;height:16px;border-radius:8px;background:linear-gradient(90deg,#ECE8DE 25%,#F7F5F0 50%,#ECE8DE 75%) 0 0/200% 100%;animation:sh 1.4s linear infinite}.ghost i:first-child{width:55%}.ghost i:last-child{width:35%}
+.stp em{min-width:64px;text-align:center;font-style:normal;font-weight:700;font-size:19px}
+.ghost{margin:0 16px;padding:16px;border:1.5px dashed var(--line);border-radius:18px;margin-top:10px;display:grid;gap:10px}.ghost i{display:block;height:16px;border-radius:8px;background:linear-gradient(90deg,#ECE8DE 25%,#F7F5F0 50%,#ECE8DE 75%) 0 0/200% 100%;animation:sh 1.4s linear infinite}.ghost{grid-template-columns:1fr auto;align-items:center;border-style:dashed;background:#FFFDF8}.ghost i:first-child{width:62%;height:18px}.ghost i:last-child{width:52px;height:18px;grid-row:1/3;grid-column:2}.ghost i:nth-child(2){width:38%;height:12px;opacity:.7}
 @keyframes sh{to{background-position:-200% 0}}
 .it.ask{background:var(--s-50)}
 .askq{margin-top:12px;padding-top:12px;border-top:1px dashed #E7CF8F}
@@ -222,8 +227,8 @@ svg{flex:none}
   <div class="sec"><h3 data-t="todo"></h3></div>
   <div class="list todo">
     <div class="row"><div class="t"><b data-t="t1"></b><div class="rs" data-t="t1s"></div></div><button class="btn go main p" data-t="see"></button></div>
-    <div class="row"><div class="t"><b data-t="t2"></b><div class="rs" data-t="t2s"></div></div><button class="btn go p" data-t="order"></button></div>
-    <div class="row"><div class="t"><b data-t="t3"></b><div class="rs" data-t="t3s"></div></div><button class="btn go p" data-t="start"></button></div>
+    <button class="row p" style="width:100%;text-align:left"><div class="t"><b data-t="t2"></b><div class="rs" data-t="t2s"></div></div><span class="chev" data-t="order"></span></button>
+    <button class="row p" style="width:100%;text-align:left"><div class="t"><b data-t="t3"></b><div class="rs" data-t="t3s"></div></div><span class="chev" data-t="start"></span></button>
   </div>
   <p class="note" data-t="note"></p>
 </section>
@@ -235,7 +240,7 @@ svg{flex:none}
     <div class="run" id="run" style="display:none"></div><div class="heard"><div class="w"><span class="wave"><i></i><i></i><i></i><i></i><i></i><i></i></span><span data-t="listening"></span></div><span id="htxt"></span></div>
   </header>
   <div class="items" id="items"></div>
-  <div id="ghosts"><div class="ghost"><i></i><i></i></div><div class="ghost"><i></i><i></i></div></div>
+  <div id="ghosts"><div class="ghost"><i></i><i></i><i></i></div><div class="ghost"><i></i><i></i><i></i></div></div>
   <div class="billsum" id="bsum" style="visibility:hidden"><span data-t="items3"></span><b class="n">₹181</b></div>
   <div class="dock" id="dock" style="display:none">
     <button class="wait p" id="wait" onclick="document.querySelector('.it.ask')?.scrollIntoView({behavior:'smooth',block:'center'})"><svg width="22" height="22"><use href="#i-up"/></svg><span data-t="confirm"></span></button>
