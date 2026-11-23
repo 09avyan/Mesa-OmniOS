@@ -95,7 +95,7 @@ Approved, in this order:
 3. Forecast "Seekh raha hai" state + simple low-stock alerts.
 4. Returns by voice ("wapas").
 5. Admin usage per store + CSV + pitch line + read-only store view.
-6. Full UI redo + owner-test rounds ≥ 9/10.
+6. Full UI redo (now UI REDO #4, next session) + panel ≥ 9.
 7. Speed (Supabase + site) + spoken-answer settings.
 - ⏳ Master items file (`.items`): every item any current or future customer store could sell — kirana, niche/regional, supermart/POS ranges (pack sizes, flavours, brands, Hindi/Hinglish/English names, aliases, barcodes where known). Used by voice + receipts so Gemini is needed less. Plan: build in batches by category, merge with catalog.json.
 - ✅ T&C wording approved by owner (lawyer check before real pilots).
@@ -104,7 +104,14 @@ Approved, in this order:
 
 ## UI REDO #3 (owner, 23 Nov)
 - ✅ Prototype v6 (Home + bill flow) PASSED panel: 5 merchants (Shyam ji, Aman, Rekha, Pooja, Baldev) 9/9/9 + designer 9/9/9. Live at /proto/ (?lang=hi for Hindi).
-- ⏳ Owner approves prototype on phone → then rebuild all merchant, customer, admin screens in this design.
+- ⏸ (superseded by REDO #4) Owner approves prototype on phone → then rebuild all merchant, customer, admin screens in this design.
+
+## UI REDO #4 — NEXT SESSION (owner, 23 Nov)
+- ⏳ Redo all UI + UX again from ABSOLUTE scratch: new look, new flows. v6 (/proto/) stays only as a reference to beat, not a starting point.
+- Panel: 5–7 members of clearly different personalities (mix of merchants, at least one Hindi-only, one designer judging professional / not hollow / not AI). Every member must review positively and score ≥ 9.
+- Loop: one version at a time → run the panel → pass = continue, fail = next version. Owner approves the prototype on phone before the full rebuild.
+- Order after approval: merchant screens → customer pages (customer panel) → admin (admin panel). Language picked at onboarding, changeable in Settings.
+- Use every design skill that raises quality (impeccable, ui-ux-pro-max, interface-design, emil-design-eng, frontend-ui-engineering, design-taste-frontend).
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
