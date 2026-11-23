@@ -372,3 +372,33 @@ input{caret-color:var(--ac)}
 .screen section.card.hm-sales{margin-left:0;margin-right:0;border-top:0!important;border-bottom:0!important}
 .shop{padding-bottom:150px}.cx-pr span{font-size:18px}
 .bc-brand{font-size:15px;opacity:.7}
+
+/* ---------- ledger pass (23 Nov): text tabs, one primary + text links, hairline lists, khata rule ---------- */
+/* tabs & language switch: text with underline, no pills */
+.shop-cats button,.segs button,.cx-langs button,.bc-langs button{background:none!important;box-shadow:none!important;border-radius:0!important;color:var(--ink2);font-weight:600;padding:0 4px!important;margin:0 8px;min-height:48px;border-bottom:3px solid transparent}
+.shop-cats button.on,.segs button.on,.cx-langs button.on,.bc-langs button.on{color:var(--ink);border-bottom-color:var(--ac)}
+.shop-cats,.segs{gap:4px;border-bottom:1px solid var(--line)}
+.cx-langs,.bc-langs{gap:0}
+/* secondary buttons read as text actions */
+.btn.quiet,.btn.outline{background:none!important;box-shadow:none!important;color:var(--ac);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px;min-height:52px}
+.btn.sv-home,.btn.sv-wa{background:none;box-shadow:none;text-decoration:underline;text-underline-offset:5px;min-height:52px}
+.btn.sv-home{color:var(--ink)}
+/* hairline list groups instead of a card per row */
+.stack:has(> .rowb){gap:0!important;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-left:-24px;margin-right:-24px}
+.stack:has(> .rowb)>.rowb{border:0!important;border-radius:0!important;background:none;padding-left:24px;padding-right:20px}
+.stack:has(> .rowb)>.rowb+.rowb{border-top:1px solid var(--line)!important}
+.rowb>svg:first-child{display:none}
+/* unsure item: tint only, no stripe */
+.it.u{box-shadow:none!important}
+/* steppers: flat outline */
+.step{background:none;box-shadow:inset 0 0 0 1px var(--mute);border-radius:10px}
+.step em{background:none}
+/* success: inline, not a hero circle */
+.ok{flex-direction:row;align-items:center;gap:14px;margin-top:16px}.ok .h1{margin-top:0!important}
+.okc{width:44px;height:44px;flex:none}.okc svg{width:26px;height:26px}
+.ok > .sv-sum,.ok > .lab,.ok > .big{flex-basis:100%}
+.ok{flex-wrap:wrap}
+/* khata rule: the one identity mark — double hairline under shop names */
+.hm-store,.cx-name,.bc-store{padding-bottom:6px;background:linear-gradient(var(--ink),var(--ink)) left calc(100% - 3px)/48px 1px no-repeat,linear-gradient(var(--ink),var(--ink)) left 100%/48px 1px no-repeat}
+/* quiet brand line */
+.bc-brand{background:none!important;border:0!important;font-size:15px;color:var(--ink2);opacity:1}.bc-logo{display:none}

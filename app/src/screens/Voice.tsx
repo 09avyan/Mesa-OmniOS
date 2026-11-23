@@ -587,7 +587,7 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
         {saved.kind === 'bill' && <div style={{ marginTop: 20 }}>
           <BillCard lang={lang} brand={false} b={{
             store: store?.name ?? '', customer: saved.customer, pay: saved.pay, subtotal: saved.total + saved.discount, discount: saved.discount, total: saved.total, status: 'saved',
-            at: new Date().toISOString(), no: saved.token.slice(0, 6).toUpperCase(),
+            at: new Date().toISOString(), no: '',
             lines: saved.lines.map((l) => ({ name: l.match?.shop?.name ?? l.match?.hinglish ?? '', name_hi: l.match?.hi, catalog_id: l.match && !l.match.id.startsWith('shop:') ? l.match.id : null, qty: l.qty ?? 0, unit: l.match?.shop?.unit ?? l.match?.unit ?? 'pc', price: l.price ?? 0, amount: lineTotal(l) })),
           }} />
         </div>}

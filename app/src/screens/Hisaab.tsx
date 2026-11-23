@@ -86,7 +86,7 @@ export function Hisaab() {
 function Row({ dot, label, v }: { dot: string; label: string; v: number | undefined }) {
   return (
     <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600 }}>
-      <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}><i style={{ width: 10, height: 10, borderRadius: 5, background: dot, border: dot === 'transparent' ? '2px solid var(--ink2)' : 'none' }} />{label}</span>
+      <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}><i style={{ width: 4, height: 18, background: dot === 'transparent' ? 'var(--line)' : dot }} />{label}</span>
       <span className="num" style={{ fontSize: 20 }}>{v == null ? '…' : rupees(v)}</span>
     </div>
   )
