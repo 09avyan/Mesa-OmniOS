@@ -3,161 +3,174 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0A6B4D">
-<title>OmniOS Dukaan — prototype v2</title>
+<meta name="theme-color" content="#0C3B2E">
+<title>OmniOS Dukaan — prototype v3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@500;600;700;800&family=Anek+Latin:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Prototype v2. Numbers are the TEST store's real figures; nothing here saves data. */
+/* Prototype v3 — two colours (bahi green + saffron), Anek type, awning edge + stamp as the identity.
+   Numbers are the TEST store's real figures; nothing here saves data. */
 :root{
-  --brand:#0A6B4D; --brand-d:#07563E; --brand-dd:#05412F; --brand-50:#E8F4EE; --brand-100:#CFE8DB;
-  --bg:#F4F6F5; --card:#FFFFFF; --ink:#0F1A15; --ink-2:#2E3A34; --ink-3:#4E5B55; --line:#E3E8E5; --line-2:#EEF1EF;
-  --amber-50:#FFF6DB; --amber-ink:#5A4100;
-  --ud:#9A4B10; --ud-50:#FBEEE2;
-  --upi:#2B5BD7; --upi-50:#E8EEFC;
-  --sh1:0 1px 2px rgba(15,26,21,.06),0 1px 1px rgba(15,26,21,.04);
-  --sh2:0 2px 4px rgba(15,26,21,.05),0 8px 24px rgba(15,26,21,.08);
-  --ease:cubic-bezier(.22,1,.36,1); --spring:cubic-bezier(.34,1.4,.64,1);
+  --g:#0C3B2E; --g2:#145441; --g-50:#EAF2EE; --g-100:#D3E5DC;
+  --s:#E9A21A; --s-50:#FDF3DD; --s-ink:#5B3D00;
+  --paper:#FFFFFF; --bg:#F5F3EE; --ink:#13201A; --ink2:#33423A; --line:#E4E0D6; --line2:#EEEBE3;
+  --ud:#9A4B10; --ud-50:#FBEFE3;
+  --ease:cubic-bezier(.22,1,.36,1); --spring:cubic-bezier(.34,1.45,.64,1);
 }
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{background:var(--bg);color:var(--ink);font:500 17px/24px "Noto Sans","Noto Sans Devanagari",system-ui,sans-serif;max-width:440px;margin:0 auto;font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font:500 18px/26px "Anek Latin","Anek Devanagari",system-ui,sans-serif;max-width:440px;margin:0 auto;font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+body.hi{font-family:"Anek Devanagari","Anek Latin",system-ui,sans-serif}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
 svg{flex:none}
-.p{transition:transform .12s var(--ease),background-color .12s}.p:active{transform:scale(.97)}
-::selection{background:var(--brand-100)}
-:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:8px}
+.p{transition:transform .12s var(--ease),filter .12s}.p:active{transform:scale(.97);filter:brightness(.96)}
+::selection{background:var(--s-50)}
+:focus-visible{outline:3px solid var(--s);outline-offset:2px;border-radius:10px}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-.view{display:none;min-height:100dvh;padding-bottom:110px}.view.on{display:block}
+.view{display:none;min-height:100dvh;padding-bottom:120px}.view.on{display:block}
 .view.on .rise{animation:rise .5s var(--ease) both}
-@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.n{font-variant-numeric:tabular-nums;font-weight:700}
 
-.top{background:var(--brand);color:#fff;padding:12px 16px 72px}
-.top-row{display:flex;align-items:center;gap:12px;min-height:52px}
-.logo{width:44px;height:44px;border-radius:12px;background:#fff;color:var(--brand);display:grid;place-items:center;font-weight:800;font-size:20px}
-.shop{flex:1;min-width:0}.shop b{display:block;font-size:19px;line-height:24px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.shop span{font-size:15px;color:#C9E8D9;font-weight:500}
-.tb{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.14)}
-.today{margin:-56px 16px 0;background:var(--card);border-radius:20px;box-shadow:var(--sh2);padding:18px 18px 14px}
-.today-h{display:flex;justify-content:space-between;align-items:center}
-.lbl{font-size:16px;color:var(--ink-3);font-weight:600}
-.live{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--brand);background:var(--brand-50);padding:3px 10px;border-radius:999px}
-.live i{width:7px;height:7px;border-radius:50%;background:var(--brand);animation:pulse 1.8s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.big{font-size:42px;line-height:48px;font-weight:800;letter-spacing:-1px;margin-top:2px}
-.delta{font-size:15px;font-weight:700;color:var(--brand);margin-left:8px;letter-spacing:0}
-.chart{display:flex;align-items:flex-end;gap:5px;height:64px;margin:14px 0 6px}
-.chart i{flex:1;background:var(--brand-100);border-radius:4px 4px 2px 2px;transform-origin:bottom;animation:grow .7s var(--ease) both}
-.chart i.now{background:var(--brand)}
-@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
-.axis{display:flex;justify-content:space-between;font-size:14px;color:var(--ink-3);font-weight:600}
-.split{display:grid;grid-template-columns:.7fr 1fr 1fr 1.2fr;margin-top:12px;border-top:1px solid var(--line-2);padding-top:12px}
-.split div+div{border-left:1px solid var(--line-2);padding-left:12px}
-.split small{display:block;font-size:14px;color:var(--ink-3);font-weight:600}.split b{font-size:17px;font-weight:700;white-space:nowrap}.split div+div{padding-left:10px}
+/* ---------- header with awning edge ---------- */
+.hd{background:var(--g);color:#fff;padding:12px 18px 26px;position:relative}
+.hd::after{content:"";position:absolute;left:0;right:0;bottom:-13px;height:14px;
+  background:radial-gradient(circle at 13px 0,var(--g) 12.5px,transparent 13px) 0 0/26px 14px repeat-x}
+.hd-row{display:flex;align-items:center;gap:12px;min-height:56px}
+.mark{width:46px;height:46px;flex:none}
+.shop{flex:1;min-width:0}
+.shop b{display:block;font-size:22px;line-height:26px;font-weight:800;letter-spacing:-.2px}
+.shop span{display:block;font-size:16px;color:#BBD5C8}
+.hbtn{min-height:56px;min-width:56px;padding:0 12px;border-radius:14px;border:1.5px solid rgba(255,255,255,.28);display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:600;font-size:17px;color:#fff}
+.lang{display:flex;gap:4px;margin-top:10px}
+.lang button{min-height:40px;padding:0 12px;border-radius:999px;font-size:15px;font-weight:600;color:#BBD5C8}
+.lang button.on{background:rgba(255,255,255,.14);color:#fff}
 
-.acts{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:16px 16px 0;background:var(--card);border-radius:20px;box-shadow:var(--sh1);padding:14px 4px}
-.act{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:15px;font-weight:600;line-height:19px;text-align:center;min-height:92px;color:var(--ink-2)}
-.act span.i{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;color:#fff}
-.speak{margin:12px 16px 0;width:calc(100% - 32px);display:flex;align-items:center;gap:14px;background:var(--brand-dd);color:#fff;border-radius:20px;padding:14px 16px;text-align:left}
-.speak .m{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--brand);display:grid;place-items:center;position:relative;flex:none}
-.speak .m::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(255,255,255,.5);animation:ring 2.4s var(--ease) infinite}
-@keyframes ring{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
-.speak b{display:block;font-size:18px}.speak small{display:block;font-size:15px;color:#C2E3D4;line-height:21px}
-.speak q{quotes:"“" "”";color:#fff;font-weight:600;transition:opacity .25s}
+/* ---------- speak first ---------- */
+.speak{margin:30px 16px 0;width:calc(100% - 32px);display:flex;align-items:center;gap:16px;background:var(--paper);border-radius:22px;padding:18px;text-align:left;border:1px solid var(--line);box-shadow:0 1px 0 var(--line)}
+.mic{width:72px;height:72px;border-radius:50%;background:var(--s);color:var(--g);display:grid;place-items:center;position:relative;flex:none}
+.mic::before,.mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--s);animation:ring 2.6s var(--ease) infinite}
+.mic::after{animation-delay:1.3s}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+.speak b{display:block;font-size:24px;line-height:28px;font-weight:800;color:var(--g)}
+.speak small{display:block;font-size:17px;line-height:23px;color:var(--ink2);margin-top:4px}
+.speak q{display:block;font-weight:700;color:var(--ink);transition:opacity .25s;quotes:"“" "”"}
 
-.sec{display:flex;justify-content:space-between;align-items:center;margin:24px 18px 10px}
-.sec h3{font-size:19px;font-weight:700;letter-spacing:-.2px}.sec a{font-size:15px;font-weight:700;color:var(--brand);text-decoration:none;min-height:44px;display:flex;align-items:center}
-.collect{display:flex;gap:10px;overflow-x:auto;padding:0 16px 4px;scroll-snap-type:x mandatory;scrollbar-width:none}
-.cc{flex:0 0 74%;scroll-snap-align:start;background:var(--card);border-radius:18px;box-shadow:var(--sh1);padding:14px 14px 12px}
-.cc-h{display:flex;gap:10px;align-items:center}
-.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:16px;color:var(--ud);background:var(--ud-50);flex:none}
-.cc-h b{display:block;font-size:17px;line-height:22px}.cc-h small{font-size:14px;color:var(--ink-3);font-weight:600}
-.cc .amt{font-size:26px;font-weight:800;color:var(--ud);margin:10px 0;letter-spacing:-.4px}
-.wa{width:100%;min-height:48px;border-radius:12px;background:#E9F7EE;color:#11733A;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px}
-.list{margin:0 16px;background:var(--card);border-radius:18px;box-shadow:var(--sh1);overflow:hidden}
-.row{display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:68px}
-.row+.row{border-top:1px solid var(--line-2)}
-.ri{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:none}
-.row .g{flex:1;min-width:0}.row b{display:block;font-size:17px;line-height:22px;font-weight:600}.row small{font-size:14px;color:var(--ink-3);font-weight:600}
-.row .r{text-align:right;font-weight:700;font-size:17px}
-.chip{font-size:13px;font-weight:700;padding:2px 8px;border-radius:6px;display:inline-block;margin-top:2px}
-.chip.cash{background:var(--brand-50);color:var(--brand)}.chip.upi{background:var(--upi-50);color:var(--upi)}.chip.ud{background:var(--ud-50);color:var(--ud)}
+/* ---------- money: ledger equation ---------- */
+.card{margin:14px 16px 0;background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:18px}
+.k{font-size:17px;color:var(--ink2);font-weight:600}
+.total{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:2px}
+.total b{font-size:46px;line-height:50px;font-weight:800;letter-spacing:-1px;color:var(--g)}
+.total span{font-size:16px;font-weight:700;color:var(--g2);white-space:nowrap}
+.eq{margin-top:14px;border-top:1px solid var(--line2)}
+.eq div{display:flex;justify-content:space-between;align-items:center;min-height:46px;border-bottom:1px dashed var(--line2)}
+.eq div span{display:flex;align-items:center;gap:10px;font-size:18px;color:var(--ink2);font-weight:600}
+.eq div span i{font-style:normal;width:22px;color:var(--ink2);font-weight:700;text-align:center}
+.eq div b{font-size:21px}
+.eq div.sum{border-bottom:0;border-top:2px solid var(--ink);margin-top:2px}
+.eq div.sum span,.eq div.sum b{color:var(--ink);font-weight:800}
+.ud{color:var(--ud)!important}
 
-.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 92px 1fr 1fr;height:80px;padding-bottom:env(safe-area-inset-bottom);z-index:30}
-.nv{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:15px;font-weight:600;color:var(--ink-3);position:relative}
-.nv.on{color:var(--brand)}.nv.on::before{content:"";position:absolute;width:28px;height:3px;border-radius:0 0 3px 3px;background:var(--brand);top:0}
-.micb{width:66px;height:66px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;margin:-24px auto 0;box-shadow:0 6px 16px rgba(10,107,77,.35),0 0 0 5px #fff}
-.micl{text-align:center;font-size:15px;font-weight:700;color:var(--brand);margin-top:2px}
+/* ---------- sections ---------- */
+.sec{display:flex;justify-content:space-between;align-items:baseline;margin:26px 20px 10px}
+.sec h3{font-size:22px;font-weight:800;color:var(--g)}
+.sec span{font-size:17px;font-weight:700;color:var(--ud)}
+.list{margin:0 16px;background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.row{padding:14px 18px}
+.row+.row{border-top:1px solid var(--line2)}
+.rt{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rt b{font-size:19px;font-weight:700}.rt .n{font-size:21px}
+.rs{font-size:16px;color:var(--ink2);margin-top:2px}
+.rb{display:flex;gap:8px;margin-top:10px}
+.btn{min-height:56px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:17px;padding:0 16px}
+.btn.wa{flex:1;background:#E7F5EC;color:#0F6B37}
+.btn.ln{flex:1;border:1.5px solid var(--line);background:#fff}
+.btn.go{background:var(--g);color:#fff}
+.todo .row{display:flex;align-items:center;gap:14px}
+.todo .row .t{flex:1;min-width:0}
+.todo .row .t b{display:block;font-size:19px;line-height:24px}
+.todo .btn{flex:none;min-width:104px}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;height:86px;background:var(--paper);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 96px 1fr 1fr;padding-bottom:env(safe-area-inset-bottom);z-index:40}
+.nv{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:16px;font-weight:600;color:var(--ink2);position:relative}
+.nv.on{color:var(--g);font-weight:800}.nv.on::before{content:"";position:absolute;top:0;width:32px;height:4px;border-radius:0 0 4px 4px;background:var(--s)}
+.nmic{width:68px;height:68px;border-radius:50%;background:var(--g);color:var(--s);display:grid;place-items:center;margin:-26px auto 0;box-shadow:0 0 0 6px var(--paper)}
+.nml{text-align:center;font-size:16px;font-weight:800;color:var(--g)}
 .nav.flow .nv{visibility:hidden}
 
-.bh{background:var(--card);padding:8px 8px 16px;border-bottom:1px solid var(--line)}
-.bh-row{display:flex;align-items:center;gap:6px}
-.back{width:52px;height:52px;border-radius:14px;display:grid;place-items:center}
-.bh h2{font-size:20px;font-weight:700;flex:1}
-.cust{margin:8px 8px 0;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:var(--bg)}
-.cust .g{flex:1;min-width:0}.cust b{display:block;font-size:18px}.cust small{font-size:14px;color:var(--ink-3);font-weight:600}
-.cust .due{text-align:right}.cust .due small{display:block}.cust .due b{color:var(--ud);font-size:18px}
-.heard{margin:14px 8px 0;padding:14px 14px 12px;border-radius:16px;border:1.5px dashed var(--brand-100);background:var(--brand-50);color:var(--brand-dd);font-size:17px;line-height:24px;min-height:52px;position:relative}
-.heard .tag{position:absolute;top:-11px;left:12px;background:var(--brand);color:#fff;font-size:12px;font-weight:700;letter-spacing:.4px;padding:2px 8px;border-radius:6px;display:flex;align-items:center;gap:6px}
-.bars{display:inline-flex;gap:2px;align-items:center;height:10px}.bars i{width:2px;background:#fff;border-radius:1px;animation:bar .8s ease-in-out infinite}
-.bars i:nth-child(2){animation-delay:.12s}.bars i:nth-child(3){animation-delay:.24s}
-@keyframes bar{0%,100%{height:3px}50%{height:10px}}
-.items{margin:14px 16px 0;background:var(--card);border-radius:18px;box-shadow:var(--sh1);overflow:hidden}
-.it{padding:12px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;animation:slide .42s var(--spring) both}
-.it+.it{border-top:1px solid var(--line-2)}
-@keyframes slide{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-.it .g{flex:1;min-width:0}.it b{display:block;font-size:17px;font-weight:600}.it small{font-size:14px;color:var(--ink-3);font-weight:600}
-.stp{display:flex;align-items:center;height:48px;border:1px solid var(--line);border-radius:12px}
-.stp button{width:42px;height:48px;display:grid;place-items:center;color:var(--brand)}.stp span{min-width:44px;text-align:center;font-weight:700;font-size:16px}
-.it .pr{min-width:52px;text-align:right;font-weight:700;font-size:17px}
-.it.ask{background:var(--amber-50)}
-.askq{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-left:56px}
-.askq span{font-size:16px;font-weight:700;color:var(--amber-ink)}
-.askq div{display:flex;gap:8px}
-.o{min-height:48px;padding:0 16px;border-radius:12px;font-weight:700;font-size:16px;border:1px solid #E7CE85;background:#fff;color:var(--amber-ink)}
-.o.y{background:var(--brand);border-color:var(--brand);color:#fff;display:flex;align-items:center;gap:6px}
-.sum{margin:12px 20px 0;display:flex;justify-content:space-between;align-items:baseline}
-.sum span{font-size:16px;color:var(--ink-3);font-weight:600}.sum b{font-size:30px;font-weight:800;letter-spacing:-.5px}
-.sheet{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;background:var(--card);border-radius:22px 22px 0 0;box-shadow:0 -8px 28px rgba(15,26,21,.1);padding:14px 16px 112px;z-index:25;animation:up .35s var(--ease) both}
-@keyframes up{from{transform:translate(-50%,24px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
-.sheet .h{font-size:16px;color:var(--ink-2);font-weight:700;margin-bottom:8px}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.sg{min-height:58px;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:17px;color:var(--ink-2)}
-.sg.on{border-color:var(--brand);background:var(--brand-50);color:var(--brand)}
-.sg.ud.on{border-color:var(--ud);background:var(--ud-50);color:var(--ud)}
-.go{margin-top:12px;width:100%;min-height:58px;border-radius:16px;background:var(--brand);color:#fff;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;gap:10px}
-.go[disabled]{background:#E7ECE9;color:var(--ink-3)}
-.hint{margin-top:8px;font-size:15px;font-weight:600;color:var(--ink-2);text-align:center;min-height:20px}
-.wait{width:100%;min-height:56px;border-radius:14px;background:var(--amber-50);color:var(--amber-ink);font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #F1DDA0}
+/* ---------- bill ---------- */
+.bhd{background:var(--g);color:#fff;padding:6px 10px 24px;position:relative}
+.bhd::after{content:"";position:absolute;left:0;right:0;bottom:-13px;height:14px;background:radial-gradient(circle at 13px 0,var(--g) 12.5px,transparent 13px) 0 0/26px 14px repeat-x}
+.bk{min-height:56px;min-width:56px;display:inline-flex;align-items:center;gap:6px;color:#BBD5C8;font-weight:600;padding:0 8px}
+.who{display:flex;justify-content:space-between;align-items:flex-end;padding:0 8px;gap:10px}
+.who small{display:block;font-size:16px;color:#BBD5C8}.who b{display:block;font-size:26px;line-height:30px;font-weight:800}
+.who .due{text-align:right}.who .due b{color:#FFD08A;font-size:24px}
+.heard{margin:14px 8px 0;border-radius:16px;background:rgba(255,255,255,.08);padding:12px 14px;font-size:18px;line-height:26px;color:#EAF4EE;min-height:56px}
+.heard .w{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--s);margin-bottom:4px;letter-spacing:.3px}
+.wave{display:flex;gap:3px;align-items:center;height:20px}.wave i{width:3px;border-radius:2px;background:var(--s);animation:wv .9s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:.1s}.wave i:nth-child(3){animation-delay:.2s}.wave i:nth-child(4){animation-delay:.3s}.wave i:nth-child(5){animation-delay:.4s}.wave i:nth-child(6){animation-delay:.5s}
+@keyframes wv{0%,100%{height:5px}50%{height:20px}}
+.items{margin:26px 16px 0;background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.it{padding:14px 16px;animation:slide .45s var(--spring) both}
+.it+.it{border-top:1px solid var(--line2)}
+@keyframes slide{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+.it .rt b{font-size:20px}.it .rt .n{font-size:22px}
+.it .ctl{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.it .ctl span{font-size:16px;color:var(--ink2)}
+.stp{display:flex;align-items:center;height:56px;border:1.5px solid var(--line);border-radius:14px;background:#fff}
+.stp button{width:56px;height:56px;display:grid;place-items:center;color:var(--g)}
+.stp em{min-width:56px;text-align:center;font-style:normal;font-weight:700;font-size:19px}
+.ghost{height:96px;margin:0 16px;border-top:1px solid var(--line2);background:linear-gradient(90deg,var(--line2) 25%,#F7F5F0 50%,var(--line2) 75%) 0 0/200% 100%;animation:sh 1.4s linear infinite;opacity:.55}
+@keyframes sh{to{background-position:-200% 0}}
+.it.ask{background:var(--s-50)}
+.askq{margin-top:12px;padding-top:12px;border-top:1px dashed #E7CF8F}
+.askq p{font-size:18px;font-weight:700;color:var(--s-ink)}
+.askq div{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.o{min-height:56px;border-radius:14px;font-weight:700;font-size:18px;background:#fff;border:1.5px solid #E2C673;color:var(--s-ink)}
+.o.y{background:var(--g);border-color:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px}
+.billsum{margin:14px 20px 0;display:flex;justify-content:space-between;align-items:baseline}
+.billsum span{font-size:18px;color:var(--ink2);font-weight:600}.billsum b{font-size:34px;font-weight:800;color:var(--g)}
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;background:var(--paper);border-top:1px solid var(--line);border-radius:24px 24px 0 0;box-shadow:0 -10px 30px rgba(12,59,46,.10);padding:16px 16px 134px;z-index:30;animation:up .35s var(--ease) both}
+@keyframes up{from{transform:translate(-50%,30px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.dock .q{font-size:19px;font-weight:800;color:var(--g);margin-bottom:10px}
+.pays{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pay{min-height:60px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:19px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--ink2)}
+.pay.on{border:2.5px solid var(--g);background:var(--g-50);color:var(--g)}
+.pay.u.on{border-color:var(--ud);background:var(--ud-50);color:var(--ud)}
+.math{margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--ud-50);color:var(--ud);font-weight:700;font-size:18px;display:flex;justify-content:space-between}
+.save{margin-top:12px;width:100%;min-height:62px;border-radius:16px;background:var(--s);color:var(--g);font-weight:800;font-size:21px;display:flex;align-items:center;justify-content:center;gap:10px}
+.save[disabled]{background:#EEEAE0;color:#6D6A60}
+.wait{width:100%;min-height:62px;border-radius:16px;background:var(--s-50);border:1.5px solid #EDD48E;color:var(--s-ink);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;gap:10px}
 
-.ok{padding:40px 24px 0;text-align:center}
-.okc{width:84px;height:84px;margin:0 auto;border-radius:50%;background:var(--brand);display:grid;place-items:center;animation:pop .5s var(--spring) both}
-.okc svg path{stroke-dasharray:30;stroke-dashoffset:30;animation:draw .45s .25s var(--ease) forwards}
-@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
-@keyframes draw{to{stroke-dashoffset:0}}
-.ok h2{font-size:26px;font-weight:800;margin-top:16px;letter-spacing:-.4px}
-.ok p{color:var(--ink-3);font-weight:600;margin-top:4px}
-.rc{margin:22px 16px 0;background:var(--card);border-radius:18px;box-shadow:var(--sh1);padding:16px}
-.rc-row{display:flex;justify-content:space-between;padding:6px 0;font-size:16px}.rc-row span{color:var(--ink-2);font-weight:600}
-.rc-tot{border-top:1px dashed var(--line);margin-top:6px;padding-top:10px;display:flex;justify-content:space-between;font-weight:800;font-size:19px}
-.khata{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--ud-50);color:var(--ud);font-weight:700;font-size:16px;display:flex;justify-content:space-between}
-.acts2{margin:16px 16px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.b2{min-height:56px;border-radius:14px;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;gap:8px}
-.b2.wa{background:#1DA851;color:#fff}.b2.ln{background:#fff;border:1.5px solid var(--line)}
-.undo{margin:14px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:15px;color:var(--ink-3);font-weight:600;padding:4px}
-.undo button{min-height:48px;color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
-.note{margin:24px 16px 0;text-align:center;font-size:13px;color:var(--ink-3)}
+/* ---------- saved: receipt + stamp ---------- */
+.done-hd{padding:18px 20px 8px;display:flex;align-items:center;justify-content:space-between}
+.done-hd b{font-size:26px;font-weight:800;color:var(--g)}
+.rcpt{margin:10px 16px 0;background:var(--paper);border:1px solid var(--line);border-radius:6px 6px 0 0;padding:18px 18px 22px;position:relative}
+.rcpt::after{content:"";position:absolute;left:-1px;right:-1px;bottom:-10px;height:10px;background:radial-gradient(circle at 8px 0,var(--paper) 7px,transparent 7.5px) -1px 0/16px 10px repeat-x}
+.rh{text-align:center;padding-bottom:12px;border-bottom:1px dashed var(--line)}
+.rh b{display:block;font-size:22px;font-weight:800;color:var(--g)}.rh span{font-size:15px;color:var(--ink2)}
+.rl{display:flex;justify-content:space-between;padding:9px 0;font-size:18px}.rl span{color:var(--ink2)}
+.rtot{display:flex;justify-content:space-between;border-top:2px solid var(--ink);margin-top:6px;padding-top:10px;font-size:22px;font-weight:800}
+.stamp{position:absolute;right:22px;bottom:70px;transform:rotate(-11deg);border:3px solid var(--ud);color:var(--ud);border-radius:10px;padding:6px 12px 4px;text-align:center;font-weight:800;font-size:22px;line-height:24px;background:rgba(251,239,227,.6);animation:stamp .5s var(--spring) both .2s}
+.stamp small{display:block;font-size:14px;font-weight:700}
+.stamp.cash{border-color:var(--g);color:var(--g);background:rgba(234,242,238,.6)}
+@keyframes stamp{0%{opacity:0;transform:rotate(-11deg) scale(2)}70%{opacity:1;transform:rotate(-11deg) scale(.95)}100%{transform:rotate(-11deg) scale(1)}}
+.after{margin:26px 16px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.after .btn{width:100%}
+.btn.waf{background:#1DA851;color:#fff}
+.undo{margin:14px 16px 0;padding:14px 16px;border-radius:16px;border:1.5px dashed var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;color:var(--ink2)}
+.undo .btn{flex:none;border:1.5px solid var(--ink2);color:var(--ink);background:#fff}
+.note{margin:26px 16px 0;text-align:center;font-size:14px;color:var(--ink2)}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute">
-  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></symbol>
+  <symbol id="mark" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#E9A21A"/><path d="M8 18h32v4a4 4 0 0 1-8 0 4 4 0 0 1-8 0 4 4 0 0 1-8 0 4 4 0 0 1-8 0z" fill="#0C3B2E"/><path d="M11 18l3-7h20l3 7" fill="none" stroke="#0C3B2E" stroke-width="2.6" stroke-linejoin="round"/><rect x="20.5" y="27" width="7" height="11" rx="3.5" fill="#0C3B2E"/><path d="M16 33a8 8 0 0 0 16 0" fill="none" stroke="#0C3B2E" stroke-width="2.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></symbol>
   <symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
-  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
-  <symbol id="i-receipt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6M16 12h-6M13 16h-3"/></symbol>
-  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M15 18H9M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
-  <symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
-  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M7 16l4-6 4 4 5-7"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .71-1.53l7-6a2 2 0 0 1 2.58 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6M16 12h-6M13 16h-3"/></symbol>
   <symbol id="i-pkg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12M3.3 7l8.7 5 8.7-5"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 7h8M8 11h6"/></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
@@ -165,127 +178,137 @@ svg{flex:none}
   <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></symbol>
   <symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></symbol>
-  <symbol id="i-cash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
-  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
-  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></symbol>
-  <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
 </svg>
 
 <section class="view on" id="home">
-  <header class="top"><div class="top-row">
-    <div class="logo">S</div>
-    <div class="shop"><b>Sharma General Store</b><span>Rajwada, Indore</span></div>
-    <button class="tb p" aria-label="QR code"><svg width="24" height="24"><use href="#i-qr"/></svg></button>
-      </div></header>
-  <div class="today rise">
-    <div class="today-h"><span class="lbl">Aaj ki bikri</span><span class="live"><i></i>Live · 6:14 pm</span></div>
-    <div class="big"><span data-count="14218">₹0</span><span class="delta">↑ 8% kal se</span></div>
-    <div class="chart" id="chart"></div>
-    <div class="axis"><span>7 am</span><span>11 am</span><span>3 pm</span><span>Abhi</span></div>
-    <div class="split"><div><small>Bill</small><b data-count="68" data-plain>0</b></div><div><small>Cash</small><b>₹9,642</b></div><div><small>UPI</small><b>₹3,456</b></div><div><small>Udhaar diya</small><b style="color:var(--ud)">₹1,120</b></div></div>
-  </div>
-  <div class="acts rise" style="animation-delay:.06s">
-    <button class="act p" onclick="go('bill')"><span class="i" style="background:var(--brand)"><svg width="26" height="26"><use href="#i-receipt"/></svg></span>Naya bill</button>
-    <button class="act p"><span class="i" style="background:#2B5BD7"><svg width="26" height="26"><use href="#i-truck"/></svg></span>Maal aaya</button>
-    <button class="act p"><span class="i" style="background:#9A4B10"><svg width="26" height="26"><use href="#i-wallet"/></svg></span>Paisa mila</button>
-    <button class="act p"><span class="i" style="background:#6941C6"><svg width="26" height="26"><use href="#i-chart"/></svg></span>Hisaab</button>
-  </div>
-  <button class="speak p rise" style="animation-delay:.1s" onclick="go('bill')">
-    <span class="m"><svg width="26" height="26"><use href="#i-mic"/></svg></span>
-    <span><b>Bolke bill banao</b><small>Jaise: <q id="hint">Sharma ji, 2 kilo cheeni, 1 Maggi</q></small></span>
+  <header class="hd">
+    <div class="hd-row">
+      <svg class="mark"><use href="#mark"/></svg>
+      <div class="shop"><b>Sharma General Store</b><span data-t="area"></span></div>
+      <button class="hbtn p"><svg width="22" height="22"><use href="#i-qr"/></svg>QR</button>
+    </div>
+    <div class="lang"><button data-l="hinglish">Hinglish</button><button data-l="hi">हिंदी</button><button data-l="en">English</button></div>
+  </header>
+
+  <button class="speak p rise" onclick="go('bill')">
+    <span class="mic"><svg width="32" height="32"><use href="#i-mic"/></svg></span>
+    <span><b data-t="speak"></b><small><span data-t="like"></span> <q id="hint"></q></small></span>
   </button>
-  <div class="sec"><h3>Paisa lena hai</h3><a href="#">₹32,484 · sab</a></div>
-  <div class="collect">
-    <div class="cc"><div class="cc-h"><span class="av">MJ</span><div><b>Mishra ji</b><small>5 din se baaki</small></div></div><div class="amt">₹2,523</div><button class="wa p"><svg width="20" height="20"><use href="#i-wa"/></svg>WhatsApp pe yaad dilao</button></div>
-    <div class="cc"><div class="cc-h"><span class="av">SJ</span><div><b>Sharma ji · gali 4</b><small>4 din se baaki</small></div></div><div class="amt">₹2,416</div><button class="wa p"><svg width="20" height="20"><use href="#i-wa"/></svg>WhatsApp pe yaad dilao</button></div>
-    <div class="cc"><div class="cc-h"><span class="av">N</span><div><b>Neha</b><small>4 din se baaki</small></div></div><div class="amt">₹1,278</div><button class="wa p"><svg width="20" height="20"><use href="#i-wa"/></svg>WhatsApp pe yaad dilao</button></div>
+
+  <div class="card rise" style="animation-delay:.05s">
+    <div class="k" data-t="today"></div>
+    <div class="total"><b class="n" data-count="14218">₹0</b><span data-t="vs"></span></div>
+    <div class="eq">
+      <div><span><i></i><span data-t="cash"></span></span><b class="n">₹9,642</b></div>
+      <div><span><i>+</i><span>UPI</span></span><b class="n">₹3,456</b></div>
+      <div><span><i>+</i><span class="ud" data-t="udgiven"></span></span><b class="n ud">₹1,120</b></div>
+      <div class="sum"><span><i>=</i><span data-t="total"></span> · <span data-t="bills"></span></span><b class="n">₹14,218</b></div>
+    </div>
   </div>
-  <div class="sec"><h3>Dhyaan dein</h3></div>
+
+  <div class="sec"><h3 data-t="collect"></h3><span class="n">₹32,484</span></div>
   <div class="list">
-    <div class="row"><span class="ri" style="background:var(--upi-50);color:var(--upi)"><svg width="22" height="22"><use href="#i-bag"/></svg></span><div class="g"><b>2 naye online order</b><small>Pack karke ready karo</small></div><span class="r" style="color:var(--brand)">Dekho</span></div>
-    <div class="row"><span class="ri" style="background:var(--amber-50);color:#9A6A00"><svg width="22" height="22"><use href="#i-alert"/></svg></span><div class="g"><b>Machis, Frooti khatam hone wale</b><small>1–2 din chalega · pichhle 14 din se</small></div><span class="r" style="color:var(--brand)">Mangao</span></div>
-    <div class="row"><span class="ri" style="background:var(--brand-50);color:var(--brand)"><svg width="22" height="22"><use href="#i-pkg"/></svg></span><div class="g"><b>Aaj 3 saaman gino</b><small>1 minute · 23 din se lagatar</small></div><span class="r" style="color:var(--brand)">Shuru</span></div>
+    <div class="row"><div class="rt"><b>Mishra ji</b><span class="n ud">₹2,523</span></div><div class="rs" data-t="d5"></div>
+      <div class="rb"><button class="btn wa p"><svg width="22" height="22"><use href="#i-wa"/></svg><span data-t="remind"></span></button><button class="btn ln p" data-t="paid"></button></div></div>
+    <div class="row"><div class="rt"><b>Sharma ji · gali 4</b><span class="n ud">₹2,416</span></div><div class="rs" data-t="d4"></div>
+      <div class="rb"><button class="btn wa p"><svg width="22" height="22"><use href="#i-wa"/></svg><span data-t="remind"></span></button><button class="btn ln p" data-t="paid"></button></div></div>
   </div>
-  <div class="sec"><h3>Abhi ke bill</h3><a href="#">Aaj ke 68</a></div>
-  <div class="list">
-    <div class="row"><span class="av">SJ</span><div class="g"><b>Sharma ji · gali 4</b><small>Cheeni, Maggi, Toor dal · 6:12 pm</small></div><div class="r">₹181<br><span class="chip ud">Udhaar</span></div></div>
-    <div class="row"><span class="av" style="background:var(--brand-50);color:var(--brand)">G</span><div class="g"><b>Grahak</b><small>Amul Gold ×2, Bread · 6:05 pm</small></div><div class="r">₹113<br><span class="chip cash">Cash</span></div></div>
-    <div class="row"><span class="av" style="background:var(--upi-50);color:var(--upi)">N</span><div class="g"><b>Neha</b><small>Surf Excel, Vim bar · 5:58 pm</small></div><div class="r">₹160<br><span class="chip upi">UPI</span></div></div>
+
+  <div class="sec"><h3 data-t="todo"></h3></div>
+  <div class="list todo">
+    <div class="row"><div class="t"><b data-t="t1"></b><div class="rs" data-t="t1s"></div></div><button class="btn go p" data-t="see"></button></div>
+    <div class="row"><div class="t"><b data-t="t2"></b><div class="rs" data-t="t2s"></div></div><button class="btn go p" data-t="order"></button></div>
+    <div class="row"><div class="t"><b data-t="t3"></b><div class="rs" data-t="t3s"></div></div><button class="btn go p" data-t="start"></button></div>
   </div>
-  <p class="note">Prototype v2 · TEST store numbers · nothing here saves data</p>
+  <p class="note" data-t="note"></p>
 </section>
 
 <section class="view" id="bill">
-  <div class="bh">
-    <div class="bh-row"><button class="back p" onclick="go('home')" aria-label="Peeche"><svg width="24" height="24"><use href="#i-back"/></svg></button><h2>Naya bill</h2></div>
-    <div class="cust"><span class="av">SJ</span><div class="g"><b id="cname">Sun raha hoon…</b><small id="csub">Grahak ka naam bolein</small></div><div class="due" id="cdue" style="opacity:0"><small>Pehle ka udhaar</small><b>₹2,416</b></div></div>
-    <div class="heard"><span class="tag"><span class="bars"><i></i><i></i><i></i></span>SUN RAHA HOON</span><span id="htxt"></span></div>
-  </div>
+  <header class="bhd">
+    <button class="bk p" onclick="go('home')"><svg width="22" height="22"><use href="#i-back"/></svg><span data-t="back"></span></button>
+    <div class="who"><div><small data-t="billfor"></small><b id="cname">…</b></div><div class="due" id="cdue" style="opacity:0"><small data-t="olddue"></small><b class="n">₹2,416</b></div></div>
+    <div class="heard"><div class="w"><span class="wave"><i></i><i></i><i></i><i></i><i></i><i></i></span><span data-t="listening"></span></div><span id="htxt"></span></div>
+  </header>
   <div class="items" id="items"></div>
-  <div class="sum" id="sum" style="visibility:hidden"><span>3 saaman</span><b>₹181</b></div>
-  <div class="sheet" id="sheet" style="display:none">
-    <button id="wait" class="wait p" onclick="document.querySelector('.it.ask')?.scrollIntoView({behavior:'smooth',block:'center'})"><svg width="20" height="20"><use href="#i-alert"/></svg>Pehle upar Maggi pakka karein</button>
-    <div id="payw" style="display:none"><div class="h">Paisa kaise mila?</div>
-      <div class="seg"><button class="sg p" data-p="cash"><svg width="20" height="20"><use href="#i-cash"/></svg>Cash</button><button class="sg p" data-p="upi"><svg width="20" height="20"><use href="#i-phone"/></svg>UPI</button><button class="sg ud p" data-p="ud"><svg width="20" height="20"><use href="#i-book"/></svg>Udhaar</button></div>
-      <button class="go p" id="go" disabled onclick="saved()"><svg width="22" height="22"><use href="#i-check"/></svg>Bill save karo · ₹181</button>
-      <div class="hint" id="hint2">Pehle Cash, UPI ya Udhaar chunein</div></div>
+  <div id="ghosts"><div class="ghost"></div><div class="ghost"></div></div>
+  <div class="billsum" id="bsum" style="visibility:hidden"><span data-t="items3"></span><b class="n">₹181</b></div>
+  <div class="dock" id="dock" style="display:none">
+    <button class="wait p" id="wait" onclick="document.querySelector('.it.ask')?.scrollIntoView({behavior:'smooth',block:'center'})"><svg width="22" height="22"><use href="#i-up"/></svg><span data-t="confirm"></span></button>
+    <div id="payw" style="display:none">
+      <div class="q" data-t="how"></div>
+      <div class="pays"><button class="pay p" data-p="cash" data-t="cash"></button><button class="pay p" data-p="upi">UPI</button><button class="pay u p" data-p="ud" data-t="udhaar"></button></div>
+      <div class="math" id="math" style="display:none"><span>₹2,416 + ₹181</span><span>= ₹2,597</span></div>
+      <button class="save p" id="save" disabled onclick="saved()"><svg width="24" height="24"><use href="#i-check"/></svg><span id="savet"></span></button>
+    </div>
   </div>
 </section>
 
 <section class="view" id="done">
-  <div class="ok"><div class="okc"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-    <h2>Bill ban gaya</h2><p id="dsub">₹181 · Sharma ji · Udhaar</p></div>
-  <div class="rc"><div class="rc-row"><span>Cheeni · 2 kg</span><b>₹92</b></div><div class="rc-row"><span>Maggi chhota · 1</span><b>₹14</b></div><div class="rc-row"><span>Toor dal · ½ kg</span><b>₹75</b></div>
-    <div class="rc-tot"><span>Kul</span><span>₹181</span></div>
-    <div class="khata" id="khata"><span>Sharma ji ka khata ab</span><span>₹2,597</span></div></div>
-  <div class="acts2"><button class="b2 wa p"><svg width="20" height="20"><use href="#i-wa"/></svg>WhatsApp</button><button class="b2 ln p" onclick="go('home')"><svg width="20" height="20"><use href="#i-home"/></svg>Ghar</button></div>
-  <div class="undo"><span>Galti hui? Agle bill tak wapas le sakte hain</span><button onclick="go('home')">Bill wapas lo</button></div>
+  <div class="done-hd"><b data-t="made"></b></div>
+  <div class="rcpt">
+    <div class="rh"><b>Sharma General Store</b><span data-t="rmeta"></span></div>
+    <div style="padding-top:8px"><div class="rl"><span>Sharma ji · gali 4</span><span></span></div>
+      <div class="rl"><span data-t="i1"></span><b class="n">₹92</b></div><div class="rl"><span data-t="i2"></span><b class="n">₹14</b></div><div class="rl"><span data-t="i3"></span><b class="n">₹75</b></div></div>
+    <div style="height:78px"></div><div class="rtot"><span data-t="total"></span><span class="n">₹181</span></div>
+    <div class="stamp" id="stamp"></div>
+  </div>
+  <div class="after"><button class="btn waf p"><svg width="22" height="22"><use href="#i-wa"/></svg>WhatsApp</button><button class="btn ln p" onclick="go('home')"><svg width="22" height="22"><use href="#i-home"/></svg><span data-t="home"></span></button></div>
+  <div class="undo"><span data-t="undonote"></span><button class="btn p" onclick="go('home')"><svg width="20" height="20"><use href="#i-undo"/></svg><span data-t="undo"></span></button></div>
 </section>
 
 <nav class="nav" id="nav">
-  <button class="nv on p" onclick="go('home')"><svg width="24" height="24"><use href="#i-home"/></svg>Ghar</button>
-  <button class="nv p"><svg width="24" height="24"><use href="#i-receipt"/></svg>Bill</button>
-  <div><button class="micb p" onclick="go('bill')" aria-label="Bolo"><svg width="30" height="30"><use href="#i-mic"/></svg></button><div class="micl" id="micl">Bolo</div></div>
-  <button class="nv p"><svg width="24" height="24"><use href="#i-pkg"/></svg>Maal</button>
-  <button class="nv p"><svg width="24" height="24"><use href="#i-book"/></svg>Udhaar</button>
+  <button class="nv on p" onclick="go('home')"><svg width="26" height="26"><use href="#i-home"/></svg><span data-t="tHome"></span></button>
+  <button class="nv p"><svg width="26" height="26"><use href="#i-receipt"/></svg><span data-t="tBill"></span></button>
+  <div><button class="nmic p" onclick="go('bill')"><svg width="30" height="30"><use href="#i-mic"/></svg></button><div class="nml" id="nml"></div></div>
+  <button class="nv p"><svg width="26" height="26"><use href="#i-pkg"/></svg><span data-t="tMaal"></span></button>
+  <button class="nv p"><svg width="26" height="26"><use href="#i-book"/></svg><span data-t="tUd"></span></button>
 </nav>
 
 <script>
-const $ = (s) => document.querySelector(s), wait = (ms) => new Promise((r) => setTimeout(r, ms))
-const fmt = (n) => '₹' + Math.round(n).toLocaleString('en-IN')
-const H = [6, 14, 22, 18, 9, 7, 6, 8, 11, 16, 24, 21]
-$('#chart').innerHTML = H.map((v, i) => `<i class="${i === H.length - 1 ? 'now' : ''}" style="height:${v / 24 * 100}%;animation-delay:${i * 30}ms"></i>`).join('')
-function countUp(){ document.querySelectorAll('[data-count]').forEach((el) => { const to = +el.dataset.count, plain = el.hasAttribute('data-plain'), t0 = performance.now()
-  const f = (t) => { const p = Math.min(1, (t - t0) / 900), v = to * (1 - Math.pow(1 - p, 4)); el.textContent = plain ? Math.round(v) : fmt(v); if (p < 1) requestAnimationFrame(f) }; requestAnimationFrame(f) }) }
-countUp()
-const hints = ['Sharma ji, 2 kilo cheeni, 1 Maggi', 'Maal aaya, 10 Aashirvaad atta', 'Gupta ji ne 500 diye', 'Cheeni kitni bachi?']
-let hn = 0; setInterval(() => { const q = $('#hint'); q.style.opacity = 0; setTimeout(() => { hn = (hn + 1) % hints.length; q.textContent = hints[hn]; q.style.opacity = 1 }, 250) }, 3200)
-const ITEMS = [
-  { n: 'Cheeni', s: '₹46 / kg', q: '2 kg', a: 92, c: '#A0561A', bg: '#FBEFE2', ic: 'i-pkg' },
-  { n: 'Maggi chhota?', s: '₹14 / pc', q: '1', a: 14, c: '#9A6A00', bg: '#FFF2CC', ic: 'i-bag', ask: true },
-  { n: 'Toor dal', s: '₹150 / kg', q: '½ kg', a: 75, c: '#A0561A', bg: '#FBEFE2', ic: 'i-pkg' },
-]
-let pay = null, open = true
-function go(v){ document.querySelectorAll('.view').forEach((x) => x.classList.toggle('on', x.id === v)); scrollTo(0, 0)
-  $('#nav').classList.toggle('flow', v !== 'home'); $('#micl').textContent = v === 'home' ? 'Bolo' : 'Bolke badlo'
-  if (v === 'home') countUp(); if (v === 'bill') listen() }
-function item(it){ return `<div class="it${it.ask ? ' ask' : ''}"><span class="ri" style="background:${it.bg};color:${it.c}"><svg width="22" height="22"><use href="#${it.ic}"/></svg></span>
-  <div class="g"><b>${it.n}</b><small>${it.s}</small></div><div class="stp"><button aria-label="kam"><svg width="18" height="18"><use href="#i-minus"/></svg></button><span>${it.q}</span><button aria-label="zyada"><svg width="18" height="18"><use href="#i-plus"/></svg></button></div><span class="pr">₹${it.a}</span>
-  ${it.ask ? `<div class="askq"><span>Yahi wali?</span><div><button class="o p">Doosri</button><button class="o y p" onclick="ok(this)"><svg width="16" height="16"><use href="#i-check"/></svg>Haan</button></div></div>` : ''}</div>` }
-async function listen(){
-  pay = null; open = true; $('#items').innerHTML = ''; $('#sum').style.visibility = 'hidden'; $('#sheet').style.display = 'none'; $('#htxt').textContent = ''; $('#cname').textContent = 'Sun raha hoon…'; $('#csub').textContent = 'Grahak ka naam bolein'; $('#cdue').style.opacity = 0
-  document.querySelectorAll('.sg').forEach((x) => x.classList.remove('on'))
-  const w = 'Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal'.split(' ')
-  for (let i = 0; i < w.length; i++) { await wait(240); $('#htxt').textContent += (i ? ' ' : '') + w[i]
-    if (i === 1) { $('#cname').textContent = 'Sharma ji · gali 4'; $('#csub').textContent = 'Purane grahak · 9811100001'; $('#cdue').style.transition = 'opacity .3s'; $('#cdue').style.opacity = 1 }
+const T = {
+  hinglish: { area:'Kirana · Rajwada, Indore', speak:'Bolke bill banao', like:'Jaise:', today:'Aaj ki bikri · 6:14 pm tak', vs:'Kal se ₹1,050 zyada', cash:'Cash', udgiven:'Udhaar diya', total:'Kul', bills:'68 bill', collect:'Paisa lena hai', d5:'5 din se baaki', d4:'4 din se baaki', remind:'Yaad dilao', paid:'Paisa mila', todo:'Aaj ka kaam', t1:'2 naye online order', t1s:'Pack karke ready karo', t2:'Machis, Frooti khatam hone wale', t2s:'1–2 din ka maal bacha', t3:'Aaj 3 saaman gino', t3s:'1 minute · 23 din se roz', see:'Dekho', order:'Mangao', start:'Shuru', note:'Prototype v3 · TEST store ke numbers · kuch save nahi hota',
+    back:'Peeche', billfor:'Bill kiska', olddue:'Pehle ka udhaar', listening:'SUN RAHA HOON', items3:'3 saaman', confirm:'Pehle upar Maggi pakka karo', how:'Paisa kaise mila?', udhaar:'Udhaar', save0:'Pehle paisa ka tareeka chuno', saveC:'Save karo · Cash ₹181', saveU:'Save karo · Udhaar ₹181', saveP:'Save karo · UPI ₹181',
+    made:'Bill ban gaya', rmeta:'Bill no. 2204 · 23 Nov, 6:15 pm', i1:'Cheeni · 2 kg', i2:'Maggi chhota · 1', i3:'Toor dal · ½ kg', home:'Ghar', undonote:'Galti hui? Agle bill tak wapas le sakte hain', undo:'Wapas lo', stU:'UDHAAR MEIN LIKHA', stUs:'Khata ab ₹2,597', stC:'PAISA MILA', tHome:'Ghar', tBill:'Bill', tMaal:'Maal', tUd:'Udhaar', mic:'Bolo', micB:'Bolke badlo',
+    yes:'Haan, yahi', other:'Doosri', which:'Yahi wali Maggi? (Maggi chhota, ₹14)', hints:['Sharma ji, 2 kilo cheeni, 1 Maggi', 'Maal aaya, 10 Aashirvaad atta', 'Gupta ji ne 500 diye'], said:'Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal', names:['Cheeni','Maggi chhota?','Toor dal'], units:['2 kg × ₹46','1 × ₹14','½ kg × ₹150'] },
+  hi: { area:'किराना · राजवाड़ा, इंदौर', speak:'बोलकर बिल बनाओ', like:'जैसे:', today:'आज की बिक्री · शाम 6:14 तक', vs:'कल से ₹1,050 ज़्यादा', cash:'नकद', udgiven:'उधार दिया', total:'कुल', bills:'68 बिल', collect:'पैसा लेना है', d5:'5 दिन से बाकी', d4:'4 दिन से बाकी', remind:'याद दिलाओ', paid:'पैसा मिला', todo:'आज का काम', t1:'2 नए ऑनलाइन ऑर्डर', t1s:'पैक करके तैयार करो', t2:'माचिस, फ्रूटी खत्म होने वाले', t2s:'1–2 दिन का माल बचा', t3:'आज 3 सामान गिनो', t3s:'1 मिनट · 23 दिन से रोज़', see:'देखो', order:'मंगाओ', start:'शुरू', note:'प्रोटोटाइप v3 · TEST दुकान के आँकड़े · कुछ सेव नहीं होता',
+    back:'पीछे', billfor:'बिल किसका', olddue:'पहले का उधार', listening:'सुन रहा हूँ', items3:'3 सामान', confirm:'पहले ऊपर मैगी पक्का करो', how:'पैसा कैसे मिला?', udhaar:'उधार', save0:'पहले पैसे का तरीका चुनो', saveC:'सेव करो · नकद ₹181', saveU:'सेव करो · उधार ₹181', saveP:'सेव करो · UPI ₹181',
+    made:'बिल बन गया', rmeta:'बिल नं. 2204 · 23 नव॰, शाम 6:15', i1:'चीनी · 2 किलो', i2:'मैगी छोटा · 1', i3:'तूर दाल · आधा किलो', home:'घर', undonote:'गलती हुई? अगले बिल तक वापस ले सकते हैं', undo:'वापस लो', stU:'उधार में लिखा', stUs:'खाता अब ₹2,597', stC:'पैसा मिला', tHome:'घर', tBill:'बिल', tMaal:'माल', tUd:'उधार', mic:'बोलो', micB:'बोलकर बदलो',
+    yes:'हाँ, यही', other:'दूसरी', which:'यही वाली मैगी? (मैगी छोटा, ₹14)', hints:['शर्मा जी, दो किलो चीनी, एक मैगी', 'माल आया, दस आशीर्वाद आटा', 'गुप्ता जी ने 500 दिए'], said:'शर्मा जी, दो किलो चीनी, एक मैगी, आधा किलो तूर दाल', names:['चीनी','मैगी छोटा?','तूर दाल'], units:['2 किलो × ₹46','1 × ₹14','आधा किलो × ₹150'] },
+  en: { area:'Grocery · Rajwada, Indore', speak:'Speak to make a bill', like:'Like:', today:"Today's sales · till 6:14 pm", vs:'₹1,050 more than yesterday', cash:'Cash', udgiven:'Udhaar given', total:'Total', bills:'68 bills', collect:'Money to collect', d5:'Due 5 days', d4:'Due 4 days', remind:'Remind', paid:'Got paid', todo:"Today's tasks", t1:'2 new online orders', t1s:'Pack and mark ready', t2:'Matchbox, Frooti running out', t2s:'1–2 days of stock left', t3:'Count 3 items today', t3s:'1 minute · 23-day streak', see:'View', order:'Order', start:'Start', note:'Prototype v3 · TEST store numbers · nothing is saved',
+    back:'Back', billfor:'Bill for', olddue:'Old udhaar', listening:'LISTENING', items3:'3 items', confirm:'First confirm Maggi above', how:'How was it paid?', udhaar:'Udhaar', save0:'First choose how it was paid', saveC:'Save · Cash ₹181', saveU:'Save · Udhaar ₹181', saveP:'Save · UPI ₹181',
+    made:'Bill made', rmeta:'Bill no. 2204 · 23 Nov, 6:15 pm', i1:'Sugar · 2 kg', i2:'Maggi small · 1', i3:'Toor dal · ½ kg', home:'Home', undonote:'Mistake? You can take it back until the next bill', undo:'Take back', stU:'ON UDHAAR', stUs:'Account now ₹2,597', stC:'PAID', tHome:'Home', tBill:'Bills', tMaal:'Stock', tUd:'Udhaar', mic:'Speak', micB:'Speak to edit',
+    yes:'Yes, this', other:'Other', which:'This Maggi? (Maggi small, ₹14)', hints:['Sharma ji, 2 kilo sugar, 1 Maggi', 'Stock came, 10 Aashirvaad atta', 'Gupta ji paid 500'], said:'Sharma ji, two kilo sugar, one Maggi, half kilo toor dal', names:['Sugar','Maggi small?','Toor dal'], units:['2 kg × ₹46','1 × ₹14','½ kg × ₹150'] },
+}
+let L = new URLSearchParams(location.search).get('lang') || 'hinglish', view = 'home', pay = null, open = true
+const $ = (s) => document.querySelector(s), wait = (ms) => new Promise((r) => setTimeout(r, ms)), fmt = (n) => '₹' + Math.round(n).toLocaleString('en-IN')
+function paint(){ const D = T[L]; document.body.classList.toggle('hi', L === 'hi')
+  document.querySelectorAll('[data-t]').forEach((el) => { const v = D[el.dataset.t]; if (typeof v === 'string') el.textContent = v })
+  document.querySelectorAll('.lang button').forEach((b) => b.classList.toggle('on', b.dataset.l === L)); $('#hint').textContent = D.hints[0]; $('#nml').textContent = view === 'home' ? D.mic : D.micB; state() }
+document.querySelectorAll('.lang button').forEach((b) => b.onclick = () => { L = b.dataset.l; paint() })
+function countUp(){ document.querySelectorAll('[data-count]').forEach((el) => { const to = +el.dataset.count, t0 = performance.now(); const f = (t) => { const p = Math.min(1, (t - t0) / 900); el.textContent = fmt(to * (1 - Math.pow(1 - p, 4))); if (p < 1) requestAnimationFrame(f) }; requestAnimationFrame(f) }) }
+let hn = 0; setInterval(() => { const q = $('#hint'); q.style.opacity = 0; setTimeout(() => { hn = (hn + 1) % 3; q.textContent = T[L].hints[hn]; q.style.opacity = 1 }, 250) }, 3200)
+function go(v){ view = v; document.querySelectorAll('.view').forEach((x) => x.classList.toggle('on', x.id === v)); scrollTo(0, 0); $('#nav').classList.toggle('flow', v !== 'home'); paint(); if (v === 'home') countUp(); if (v === 'bill') listen() }
+const AMT = [92, 14, 75]
+function item(i){ const D = T[L], ask = i === 1; return `<div class="it${ask ? ' ask' : ''}"><div class="rt"><b>${D.names[i]}</b><span class="n">₹${AMT[i]}</span></div>
+  <div class="ctl"><span>${D.units[i]}</span><div class="stp"><button aria-label="-"><svg width="20" height="20"><use href="#i-minus"/></svg></button><em>${['2 kg','1','½ kg'][i]}</em><button aria-label="+"><svg width="20" height="20"><use href="#i-plus"/></svg></button></div></div>
+  ${ask ? `<div class="askq"><p>${D.which}</p><div><button class="o p">${D.other}</button><button class="o y p" onclick="ok(this)"><svg width="20" height="20"><use href="#i-check"/></svg>${D.yes}</button></div></div>` : ''}</div>` }
+async function listen(){ pay = null; open = true; $('#items').innerHTML = ''; $('#ghosts').style.display = ''; $('#bsum').style.visibility = 'hidden'; $('#dock').style.display = 'none'; $('#htxt').textContent = ''; $('#cname').textContent = '…'; $('#cdue').style.opacity = 0
+  document.querySelectorAll('.pay').forEach((x) => x.classList.remove('on'))
+  const w = T[L].said.split(' ')
+  for (let i = 0; i < w.length; i++) { await wait(230); $('#htxt').textContent += (i ? ' ' : '') + w[i]
+    if (i === 1) { $('#cname').textContent = L === 'hi' ? 'शर्मा जी · गली 4' : 'Sharma ji · gali 4'; $('#cdue').style.transition = 'opacity .3s'; $('#cdue').style.opacity = 1 }
     if (i === 4) add(0); if (i === 6) add(1); if (i === 10) add(2) }
-  await wait(400); $('#sum').style.visibility = 'visible'; $('#sheet').style.display = 'block'; state() }
-function add(i){ $('#items').insertAdjacentHTML('beforeend', item(ITEMS[i])) }
-function ok(b){ const it = b.closest('.it'); it.classList.remove('ask'); it.querySelector('.askq').remove(); it.querySelector('b').textContent = 'Maggi chhota'; open = false; state() }
-function state(){ $('#wait').style.display = open ? 'flex' : 'none'; $('#payw').style.display = open ? 'none' : 'block'; $('#go').disabled = !pay
-  $('#hint2').textContent = !pay ? 'Pehle Cash, UPI ya Udhaar chunein' : pay === 'ud' ? 'Sharma ji ke khate mein likhega · ab ₹2,597' : pay === 'upi' ? 'UPI se ₹181 mila' : 'Cash ₹181 mila' }
-document.querySelectorAll('.sg').forEach((b) => b.onclick = () => { pay = b.dataset.p; document.querySelectorAll('.sg').forEach((x) => x.classList.toggle('on', x === b)); state() })
-function saved(){ $('#dsub').textContent = '₹181 · Sharma ji · ' + (pay === 'ud' ? 'Udhaar' : pay === 'upi' ? 'UPI' : 'Cash'); $('#khata').style.display = pay === 'ud' ? 'flex' : 'none'; if (navigator.vibrate) navigator.vibrate(25); go('done') }
+  await wait(400); $('#ghosts').style.display = 'none'; $('#bsum').style.visibility = 'visible'; $('#dock').style.display = 'block'; state() }
+function add(i){ $('#items').insertAdjacentHTML('beforeend', item(i)); const g = $('#ghosts .ghost'); if (g && i === 2) g.remove() }
+function ok(b){ const it = b.closest('.it'); it.classList.remove('ask'); it.querySelector('.askq').remove(); it.querySelector('b').textContent = T[L].names[1].replace('?', ''); open = false; state() }
+function state(){ const D = T[L]; if (!$('#wait')) return; $('#wait').style.display = open ? 'flex' : 'none'; $('#payw').style.display = open ? 'none' : 'block'; $('#save').disabled = !pay
+  $('#savet').textContent = !pay ? D.save0 : pay === 'ud' ? D.saveU : pay === 'upi' ? D.saveP : D.saveC; $('#math').style.display = pay === 'ud' ? 'flex' : 'none' }
+document.querySelectorAll('.pay').forEach((b) => b.onclick = () => { pay = b.dataset.p; document.querySelectorAll('.pay').forEach((x) => x.classList.toggle('on', x === b)); state() })
+function saved(){ const D = T[L], st = $('#stamp'); st.className = 'stamp' + (pay === 'ud' ? '' : ' cash'); st.innerHTML = pay === 'ud' ? `${D.stU}<small>${D.stUs}</small>` : `${D.stC}<small>${pay === 'upi' ? 'UPI' : D.cash} · ₹181</small>`
+  if (navigator.vibrate) navigator.vibrate(25); go('done') }
+paint(); countUp()
 </script>
 </body>
 </html>
