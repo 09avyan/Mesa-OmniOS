@@ -299,3 +299,6 @@ input{caret-color:var(--ac)}
 .sv-undo{margin-top:20px;padding:14px 16px;border-radius:16px;background:var(--s2)}.sv-undo p{font-size:19px;font-weight:600;margin-bottom:10px}
 .top:empty{height:12px;margin:0}
 .btn.sv-wa{text-align:center;line-height:24px}
+.btn.dk-todo{background:#FBE7B0;color:#4A3500}
+.btn.dk-todo small{font-size:19px;font-weight:700;line-height:24px}
+.btn.dk-todo .dk-sub{font-size:17px;font-weight:600;color:#5C4000}

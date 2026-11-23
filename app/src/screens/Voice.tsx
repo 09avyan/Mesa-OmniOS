@@ -262,7 +262,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
     : draft.pay === 'upi' ? t('dkUpi').replace('{x}', rupees(net)) : t('dkCash').replace('{x}', rupees(net))
   const fixFirst = () => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const cta = !ready
-    ? <Tap className="btn dk-wait" onClick={fixFirst}><span>{isBill ? t('saveBill') : t('stockAdd')}</span><small>{cap(reason)}</small></Tap>
+    ? <Tap className="btn dk-wait dk-todo" onClick={fixFirst}><small>↑ {cap(reason)}</small><span className="dk-sub">{isBill ? t('saveBill') : t('stockAdd')} · {t('dkAfter')}</span></Tap>
     : udhaarBlocked
       ? <Tap className="btn dk-wait" onClick={() => setCustOpen(true)}><span>{t('saveBill')}</span><small>{t('udhaarNeedsName')}</small></Tap>
       : isBill && !draft.pay
@@ -273,15 +273,15 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
           </Tap>
   const dock = isBill ? (
     <div className="paydock">
-      <div className="dk-head"><b>{t('howPaid')}</b><b className="num">{rupees(net)}</b></div>
-      <div className="dk-tiles">
+      <div className="dk-head"><b>{ready ? t('howPaid') : t('total')}</b><b className="num">{rupees(net)}</b></div>
+      {ready && <div className="dk-tiles">
         {(['cash', 'upi', 'udhaar'] as const).map((p) => (
           <Tap key={p} className={`dk-tile ${draft.pay === p ? (p === 'udhaar' ? 'onu' : 'on') : ''}`} aria-pressed={draft.pay === p}
             onClick={() => { setDraft({ ...draft, pay: p }); if (p === 'upi') setUpiOpen(true) }}>
             {draft.pay === p ? <Icon name="tick" size={20} stroke={3} /> : <Icon name={p === 'cash' ? 'cash' : p === 'upi' ? 'qr' : 'book'} size={20} />}{t(p)}
           </Tap>
         ))}
-      </div>
+      </div>}
       {cta}
     </div>
   ) : <div className="flowact">{cta}</div>
