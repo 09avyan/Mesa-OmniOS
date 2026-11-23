@@ -154,9 +154,9 @@ function AddPerson({ open, onClose }: { open: boolean; onClose: () => void }) {
 const pub = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } })
 type Pub = { store: string; area: string | null; phone: string | null; upi: string | null; updated: string | null; customer: string; balance: number; entries: { amount: number; kind: string; at: string; bill: string | null }[] }
 const BT = {
-  hi: { hi: 'नमस्ते', due: 'उधार बाकी', clear: 'सब चुकता', hisaab: 'हिसाब', took: 'सामान लिया', paid: 'पैसे जमा किए', none: 'हिसाब नहीं मिला', upi: 'UPI से दें', note: 'UPI ऐप खुलेगा — भेजने से पहले रकम दिखेगी, आप चाहें तो कम भी दे सकते हैं।', shop: 'या दुकान पर नकद दे सकते हैं', call: 'दुकान को कॉल करें', after: 'उसके बाद बाकी', upd: 'अपडेट', see: 'बिल देखें' },
-  hinglish: { hi: 'Namaste', due: 'Udhaar baaki', clear: 'Sab chukta', hisaab: 'Hisaab', took: 'Saaman liya', paid: 'Paise jama kiye', none: 'Hisaab nahi mila', upi: 'UPI se dein', note: 'UPI app khulega — bhejne se pehle rakam dikhegi, chahein to kam bhi de sakte hain.', shop: 'Ya dukaan par cash de sakte hain', call: 'Dukaan ko call karein', after: 'Uske baad baaki', upd: 'Update', see: 'Bill dekhein' },
-  en: { hi: 'Hello', due: 'Balance due', clear: 'All paid', hisaab: 'Account', took: 'Bought items', paid: 'Paid', none: 'Account not found', upi: 'Pay by UPI', note: 'Your UPI app opens — you see the amount before sending and can pay less if you want.', shop: 'Or pay cash at the shop', call: 'Call the shop', after: 'Balance after', upd: 'Updated', see: 'See bill' },
+  hi: { hi: 'नमस्ते', due: 'उधार बाकी', clear: 'सब चुकता', hisaab: 'हिसाब', took: 'सामान लिया', paid: 'पैसे जमा किए', none: 'हिसाब नहीं मिला', upi: 'UPI से दें', note: 'UPI ऐप खुलेगा — भेजने से पहले रकम दिखेगी, आप चाहें तो कम भी दे सकते हैं।', shop: 'या दुकान पर नकद दे सकते हैं', call: 'दुकान को कॉल करें', after: 'बाकी', upd: 'अपडेट', see: 'बिल देखें' },
+  hinglish: { hi: 'Namaste', due: 'Udhaar baaki', clear: 'Sab chukta', hisaab: 'Hisaab', took: 'Saaman liya', paid: 'Paise jama kiye', none: 'Hisaab nahi mila', upi: 'UPI se dein', note: 'UPI app khulega — bhejne se pehle rakam dikhegi, chahein to kam bhi de sakte hain.', shop: 'Ya dukaan par cash de sakte hain', call: 'Dukaan ko call karein', after: 'Baaki', upd: 'Update', see: 'Bill dekhein' },
+  en: { hi: 'Hello', due: 'Balance due', clear: 'All paid', hisaab: 'Account', took: 'Bought items', paid: 'Paid', none: 'Account not found', upi: 'Pay by UPI', note: 'Your UPI app opens — you see the amount before sending and can pay less if you want.', shop: 'Or pay cash at the shop', call: 'Call the shop', after: 'Balance', upd: 'Updated', see: 'See bill' },
 }
 export function BalancePage({ token }: { token: string }) {
   const [d, setD] = useState<Pub | null | undefined>(undefined)
@@ -166,7 +166,13 @@ export function BalancePage({ token }: { token: string }) {
   if (d === undefined) return <main className="bc-page"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 24 }} /></main>
   if (!d) return <main className="bc-page"><h1 className="h1">{B.none}</h1></main>
   const bal = Number(d.balance)
-  const fmtD = (iso: string) => new Date(iso).toLocaleString(bl === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
+  const fmtD = (iso: string) => {
+    const d = new Date(iso), h = d.getHours(), m = String(d.getMinutes()).padStart(2, '0')
+    const day = d.toLocaleDateString(bl === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short' })
+    const part = bl === 'en' ? (h < 12 ? 'am' : 'pm') : h < 12 ? (bl === 'hi' ? 'सुबह' : 'subah') : h < 17 ? (bl === 'hi' ? 'दोपहर' : 'dopahar') : (bl === 'hi' ? 'शाम' : 'shaam')
+    const hh = ((h + 11) % 12) + 1
+    return bl === 'en' ? `${day} · ${hh}:${m} ${part}` : `${day} · ${part} ${hh}:${m}`
+  }
   let run = bal
   const rows = d.entries.map((e) => { const r = { ...e, after: run }; run -= Number(e.amount); return r })
   return (
@@ -190,7 +196,7 @@ export function BalancePage({ token }: { token: string }) {
           <div className="bc-ih">{B.hisaab}</div>
           {rows.map((e, i) => {
             const took = Number(e.amount) > 0
-            const inner = <><div style={{ minWidth: 0 }}><div className="bc-name">{took ? B.took : B.paid}</div><div className="bc-sub">{fmtD(e.at)} · {B.after} {rupees(e.after)}</div></div>
+            const inner = <><div style={{ minWidth: 0 }}><div className="bc-name">{took ? B.took : B.paid}</div><div className="bc-sub">{fmtD(e.at)}</div><div className="bc-sub">{B.after} {rupees(e.after)}</div></div>
               <div className="bc-amt" style={{ color: took ? 'var(--ud)' : 'var(--ac)', display: 'flex', alignItems: 'center', gap: 4 }}>{rupees(Math.abs(Number(e.amount)))}{e.bill && <Icon name="chev" size={20} />}</div></>
             return e.bill ? <a key={i} className="bc-row tap" href={'/b/' + e.bill} style={{ color: 'inherit', textDecoration: 'none' }} aria-label={B.see}>{inner}</a> : <div key={i} className="bc-row">{inner}</div>
           })}

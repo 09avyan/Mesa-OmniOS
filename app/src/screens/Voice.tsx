@@ -261,6 +261,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   const after = draft.pay === 'udhaar' && draft.customerName ? t('dkUdhaar').replace('{name}', draft.customerName).replace('{x}', rupees(prevBal + net))
     : draft.pay === 'upi' ? t('dkUpi').replace('{x}', rupees(net)) : t('dkCash').replace('{x}', rupees(net))
   const fixFirst = () => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  useEffect(() => { if (!ready) setTimeout(() => { const u = document.querySelectorAll('.items .it.u'); const last = u[u.length - 1]; if (last && last.getBoundingClientRect().bottom > window.innerHeight - 260) last.scrollIntoView({ block: 'center' }) }, 300) }, []) // eslint-disable-line react-hooks/exhaustive-deps
   const cta = !ready
     ? <Tap className="btn dk-wait dk-todo" onClick={fixFirst}><small><Icon name="up" size={20} stroke={2.6} /> {cap(reason)}</small><span className="dk-sub">{isBill ? t('saveBill') : t('stockAdd')} · {t('dkAfter')}</span></Tap>
     : udhaarBlocked
@@ -273,7 +274,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
           </Tap>
   const dock = isBill ? (
     <div className="paydock">
-      <div className="dk-head"><b>{ready ? t('howPaid') : t('total')}</b><b className="num">{rupees(net)}</b></div>
+      {ready && <div className="dk-head"><b>{t('howPaid')}</b><b className="num">{rupees(net)}</b></div>}
       {ready && <div className="dk-tiles">
         {(['cash', 'upi', 'udhaar'] as const).map((p) => (
           <Tap key={p} className={`dk-tile ${draft.pay === p ? (p === 'udhaar' ? 'onu' : 'on') : ''}`} aria-pressed={draft.pay === p}

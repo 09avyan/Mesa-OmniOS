@@ -421,3 +421,11 @@ input{caret-color:var(--ac)}
 .screen > .it.u{margin-left:-24px!important;margin-right:-24px!important;padding-left:24px!important;padding-right:24px!important}
 .it.u .stack{display:flex;flex-direction:column;gap:8px}.it.u .stack > *{width:100%;box-sizing:border-box}
 .it.u .stack > .chg{width:auto!important;margin:10px 24px 4px;border-radius:10px}
+
+/* ledger pass 3 */
+.wa-link{min-height:48px;padding:0 4px;margin-right:-4px}
+.hm-btn{box-shadow:none!important;background:none!important;padding:0 8px;font-size:18px}
+.input{box-shadow:none;border:0;border-bottom:2px solid var(--mute);border-radius:0;background:transparent}
+.input:focus{border-bottom-color:var(--ac);outline:0}
+.sv-undo + div .bc,.screen .bc{border-radius:0!important;margin-left:-24px;margin-right:-24px;width:auto;max-width:none;border-left:0!important;border-right:0!important}
+.hs-bar{display:none}
