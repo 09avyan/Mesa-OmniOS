@@ -32,3 +32,8 @@
 - 5 wrong PINs lock that shop code for 10 minutes. Trade-off: someone could lock a shop out on purpose; admin "Reset PIN" clears it.
 - Removing a phone blocks its data access at once (database check on its session); the phone is sent to the login screen next time it opens. Reset PIN removes all phones.
 - If the Supabase service key is ever rotated, every shop needs a PIN reset from /admin.
+
+## UI redo process (23 Nov 2026, owner)
+- Look chosen by test: 3 internal versions → simulated owner panel → "Standard clean" (white + green) won round 1 (7.6 vs 6.6 signboard, 5.3 khata).
+- From now on: ONE design per round, tested by the people who use it (merchants for merchant screens, customers for customer pages, the admin persona for /admin). Pass = every persona ≥ 9/10 on ease, calm, trust → ship. Fail → back to the drawing board (new design, not a patch).
+- Text minimum stays 18px (brief) even if a panel suggests smaller.
