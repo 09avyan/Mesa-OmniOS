@@ -40,11 +40,11 @@ export function Home() {
       <div className="gap16" />
       <BriefingCard />
       <nav className="card list" aria-label="more">
-        <Tap className="lrow" onClick={() => navigate('/hisaab')}><span className="ic"><Icon name="chart" size={22} /></span><span className="grow">{t('fullHisaab')}</span><span className="go">›</span></Tap>
-        <Tap className="lrow" onClick={() => navigate('/galla')}><span className="ic"><Icon name="cash" size={22} /></span><span className="grow">{t('rowGalla')}</span><span className="go">›</span></Tap>
-        <Tap className="lrow" onClick={() => navigate('/orders')}><span className="ic"><Icon name="cart" size={22} /></span><span className="grow">{t('rowOrders')}</span><span className="go">{newOrders ? `${newOrders} ${t('newWord')} ›` : '›'}</span></Tap>
-        <Tap className="lrow" onClick={() => navigate('/bags')}><span className="ic"><Icon name="bag" size={22} /></span><span className="grow">{t('rowBags')}</span><span className="go">›</span></Tap>
-        <Tap className="lrow" onClick={() => navigate('/soon')}><span className="ic"><Icon name="tools" size={22} /></span><span className="grow">{t('rowSoon')}</span><span className="go">›</span></Tap>
+        <Tap className="lrow" onClick={() => navigate('/hisaab')}><span className="ic"><Icon name="chart" size={22} /></span><span className="grow">{t('fullHisaab')}</span><span className="go"><Icon name="chev" size={20} /></span></Tap>
+        <Tap className="lrow" onClick={() => navigate('/galla')}><span className="ic"><Icon name="cash" size={22} /></span><span className="grow">{t('rowGalla')}</span><span className="go"><Icon name="chev" size={20} /></span></Tap>
+        <Tap className="lrow" onClick={() => navigate('/orders')}><span className="ic"><Icon name="cart" size={22} /></span><span className="grow">{t('rowOrders')}</span><span className="go">{newOrders ? `${newOrders} ${t('newWord')}` : null}<Icon name="chev" size={20} /></span></Tap>
+        <Tap className="lrow" onClick={() => navigate('/bags')}><span className="ic"><Icon name="bag" size={22} /></span><span className="grow">{t('rowBags')}</span><span className="go"><Icon name="chev" size={20} /></span></Tap>
+        <Tap className="lrow" onClick={() => navigate('/soon')}><span className="ic"><Icon name="tools" size={22} /></span><span className="grow">{t('rowSoon')}</span><span className="go"><Icon name="chev" size={20} /></span></Tap>
       </nav>
       <p className="center lab" style={{ margin: '20px 0 0', lineHeight: '26px' }}>{t('sayHint')}<br /><b style={{ color: 'var(--ink)' }}>{t('sayExample')}</b></p>
     </main>

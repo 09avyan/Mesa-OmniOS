@@ -1,3 +1,4 @@
+import { Icon } from './Icon'
 import { useEffect, useState } from 'react'
 import QRCode from 'qrcode'
 import { Sheet, Tap } from './ui'
@@ -22,7 +23,7 @@ export function UpiSheet({ open, upi, name, amount, onClose }: { open: boolean; 
           <div className="lab" style={{ fontSize: 17 }}>{upi}</div>
         </div>
         <div className="gap16" />
-        <Tap className="btn primary" onClick={onClose}>✓ {t('upiDone')}</Tap>
+        <Tap className="btn primary" onClick={onClose}><Icon name="tick" size={22} stroke={3} />{t('upiDone')}</Tap>
         <div className="gap8" />
         <Tap className="btn quiet" onClick={onClose}>{t('upiClose')}</Tap>
       </>}

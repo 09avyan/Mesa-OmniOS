@@ -344,3 +344,31 @@ input{caret-color:var(--ac)}
 .cx-sticky .cx-search{margin-top:0;background:#fff;box-shadow:inset 0 0 0 2px #8A929E}
 .cx-sticky .cx-search input::placeholder{color:#4A525E}
 .cx-sticky .cx-cats{padding:10px 0 12px;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+
+/* ---------- de-template pass (23 Nov): flat, edge-to-edge, quiet ---------- */
+:root{--sh:none}
+.card,.rowb,.items,.pb,.langbtn,.bc{box-shadow:none!important;border:1px solid var(--line)!important}
+.card,.items{border-radius:12px}
+.rowb{border-radius:12px;min-height:64px}
+.screen .card.list,.screen .card.bf,.screen .items,.screen section.card,.cx-list{margin-left:-24px;margin-right:-24px;border-radius:0;border-left:0!important;border-right:0!important}
+.cx-list{margin-left:0;margin-right:0}
+.chip{background:none!important;width:28px;height:28px;color:var(--ink2)}
+.lrow .ic{background:none;width:28px;height:28px}
+.chev{display:inline-flex;align-items:center;color:#8A929E}.go{display:inline-flex;align-items:center;gap:4px}
+.bc-status,.pill,.bf-streak,.cx-open{background:none!important;padding:0!important;border-radius:0}
+.bc-status.ud{color:var(--ud)}.bc-status.ok{color:var(--ac)}
+.cx-open{display:flex;align-items:center;gap:8px;font-weight:700}
+.cx-open::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+.bc-badge{display:none}
+.bc-shop .bc-av,.cx-av{display:none}
+.av{display:none}
+.btn.primary,.cx-cart{box-shadow:none}
+.btn,.dk-tile,.cx-add,.cx-ask,.cx-step,.wa-btn,.hm-btn{border-radius:10px}
+.sheet{box-shadow:0 -1px 0 var(--line)}
+.paydock{border-radius:0;box-shadow:0 -1px 0 var(--line)}
+.okc{width:64px;height:64px}
+.ok{align-items:flex-start;text-align:left}
+.hm-sales{border:0!important;background:none;padding:8px 0 4px!important}
+.screen section.card.hm-sales{margin-left:0;margin-right:0;border-top:0!important;border-bottom:0!important}
+.shop{padding-bottom:150px}.cx-pr span{font-size:18px}
+.bc-brand{font-size:15px;opacity:.7}

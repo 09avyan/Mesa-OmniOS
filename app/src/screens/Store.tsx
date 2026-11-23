@@ -118,13 +118,13 @@ export function StorePage({ slug }: { slug: string }) {
             <div className="cx-act">
               {!i.in_stock ? (asked[i.id] ? <span className="cx-asked">{L.asked}</span> : <button className="tap cx-ask" onClick={() => request(i)}>{L.ask}</button>)
                 : !d.online_on ? null
-                : cart[i.id] ? <div className="cx-step"><button className="tap" aria-label="minus" onClick={() => add(i.id, -1)}>−</button><b>{cart[i.id]}</b><button className="tap" aria-label="plus" onClick={() => add(i.id, 1)}>+</button></div>
+                : cart[i.id] ? <div className="cx-step"><button className="tap" aria-label="minus" onClick={() => add(i.id, -1)}><Icon name="minus" size={22} stroke={2.6} /></button><b>{cart[i.id]}</b><button className="tap" aria-label="plus" onClick={() => add(i.id, 1)}><Icon name="plus" size={22} stroke={2.6} /></button></div>
                 : <button className="tap cx-add" onClick={() => add(i.id, 1)}>{L.add}</button>}
             </div>
           </div>
         ))}
       </div>
-      {lines.length > 0 && d.online_on && <div className="shop-bar"><button className="tap cx-cart" onClick={() => setCheckout(true)}><span className="cx-cnt">{lines.reduce((a, [, n]) => a + n, 0)}</span><span>{L.cart}</span><b>{rupees(total)} ›</b></button></div>}
+      {lines.length > 0 && d.online_on && <div className="shop-bar"><button className="tap cx-cart" onClick={() => setCheckout(true)}><span className="cx-cnt">{lines.reduce((a, [, n]) => a + n, 0)}</span><span>{L.cart}</span><b>{rupees(total)} <Icon name="chev" size={20} /></b></button></div>}
       {(checkout || askFor) && <>
         <div className="scrim" onClick={() => { setCheckout(false); setAskFor(null) }} />
         <div className="sheet" role="dialog">
@@ -138,7 +138,7 @@ export function StorePage({ slug }: { slug: string }) {
             <div className="bc-grand"><span>{L.total}</span><span>{rupees(total)}</span></div>
             <p className="lab">{L.pickup}</p>{info}
             {err && <div className="err" style={{ marginTop: 10 }}>{err}</div>}
-            <div className="gap16" /><button className="tap btn primary" disabled={busy} onClick={place}>✓ {L.order}</button>
+            <div className="gap16" /><button className="tap btn primary" disabled={busy} onClick={place}><Icon name="tick" size={22} stroke={3} />{L.order}</button>
           </>}
         </div>
       </>}
@@ -148,9 +148,9 @@ export function StorePage({ slug }: { slug: string }) {
 
 // Order status page (/o/<token>): live steps; a declined order says clearly that nothing is owed.
 const S = {
-  hi: { steps: ['भेजा', 'मान लिया', 'पैक हो रहा', 'तैयार है'], ready: 'आपका सामान तैयार है! दुकान से ले लें।', done: 'हो गया · धन्यवाद', cancelled: 'आपने यह ऑर्डर रद्द किया', rejected: 'दुकान यह ऑर्डर नहीं ले पाई', oos: 'सामान स्टॉक में नहीं है', nothing: 'आपको कुछ नहीं देना है', cancel: 'ऑर्डर रद्द करो', na: 'नहीं मिला', total: 'कुल', bill: 'बिल देखो', back: 'दुकान पर वापस', again: 'दोबारा ऑर्डर करो', call: 'दुकान को कॉल करें', edit: 'ऑर्डर बदलो', order: 'ऑर्डर', why: 'कारण' },
-  hinglish: { steps: ['Bheja', 'Maan liya', 'Pack ho raha', 'Taiyaar hai'], ready: 'Aapka saaman taiyaar hai! Dukaan se le lein.', done: 'Ho gaya · Dhanyavaad', cancelled: 'Aapne yeh order radd kiya', rejected: 'Dukaan yeh order nahi le payi', oos: 'Saaman stock mein nahi hai', nothing: 'Aapko kuch nahi dena hai', cancel: 'Order radd karo', na: 'Nahi mila', total: 'Kul', bill: 'Bill dekho', back: 'Dukaan par wapas', again: 'Dobara order karo', call: 'Dukaan ko call karein', edit: 'Order badlo', order: 'Order', why: 'Kaaran' },
-  en: { steps: ['Sent', 'Accepted', 'Packing', 'Ready'], ready: 'Your order is ready! Pick it up at the shop.', done: 'Done · Thank you', cancelled: 'You cancelled this order', rejected: 'The shop could not take this order', oos: 'Items are out of stock', nothing: 'You owe nothing', cancel: 'Cancel order', na: 'Not available', total: 'Total', bill: 'See bill', back: 'Back to shop', again: 'Order again', call: 'Call the shop', edit: 'Change order', order: 'Order', why: 'Reason' },
+  hi: { steps: ['भेजा', 'मान लिया', 'पैक हो रहा', 'तैयार है'], ready: 'आपका सामान तैयार है! दुकान से ले लें।', done: 'हो गया · धन्यवाद', cancelled: 'आपने यह ऑर्डर रद्द किया', rejected: 'दुकान यह ऑर्डर नहीं ले पाई', oos: 'सामान स्टॉक में नहीं है', nothing: 'आपको कुछ नहीं देना है', which: 'दुकान ने नहीं बताया कौन सा सामान नहीं था — कॉल करके पूछ लें।', cancel: 'ऑर्डर रद्द करो', na: 'नहीं मिला', total: 'कुल', bill: 'बिल देखो', back: 'दुकान पर वापस', again: 'दोबारा ऑर्डर करो', call: 'दुकान को कॉल करें', edit: 'ऑर्डर बदलो', order: 'ऑर्डर', why: 'कारण' },
+  hinglish: { steps: ['Bheja', 'Maan liya', 'Pack ho raha', 'Taiyaar hai'], ready: 'Aapka saaman taiyaar hai! Dukaan se le lein.', done: 'Ho gaya · Dhanyavaad', cancelled: 'Aapne yeh order radd kiya', rejected: 'Dukaan yeh order nahi le payi', oos: 'Saaman stock mein nahi hai', nothing: 'Aapko kuch nahi dena hai', which: 'Dukaan ne nahi bataya kaunsa saaman nahi tha — call karke poochh lein.', cancel: 'Order radd karo', na: 'Nahi mila', total: 'Kul', bill: 'Bill dekho', back: 'Dukaan par wapas', again: 'Dobara order karo', call: 'Dukaan ko call karein', edit: 'Order badlo', order: 'Order', why: 'Kaaran' },
+  en: { steps: ['Sent', 'Accepted', 'Packing', 'Ready'], ready: 'Your order is ready! Pick it up at the shop.', done: 'Done · Thank you', cancelled: 'You cancelled this order', rejected: 'The shop could not take this order', oos: 'Items are out of stock', nothing: 'You owe nothing', which: 'The shop did not say which item was missing — please call to ask.', cancel: 'Cancel order', na: 'Not available', total: 'Total', bill: 'See bill', back: 'Back to shop', again: 'Order again', call: 'Call the shop', edit: 'Change order', order: 'Order', why: 'Reason' },
 }
 type OS = { store: string; slug: string; phone: string | null; status: string; reason: string | null; name: string; at: string; bill: string | null; lines: { item_id: string; name: string; catalog_id: string | null; name_hi: string | null; unit: string; qty: number; price: number; available: boolean }[] }
 export function OrderPage({ token }: { token: string }) {
@@ -171,13 +171,14 @@ export function OrderPage({ token }: { token: string }) {
     <main className="bc-page">
       <div className="bc-langs">{(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={lang === l ? 'on' : ''} onClick={() => { setLang(l); put('omni-bill-lang', l) }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}</div>
       <article className="bc">
-        <header className="bc-shop"><div className="bc-av">{o.store.charAt(0)}</div><div><div className="bc-store">{o.store}</div><div className="bc-area">{L.order} {token.slice(0, 4).toUpperCase()} · {when}</div></div></header>
+        <header className="bc-shop"><div className="bc-av">{o.store.charAt(0)}</div><div><div className="bc-store">{o.store}</div><div className="bc-area">{L.order} · {when}</div></div></header>
         <section className="bc-hero">
           {idx >= 0 && idx < 4 && <div className="ostep">{L.steps.map((st, i) => <div key={st} className={i <= idx ? 'on' : ''}><i />{st}</div>)}</div>}
           <div className="h2" style={{ marginTop: idx >= 0 && idx < 4 ? 14 : 0, color: closed ? 'var(--ink)' : 'var(--ac)' }}>
             {o.status === 'ready' || o.status === 'billing' ? L.ready : o.status === 'done' ? L.done : o.status === 'cancelled' ? L.cancelled : o.status === 'rejected' ? L.rejected : L.steps[idx]}
           </div>
           {o.status === 'rejected' && reason && <p className="bc-meta">{L.why}: {reason}</p>}
+          {o.status === 'rejected' && o.lines.every((l) => l.available) && <p className="bc-meta">{L.which}</p>}
           {closed && <div className="bc-status ok" style={{ marginTop: 12 }}>{L.nothing}</div>}
         </section>
         <section className="bc-items" style={closed ? { opacity: 0.75 } : undefined}>

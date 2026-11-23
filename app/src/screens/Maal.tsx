@@ -79,9 +79,9 @@ export function Maal() {
         {open && <>
           <h2 className="h2">{nameOf(open)}</h2>
           <div className="card" style={{ marginTop: 12 }}>
-            <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => setCountOpen(true)}><span className="lab">{t('inStock')}</span><span className="num">{open.stock_known ? `${fmt(Math.max(0, open.stock))} ${units[open.unit]}` : t('stockNotKnown')} ›</span></Tap>
+            <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => setCountOpen(true)}><span className="lab">{t('inStock')}</span><span className="num">{open.stock_known ? `${fmt(Math.max(0, open.stock))} ${units[open.unit]}` : t('stockNotKnown')} <Icon name="chev" size={20} /></span></Tap>
             <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => setPriceOpen(true)}>
-              <span className="lab">{t('sellPrice')}</span><span className="num">{price(open) != null ? rupees(price(open)!) : t('priceAsk')} ›</span>
+              <span className="lab">{t('sellPrice')}</span><span className="num">{price(open) != null ? rupees(price(open)!) : t('priceAsk')} <Icon name="chev" size={20} /></span>
             </Tap>
             {open.price == null && open.learned_price != null && <p className="lab" style={{ fontSize: 17 }}>{t('learnedNote')}</p>}
           </div>

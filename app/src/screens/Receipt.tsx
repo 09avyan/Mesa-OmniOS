@@ -122,7 +122,7 @@ export function Receipt() {
         {aiFailed && <div className="udnote">{t('rcAiFail')}{photo && <Tap className="btn outline small" style={{ marginTop: 10, width: '100%' }} onClick={() => read(photo)}>{t('tryAgain')}</Tap>}</div>}
         {photo && <details style={{ marginTop: 12 }}><summary className="lab" style={{ minHeight: 44, cursor: 'pointer' }}>{t('rcSeePhoto')}</summary><img src={photo} alt="" style={{ width: '100%', borderRadius: 16 }} /></details>}
         <Tap className="rowb" style={{ marginTop: 12 }} onClick={async () => { const v = await askText({ title: t('rcSupplierAsk'), initial: supplier }); if (v != null) setSupplier(v.trim()) }}>
-          <Icon name="truck" /><span className="grow">{supplier || <span className="lab">{t('rcSupplier')}</span>}</span><span className="chev">›</span>
+          <Icon name="truck" /><span className="grow">{supplier || <span className="lab">{t('rcSupplier')}</span>}</span><span className="chev"><Icon name="chev" size={20} /></span>
         </Tap>
         {!supplier && sups.length > 0 && <div className="shop-cats segs" style={{ paddingTop: 8 }}>{sups.map((s) => <Tap key={s.id} onClick={() => setSupplier(s.name)}>{s.name}</Tap>)}</div>}
         <div className="stack" style={{ marginTop: 16 }}>

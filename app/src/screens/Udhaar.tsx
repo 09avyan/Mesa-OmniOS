@@ -52,7 +52,7 @@ export function UdhaarList() {
               <div className="lab" style={{ fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{ago(c.last_at)}</div>
             </div>
             <div className="num" style={{ color: c.balance > 0 ? 'var(--ud)' : 'var(--ac)' }}>{rupees(Math.abs(c.balance))}</div>
-            <div className="chev">›</div>
+            <div className="chev"><Icon name="chev" size={20} /></div>
           </Tap>
         ))}</div>}
       <AddPerson open={adding} onClose={() => setAdding(false)} />
@@ -144,7 +144,7 @@ function AddPerson({ open, onClose }: { open: boolean; onClose: () => void }) {
         {needTag && <input className="input" style={{ boxShadow: 'inset 0 0 0 2px var(--unsb)' }} placeholder={t('tagAsk')} value={f.tag} onChange={(e) => setF({ ...f, tag: e.target.value })} />}
         <input className="input" inputMode="tel" placeholder={t('phoneOpt')} value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value.replace(/[^\d+]/g, '') })} />
         <input className="input" inputMode="decimal" placeholder={t('oldUdhaar')} value={f.old} onChange={(e) => setF({ ...f, old: e.target.value.replace(/[^\d.]/g, '') })} />
-        <Tap className="btn primary" disabled={f.name.trim().length < 2 || (needTag && !f.tag.trim())} onClick={save}>✓ {t('ok')}</Tap>
+        <Tap className="btn primary" disabled={f.name.trim().length < 2 || (needTag && !f.tag.trim())} onClick={save}><Icon name="tick" size={22} stroke={3} />{t('ok')}</Tap>
       </div>
     </Sheet>
   )
@@ -154,9 +154,9 @@ function AddPerson({ open, onClose }: { open: boolean; onClose: () => void }) {
 const pub = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } })
 type Pub = { store: string; area: string | null; phone: string | null; upi: string | null; updated: string | null; customer: string; balance: number; entries: { amount: number; kind: string; at: string; bill: string | null }[] }
 const BT = {
-  hi: { hi: 'नमस्ते', due: 'उधार बाकी', clear: 'सब चुकता', hisaab: 'हिसाब', took: 'सामान लिया', paid: 'पैसे जमा किए', none: 'हिसाब नहीं मिला', upi: 'UPI से दें', shop: 'या दुकान पर नकद दे सकते हैं', call: 'दुकान को कॉल करें', after: 'उसके बाद बाकी', upd: 'अपडेट', see: 'बिल देखें' },
-  hinglish: { hi: 'Namaste', due: 'Udhaar baaki', clear: 'Sab chukta', hisaab: 'Hisaab', took: 'Saaman liya', paid: 'Paise jama kiye', none: 'Hisaab nahi mila', upi: 'UPI se dein', shop: 'Ya dukaan par cash de sakte hain', call: 'Dukaan ko call karein', after: 'Uske baad baaki', upd: 'Update', see: 'Bill dekhein' },
-  en: { hi: 'Hello', due: 'Balance due', clear: 'All paid', hisaab: 'Account', took: 'Bought items', paid: 'Paid', none: 'Account not found', upi: 'Pay by UPI', shop: 'Or pay cash at the shop', call: 'Call the shop', after: 'Balance after', upd: 'Updated', see: 'See bill' },
+  hi: { hi: 'नमस्ते', due: 'उधार बाकी', clear: 'सब चुकता', hisaab: 'हिसाब', took: 'सामान लिया', paid: 'पैसे जमा किए', none: 'हिसाब नहीं मिला', upi: 'UPI से दें', note: 'UPI ऐप खुलेगा — भेजने से पहले रकम दिखेगी, आप चाहें तो कम भी दे सकते हैं।', shop: 'या दुकान पर नकद दे सकते हैं', call: 'दुकान को कॉल करें', after: 'उसके बाद बाकी', upd: 'अपडेट', see: 'बिल देखें' },
+  hinglish: { hi: 'Namaste', due: 'Udhaar baaki', clear: 'Sab chukta', hisaab: 'Hisaab', took: 'Saaman liya', paid: 'Paise jama kiye', none: 'Hisaab nahi mila', upi: 'UPI se dein', note: 'UPI app khulega — bhejne se pehle rakam dikhegi, chahein to kam bhi de sakte hain.', shop: 'Ya dukaan par cash de sakte hain', call: 'Dukaan ko call karein', after: 'Uske baad baaki', upd: 'Update', see: 'Bill dekhein' },
+  en: { hi: 'Hello', due: 'Balance due', clear: 'All paid', hisaab: 'Account', took: 'Bought items', paid: 'Paid', none: 'Account not found', upi: 'Pay by UPI', note: 'Your UPI app opens — you see the amount before sending and can pay less if you want.', shop: 'Or pay cash at the shop', call: 'Call the shop', after: 'Balance after', upd: 'Updated', see: 'See bill' },
 }
 export function BalancePage({ token }: { token: string }) {
   const [d, setD] = useState<Pub | null | undefined>(undefined)
@@ -182,6 +182,7 @@ export function BalancePage({ token }: { token: string }) {
         </section>
         <div className="cx-pay">
           {bal > 0 && d.upi && <a className="tap btn primary" href={`upi://pay?pa=${encodeURIComponent(d.upi)}&pn=${encodeURIComponent(d.store)}&am=${bal.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Udhaar ' + d.customer)}`}>{B.upi} · {rupees(bal)}</a>}
+          {bal > 0 && d.upi && <p className="lab" style={{ fontSize: 17 }}>{B.note}</p>}
           {bal > 0 && <p className="lab center" style={{ fontSize: 18 }}>{B.shop}</p>}
           {d.phone && <a className="tap btn quiet" href={'tel:' + d.phone}><Icon name="phone" size={22} />{B.call}</a>}
         </div>
@@ -190,7 +191,7 @@ export function BalancePage({ token }: { token: string }) {
           {rows.map((e, i) => {
             const took = Number(e.amount) > 0
             const inner = <><div style={{ minWidth: 0 }}><div className="bc-name">{took ? B.took : B.paid}</div><div className="bc-sub">{fmtD(e.at)} · {B.after} {rupees(e.after)}</div></div>
-              <div className="bc-amt" style={{ color: took ? 'var(--ud)' : 'var(--ac)' }}>{rupees(Math.abs(Number(e.amount)))}</div></>
+              <div className="bc-amt" style={{ color: took ? 'var(--ud)' : 'var(--ac)', display: 'flex', alignItems: 'center', gap: 4 }}>{rupees(Math.abs(Number(e.amount)))}{e.bill && <Icon name="chev" size={20} />}</div></>
             return e.bill ? <a key={i} className="bc-row tap" href={'/b/' + e.bill} style={{ color: 'inherit', textDecoration: 'none' }} aria-label={B.see}>{inner}</a> : <div key={i} className="bc-row">{inner}</div>
           })}
         </section>

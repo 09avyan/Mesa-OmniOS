@@ -79,7 +79,7 @@ export function RowButton({ icon, color, label, badge, onClick }: { icon: string
   return (
     <Tap className="rowb" onClick={onClick}>
       <div className="chipw"><div className="chip" style={{ background: color }}><Icon name={icon} /></div>{badge ? <span className="badge">{badge}</span> : null}</div>
-      <div className="grow">{label}</div><div className="chev">›</div>
+      <div className="grow">{label}</div><div className="chev"><Icon name="chev" size={20} /></div>
     </Tap>
   )
 }
@@ -101,7 +101,7 @@ export function AskHost() {
         <input className="input" autoFocus inputMode={a.mode === 'tel' ? 'tel' : undefined} type={a.mode === 'email' ? 'email' : 'text'} placeholder={a.placeholder} value={v}
           onChange={(e) => setV(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && v.trim() && done(v.trim())} />
         <div className="gap16" />
-        <Tap className="btn primary" disabled={!v.trim()} onClick={() => done(v.trim())}>✓ {t('ok')}</Tap>
+        <Tap className="btn primary" disabled={!v.trim()} onClick={() => done(v.trim())}><Icon name="tick" size={22} stroke={3} />{t('ok')}</Tap>
         <div className="gap8" />
         <Tap className="btn quiet" onClick={() => done(null)}>{t('back')}</Tap>
       </>}

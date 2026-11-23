@@ -27,17 +27,17 @@ export function Settings() {
       <div className="gap24" />
       <div className="stack">
         <Tap className="rowb" onClick={async () => { const v = (await askText({ title: t('upiAsk'), initial: store?.upi_id ?? '' }) ?? '').trim(); if (!v) return; const { error } = await supabase.from('stores').update({ upi_id: v }).eq('id', store!.id); if (error) { toast({ text: t('upiBad') }); return } toast({ text: t('saved') }); reload() }}>
-          <Icon name="qr" /><span className="grow">{t('upiId')}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{store?.upi_id ?? t('upiNotSet')}</span></span><span className="chev">›</span>
+          <Icon name="qr" /><span className="grow">{t('upiId')}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{store?.upi_id ?? t('upiNotSet')}</span></span><span className="chev"><Icon name="chev" size={20} /></span>
         </Tap>
         <Tap className="rowb" onClick={() => setLangOpen(true)}>
-          <Icon name="globe" /><span className="grow">{t('language')}</span><span style={{ color: 'var(--ac)' }}>{LANGS.find((l) => l.id === lang)?.label}</span><span className="chev">›</span>
+          <Icon name="globe" /><span className="grow">{t('language')}</span><span style={{ color: 'var(--ac)' }}>{LANGS.find((l) => l.id === lang)?.label}</span><span className="chev"><Icon name="chev" size={20} /></span>
         </Tap>
         <Tap className="rowb" onClick={() => { setSound(!snd); setSnd(!snd) }}>
           <Icon name="sound" /><span className="grow">{t('sound')}</span><span style={{ color: snd ? 'var(--ac)' : 'var(--ink2)' }}>{snd ? t('on') : t('off')}</span>
         </Tap>
-        <Tap className="rowb" onClick={() => setPhonesOpen(true)}><Icon name="lock" /><span className="grow">{t('phones')}</span><span className="chev">›</span></Tap>
-        <Tap className="rowb" onClick={() => navigate('/dukaan')}><Icon name="globe" /><span className="grow">{t('myStore')}</span><span className="chev">›</span></Tap>
-        <Tap className="rowb" onClick={() => navigate('/terms')}><Icon name="doc" /><span className="grow">{t('terms')}</span><span className="chev">›</span></Tap>
+        <Tap className="rowb" onClick={() => setPhonesOpen(true)}><Icon name="lock" /><span className="grow">{t('phones')}</span><span className="chev"><Icon name="chev" size={20} /></span></Tap>
+        <Tap className="rowb" onClick={() => navigate('/dukaan')}><Icon name="globe" /><span className="grow">{t('myStore')}</span><span className="chev"><Icon name="chev" size={20} /></span></Tap>
+        <Tap className="rowb" onClick={() => navigate('/terms')}><Icon name="doc" /><span className="grow">{t('terms')}</span><span className="chev"><Icon name="chev" size={20} /></span></Tap>
       </div>
       <div style={{ height: 40 }} />
       <Tap className="rowb" style={{ background: 'none', boxShadow: 'inset 0 0 0 2px #2B313A' }} onClick={() => setAskOut(true)}>

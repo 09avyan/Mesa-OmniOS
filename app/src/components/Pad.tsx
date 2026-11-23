@@ -1,3 +1,4 @@
+import { Icon } from './Icon'
 import { useState } from 'react'
 import { Sheet, Tap } from './ui'
 import { useT } from '../lib/i18n'
@@ -27,7 +28,7 @@ export function NumberSheet({ open, title, initial, unit, decimals = true, zero 
           k ? <Tap key={i} className={`key ${k === '⌫' || k === '.' ? 'word' : ''}`} onClick={() => press(k)} aria-label={k === '⌫' ? 'delete' : k}>{k}</Tap> : <div key={i} />)}
       </div>
       <div className="gap16" />
-      <Tap className="btn primary" disabled={!(n > 0 || (zero && n === 0))} onClick={() => { onDone(n); onClose() }}>✓ {t('ok')}</Tap>
+      <Tap className="btn primary" disabled={!(n > 0 || (zero && n === 0))} onClick={() => { onDone(n); onClose() }}><Icon name="tick" size={22} stroke={3} />{t('ok')}</Tap>
     </Sheet>
   )
 }

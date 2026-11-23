@@ -1,3 +1,4 @@
+import { Icon } from '../components/Icon'
 import { useEffect, useState } from 'react'
 import { useT, rupees } from '../lib/i18n'
 import { supabase } from '../lib/supabase'
@@ -75,7 +76,7 @@ export function Hisaab() {
       </>}
       {s && s.bills === 0 && <p className="lab center" style={{ marginTop: 20 }}>{t('noBillsRange')}</p>}
       {s && s.suppliers > 0
-        ? <Tap className="rowb" style={{ marginTop: 16 }} onClick={() => navigate('/suppliers')}><span className="grow">{t('supTitle')}</span><span className="num" style={{ color: 'var(--c-udh)' }}>{rupees(+(s.supplier_due ?? 0))}</span><span className="chev">›</span></Tap>
+        ? <Tap className="rowb" style={{ marginTop: 16 }} onClick={() => navigate('/suppliers')}><span className="grow">{t('supTitle')}</span><span className="num" style={{ color: 'var(--c-udh)' }}>{rupees(+(s.supplier_due ?? 0))}</span><span className="chev"><Icon name="chev" size={20} /></span></Tap>
         : <p className="lab" style={{ margin: '20px 4px 0', fontSize: 17 }}>{t('supplierSoon')}</p>}
       <div className="gap16" />
       {range === 'today' && <Tap className="btn primary" onClick={() => navigate('/galla')}>{t('rowGalla')}</Tap>}

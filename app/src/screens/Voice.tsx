@@ -262,7 +262,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
     : draft.pay === 'upi' ? t('dkUpi').replace('{x}', rupees(net)) : t('dkCash').replace('{x}', rupees(net))
   const fixFirst = () => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const cta = !ready
-    ? <Tap className="btn dk-wait dk-todo" onClick={fixFirst}><small>↑ {cap(reason)}</small><span className="dk-sub">{isBill ? t('saveBill') : t('stockAdd')} · {t('dkAfter')}</span></Tap>
+    ? <Tap className="btn dk-wait dk-todo" onClick={fixFirst}><small><Icon name="up" size={20} stroke={2.6} /> {cap(reason)}</small><span className="dk-sub">{isBill ? t('saveBill') : t('stockAdd')} · {t('dkAfter')}</span></Tap>
     : udhaarBlocked
       ? <Tap className="btn dk-wait" onClick={() => setCustOpen(true)}><span>{t('saveBill')}</span><small>{t('udhaarNeedsName')}</small></Tap>
       : isBill && !draft.pay
@@ -315,7 +315,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
           <div className="it u" style={{ borderRadius: 16, marginTop: 12 }}>
             <div className="guess" style={{ marginTop: 0 }}><span className="gtxt">{t('thisName')}</span>
               <div style={{ display: 'flex', gap: 10 }}>
-                <Tap className="chg yes" onClick={() => setDraft({ ...draft, customerSure: true })}>✓ {t('yes')}</Tap>
+                <Tap className="chg yes" onClick={() => setDraft({ ...draft, customerSure: true })}><Icon name="tick" size={22} stroke={3} />{t('yes')}</Tap>
                 <Tap className="chg" onClick={() => {
                   const extra = parseItems(tokenize(draft.customerName!), shop.index).map((p) => lineFrom({ ...p, qty: p.qty ?? 1 }, shop))
                   setDraft({ ...draft, customerName: null, customer: null, customerSure: true, lines: [...extra, ...draft.lines] })
@@ -331,7 +331,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
             onRemove={() => setDraft({ ...draft, lines: draft.lines.filter((x) => x.key !== l.key) })} />)}
         </div>
         {listening && <p className="live" style={{ fontSize: 24, marginTop: 16 }}>{words || '…'}</p>}
-        <Tap className="linkrow" style={{ marginTop: 12 }} onClick={() => setPick({ key: 'new', said: '', match: null, candidates: [], sure: true, qty: 1, price: null, priceSure: false })}><span>+ {t('addItem')}</span><span>›</span></Tap>
+        <Tap className="linkrow" style={{ marginTop: 12 }} onClick={() => setPick({ key: 'new', said: '', match: null, candidates: [], sure: true, qty: 1, price: null, priceSure: false })}><span>+ {t('addItem')}</span><span><Icon name="chev" size={20} /></span></Tap>
 
         {isBill && ready && <>
           {draft.customerName && (
@@ -349,7 +349,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
           )}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 }}>
             <Tap className="linkrow" style={{ flex: 1 }} onClick={() => setDiscOpen(true)}>
-              <span>{t('discount')}</span><span>{disc ? `− ${rupees(disc)}` : '›'}</span>
+              <span>{t('discount')}</span><span>{disc ? `− ${rupees(disc)}` : <Icon name="chev" size={20} />}</span>
             </Tap>
             {disc > 0 && <Tap className="chg" style={{ minHeight: 48 }} onClick={() => setDisc(0)}>{t('remove')}</Tap>}
           </div>
@@ -405,7 +405,7 @@ function LineRow({ l, isBill, onPick, onPad, fix, onRemove }: { l: Line; isBill:
       </div>
       {!l.sure && (
         <div className="guess"><span className="gtxt">{t('thisOne')}</span>
-          <div style={{ display: 'flex', gap: 10 }}><Tap className="chg yes" onClick={() => fix({ sure: true })}>✓ {t('yes')}</Tap><Tap className="chg" onClick={onPick}>{t('other')}</Tap></div>
+          <div style={{ display: 'flex', gap: 10 }}><Tap className="chg yes" onClick={() => fix({ sure: true })}><Icon name="tick" size={22} stroke={3} />{t('yes')}</Tap><Tap className="chg" onClick={onPick}>{t('other')}</Tap></div>
         </div>
       )}
     </div>
@@ -424,7 +424,7 @@ function ItemPicker({ open, line, shop, onClose, onPick }: { open: boolean; line
         {list.map((m) => (
           <Tap key={m.id} className="rowb" style={{ minHeight: 60 }} onClick={() => { setQ(''); onPick(m) }}>
             <span className="grow">{itemLabel(m, lang)}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500, lineHeight: '22px' }}>{lang === 'hi' ? m.hinglish : m.hi}</span></span>
-            <span className="chev">›</span>
+            <span className="chev"><Icon name="chev" size={20} /></span>
           </Tap>
         ))}
       </div>
@@ -583,7 +583,7 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
           <Tap className="btn sv-home" onClick={() => navigate('/', true)}><Icon name="home" size={24} />{t('goHome')}</Tap>
         </div>
         {saved.kind === 'bill' && saved.unrecorded && <p className="lab" style={{ marginTop: 12 }}>{t('unrecordedNote')}</p>}
-        {saved.kind === 'bill' && <div className="sv-undo"><p>{t('svUndoNote')}</p><Tap className="btn sv-home" onClick={onUndo}>↶ {t('svUndo')}</Tap></div>}
+        {saved.kind === 'bill' && <div className="sv-undo"><p>{t('svUndoNote')}</p><Tap className="btn sv-home" onClick={onUndo}><Icon name="undo" size={22} />{t('svUndo')}</Tap></div>}
         {saved.kind === 'bill' && <div style={{ marginTop: 20 }}>
           <BillCard lang={lang} brand={false} b={{
             store: store?.name ?? '', customer: saved.customer, pay: saved.pay, subtotal: saved.total + saved.discount, discount: saved.discount, total: saved.total, status: 'saved',

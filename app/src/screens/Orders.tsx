@@ -110,7 +110,7 @@ export function OrderDetail({ id }: { id: string }) {
     <main className="screen has-bar">
       <BackBar fallback="/orders" />
       <h1 className="h1">{o.customer_name}</h1>
-      <p className="lab">📞 {o.phone} · {time(o.created_at)} · {t(('st_' + o.status) as 'st_new')}</p>
+      <p className="lab"><Icon name="phone" size={18} /> {o.phone} · {time(o.created_at)} · {t(('st_' + o.status) as 'st_new')}</p>
       <div className="card" style={{ marginTop: 12, padding: '4px 16px' }}>
         {o.order_lines.map((l, i) => (
           <div key={l.id} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500, borderTop: i ? '1px solid var(--line)' : 'none', minHeight: 60, opacity: l.available ? 1 : 0.55 }}>
@@ -122,10 +122,10 @@ export function OrderDetail({ id }: { id: string }) {
       <div className="gap16" />
       <div className="stack">
         {o.status === 'new' && <>
-          <Tap className="btn primary" onClick={() => step('accepted')}>✓ {t('accept')}</Tap>
+          <Tap className="btn primary" onClick={() => step('accepted')}><Icon name="tick" size={22} stroke={3} />{t('accept')}</Tap>
           <Tap className="btn quiet" onClick={async () => { const r = await askText({ title: t('rejectWhy') }); if (r !== null) step('rejected', r) }}>{t('reject')}</Tap>
         </>}
-        {(o.status === 'accepted' || o.status === 'packing') && <Tap className="btn primary" onClick={async () => { if (await step('ready')) window.open(wa(o.phone, `${store?.name}: ${o.customer_name} ji, aapka order taiyaar hai. ${link}`), '_blank') }}>✓ {t('markReady')}</Tap>}
+        {(o.status === 'accepted' || o.status === 'packing') && <Tap className="btn primary" onClick={async () => { if (await step('ready')) window.open(wa(o.phone, `${store?.name}: ${o.customer_name} ji, aapka order taiyaar hai. ${link}`), '_blank') }}><Icon name="tick" size={22} stroke={3} />{t('markReady')}</Tap>}
         {['accepted', 'packing', 'ready', 'billing'].includes(o.status) && <Tap className="btn outline" onClick={() => navigate('/bolo?order=' + o.id)}><Icon name="bill" size={24} />{t('makeBill')}</Tap>}
         <a className="wa tap" href={wa(o.phone, `${store?.name}: ${link}`)} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}><Icon name="wa" size={26} />WhatsApp</a>
       </div>

@@ -109,7 +109,7 @@ export function Soon() {
             </div>
             <p style={{ margin: '8px 0 12px', lineHeight: '26px' }}>{t(s.b)}</p>
             {want.has(s.id)
-              ? <div className="pill ok" style={{ fontSize: 17, lineHeight: '34px', padding: '0 14px' }}>✓ {t('soonWanted')}</div>
+              ? <div className="pill ok" style={{ fontSize: 17, lineHeight: '34px', padding: '0 14px' }}><Icon name="tick" size={22} stroke={3} />{t('soonWanted')}</div>
               : <Tap className="btn outline small" onClick={() => ask(s.id)}>{t('soonWant')}</Tap>}
           </div>
         ))}</div>

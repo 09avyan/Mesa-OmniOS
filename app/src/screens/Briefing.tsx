@@ -39,13 +39,13 @@ export function BriefingCard() {
     <section className="card bf">
       <div className="bf-top">
         <h2 className="h2" style={{ fontSize: 22 }}>{t('bfTitle')}</h2>
-        {b.streak >= 2 && <span className="bf-streak">{t('bfStreak').replace('{n}', String(b.streak))} ✓</span>}
+        {b.streak >= 2 && <span className="bf-streak">{t('bfStreak').replace('{n}', String(b.streak))}<Icon name="tick" size={18} stroke={3} /></span>}
       </div>
       <Tap className="lab" style={{ display: 'block', textAlign: 'left', minHeight: 44, fontSize: 18 }} onClick={() => navigate('/hisaab?r=yday')}>
         {b.yday.bills ? t('bfYdayLine').replace('{x}', rupees(+b.yday.sales)).replace('{n}', String(b.yday.bills)) : `${t('bfYday')}: ${t('bfNoBills')}`}
       </Tap>
       {b.check.length > 0 && (b.check_done
-        ? <p style={{ color: 'var(--ac)', fontWeight: 700, minHeight: 44 }}>✓ {t('bfCheckDone')}</p>
+        ? <p style={{ color: 'var(--ac)', fontWeight: 700, minHeight: 44 }}><Icon name="tick" size={22} stroke={3} />{t('bfCheckDone')}</p>
         : <Tap className="btn primary" style={{ marginTop: 4 }} onClick={() => navigate('/check')}><Icon name="box" size={24} />{t('bfCheck')}</Tap>)}
       {b.collect.length > 0 && <>
         <h3 style={{ fontSize: 20, fontWeight: 700, margin: '18px 0 2px' }}>{t('bfCollect')}</h3>
@@ -100,7 +100,7 @@ export function StockCheck() {
                   <Tap className={`btn ${counts[i.id] != null ? 'outline' : 'primary'} small`} style={{ width: '100%', marginTop: 10 }} onClick={() => setPad(i)}>
                     {counts[i.id] != null ? `${t('ckCounted')}: ${counts[i.id]} ${unit(i)}` : t('ckCount')}
                   </Tap>
-                ) : gap === 0 ? <p style={{ marginTop: 6, color: 'var(--ac)', fontWeight: 700 }}>✓ {t('ckMatch')} ({r.counted} {unit(i)})</p> : (
+                ) : gap === 0 ? <p style={{ marginTop: 6, color: 'var(--ac)', fontWeight: 700 }}><Icon name="tick" size={22} stroke={3} />{t('ckMatch')} ({r.counted} {unit(i)})</p> : (
                   <div className="udnote" style={{ marginTop: 8 }}>
                     {t('ckApp')} {r.was} · {t('ckShelf')} {r.counted} {unit(i)} — {Math.abs(gap)} {gap < 0 ? t('ckLess') : t('ckMore')}
                     <div style={{ fontWeight: 500, marginTop: 4 }}>{t('ckFixed')}</div>
