@@ -402,3 +402,22 @@ input{caret-color:var(--ac)}
 .hm-store,.cx-name,.bc-store{padding-bottom:6px;background:linear-gradient(var(--ink),var(--ink)) left calc(100% - 3px)/48px 1px no-repeat,linear-gradient(var(--ink),var(--ink)) left 100%/48px 1px no-repeat}
 /* quiet brand line */
 .bc-brand{background:none!important;border:0!important;font-size:15px;color:var(--ink2);opacity:1}.bc-logo{display:none}
+
+/* ledger pass 2 */
+.btn.sv-home{box-shadow:inset 0 0 0 2px var(--ink2)!important;text-decoration:none!important;min-height:56px;color:var(--ink)}
+.btn.sv-wa{box-shadow:inset 0 0 0 2px #1FA855!important;text-decoration:none!important;min-height:56px}
+.sv-undo{background:none;border-top:1px solid var(--line);border-radius:0;padding:16px 0 0}
+.okt{color:var(--ac);display:inline-flex}
+.wa-link{display:inline-flex;align-items:center;gap:6px;min-height:48px;color:#137A3C;font-weight:700;font-size:17px;text-decoration:underline;text-underline-offset:4px}
+.screen .card:not(.hm-sales){margin-left:-24px;margin-right:-24px;border-radius:0!important;border-left:0!important;border-right:0!important}
+.hs-bar{border-radius:0;height:8px}
+.it.u{border-radius:0!important;margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
+.it.u .chg{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.guess{flex-wrap:wrap}.guess > div{flex-wrap:wrap}
+.hm-store,.cx-name,.bc-store{padding-bottom:9px;margin-bottom:8px}
+.cx-step b{font-size:19px}.cx-step{min-height:48px}
+.bc-brand{font-size:17px}
+.it.u{margin-left:0!important;margin-right:0!important;padding-left:18px!important;padding-right:18px!important}
+.screen > .it.u{margin-left:-24px!important;margin-right:-24px!important;padding-left:24px!important;padding-right:24px!important}
+.it.u .stack{display:flex;flex-direction:column;gap:8px}.it.u .stack > *{width:100%;box-sizing:border-box}
+.it.u .stack > .chg{width:auto!important;margin:10px 24px 4px;border-radius:10px}

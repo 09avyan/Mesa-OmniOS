@@ -166,7 +166,7 @@ export function BalancePage({ token }: { token: string }) {
   if (d === undefined) return <main className="bc-page"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 24 }} /></main>
   if (!d) return <main className="bc-page"><h1 className="h1">{B.none}</h1></main>
   const bal = Number(d.balance)
-  const fmtD = (iso: string) => new Date(iso).toLocaleDateString(bl === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short' })
+  const fmtD = (iso: string) => new Date(iso).toLocaleString(bl === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
   let run = bal
   const rows = d.entries.map((e) => { const r = { ...e, after: run }; run -= Number(e.amount); return r })
   return (

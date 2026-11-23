@@ -56,7 +56,7 @@ export function BriefingCard() {
             </Tap>
             <div className="bf-sub">
               <span className="lab">{c.days != null && c.days >= 1 ? t('bfDays').replace('{n}', String(c.days)) : t('bfDue')}</span>
-              <a className="wa-btn" href={waLink(c, t('waRemind'))} target="_blank" rel="noreferrer"><Icon name="wa" size={20} />{t('bfRemind')}</a>
+              <a className="wa-link" href={waLink(c, t('waRemind'))} target="_blank" rel="noreferrer"><Icon name="wa" size={20} />{t('bfRemind')}</a>
             </div>
           </div>
         ))}

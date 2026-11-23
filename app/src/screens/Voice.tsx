@@ -571,7 +571,7 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
   return (
     <div className="app">
       <main className="screen has-flow">
-        <div className="ok"><div className="okc"><Icon name="tick" size={48} stroke={3} /></div>
+        <div className="ok"><span className="okt"><Icon name="tick" size={30} stroke={3} /></span>
           <h1 className="h1" style={{ marginTop: 18 }}>{saved.kind === 'bill' ? t('billMade') : saved.kind === 'stock' ? t('stockAdded') : t('paySaved')}</h1>
           {saved.kind === 'bill' && <p className="sv-sum">{rupees(saved.total)} · {t(saved.pay as 'cash')}{saved.pay === 'udhaar' && saved.customer && saved.balance != null && <><br />{t('svKhata').replace('{name}', saved.customer).replace('{x}', rupees(saved.balance))}</>}</p>}
           {saved.kind === 'payment' && <><div className="lab" style={{ marginTop: 4 }}>{saved.customer}</div><div className="big" style={{ marginTop: 6 }}>{rupees(saved.amount)}</div><p className="sv-sum">{t('balanceAfter')}: <b>{rupees(saved.balance)}</b></p></>}
