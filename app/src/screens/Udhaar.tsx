@@ -153,26 +153,34 @@ function AddPerson({ open, onClose }: { open: boolean; onClose: () => void }) {
 // Public page the customer opens from the reminder: their balance and recent entries. No login.
 const pub = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } })
 type Pub = { store: string; area: string | null; customer: string; balance: number; entries: { amount: number; kind: string; at: string; bill: string | null }[] }
+const BT = {
+  hi: { hi: 'नमस्ते', due: 'उधार बाकी', clear: 'सब चुकता', hisaab: 'हिसाब', took: 'सामान लिया', paid: 'जमा किया', none: 'हिसाब नहीं मिला' },
+  hinglish: { hi: 'Namaste', due: 'Udhaar baaki', clear: 'Sab chukta', hisaab: 'Hisaab', took: 'Saaman liya', paid: 'Jama kiya', none: 'Hisaab nahi mila' },
+  en: { hi: 'Hello', due: 'Balance due', clear: 'All paid', hisaab: 'Account', took: 'Bought', paid: 'Paid', none: 'Account not found' },
+}
 export function BalancePage({ token }: { token: string }) {
   const [d, setD] = useState<Pub | null | undefined>(undefined)
+  const [bl, setBl] = useState<'hi' | 'hinglish' | 'en'>(() => { try { return (localStorage.getItem('omni-bill-lang') as 'hi') || 'hi' } catch { return 'hi' } })
+  const B = BT[bl] ?? BT.hi
   useEffect(() => { pub.rpc('public_balance', { p_token: token }).then(({ data }) => setD((data as Pub) ?? null)) }, [token])
   if (d === undefined) return <main className="bc-page"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 24 }} /></main>
-  if (!d) return <main className="bc-page"><h1 className="h1">Hisaab nahi mila</h1></main>
+  if (!d) return <main className="bc-page"><h1 className="h1">{B.none}</h1></main>
   const bal = Number(d.balance)
   return (
     <main className="bc-page">
+      <div className="bc-langs">{(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={bl === l ? 'on' : ''} onClick={() => { setBl(l); try { localStorage.setItem('omni-bill-lang', l) } catch { /* ignore */ } }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}</div>
       <article className="bc">
         <header className="bc-shop"><div className="bc-av">{d.store.charAt(0).toUpperCase()}</div><div><div className="bc-store">{d.store}</div>{d.area && <div className="bc-area">{d.area}</div>}</div></header>
         <section className="bc-hero">
-          <div className="bc-meta" style={{ marginTop: 0 }}>Namaste {d.customer} 🙏</div>
+          <div className="bc-meta" style={{ marginTop: 0 }}>{B.hi} {d.customer}</div>
           <div className="bc-total" style={{ color: bal > 0 ? 'var(--ud)' : 'var(--ac)', marginTop: 6 }}>{rupees(Math.abs(bal))}</div>
-          <div className={`bc-status ${bal > 0 ? 'ud' : 'ok'}`}>{bal > 0 ? 'Udhaar baaki · उधार बाकी' : 'Sab chukta · सब चुकता ✓'}</div>
+          <div className={`bc-status ${bal > 0 ? 'ud' : 'ok'}`}>{bal > 0 ? B.due : B.clear}</div>
         </section>
         <section className="bc-items">
-          <div className="bc-ih">Hisaab · हिसाब</div>
+          <div className="bc-ih">{B.hisaab}</div>
           {d.entries.map((e, i) => (
             <div key={i} className="bc-row">
-              <div><div className="bc-name">{Number(e.amount) > 0 ? 'Saaman liya · सामान लिया' : 'Jama kiya · जमा किया'}</div><div className="bc-sub">{ago(e.at)}</div></div>
+              <div><div className="bc-name">{Number(e.amount) > 0 ? B.took : B.paid}</div><div className="bc-sub">{ago(e.at)}</div></div>
               <div className="bc-amt" style={{ color: Number(e.amount) > 0 ? 'var(--ud)' : 'var(--ac)' }}>{Number(e.amount) > 0 ? '+' : '−'} {rupees(Math.abs(Number(e.amount)))}</div>
             </div>
           ))}

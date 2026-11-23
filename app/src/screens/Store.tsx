@@ -1,3 +1,4 @@
+import { Icon } from '../components/Icon'
 import { useEffect, useMemo, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { SUPABASE_KEY, SUPABASE_URL } from '../lib/config'
@@ -20,11 +21,10 @@ const CATS: Record<string, [string, string, string]> = {
   'personal-care': ['Saabun-Shampoo', 'साबुन-शैम्पू', 'Personal care'], cleaning: ['Safai', 'सफ़ाई', 'Cleaning'], household: ['Ghar ka saaman', 'घर का सामान', 'Household'],
   baby: ['Bacche', 'बच्चे', 'Baby'], 'frozen-misc': ['Aur', 'और', 'Other'],
 }
-const EMO: Record<string, string> = { 'atta-rice-dal': '🌾', 'oil-ghee': '🫙', spices: '🌶️', 'sugar-salt': '🧂', 'tea-coffee': '☕', 'snacks-biscuits': '🍪', 'noodles-pasta': '🍜', 'dairy-bread': '🥛', beverages: '🥤', 'personal-care': '🧴', cleaning: '🧽', household: '🏠', baby: '🍼', 'frozen-misc': '🛍️' }
 const T = {
-  hi: { search: 'सामान ढूंढो', all: 'सब', add: '+ जोड़ो', out: 'खत्म है', ask: 'मंगवाओ', asked: 'माँगा ✓', cart: 'टोकरी', order: 'ऑर्डर भेजो', name: 'आपका नाम', phone: 'मोबाइल नंबर', closed: 'अभी ऑनलाइन ऑर्डर बंद है। सामान देख सकते हैं।', pickup: 'दुकान से उठाना है · पैसे दुकान पर', again: 'पिछला ऑर्डर दोबारा', needInfo: 'नाम और 10 अंक का नंबर डालें', tooMany: 'आपके 3 ऑर्डर पहले से चल रहे हैं', askedNote: 'दुकान को बता दिया। आने पर खबर मिलेगी।', none: 'दुकान नहीं मिली', total: 'कुल', items: 'सामान' },
-  hinglish: { search: 'Saaman dhundho', all: 'Sab', add: '+ Jodo', out: 'Khatam hai', ask: 'Mangwao', asked: 'Maanga ✓', cart: 'Tokri', order: 'Order bhejo', name: 'Aapka naam', phone: 'Mobile number', closed: 'Abhi online order band hai. Saaman dekh sakte hain.', pickup: 'Dukaan se uthana hai · Paise dukaan par', again: 'Pichhla order dobara', needInfo: 'Naam aur 10 ank ka number daalein', tooMany: 'Aapke 3 order pehle se chal rahe hain', askedNote: 'Dukaan ko bata diya. Aane par khabar milegi.', none: 'Dukaan nahi mili', total: 'Kul', items: 'saaman' },
-  en: { search: 'Search items', all: 'All', add: '+ Add', out: 'Out of stock', ask: 'Request', asked: 'Requested ✓', cart: 'Basket', order: 'Place order', name: 'Your name', phone: 'Mobile number', closed: 'Online orders are paused. You can still browse.', pickup: 'Pick up at shop · Pay at shop', again: 'Repeat last order', needInfo: 'Enter name and 10-digit number', tooMany: 'You already have 3 open orders', askedNote: 'Shop informed. You will be told when it arrives.', none: 'Shop not found', total: 'Total', items: 'items' },
+  hi: { search: 'सामान ढूंढो', all: 'सब', add: 'जोड़ो', out: 'खत्म है', ask: 'मंगवाओ', asked: 'माँगा', cart: 'टोकरी', order: 'ऑर्डर भेजो', name: 'आपका नाम', phone: 'मोबाइल नंबर', closed: 'अभी ऑनलाइन ऑर्डर बंद है। सामान देख सकते हैं।', pickup: 'दुकान से उठाना है · पैसे दुकान पर', again: 'पिछला ऑर्डर दोबारा', needInfo: 'नाम और 10 अंक का नंबर डालें', tooMany: 'आपके 3 ऑर्डर पहले से चल रहे हैं', askedNote: 'दुकान को बता दिया। आने पर खबर मिलेगी।', none: 'दुकान नहीं मिली', total: 'कुल', items: 'सामान' },
+  hinglish: { search: 'Saaman dhundho', all: 'Sab', add: 'Jodo', out: 'Khatam hai', ask: 'Mangwao', asked: 'Maanga', cart: 'Tokri', order: 'Order bhejo', name: 'Aapka naam', phone: 'Mobile number', closed: 'Abhi online order band hai. Saaman dekh sakte hain.', pickup: 'Dukaan se uthana hai · Paise dukaan par', again: 'Pichhla order dobara', needInfo: 'Naam aur 10 ank ka number daalein', tooMany: 'Aapke 3 order pehle se chal rahe hain', askedNote: 'Dukaan ko bata diya. Aane par khabar milegi.', none: 'Dukaan nahi mili', total: 'Kul', items: 'saaman' },
+  en: { search: 'Search items', all: 'All', add: 'Add', out: 'Out of stock', ask: 'Request', asked: 'Requested', cart: 'Basket', order: 'Place order', name: 'Your name', phone: 'Mobile number', closed: 'Online orders are paused. You can still browse.', pickup: 'Pick up at shop · Pay at shop', again: 'Repeat last order', needInfo: 'Enter name and 10-digit number', tooMany: 'You already have 3 open orders', askedNote: 'Shop informed. You will be told when it arrives.', none: 'Shop not found', total: 'Total', items: 'items' },
 }
 const get = (k: string, d = '') => { try { return localStorage.getItem(k) ?? d } catch { return d } }
 const put = (k: string, v: string) => { try { localStorage.setItem(k, v) } catch { /* private mode */ } }
@@ -91,41 +91,37 @@ export function StorePage({ slug }: { slug: string }) {
   )
   return (
     <main className="shop">
-      <header className="sx-hero">
-        <div className="sx-top">
-          <select className="shop-lang" value={lang} onChange={(e) => { setLang(e.target.value as Lang); put('omni-bill-lang', e.target.value) }} aria-label="language">
-            <option value="hi">हिंदी</option><option value="hinglish">Hinglish</option><option value="en">English</option>
-          </select>
+      <header className="cx-head">
+        <div className="cx-langs" role="group" aria-label="language">
+          {(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={`tap ${lang === l ? 'on' : ''}`} onClick={() => { setLang(l); put('omni-bill-lang', l) }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}
         </div>
-        <div className="sx-av">{d.name.charAt(0).toUpperCase()}</div>
-        <h1 className="sx-name">{d.name}</h1>
-        {d.area && <div className="sx-area">📍 {d.area}</div>}
-        <div className={`sx-open ${d.online_on ? 'on' : ''}`}>{d.online_on ? '● ' + L.pickup : L.closed}</div>
+        <div className="cx-shop"><div className="cx-av">{d.name.charAt(0).toUpperCase()}</div>
+          <div style={{ minWidth: 0 }}><h1 className="cx-name">{d.name}</h1>{d.area && <div className="cx-area"><Icon name="pin" size={18} />{d.area}</div>}</div></div>
+        <div className={`cx-open ${d.online_on ? 'on' : ''}`}>{d.online_on ? L.pickup : L.closed}</div>
+        <label className="cx-search"><Icon name="search" size={22} /><input placeholder={L.search} value={q} onChange={(e) => setQ(e.target.value)} /></label>
       </header>
-      <div className="sx-search">
-        <input className="input" placeholder={'🔍  ' + L.search} value={q} onChange={(e) => setQ(e.target.value)} />
+      {last && d.online_on && <button className="tap cx-again" onClick={() => { const ls = JSON.parse(last) as { item_id: string; qty: number }[]; setCart(Object.fromEntries(ls.map((l) => [l.item_id, l.qty]))) }}><Icon name="back" size={20} />{L.again}</button>}
+      <div className="shop-cats cx-cats">
+        <button className={`tap ${!cat ? 'on' : ''}`} onClick={() => setCat('')}>{L.all}</button>
+        {cats.map((c) => <button key={c} className={`tap ${cat === c ? 'on' : ''}`} onClick={() => setCat(c)}>{CATS[c]?.[lang === 'hi' ? 1 : lang === 'en' ? 2 : 0] ?? c}</button>)}
       </div>
-      {last && d.online_on && <button className="tap sx-again" onClick={() => { const ls = JSON.parse(last) as { item_id: string; qty: number }[]; setCart(Object.fromEntries(ls.map((l) => [l.item_id, l.qty]))) }}>↻ {L.again}</button>}
-      <div className="shop-cats">
-        <button className={`tap ${!cat ? 'on' : ''}`} onClick={() => setCat('')}>✨ {L.all}</button>
-        {cats.map((c) => <button key={c} className={`tap ${cat === c ? 'on' : ''}`} onClick={() => setCat(c)}>{EMO[c] ?? '🛍️'} {CATS[c]?.[lang === 'hi' ? 1 : lang === 'en' ? 2 : 0] ?? c}</button>)}
-      </div>
-      <div className="sx-grid">
+      <div className="cx-list">
         {shown.map((i) => (
-          <div key={i.id} className={`sx-card ${!i.in_stock ? 'out' : ''}`}>
-            <div className={`sx-pic c-${catOf(i)}`}>{EMO[catOf(i)] ?? '🛍️'}</div>
-            <div className="sx-nm">{nm(i)}</div>
-            <div className="sx-pr">₹{+Number(i.price).toFixed(2)}<span>{units[i.unit] ? ' / ' + units[i.unit] : ''}</span></div>
-            <div className="sx-act">
-              {!i.in_stock ? (asked[i.id] ? <span className="sx-asked">{L.asked}</span> : <button className="tap sx-ask" onClick={() => request(i)}>{L.out} · {L.ask}</button>)
+          <div key={i.id} className={`cx-item ${!i.in_stock ? 'out' : ''}`}>
+            <div className="cx-info">
+              <div className="cx-nm">{nm(i)}</div>
+              <div className="cx-pr">₹{+Number(i.price).toFixed(2)}<span>{units[i.unit] ? ' / ' + units[i.unit] : ''}</span>{!i.in_stock && <span className="cx-outtag"> · {L.out}</span>}</div>
+            </div>
+            <div className="cx-act">
+              {!i.in_stock ? (asked[i.id] ? <span className="cx-asked">{L.asked}</span> : <button className="tap cx-ask" onClick={() => request(i)}>{L.ask}</button>)
                 : !d.online_on ? null
-                : cart[i.id] ? <div className="sx-step"><button className="tap" onClick={() => add(i.id, -1)}>−</button><b>{cart[i.id]}</b><button className="tap" onClick={() => add(i.id, 1)}>+</button></div>
-                : <button className="tap sx-add" onClick={() => add(i.id, 1)}>{L.add}</button>}
+                : cart[i.id] ? <div className="cx-step"><button className="tap" aria-label="minus" onClick={() => add(i.id, -1)}>−</button><b>{cart[i.id]}</b><button className="tap" aria-label="plus" onClick={() => add(i.id, 1)}>+</button></div>
+                : <button className="tap cx-add" onClick={() => add(i.id, 1)}>{L.add}</button>}
             </div>
           </div>
         ))}
       </div>
-      {lines.length > 0 && d.online_on && <div className="shop-bar"><button className="tap sx-cart" onClick={() => setCheckout(true)}><span className="sx-cnt">{lines.reduce((a, [, n]) => a + n, 0)}</span><span>{L.cart}</span><b>{rupees(total)} ›</b></button></div>}
+      {lines.length > 0 && d.online_on && <div className="shop-bar"><button className="tap cx-cart" onClick={() => setCheckout(true)}><span className="cx-cnt">{lines.reduce((a, [, n]) => a + n, 0)}</span><span>{L.cart}</span><b>{rupees(total)} ›</b></button></div>}
       {(checkout || askFor) && <>
         <div className="scrim" onClick={() => { setCheckout(false); setAskFor(null) }} />
         <div className="sheet" role="dialog">
@@ -149,9 +145,9 @@ export function StorePage({ slug }: { slug: string }) {
 
 // Order status page (/o/<token>): live steps, edit/cancel while not started.
 const S = {
-  hi: { steps: ['भेजा', 'मान लिया', 'पैक हो रहा', 'तैयार है'], ready: 'आपका सामान तैयार है! दुकान से ले लें।', done: 'हो गया · धन्यवाद', cancelled: 'ऑर्डर रद्द', rejected: 'दुकान ने मना किया', cancel: 'ऑर्डर रद्द करो', na: 'नहीं है', total: 'कुल', bill: 'बिल देखो', back: 'दुकान पर वापस', edit: 'ऑर्डर बदलो' },
-  hinglish: { steps: ['Bheja', 'Maan liya', 'Pack ho raha', 'Taiyaar hai'], ready: 'Aapka saaman taiyaar hai! Dukaan se le lein.', done: 'Ho gaya · Dhanyavaad', cancelled: 'Order radd', rejected: 'Dukaan ne mana kiya', cancel: 'Order radd karo', na: 'Nahi hai', total: 'Kul', bill: 'Bill dekho', back: 'Dukaan par wapas', edit: 'Order badlo' },
-  en: { steps: ['Sent', 'Accepted', 'Packing', 'Ready'], ready: 'Your order is ready! Pick it up at the shop.', done: 'Done · Thank you', cancelled: 'Order cancelled', rejected: 'Shop declined', cancel: 'Cancel order', na: 'Not available', total: 'Total', bill: 'See bill', back: 'Back to shop', edit: 'Change order' },
+  hi: { steps: ['भेजा', 'मान लिया', 'पैक हो रहा', 'तैयार है'], ready: 'आपका सामान तैयार है! दुकान से ले लें।', done: 'हो गया · धन्यवाद', cancelled: 'ऑर्डर रद्द', rejected: "दुकान ने यह ऑर्डर नहीं लिया", cancel: 'ऑर्डर रद्द करो', na: 'नहीं है', total: 'कुल', bill: 'बिल देखो', back: 'दुकान पर वापस', edit: 'ऑर्डर बदलो' },
+  hinglish: { steps: ['Bheja', 'Maan liya', 'Pack ho raha', 'Taiyaar hai'], ready: 'Aapka saaman taiyaar hai! Dukaan se le lein.', done: 'Ho gaya · Dhanyavaad', cancelled: 'Order radd', rejected: "Dukaan ne yeh order nahi liya", cancel: 'Order radd karo', na: 'Nahi hai', total: 'Kul', bill: 'Bill dekho', back: 'Dukaan par wapas', edit: 'Order badlo' },
+  en: { steps: ['Sent', 'Accepted', 'Packing', 'Ready'], ready: 'Your order is ready! Pick it up at the shop.', done: 'Done · Thank you', cancelled: 'Order cancelled', rejected: "The shop could not take this order", cancel: 'Cancel order', na: 'Not available', total: 'Total', bill: 'See bill', back: 'Back to shop', edit: 'Change order' },
 }
 type OS = { store: string; slug: string; status: string; reason: string | null; name: string; bill: string | null; lines: { item_id: string; name: string; unit: string; qty: number; price: number; available: boolean }[] }
 export function OrderPage({ token }: { token: string }) {
@@ -170,7 +166,7 @@ export function OrderPage({ token }: { token: string }) {
         <header className="bc-shop"><div className="bc-av">{o.store.charAt(0)}</div><div className="bc-store">{o.store}</div></header>
         <section className="bc-hero">
           {idx >= 0 && idx < 4 && <div className="ostep">{L.steps.map((s, i) => <div key={s} className={i <= idx ? 'on' : ''}><i />{s}</div>)}</div>}
-          <div className="h2" style={{ marginTop: 12, color: o.status === 'rejected' || o.status === 'cancelled' ? 'var(--danger)' : 'var(--ac)' }}>
+          <div className="h2" style={{ marginTop: 12, color: o.status === 'rejected' || o.status === 'cancelled' ? 'var(--ink)' : 'var(--ac)' }}>
             {o.status === 'ready' || o.status === 'billing' ? L.ready : o.status === 'done' ? L.done : o.status === 'cancelled' ? L.cancelled : o.status === 'rejected' ? `${L.rejected}${o.reason ? ': ' + o.reason : ''}` : L.steps[idx]}
           </div>
         </section>

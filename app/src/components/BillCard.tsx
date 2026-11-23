@@ -55,7 +55,7 @@ export function BillCard({ b, lang, brand = true }: { b: BillData; lang: L3; bra
         </>}
         <div className="bc-grand"><span>{L.total}</span><span>{rupees(b.total)}</span></div>
       </section>
-      <footer className="bc-foot">{L.thanks} 🙏</footer>
+      <footer className="bc-foot">{L.thanks}</footer>
       {brand && <div className="bc-brand"><span className="bc-logo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.8" strokeLinecap="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></svg></span>{L.made('OmniOS Dukaan')}</div>}
     </article>
   )
