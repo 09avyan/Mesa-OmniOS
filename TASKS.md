@@ -36,9 +36,10 @@ Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also buil
 ## S3 · Stock in
 - ✅ "Maal aaya" by voice — adds stock (tested).
 - ✅ Maal tab — stock list (low first), "Kam hai" tags, set own price, show/hide online, add stock by voice or by choosing.
-- ⏳ Receipt photo → Gemini reads lines → review → stock + supplier due.
-- ⏳ 3 sample receipts (one handwritten) for testing.
-- ⏳ "New name asks once, remembers" for receipts (voice already remembers).
+- ✅ Receipt photo → Gemini reads lines → review (yellow = unclear, pick item, qty, rate) → ✓ → stock + supplier due; works without AI (type items); Maal tab button; Hisaab → Supplier dues → 'Paise diye'. Tested end to end without AI.
+- 🔄 Gemini: model list now auto-discovered (old 2.x models retired by Google); all 3.x Flash models answered 'high demand' on the free tier today — retry later, or a paid key (ask owner) if it persists.
+- ✅ 3 sample receipts (one handwritten) — supabase/seed/receipts/.
+- ✅ "New name asks once, remembers" for receipts (name on parchi saved as alias on ✓).
 
 ## S4 · Bills and udhaar
 - ✅ Bill tab — today's bills, bill detail, WhatsApp share, Bill hatao, bill by choosing items.
@@ -95,6 +96,7 @@ Approved, in this order:
 5. Admin usage per store + CSV + pitch line + read-only store view.
 6. Full UI redo + owner-test rounds ≥ 9/10.
 7. Speed (Supabase + site) + spoken-answer settings.
+- ⏳ Master items file (`.items`): every item any current or future customer store could sell — kirana, niche/regional, supermart/POS ranges (pack sizes, flavours, brands, Hindi/Hinglish/English names, aliases, barcodes where known). Used by voice + receipts so Gemini is needed less. Plan: build in batches by category, merge with catalog.json.
 - ✅ T&C wording approved by owner (lawyer check before real pilots).
 - ⏸ Not approved yet: hidden pitch-mode screen.
 - ⏸ DISCUSS LATER — remind owner: edge cases + safety, sponsored items, item photos plan, khata photo import (Phase 2 vs now).

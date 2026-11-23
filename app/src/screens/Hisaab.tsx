@@ -9,7 +9,7 @@ import { itemName } from '../components/BillCard'
 import { successFx } from '../lib/feedback'
 
 type Top = { name: string; catalog_id: string | null; name_hi: string | null; qty: number; unit: string; amount: number }
-type Sum = { sales: number; cash: number; upi: number; udhaar_given: number; udhaar_collected: number; bills: number; days: number; busy_hour: number | null; top: Top[] }
+type Sum = { supplier_due: number | null; suppliers: number; sales: number; cash: number; upi: number; udhaar_given: number; udhaar_collected: number; bills: number; days: number; busy_hour: number | null; top: Top[] }
 
 // India date as yyyy-mm-dd, n days back
 const day = (back = 0) => new Date(Date.now() + 5.5 * 3600e3 - back * 86400e3).toISOString().slice(0, 10)
@@ -74,7 +74,9 @@ export function Hisaab() {
         </div>
       </>}
       {s && s.bills === 0 && <p className="lab center" style={{ marginTop: 20 }}>{t('noBillsRange')}</p>}
-      <p className="lab" style={{ margin: '20px 4px 0', fontSize: 16 }}>{t('supplierSoon')}</p>
+      {s && s.suppliers > 0
+        ? <Tap className="rowb" style={{ marginTop: 16 }} onClick={() => navigate('/suppliers')}><span className="grow">{t('supTitle')}</span><span className="num" style={{ color: 'var(--c-udh)' }}>{rupees(+(s.supplier_due ?? 0))}</span><span className="chev">›</span></Tap>
+        : <p className="lab" style={{ margin: '20px 4px 0', fontSize: 16 }}>{t('supplierSoon')}</p>}
       <div className="gap16" />
       {range === 'today' && <Tap className="btn primary" onClick={() => navigate('/galla')}>{t('rowGalla')}</Tap>}
     </main>

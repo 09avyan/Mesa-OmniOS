@@ -17,6 +17,7 @@ import { Orders, OrderDetail, MyStore } from './screens/Orders'
 import { BillPage } from './screens/BillPage'
 import { Hisaab, Galla } from './screens/Hisaab'
 import { Bags, Terms, Soon } from './screens/Extras'
+import { Receipt, Suppliers } from './screens/Receipt'
 import { supabase } from './lib/supabase'
 
 export default function App() {
@@ -43,6 +44,7 @@ function Owner({ path }: { path: string }) {
   )
 
   if (path === '/bolo') return <Voice key={location.search} />
+  if (path === '/receipt') return <Receipt />
   const tab = path === '/' ? 'home' : path.startsWith('/bill') ? 'bill' : path.startsWith('/maal') ? 'maal' : path.startsWith('/udhaar') ? 'udhaar' : undefined
   let screen
   switch (path) {
@@ -57,6 +59,7 @@ function Owner({ path }: { path: string }) {
     case '/dukaan': screen = <MyStore />; break
     case '/bags': screen = <Bags />; break
     case '/soon': screen = <Soon />; break
+    case '/suppliers': screen = <Suppliers />; break
     case '/terms': screen = <Terms />; break
     default:
       if (path.startsWith('/bill/')) { screen = <BillDetail id={path.slice(6)} />; break }

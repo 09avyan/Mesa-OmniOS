@@ -44,6 +44,8 @@ export function Maal() {
       <div className="gap16" />
       <Tap className="btn primary" onClick={() => navigate('/bolo?stock=1')}><Icon name="mic" size={26} />{t('stockByVoice')}</Tap>
       <div className="gap8" />
+      <Tap className="btn quiet" onClick={() => navigate('/receipt')}><Icon name="camera" size={24} />{t('stockByPhoto')}</Tap>
+      <div className="gap8" />
       <Tap className="btn quiet" onClick={() => navigate('/bolo?manual=stock')}><Icon name="box" size={24} />{t('stockByPick')}</Tap>
       <div className="gap24" />
       {items && items.length > 0 && <>

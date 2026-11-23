@@ -1,8 +1,8 @@
 {
   "App.tsx": {
-    "mtime": 1795440354.0964367,
-    "seen": 1795440424.0283527,
-    "ast_hash": "65cadba410c6eb8e8d8ae4c86f5214ef",
+    "mtime": 1795441583.2942288,
+    "seen": 1795443128.2961588,
+    "ast_hash": "92e1a997a80b505ddcf5657503526bfd",
     "semantic_hash": ""
   },
   "components/BillCard.tsx": {
@@ -12,9 +12,9 @@
     "semantic_hash": ""
   },
   "components/Icon.tsx": {
-    "mtime": 1795356571.760964,
-    "seen": 1795432089.2112937,
-    "ast_hash": "f184226b95441ae6dd460e9e1005498b",
+    "mtime": 1795441561.8565905,
+    "seen": 1795443128.2962172,
+    "ast_hash": "76b51f0ad1f113e604da77299ef7a15f",
     "semantic_hash": ""
   },
   "components/Pad.tsx": {
@@ -54,9 +54,9 @@
     "semantic_hash": ""
   },
   "lib/i18n.tsx": {
-    "mtime": 1795440416.310296,
-    "seen": 1795440424.0283763,
-    "ast_hash": "bf01376c0c36921b70570520479d9f75",
+    "mtime": 1795441583.289126,
+    "seen": 1795443128.2962363,
+    "ast_hash": "417fe2b9ac83c00384ac78c9ac2bb2b3",
     "semantic_hash": ""
   },
   "lib/prefs.ts": {
@@ -144,9 +144,9 @@
     "semantic_hash": ""
   },
   "screens/Maal.tsx": {
-    "mtime": 1795355518.8166792,
-    "seen": 1795432089.2113214,
-    "ast_hash": "d3a1a17993ad0f9f4313d7ffd21b75ed",
+    "mtime": 1795441583.2947671,
+    "seen": 1795443128.296269,
+    "ast_hash": "c198621db374593f15663015def9a722",
     "semantic_hash": ""
   },
   "screens/Orders.tsx": {
@@ -240,9 +240,15 @@
     "semantic_hash": ""
   },
   "screens/Hisaab.tsx": {
-    "mtime": 1795440305.8717744,
-    "seen": 1795440424.0283947,
-    "ast_hash": "a1841e2f1af6c474d25ebf1bffd3ca62",
+    "mtime": 1795441583.2951822,
+    "seen": 1795443128.2962618,
+    "ast_hash": "111f6c57947a4b4be9517931c5195f72",
+    "semantic_hash": ""
+  },
+  "screens/Receipt.tsx": {
+    "mtime": 1795442541.2028046,
+    "seen": 1795443128.2962737,
+    "ast_hash": "85dce302f31b2b84e308196167bccdf5",
     "semantic_hash": ""
   }
 }
