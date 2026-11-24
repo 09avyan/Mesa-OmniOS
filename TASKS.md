@@ -147,7 +147,8 @@ Approved, in this order:
 - ⏸ Design 6 (bank-style timeline) — HOLD; owner: needs AI-reduction steps before panel.
 - ❌ Design 7 (monochrome + lime) — failed by owner.
 - ❌ Design 8 (colour tiles) — owner: "extra fail, awful".
-- 🔄 Design 9: PhonePe structure (navy band with sales, white sheet with cash/UPI/udhaar, 'Jaldi karo' round icon row, lists), navy accent; waiting for owner look.
+- ❌ Design 9 (PhonePe structure, navy) — failed by owner.
+- 🔄 Design 10: voice-first home (huge green Bolo orb at top, today's sale + bill count, last bill, lists); waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
