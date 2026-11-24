@@ -149,6 +149,7 @@ Approved, in this order:
 - ❌ Design 8 (colour tiles) — owner: "extra fail, awful".
 - ❌ Design 9 (PhonePe structure, navy) — failed by owner.
 - ❌ Design 10 (voice orb home) — owner: "extra fail, very bad".
+- 🔄 Design 11: POS style — quick-tap grid of fast sellers + running ticket bar (tap or speak), black/blue; waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
