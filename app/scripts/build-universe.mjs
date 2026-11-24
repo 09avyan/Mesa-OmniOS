@@ -16,13 +16,14 @@ const tab = { c: [], u: [], b: [] }
 const ix = (t, v) => { if (v == null) return -1; let i = tab[t].indexOf(v); if (i < 0) { i = tab[t].length; tab[t].push(v) } return i }
 const rows = [], keys = {}
 src.items.forEach((it, n) => {
-  rows.push([it.id, it.hinglish, it.hi, it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand)])
+  rows.push([it.id, it.hinglish, it.hi, it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand), it.aliases || []])
   for (const a of new Set([it.hinglish, it.hi, it.en, it.id.replace(/-/g, ' '), ...(it.aliases || [])])) {
     const k = norm(a); if (!k) continue
     if (keys[k] === undefined) keys[k] = n; else if (keys[k] !== n && !Array.isArray(keys[k])) keys[k] = [keys[k], n]; else if (Array.isArray(keys[k]) && !keys[k].includes(n)) keys[k].push(n)
   }
 })
-const body = JSON.stringify({ v: src.version, ...tab, i: rows, k: keys })
+// aliases ride inside each row; the phone builds its own lookup map once, so no separate key table is sent
+const body = JSON.stringify({ v: src.version, ...tab, i: rows })
 const hash = createHash('sha256').update(body).digest('hex').slice(0, 10)
 const out = join(here, '../public/universe'); mkdirSync(out, { recursive: true })
 for (const f of readdirSync(out)) if (/^u\.[0-9a-f]{10}\.json$/.test(f)) unlinkSync(join(out, f))

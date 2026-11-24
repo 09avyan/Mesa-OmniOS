@@ -5,15 +5,34 @@ export type Matchable = { id: string; hinglish: string; hi: string; en: string; 
 export type Candidate = { id: string; score: number; item: Matchable }
 
 type Entry = { key: string; sound: string; words: string[]; item: Matchable; exact: string }
-export type MatchIndex = { entries: Entry[]; byId: Map<string, Matchable> }
+// Speed: exact names resolve through a Map (O(1)); fuzzy scoring only runs on entries that share
+// at least one letter-pair or sound-pair with what was said (inverted index), not on every entry.
+export type MatchIndex = { entries: Entry[]; byId: Map<string, Matchable>; exact: Map<string, number[]>; grams: Map<string, number[]> }
+
+const push = (m: Map<string, number[]>, k: string, v: number) => { const a = m.get(k); if (a) { if (a[a.length - 1] !== v) a.push(v) } else m.set(k, [v]) }
+function gramsOf(key: string, sound: string): string[] { const g: string[] = []; for (let i = 0; i < key.length - 1; i++) g.push(key.slice(i, i + 2)); for (let i = 0; i < sound.length - 1; i++) g.push('~' + sound.slice(i, i + 2)); return g }
+
+/** Add items to an index (skips ids already present). Used to grow the catalogue with the Universe at runtime. */
+export function extendIndex(idx: MatchIndex, items: Matchable[]): number {
+  let added = 0
+  for (const item of items) {
+    if (idx.byId.has(item.id)) continue
+    idx.byId.set(item.id, item); added++
+    const names = new Set([...item.aliases, item.hinglish, item.en, item.hi].map((a) => a.toLowerCase().trim()).filter(Boolean))
+    for (const a of names) {
+      const e: Entry = { key: fold(a), sound: soundKey(a), words: a.split(/\s+/), item, exact: a }
+      const n = idx.entries.push(e) - 1
+      push(idx.exact, e.key, n); push(idx.exact, e.exact, n)
+      for (const g of gramsOf(e.key, e.sound)) push(idx.grams, g, n)
+    }
+  }
+  return added
+}
 
 export function buildIndex(items: Matchable[]): MatchIndex {
-  const entries: Entry[] = []
-  for (const item of items) {
-    const names = new Set([...item.aliases, item.hinglish, item.en, item.hi].map((a) => a.toLowerCase().trim()).filter(Boolean))
-    for (const a of names) entries.push({ key: fold(a), sound: soundKey(a), words: a.split(/\s+/), item, exact: a })
-  }
-  return { entries, byId: new Map(items.map((i) => [i.id, i])) }
+  const idx: MatchIndex = { entries: [], byId: new Map(), exact: new Map(), grams: new Map() }
+  extendIndex(idx, items)
+  return idx
 }
 
 function bigrams(s: string) { const out: string[] = []; for (let i = 0; i < s.length - 1; i++) out.push(s.slice(i, i + 2)); return out }
@@ -36,7 +55,13 @@ export function matchName(phrase: string, idx: MatchIndex, limit = 6): Candidate
   const ps = soundKey(p)
   const pWords = p.split(/\s+/)
   const best = new Map<string, Candidate>()
-  for (const e of idx.entries) {
+  // candidate set: entries sharing any letter/sound pair, plus multi-word aliases contained in the phrase
+  const seen = new Set<number>()
+  for (const g of gramsOf(pf, ps)) for (const n of idx.grams.get(g) ?? []) seen.add(n)
+  for (const n of idx.exact.get(pf) ?? []) seen.add(n)
+  for (const n of idx.exact.get(p) ?? []) seen.add(n)
+  for (const n of seen) {
+    const e = idx.entries[n]
     let s: number
     if (e.exact === p || e.key === pf) s = 1
     else {

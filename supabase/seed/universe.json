@@ -1,6 +1,6 @@
 {
  "about": "OmniOS Universe: master list of every item any current or future customer store may sell (kirana, regional, supermart/POS). Used by voice + receipt matching so Gemini is needed less. Grows in batches by category; merges with catalog.json.",
- "version": 2,
+ "version": 3,
  "items": [
   {
    "id": "sugar",
@@ -2755,6 +2755,1415 @@
    "aliases": [
     "matar",
     "frozen peas"
+   ]
+  },
+  {
+   "id": "kaju",
+   "hinglish": "Kaju",
+   "hi": "काजू",
+   "en": "Cashew",
+   "category": "dry-fruit",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "kaju",
+    "cashew"
+   ]
+  },
+  {
+   "id": "badam",
+   "hinglish": "Badam",
+   "hi": "बादाम",
+   "en": "Almond",
+   "category": "dry-fruit",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "badam",
+    "almond"
+   ]
+  },
+  {
+   "id": "kishmish",
+   "hinglish": "Kishmish",
+   "hi": "किशमिश",
+   "en": "Raisins",
+   "category": "dry-fruit",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "kishmish",
+    "manuka"
+   ]
+  },
+  {
+   "id": "akhrot",
+   "hinglish": "Akhrot",
+   "hi": "अखरोट",
+   "en": "Walnut",
+   "category": "dry-fruit",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "akhrot",
+    "walnut"
+   ]
+  },
+  {
+   "id": "khajur",
+   "hinglish": "Khajoor",
+   "hi": "खजूर",
+   "en": "Dates",
+   "category": "dry-fruit",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "khajur",
+    "dates"
+   ]
+  },
+  {
+   "id": "makhana",
+   "hinglish": "Makhana",
+   "hi": "मखाना",
+   "en": "Fox nuts",
+   "category": "dry-fruit",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "makhane",
+    "phool makhana"
+   ]
+  },
+  {
+   "id": "nariyal-gola",
+   "hinglish": "Gola",
+   "hi": "गोला",
+   "en": "Dry coconut",
+   "category": "dry-fruit",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "sukha nariyal",
+    "copra"
+   ]
+  },
+  {
+   "id": "mishri",
+   "hinglish": "Mishri",
+   "hi": "मिश्री",
+   "en": "Rock sugar",
+   "category": "dry-fruit",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "mishri",
+    "dhaage wali mishri"
+   ]
+  },
+  {
+   "id": "achar-mango",
+   "hinglish": "Aam ka achar",
+   "hi": "आम का अचार",
+   "en": "Mango pickle",
+   "category": "pickles",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "achar",
+    "aam achar"
+   ]
+  },
+  {
+   "id": "achar-mix",
+   "hinglish": "Mix achar",
+   "hi": "मिक्स अचार",
+   "en": "Mixed pickle",
+   "category": "pickles",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "mix achar"
+   ]
+  },
+  {
+   "id": "kissan-ketchup",
+   "hinglish": "Kissan ketchup",
+   "hi": "किसान केचप",
+   "en": "Kissan Ketchup",
+   "category": "sauces",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Kissan",
+   "aliases": [
+    "ketchup",
+    "sauce",
+    "tomato sauce"
+   ]
+  },
+  {
+   "id": "maggi-ketchup",
+   "hinglish": "Maggi ketchup",
+   "hi": "मैगी केचप",
+   "en": "Maggi Ketchup",
+   "category": "sauces",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Maggi",
+   "aliases": [
+    "maggi sauce"
+   ]
+  },
+  {
+   "id": "ching-schezwan",
+   "hinglish": "Schezwan chutney",
+   "hi": "शेज़वान चटनी",
+   "en": "Ching's Schezwan",
+   "category": "sauces",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Ching's",
+   "aliases": [
+    "schezwan",
+    "chings"
+   ]
+  },
+  {
+   "id": "soy-sauce",
+   "hinglish": "Soya sauce",
+   "hi": "सोया सॉस",
+   "en": "Soy sauce",
+   "category": "sauces",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "soy sauce"
+   ]
+  },
+  {
+   "id": "vinegar",
+   "hinglish": "Sirka",
+   "hi": "सिरका",
+   "en": "Vinegar",
+   "category": "sauces",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "sirka",
+    "vinegar"
+   ]
+  },
+  {
+   "id": "kissan-jam",
+   "hinglish": "Kissan jam",
+   "hi": "किसान जैम",
+   "en": "Kissan Jam",
+   "category": "spreads",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Kissan",
+   "aliases": [
+    "jam"
+   ]
+  },
+  {
+   "id": "peanut-butter",
+   "hinglish": "Peanut butter",
+   "hi": "पीनट बटर",
+   "en": "Peanut butter",
+   "category": "spreads",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "peanut butter"
+   ]
+  },
+  {
+   "id": "honey-dabur",
+   "hinglish": "Dabur shahad",
+   "hi": "डाबर शहद",
+   "en": "Dabur Honey",
+   "category": "spreads",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Dabur",
+   "aliases": [
+    "shahad",
+    "honey"
+   ]
+  },
+  {
+   "id": "mtr-rte",
+   "hinglish": "MTR ready khana",
+   "hi": "एमटीआर रेडी खाना",
+   "en": "MTR Ready-to-eat",
+   "category": "ready-food",
+   "unit": "pc",
+   "loose": false,
+   "brand": "MTR",
+   "aliases": [
+    "mtr",
+    "ready to eat"
+   ]
+  },
+  {
+   "id": "gits-gulab-jamun",
+   "hinglish": "Gulab jamun mix",
+   "hi": "गुलाब जामुन मिक्स",
+   "en": "Gits Gulab Jamun Mix",
+   "category": "ready-food",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Gits",
+   "aliases": [
+    "gulab jamun mix"
+   ]
+  },
+  {
+   "id": "idli-mix",
+   "hinglish": "Idli mix",
+   "hi": "इडली मिक्स",
+   "en": "Idli mix",
+   "category": "ready-food",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "idli mix"
+   ]
+  },
+  {
+   "id": "custard",
+   "hinglish": "Custard powder",
+   "hi": "कस्टर्ड पाउडर",
+   "en": "Custard powder",
+   "category": "ready-food",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "custard"
+   ]
+  },
+  {
+   "id": "cornflakes",
+   "hinglish": "Cornflakes",
+   "hi": "कॉर्नफ्लेक्स",
+   "en": "Kellogg's Corn Flakes",
+   "category": "ready-food",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Kellogg's",
+   "aliases": [
+    "cornflakes",
+    "kellogs"
+   ]
+  },
+  {
+   "id": "oats",
+   "hinglish": "Oats",
+   "hi": "ओट्स",
+   "en": "Oats",
+   "category": "ready-food",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "oats",
+    "quaker"
+   ]
+  },
+  {
+   "id": "chocos",
+   "hinglish": "Chocos",
+   "hi": "चोकोस",
+   "en": "Kellogg's Chocos",
+   "category": "ready-food",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Kellogg's",
+   "aliases": [
+    "chocos"
+   ]
+  },
+  {
+   "id": "noodles-chings",
+   "hinglish": "Ching's noodles",
+   "hi": "चिंग्स नूडल्स",
+   "en": "Ching's Hakka Noodles",
+   "category": "noodles",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Ching's",
+   "aliases": [
+    "hakka noodles"
+   ]
+  },
+  {
+   "id": "ice-cream-cup",
+   "hinglish": "Ice cream cup",
+   "hi": "आइसक्रीम कप",
+   "en": "Ice cream cup",
+   "category": "frozen",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "ice cream",
+    "kulfi"
+   ]
+  },
+  {
+   "id": "amul-kool",
+   "hinglish": "Amul Kool",
+   "hi": "अमूल कूल",
+   "en": "Amul Kool",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "kool",
+    "flavoured milk"
+   ]
+  },
+  {
+   "id": "mother-dairy-dahi",
+   "hinglish": "Mother Dairy dahi",
+   "hi": "मदर डेयरी दही",
+   "en": "Mother Dairy Curd",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Mother Dairy",
+   "aliases": [
+    "mother dairy"
+   ]
+  },
+  {
+   "id": "amul-masti",
+   "hinglish": "Amul Masti chhachh",
+   "hi": "अमूल मस्ती छाछ",
+   "en": "Amul Masti Buttermilk",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "masti"
+   ]
+  },
+  {
+   "id": "milkmaid",
+   "hinglish": "Milkmaid",
+   "hi": "मिल्कमेड",
+   "en": "Nestle Milkmaid",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Nestle",
+   "aliases": [
+    "condensed milk",
+    "milkmaid"
+   ]
+  },
+  {
+   "id": "milk-powder",
+   "hinglish": "Milk powder",
+   "hi": "मिल्क पाउडर",
+   "en": "Milk powder",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "dudh powder",
+    "everyday"
+   ]
+  },
+  {
+   "id": "complan",
+   "hinglish": "Complan",
+   "hi": "कॉम्प्लान",
+   "en": "Complan",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Complan",
+   "aliases": [
+    "complan"
+   ]
+  },
+  {
+   "id": "boost",
+   "hinglish": "Boost",
+   "hi": "बूस्ट",
+   "en": "Boost",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Boost",
+   "aliases": [
+    "boost"
+   ]
+  },
+  {
+   "id": "tang",
+   "hinglish": "Tang",
+   "hi": "टैंग",
+   "en": "Tang",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tang",
+   "aliases": [
+    "tang"
+   ]
+  },
+  {
+   "id": "roohafza",
+   "hinglish": "Rooh Afza",
+   "hi": "रूह अफ़ज़ा",
+   "en": "Rooh Afza",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Hamdard",
+   "aliases": [
+    "roohafza",
+    "sharbat"
+   ]
+  },
+  {
+   "id": "paperboat",
+   "hinglish": "Paper Boat",
+   "hi": "पेपर बोट",
+   "en": "Paper Boat",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Paper Boat",
+   "aliases": [
+    "paper boat",
+    "aam panna"
+   ]
+  },
+  {
+   "id": "redbull",
+   "hinglish": "Red Bull",
+   "hi": "रेड बुल",
+   "en": "Red Bull",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Red Bull",
+   "aliases": [
+    "redbull"
+   ]
+  },
+  {
+   "id": "appy-fizz",
+   "hinglish": "Appy Fizz",
+   "hi": "एप्पी फिज़",
+   "en": "Appy Fizz",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle Agro",
+   "aliases": [
+    "appy"
+   ]
+  },
+  {
+   "id": "fanta",
+   "hinglish": "Fanta",
+   "hi": "फैंटा",
+   "en": "Fanta",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "fanta"
+   ]
+  },
+  {
+   "id": "seven-up",
+   "hinglish": "7Up",
+   "hi": "सेवन अप",
+   "en": "7Up",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "PepsiCo",
+   "aliases": [
+    "seven up",
+    "7 up"
+   ]
+  },
+  {
+   "id": "sugar-free",
+   "hinglish": "Sugar Free",
+   "hi": "शुगर फ्री",
+   "en": "Sugar Free",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Sugar Free",
+   "aliases": [
+    "sugar free"
+   ]
+  },
+  {
+   "id": "baking-soda",
+   "hinglish": "Meetha soda",
+   "hi": "मीठा सोडा",
+   "en": "Baking soda",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "khane ka soda",
+    "baking soda"
+   ]
+  },
+  {
+   "id": "eno",
+   "hinglish": "Eno",
+   "hi": "ईनो",
+   "en": "Eno",
+   "category": "health",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Eno",
+   "aliases": [
+    "eno"
+   ]
+  },
+  {
+   "id": "hajmola",
+   "hinglish": "Hajmola",
+   "hi": "हाजमोला",
+   "en": "Hajmola",
+   "category": "health",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Dabur",
+   "aliases": [
+    "hajmola"
+   ]
+  },
+  {
+   "id": "vicks",
+   "hinglish": "Vicks",
+   "hi": "विक्स",
+   "en": "Vicks VapoRub",
+   "category": "health",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Vicks",
+   "aliases": [
+    "vicks"
+   ]
+  },
+  {
+   "id": "vicks-goli",
+   "hinglish": "Vicks goli",
+   "hi": "विक्स गोली",
+   "en": "Vicks cough drops",
+   "category": "health",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Vicks",
+   "aliases": [
+    "vicks goli"
+   ]
+  },
+  {
+   "id": "zandu-balm",
+   "hinglish": "Zandu balm",
+   "hi": "झंडू बाम",
+   "en": "Zandu Balm",
+   "category": "health",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Zandu",
+   "aliases": [
+    "zandu",
+    "bam"
+   ]
+  },
+  {
+   "id": "iodex",
+   "hinglish": "Iodex",
+   "hi": "आयोडेक्स",
+   "en": "Iodex",
+   "category": "health",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Iodex",
+   "aliases": [
+    "iodex"
+   ]
+  },
+  {
+   "id": "band-aid",
+   "hinglish": "Band-aid",
+   "hi": "बैंड-एड",
+   "en": "Band-aid",
+   "category": "health",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "patti",
+    "bandage"
+   ]
+  },
+  {
+   "id": "dettol-handwash",
+   "hinglish": "Dettol handwash",
+   "hi": "डेटॉल हैंडवॉश",
+   "en": "Dettol Handwash",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Dettol",
+   "aliases": [
+    "handwash"
+   ]
+  },
+  {
+   "id": "lifebuoy-handwash",
+   "hinglish": "Lifebuoy handwash",
+   "hi": "लाइफबॉय हैंडवॉश",
+   "en": "Lifebuoy Handwash",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lifebuoy",
+   "aliases": [
+    "lifebuoy handwash"
+   ]
+  },
+  {
+   "id": "nivea",
+   "hinglish": "Nivea cream",
+   "hi": "निविया क्रीम",
+   "en": "Nivea Creme",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Nivea",
+   "aliases": [
+    "nivea"
+   ]
+  },
+  {
+   "id": "ponds-cream",
+   "hinglish": "Ponds cream",
+   "hi": "पॉन्ड्स क्रीम",
+   "en": "Pond's cream",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Pond's",
+   "aliases": [
+    "ponds cream"
+   ]
+  },
+  {
+   "id": "himalaya-facewash",
+   "hinglish": "Himalaya facewash",
+   "hi": "हिमालया फेसवॉश",
+   "en": "Himalaya Face Wash",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Himalaya",
+   "aliases": [
+    "facewash"
+   ]
+  },
+  {
+   "id": "dove-soap",
+   "hinglish": "Dove sabun",
+   "hi": "डव साबुन",
+   "en": "Dove soap",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Dove",
+   "aliases": [
+    "dove"
+   ]
+  },
+  {
+   "id": "pears",
+   "hinglish": "Pears sabun",
+   "hi": "पियर्स साबुन",
+   "en": "Pears soap",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Pears",
+   "aliases": [
+    "pears"
+   ]
+  },
+  {
+   "id": "godrej-no1",
+   "hinglish": "Godrej No.1",
+   "hi": "गोदरेज नंबर 1",
+   "en": "Godrej No.1 soap",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Godrej",
+   "aliases": [
+    "godrej number one"
+   ]
+  },
+  {
+   "id": "dabur-amla",
+   "hinglish": "Dabur Amla tel",
+   "hi": "डाबर आंवला तेल",
+   "en": "Dabur Amla Oil",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Dabur",
+   "aliases": [
+    "amla tel"
+   ]
+  },
+  {
+   "id": "bajaj-almond",
+   "hinglish": "Bajaj badam tel",
+   "hi": "बजाज बादाम तेल",
+   "en": "Bajaj Almond Drops",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Bajaj",
+   "aliases": [
+    "almond oil"
+   ]
+  },
+  {
+   "id": "mehndi",
+   "hinglish": "Mehndi",
+   "hi": "मेहंदी",
+   "en": "Henna",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "mehandi",
+    "henna"
+   ]
+  },
+  {
+   "id": "godrej-hair-dye",
+   "hinglish": "Godrej hair colour",
+   "hi": "गोदरेज हेयर कलर",
+   "en": "Godrej Expert",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Godrej",
+   "aliases": [
+    "hair dye",
+    "colour"
+   ]
+  },
+  {
+   "id": "comb",
+   "hinglish": "Kanghi",
+   "hi": "कंघी",
+   "en": "Comb",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "kanghi",
+    "comb"
+   ]
+  },
+  {
+   "id": "shaving-cream",
+   "hinglish": "Shaving cream",
+   "hi": "शेविंग क्रीम",
+   "en": "Shaving cream",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "shaving"
+   ]
+  },
+  {
+   "id": "deo",
+   "hinglish": "Deo",
+   "hi": "डियो",
+   "en": "Deodorant",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "deo",
+    "spray",
+    "deodorant"
+   ]
+  },
+  {
+   "id": "johnson-baby",
+   "hinglish": "Johnson baby powder",
+   "hi": "जॉनसन बेबी पाउडर",
+   "en": "Johnson's Baby Powder",
+   "category": "baby",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Johnson's",
+   "aliases": [
+    "baby powder"
+   ]
+  },
+  {
+   "id": "cerelac",
+   "hinglish": "Cerelac",
+   "hi": "सेरेलैक",
+   "en": "Nestle Cerelac",
+   "category": "baby",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Nestle",
+   "aliases": [
+    "cerelac"
+   ]
+  },
+  {
+   "id": "lactogen",
+   "hinglish": "Lactogen",
+   "hi": "लैक्टोजन",
+   "en": "Lactogen",
+   "category": "baby",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Nestle",
+   "aliases": [
+    "lactogen"
+   ]
+  },
+  {
+   "id": "baby-wipes",
+   "hinglish": "Baby wipes",
+   "hi": "बेबी वाइप्स",
+   "en": "Baby wipes",
+   "category": "baby",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "wipes"
+   ]
+  },
+  {
+   "id": "notebook",
+   "hinglish": "Copy",
+   "hi": "कॉपी",
+   "en": "Notebook",
+   "category": "stationery",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "copy",
+    "notebook",
+    "register"
+   ]
+  },
+  {
+   "id": "pen-reynolds",
+   "hinglish": "Pen",
+   "hi": "पेन",
+   "en": "Reynolds pen",
+   "category": "stationery",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Reynolds",
+   "aliases": [
+    "pen",
+    "reynolds"
+   ]
+  },
+  {
+   "id": "pencil",
+   "hinglish": "Pencil",
+   "hi": "पेंसिल",
+   "en": "Pencil",
+   "category": "stationery",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "pencil",
+    "natraj"
+   ]
+  },
+  {
+   "id": "eraser",
+   "hinglish": "Rubber",
+   "hi": "रबर",
+   "en": "Eraser",
+   "category": "stationery",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "rubber",
+    "eraser"
+   ]
+  },
+  {
+   "id": "fevicol",
+   "hinglish": "Fevicol",
+   "hi": "फेविकोल",
+   "en": "Fevicol",
+   "category": "stationery",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fevicol",
+   "aliases": [
+    "fevicol",
+    "gond"
+   ]
+  },
+  {
+   "id": "fevikwik",
+   "hinglish": "Fevikwik",
+   "hi": "फेविक्विक",
+   "en": "Fevikwik",
+   "category": "stationery",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fevikwik",
+   "aliases": [
+    "fevikwik"
+   ]
+  },
+  {
+   "id": "cello-tape",
+   "hinglish": "Tape",
+   "hi": "टेप",
+   "en": "Cello tape",
+   "category": "stationery",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "tape",
+    "cellotape"
+   ]
+  },
+  {
+   "id": "roli",
+   "hinglish": "Roli",
+   "hi": "रोली",
+   "en": "Roli kumkum",
+   "category": "pooja",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "roli",
+    "kumkum"
+   ]
+  },
+  {
+   "id": "chawal-pooja",
+   "hinglish": "Akshat",
+   "hi": "अक्षत",
+   "en": "Pooja rice",
+   "category": "pooja",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "akshat"
+   ]
+  },
+  {
+   "id": "ghee-batti",
+   "hinglish": "Ghee batti",
+   "hi": "घी बत्ती",
+   "en": "Ghee wicks",
+   "category": "pooja",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "ghee wali batti"
+   ]
+  },
+  {
+   "id": "janeu",
+   "hinglish": "Janeu",
+   "hi": "जनेऊ",
+   "en": "Sacred thread",
+   "category": "pooja",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "janeu"
+   ]
+  },
+  {
+   "id": "mauli",
+   "hinglish": "Mauli",
+   "hi": "मौली",
+   "en": "Sacred red thread",
+   "category": "pooja",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "kalawa",
+    "mauli"
+   ]
+  },
+  {
+   "id": "nariyal",
+   "hinglish": "Nariyal",
+   "hi": "नारियल",
+   "en": "Coconut",
+   "category": "pooja",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "shriphal",
+    "coconut"
+   ]
+  },
+  {
+   "id": "gulal",
+   "hinglish": "Gulal",
+   "hi": "गुलाल",
+   "en": "Gulal",
+   "category": "pooja",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "gulal",
+    "abeer"
+   ]
+  },
+  {
+   "id": "cylinder-lighter",
+   "hinglish": "Lighter",
+   "hi": "लाइटर",
+   "en": "Gas lighter",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "lighter"
+   ]
+  },
+  {
+   "id": "bulb",
+   "hinglish": "Bulb",
+   "hi": "बल्ब",
+   "en": "LED bulb",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "bulb",
+    "led"
+   ]
+  },
+  {
+   "id": "tissue",
+   "hinglish": "Tissue",
+   "hi": "टिशू",
+   "en": "Tissue paper",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "napkin",
+    "tissue"
+   ]
+  },
+  {
+   "id": "garbage-bag",
+   "hinglish": "Kachra thaili",
+   "hi": "कचरा थैली",
+   "en": "Garbage bags",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "dustbin bag",
+    "garbage bag"
+   ]
+  },
+  {
+   "id": "broom",
+   "hinglish": "Jhadu",
+   "hi": "झाड़ू",
+   "en": "Broom",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "jharu",
+    "broom"
+   ]
+  },
+  {
+   "id": "pochha",
+   "hinglish": "Pochha",
+   "hi": "पोछा",
+   "en": "Mop cloth",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "pocha"
+   ]
+  },
+  {
+   "id": "bucket-mug",
+   "hinglish": "Mug",
+   "hi": "मग",
+   "en": "Bath mug",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "mug",
+    "dabba"
+   ]
+  },
+  {
+   "id": "naphthalene",
+   "hinglish": "Goli",
+   "hi": "गोली",
+   "en": "Naphthalene balls",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "naphthalene",
+    "kapoor goli"
+   ]
+  },
+  {
+   "id": "shoe-polish",
+   "hinglish": "Polish",
+   "hi": "पॉलिश",
+   "en": "Shoe polish",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Cherry",
+   "aliases": [
+    "polish",
+    "cherry"
+   ]
+  },
+  {
+   "id": "rat-kill",
+   "hinglish": "Chuha dawa",
+   "hi": "चूहा दवा",
+   "en": "Rat killer",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "ratol",
+    "chuha maar"
+   ]
+  },
+  {
+   "id": "cauliflower",
+   "hinglish": "Gobhi",
+   "hi": "गोभी",
+   "en": "Cauliflower",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "phool gobhi"
+   ]
+  },
+  {
+   "id": "cabbage",
+   "hinglish": "Patta gobhi",
+   "hi": "पत्ता गोभी",
+   "en": "Cabbage",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "band gobhi"
+   ]
+  },
+  {
+   "id": "brinjal",
+   "hinglish": "Baingan",
+   "hi": "बैंगन",
+   "en": "Brinjal",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "bengan",
+    "baingan"
+   ]
+  },
+  {
+   "id": "lady-finger",
+   "hinglish": "Bhindi",
+   "hi": "भिंडी",
+   "en": "Okra",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "bhindi",
+    "okra"
+   ]
+  },
+  {
+   "id": "carrot",
+   "hinglish": "Gajar",
+   "hi": "गाजर",
+   "en": "Carrot",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "gajar"
+   ]
+  },
+  {
+   "id": "cucumber",
+   "hinglish": "Kheera",
+   "hi": "खीरा",
+   "en": "Cucumber",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "kakdi",
+    "kheera"
+   ]
+  },
+  {
+   "id": "spinach",
+   "hinglish": "Palak",
+   "hi": "पालक",
+   "en": "Spinach",
+   "category": "veg",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "palak"
+   ]
+  },
+  {
+   "id": "pudina",
+   "hinglish": "Pudina",
+   "hi": "पुदीना",
+   "en": "Mint",
+   "category": "veg",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "mint",
+    "pudina"
+   ]
+  },
+  {
+   "id": "mango",
+   "hinglish": "Aam",
+   "hi": "आम",
+   "en": "Mango",
+   "category": "fruit",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "aam",
+    "mango"
+   ]
+  },
+  {
+   "id": "orange",
+   "hinglish": "Santra",
+   "hi": "संतरा",
+   "en": "Orange",
+   "category": "fruit",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "santra",
+    "orange"
+   ]
+  },
+  {
+   "id": "papaya",
+   "hinglish": "Papita",
+   "hi": "पपीता",
+   "en": "Papaya",
+   "category": "fruit",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "papita"
    ]
   }
  ]
