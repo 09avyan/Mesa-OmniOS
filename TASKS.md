@@ -119,7 +119,8 @@ Approved, in this order:
   - Colours: deeper haldi + packet-print maroon, so it doesn't read as Blinkit.
 - ❌ v3 "MRP box, full flow" FAILED 0/7, avg 7.93 (up from 7.44). Shyam 8.0 · Aman 8.0 · Rekha 8.3 · Pooja 7.7 · Baldev 8.7 · payments designer 7.7 · super-app director 7.7. Panel: direction right, fix craft: one main-button colour, readable batch code (dots looked like commas, wrapped), only "Bas" while listening, fill listening screen, keep total visible on confirm, aligned steppers, a payoff moment on save, clearer words ("Doosri Maggi dikhao", Hindi "पक्का करो").
 - ❌ v4 FAILED 0/7, avg 8.15 (Shyam 8.7 · Aman 7.7 · Rekha 8.3 · Pooja 7.7 · Baldev 8.3 · payments 8.0 · super-app 8.3). Left: two maroon buttons stacked (Save + Aur bolo), listening screen still emptyish + no running total, dashed hints look like buttons, too many outlined boxes, saved screen needs "Agla bill" + a seal moment, Hindi unit text touches stepper.
-- 🔄 v5: v4 fixes.
+- ❌ v5 FAILED 1/7 YES (Baldev 9/9/9), avg 8.33 (Shyam 8.0 · Aman 8.3 · Rekha 8.7 · Pooja 8.3 · Baldev 9.0 · payments 8.0 · super-app 8.3). Left: mic scrolls away on confirm/pay (rule break), rows too tall, "Aur bolo" wraps, "aksar" looks pre-selected, seal too small, flat type scale, empty frame while listening, raised tab-bar pill looks generic.
+- 🔄 v6: v5 fixes.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.

@@ -1,5 +1,6 @@
 # Session log (newest first)
 - 24 Nov: .context/ created (owner: keep context small). Start rule = INDEX + TASKS + graphify. Owner answered redo #4 questions (see ui-redo-4.md). Starting redo #4.
+- 24 Nov: v4 8.15, v5 8.33 (Baldev first YES); v6 = fixes.
 - 24 Nov: v3 failed 7.93 (rising); v4 = specific fixes.
 - 24 Nov: v2 (MRP box) failed 7.44 (best yet); asked owner whether v3 = fresh direction or push MRP box.
 - 24 Nov: redo #4 v1 (calendar) failed panel 6.3; building v2 (MRP box world).
