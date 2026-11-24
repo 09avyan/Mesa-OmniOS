@@ -120,7 +120,8 @@ Approved, in this order:
 - ❌ v3 "MRP box, full flow" FAILED 0/7, avg 7.93 (up from 7.44). Shyam 8.0 · Aman 8.0 · Rekha 8.3 · Pooja 7.7 · Baldev 8.7 · payments designer 7.7 · super-app director 7.7. Panel: direction right, fix craft: one main-button colour, readable batch code (dots looked like commas, wrapped), only "Bas" while listening, fill listening screen, keep total visible on confirm, aligned steppers, a payoff moment on save, clearer words ("Doosri Maggi dikhao", Hindi "पक्का करो").
 - ❌ v4 FAILED 0/7, avg 8.15 (Shyam 8.7 · Aman 7.7 · Rekha 8.3 · Pooja 7.7 · Baldev 8.3 · payments 8.0 · super-app 8.3). Left: two maroon buttons stacked (Save + Aur bolo), listening screen still emptyish + no running total, dashed hints look like buttons, too many outlined boxes, saved screen needs "Agla bill" + a seal moment, Hindi unit text touches stepper.
 - ❌ v5 FAILED 1/7 YES (Baldev 9/9/9), avg 8.33 (Shyam 8.0 · Aman 8.3 · Rekha 8.7 · Pooja 8.3 · Baldev 9.0 · payments 8.0 · super-app 8.3). Left: mic scrolls away on confirm/pay (rule break), rows too tall, "Aur bolo" wraps, "aksar" looks pre-selected, seal too small, flat type scale, empty frame while listening, raised tab-bar pill looks generic.
-- 🔄 v6: v5 fixes.
+- ❌ v6 FAILED 2/7 YES (Rekha, Pooja 9/9/9), avg 8.74 (Shyam 8.7 · Aman 8.7 · Rekha 9.0 · Pooja 9.0 · Baldev 8.7 · payments 8.7 · super-app 8.7). Left: pay sheet hides 3rd item (Baldev can't check sum), top panel half-scrolls off, two mics at once, dead space in ask sheet, seal looks like a template badge (blur shadow), unit text 17px.
+- 🔄 v7: v6 fixes (sticky compact top strip with the one mic, every line + total visible before Save, real ink stamp).
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
