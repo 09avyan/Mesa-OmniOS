@@ -136,7 +136,8 @@ Approved, in this order:
 - ✅ Owner: "remove proto" → /proto/ and /proto-prev/ removed from the live site (24 Nov). Copies kept in design/redo4/ + git history.
 - Redo #5 versions are built as files in design/redo5/ (not on the live site); panel reviews screenshots. ⏳ Asked owner how to show an approved version on the phone.
 - ❌ Design A "Note" (banknote language: ₹100 lavender, guilloche, watermark, totals in words) v1 FAILED 0/7, avg 7.48 (Shyam 7.7 · Aman 7.3 · Rekha 8.3 · Pooja 7.3 · Baldev 8.0 · payments 7.0 · super-app 7.3). Panel: concept strong (amount in words, money safety), execution weak (empty listen screen, Bolo moves sides, blurry watermark, tiled waves, purple template feel, stock tick).
-- 🔄 Design A improvement (the one allowed round).
+- ❌ Design A improvement round FAILED 2/7 YES (Rekha, Baldev), avg 8.04. Design A closed (rule: one fix round only). Files: design/redo5/v1.html, v2.html.
+- 🔄 Design B from scratch: indigo hand-block-print (dabu/Bagru) world, full-bleed bands instead of card stacks, one Bolo key same size/place on every screen, one-screen check.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
