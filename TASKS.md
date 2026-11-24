@@ -151,6 +151,7 @@ Approved, in this order:
 - ❌ Round 5a (60-30-10 recolour) — owner: forget it. Round 5b (calm listening, neutral side-by-side pay) — owner: all need layout overhaul.
 - ✅ Round 6: panel questionnaire → d13d Ledger / d2d Priority / d6e Voice (gen6.py), each its own layout.
 - ✅ Round 7: joint meeting → df1→df4. **df4 PASSED panel** (members 1–7 = 9, AI-detector 8). ⏳ Owner verdict.
+- ✅ Round 8 mega: df5 (gen9.py) PASSED 13-member panel, all ≥9, AI-detector 9. ⏳ Owner verdict.
 - Owner rule: panel runs only when owner asks, on all owner-passed designs, one after another.
 - ❌ Design 3 (black/gold, shelves) — vetoed by owner.
 - ❌ Design 4 (iOS widget grid) — vetoed by owner.
