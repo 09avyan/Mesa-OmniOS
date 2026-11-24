@@ -9,7 +9,8 @@ Format: topic → 1–2 line summary → file. Keep each line short. Update the 
 | Decisions | Name OmniOS Dukaan; tabs Ghar·Bill·Maal·Udhaar + mic; 3 languages; price learned after 3 bills; returns by "wapas"; no expiry; PIN lockout; pickup-only store. | decisions.md (→ DECISIONS.md, ONLINE_STORE.md) |
 | Tech | React19+Vite+TS in app/, Vercel (omnidukaan + omnios-dukaan, both from main), Supabase msqmuvqhbxyrhogbhtta, edge fns login/admin/understand(Gemini). Container can't reach vercel.app → use Vercel MCP. | tech.md |
 | Tasks | Live list in TASKS.md (always read). Now: **UI REDO #4**. Then returns, admin usage+CSV, speed+speak settings, .items master file. | ../TASKS.md |
-| UI redo #5 | Owner: redo from absolute scratch. Loop = version → panel → 1 fix → panel → else new design. Redo #4 history (v10 passed, dropped) in ui-redo-4.md. | ui-redo-4.md |
+| UI redo #5 | 14 designs shown; d2 PASSED (teal wallet+voice bar), d5/d6/d13 HOLD, d14 last (chat in d2 look). Panel runs only on owner's ask. | ui-redo-5.md |
+| Universe | supabase/seed/universe.json (403 items, names only, no prices). Build → app/public/universe/u.<hash>.json (12 KB gz, cached forever, saved on phone). Billing (loadShop) + voice matcher use it. Per-shop price rule in DECISIONS. Next: more batches; receipt-rate price suggestion with forecast. | ../TASKS.md | ui-redo-4.md |
 | Design history | v3 "Clean counter" shipped; redo #3 prototype v6 (bahi green+saffron, Anek, awning/stamp) passed old panel but owner wants fresh start. | design-history.md |
 | Money | Revenue streams + sponsored items (60% to stores, ask owner later). | ../REVENUE.md |
 | Code map | graphify 0.9.118. `graphify query "<q>"` before grepping; rebuild: `graphify update app/src --force` then copy app/src/graphify-out/* to graphify-out/. | ../graphify-out/GRAPH_REPORT.md |

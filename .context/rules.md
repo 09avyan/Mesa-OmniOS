@@ -8,3 +8,4 @@
 - NEVER delete data (rows, stores, customers, bills, files) unless owner explicitly asks. Mock data only in TEST store (code TEST, PIN 0000).
 - ₹0 spend; ask before cost or irreversible actions. Gemini paid key only with approval.
 - Owner pronoun unknown → use they/them in text.
+- Update .context (INDEX line + topic file + log) at every commit chunk — owner reminded 24 Nov.
