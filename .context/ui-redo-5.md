@@ -7,3 +7,4 @@
 - Lessons: owner rejects loud colour, gimmicks, pure monochrome, widgets, giant mic; keeps calm teal, real numbers, familiar patterns (wallet card, chat, timeline).
 - PANEL 24 Nov: d13 7.31 · d5 6.97 · d2 6.66 · d6 6.37 — all fail (AI-detector 6/6/5/3). Best base d13.
 - PANEL 2 (b-versions): d13b 7.88/AI6 · d5b 7.23/AI7 · d2b 7.15/AI5 · d6c 7.06/AI4 — all fail. Take d13b + d5b warmth.
+- PANEL 3: d13b 7.96/AI6 · d6c 7.40/AI5 · d2b 7.16/AI5. Shared check/saved/bill screens = main blocker. d5b failed by owner.
