@@ -17,8 +17,19 @@ const ix = (t, v) => { if (v == null) return -1; let i = tab[t].indexOf(v); if (
 const rows = [], keys = {}
 // drop aliases that read the same as the item's own names (after lower-casing/folding): smaller file, fewer index entries
 const dedupe = (it) => { const seen = new Set([it.hinglish, it.hi, it.en].map(norm)); return (it.aliases || []).filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true }) }
+// Variants (flavours/sizes) ride inside the parent row: r[9] = index of the default variant, r[10] = [vid, hinglish, hi, en ('' = same as hinglish), aliases].
+// Rows without variants stay 9 long. A variant's own spoken words are "<parent> <variant>" / "<variant> <parent>" (built on the phone); the parent name alone means the default.
+const vRow = (v) => { const h = norm(v.hinglish), seen = new Set([h, norm(v.hi), norm(v.en)]); return [v.id, v.hinglish, v.hi, v.en === v.hinglish ? '' : v.en, (v.aliases || []).filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true })] }
+let nVariants = 0
 src.items.forEach((it, n) => {
-  rows.push([it.id, it.hinglish, it.hi, it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand), dedupe(it)])
+  const row = [it.id, it.hinglish, it.hi, it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand), dedupe(it)]
+  if (it.variants?.length) {
+    const d = it.variants.filter((v) => v.default)
+    if (d.length !== 1) throw new Error(`${it.id}: needs exactly one default variant (has ${d.length})`)
+    const ids = new Set(); for (const v of it.variants) { if (ids.has(v.id)) throw new Error(`${it.id}: duplicate variant id ${v.id}`); ids.add(v.id) }
+    row.push(it.variants.indexOf(d[0]), it.variants.map(vRow)); nVariants += it.variants.length
+  }
+  rows.push(row)
   for (const a of new Set([it.hinglish, it.hi, it.en, it.id.replace(/-/g, ' '), ...(it.aliases || [])])) {
     const k = norm(a); if (!k) continue
     if (keys[k] === undefined) keys[k] = n; else if (keys[k] !== n && !Array.isArray(keys[k])) keys[k] = [keys[k], n]; else if (Array.isArray(keys[k]) && !keys[k].includes(n)) keys[k].push(n)
@@ -30,5 +41,5 @@ const hash = createHash('sha256').update(body).digest('hex').slice(0, 10)
 const out = join(here, '../public/universe'); mkdirSync(out, { recursive: true })
 for (const f of readdirSync(out)) if (/^u\.[0-9a-f]{10}\.json$/.test(f)) unlinkSync(join(out, f))
 writeFileSync(join(out, `u.${hash}.json`), body)
-writeFileSync(join(out, 'u.json'), JSON.stringify({ v: src.version, file: `/universe/u.${hash}.json`, items: rows.length }))
-console.log(`universe: ${rows.length} items, ${Object.keys(keys).length} keys, ${(body.length / 1024).toFixed(1)} KB -> u.${hash}.json`)
+writeFileSync(join(out, 'u.json'), JSON.stringify({ v: src.version, file: `/universe/u.${hash}.json`, items: rows.length, variants: nVariants }))
+console.log(`universe: ${rows.length} items, ${nVariants} variants, ${Object.keys(keys).length} keys, ${(body.length / 1024).toFixed(1)} KB -> u.${hash}.json`)
