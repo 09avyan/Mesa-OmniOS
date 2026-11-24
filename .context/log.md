@@ -25,3 +25,4 @@
 - 23 Nov (late): graphify → 0.9.118, code map rebuilt (348 nodes); README refreshed; TASKS got UI REDO #4.
 - 23 Nov: receipts, briefing+streak+stock check, forecast, PIN lockout/devices, Hisaab/Galla/Bags/T&C/Coming soon, top-150 TEST items; redo #3 prototype v1→v6 passed panel.
 - 21–22 Nov: fresh start; S0–S4 built (shell, login, admin, voice parser, review card, bills, udhaar, Maal, online store).
+- 24 Nov: owner rejected 60-30-10 round (forgot it, CSS block stripped). r5: listening = plain app background, big ink transcript, thin brand bars, hairline item rows, ink "Ho gaya"; pay = 3 neutral side-by-side buttons, selected = ink border (Udhaar = udhaar colour); accent only on the one main button per screen. Awaiting pass/hold/fail on d13c/d2c/d6d.

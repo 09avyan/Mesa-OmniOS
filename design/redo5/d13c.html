@@ -229,33 +229,27 @@ body{font-family:"Hanken Grotesk","Mukta",sans-serif!important}
 .bars i{background:#7FE0CF!important}
 
 
-/* ===== 60-30-10: 60 white/off-white base · 30 secondary #0E5E57 · 10 accent #E8A33D (actions only) ===== */
-:root{--s30:#0E5E57;--s30b:#E3F0EE;--a10:#E8A33D;--a10ink:#1A1300}
-/* accent only on actions */
-.cta .main:not([disabled]),.nextb,.done-btn,.q .ask button.y,.pill.acc,.btn.ink{background:var(--a10)!important;color:var(--a10ink)!important;border-color:var(--a10)!important}
-.mic,.dock .m,.cta .sm{background:var(--a10)!important;color:var(--a10ink)!important}
-.tab.on{color:var(--s30)!important}
-/* secondary carries structure */
-.passc,.dock,.ok.band2,.bi-h{background:var(--s30)!important}
-.dock{color:#fff}
-/* LISTENING: three-tone, not one colour */
-#listen{background:#F6F7F6!important;color:var(--tx)!important;--listen-bg:#F6F7F6}
-#listen .lt .ib,#listen .lt span{color:var(--tx)!important}
-#listen .lyr{margin:8px 16px 0;padding:18px 18px 20px!important;border-radius:20px;background:var(--s30);color:#fff!important;font-size:28px!important;line-height:38px!important;min-height:0!important}
-#listen .lyr .w{color:rgba(255,255,255,.35)!important}#listen .lyr .w.on{color:#fff!important}
-#listen .bars{padding:14px 20px 0!important;height:56px!important}#listen .bars i{background:var(--a10)!important}
-#listen .livebill{background:#fff!important;border:1px solid #E3E5E3!important;color:var(--tx)!important;margin-top:10px!important}
-#listen .lrow{color:var(--tx)!important}#listen .lrow span{color:var(--tx3)!important}#listen .lrow+.lrow{border-top:1px solid #ECEDEC!important}
-#listen .lfoot{background:#fff!important;border-top:1px solid #E3E5E3;color:var(--tx)!important}#listen .lfoot small{color:var(--tx3)!important}
-#listen .done-btn{background:var(--a10)!important;color:var(--a10ink)!important}
-[data-theme=dark] #listen{background:#0F1110!important}[data-theme=dark] #listen .livebill,[data-theme=dark] #listen .lfoot{background:#1A1D1C!important;border-color:#2A2E2C!important}
-/* PAY: Cash · UPI · Udhaar side by side */
-.payrow{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
-.pay{flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:6px!important;padding:10px 4px!important;min-height:100px!important;text-align:center}
-.pay.on{border-color:var(--s30)!important;background:var(--s30b)!important;color:var(--s30)!important}
-.pay.u.on{border-color:var(--ud)!important;background:var(--ud-soft)!important;color:var(--ud)!important}
 
-</style>
+/* ===== r5: calm listening, side-by-side pay, accent discipline ===== */
+/* accent = only the ONE main button per screen; brand colour = small signals only */
+#listen{background:var(--bg)!important;color:var(--tx)!important}
+#listen .lt .ib,#listen .lt span{color:var(--tx)!important}
+#listen .lyr{background:none!important;color:var(--tx)!important;font-size:28px!important;line-height:38px!important;font-weight:600;min-height:150px!important;padding:12px 20px 0!important;margin:0!important;border-radius:0!important}
+#listen .lyr .w{color:var(--tx3)!important;opacity:.55}#listen .lyr .w.on{color:var(--tx)!important;opacity:1}
+#listen .bars{height:28px!important;padding:6px 20px 0!important;gap:3px!important}#listen .bars i{background:#0E5E57!important;width:3px!important;opacity:.7}
+#listen .livebill{background:none!important;border:0!important;border-top:1px solid var(--sep)!important;border-radius:0!important;margin:16px 20px 0!important;padding:0!important;color:var(--tx)!important;box-shadow:none!important}
+#listen .lrow{color:var(--tx)!important;padding:14px 0!important;border-bottom:1px solid var(--sep)!important}#listen .lrow+.lrow{border-top:0!important}#listen .lrow span{color:var(--tx3)!important}
+#listen .lfoot{background:var(--bg)!important;border-top:1px solid var(--sep)!important;color:var(--tx)!important}#listen .lfoot small{color:var(--tx3)!important}
+#listen .done-btn{background:var(--tx)!important;color:var(--bg)!important}
+/* pay: Cash · UPI · Udhaar side by side, neutral until chosen */
+.payrow{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
+.pay{flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:6px!important;padding:12px 4px!important;min-height:96px!important;text-align:center;background:var(--surf)!important;border:1.5px solid var(--sep)!important;color:var(--tx)!important;box-shadow:none!important}
+.pay.on{border:2px solid var(--tx)!important;background:var(--surf)!important;color:var(--tx)!important}
+.pay.u.on{border-color:var(--ud)!important;background:var(--ud-soft)!important;color:var(--ud)!important}
+/* de-AI: fewer tinted boxes, no glows */
+.ok.band2,.passc{box-shadow:none!important}
+.pill.acc{background:transparent!important;color:#0E5E57!important;border:1.5px solid #9CC5BF!important}
+[data-theme=dark] #listen .livebill,[data-theme=dark] #listen .lrow{background:none!important}</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
