@@ -1,5 +1,6 @@
 # Session log (newest first)
 - 24 Nov: .context/ created (owner: keep context small). Start rule = INDEX + TASKS + graphify. Owner answered redo #4 questions (see ui-redo-4.md). Starting redo #4.
+- 24 Nov: v8 8.96, v9 9.00 (6/7 YES); v10 = bottom-sheet craft.
 - 24 Nov: v7 8.89 (5/7 YES); v8 = last craft fixes.
 - 24 Nov: v6 8.74 (2 YES); v7 = layout fix + stamp.
 - 24 Nov: v4 8.15, v5 8.33 (Baldev first YES); v6 = fixes.

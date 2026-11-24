@@ -123,7 +123,8 @@ Approved, in this order:
 - ❌ v6 FAILED 2/7 YES (Rekha, Pooja 9/9/9), avg 8.74 (Shyam 8.7 · Aman 8.7 · Rekha 9.0 · Pooja 9.0 · Baldev 8.7 · payments 8.7 · super-app 8.7). Left: pay sheet hides 3rd item (Baldev can't check sum), top panel half-scrolls off, two mics at once, dead space in ask sheet, seal looks like a template badge (blur shadow), unit text 17px.
 - ❌ v7 FAILED 5/7 YES (Aman, Rekha, Pooja, Baldev, super-app director), avg 8.89. NO: Shyam 8.7 (mic out of thumb reach, small brown text), payments designer 8.7 (band/customer card half-cut under sticky strip, steppers on review screen).
 - ❌ v8 FAILED 5/7 YES, avg 8.96 (Shyam 8.7, payments designer 8.7 NO). Left: "Bas" out of thumb reach while listening, picked payment too subtle in sunlight, empty gap above pay sheet, khata line cramped, qty shown twice, Hinglish "Save" vs Hindi "पक्का".
-- 🔄 v9: v8 fixes.
+- ❌ v9 FAILED 6/7 YES, avg 9.00 (only payments designer NO: 9/8/9 — pay sheet not pinned to bottom, Save button moves between steps, white strip below; heard-word white box looks like a glitch).
+- 🔄 v10: pin sheet, padding so last row clears it, "/-" on every total, underline heard word, darker "lagbhag", bigger Hindi chip text, bigger pay icons, warmer page tint.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
