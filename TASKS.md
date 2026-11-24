@@ -121,7 +121,8 @@ Approved, in this order:
 - ❌ v4 FAILED 0/7, avg 8.15 (Shyam 8.7 · Aman 7.7 · Rekha 8.3 · Pooja 7.7 · Baldev 8.3 · payments 8.0 · super-app 8.3). Left: two maroon buttons stacked (Save + Aur bolo), listening screen still emptyish + no running total, dashed hints look like buttons, too many outlined boxes, saved screen needs "Agla bill" + a seal moment, Hindi unit text touches stepper.
 - ❌ v5 FAILED 1/7 YES (Baldev 9/9/9), avg 8.33 (Shyam 8.0 · Aman 8.3 · Rekha 8.7 · Pooja 8.3 · Baldev 9.0 · payments 8.0 · super-app 8.3). Left: mic scrolls away on confirm/pay (rule break), rows too tall, "Aur bolo" wraps, "aksar" looks pre-selected, seal too small, flat type scale, empty frame while listening, raised tab-bar pill looks generic.
 - ❌ v6 FAILED 2/7 YES (Rekha, Pooja 9/9/9), avg 8.74 (Shyam 8.7 · Aman 8.7 · Rekha 9.0 · Pooja 9.0 · Baldev 8.7 · payments 8.7 · super-app 8.7). Left: pay sheet hides 3rd item (Baldev can't check sum), top panel half-scrolls off, two mics at once, dead space in ask sheet, seal looks like a template badge (blur shadow), unit text 17px.
-- 🔄 v7: v6 fixes (sticky compact top strip with the one mic, every line + total visible before Save, real ink stamp).
+- ❌ v7 FAILED 5/7 YES (Aman, Rekha, Pooja, Baldev, super-app director), avg 8.89. NO: Shyam 8.7 (mic out of thumb reach, small brown text), payments designer 8.7 (band/customer card half-cut under sticky strip, steppers on review screen).
+- 🔄 v8: v7 fixes (mic in bottom sheet, nothing half-cut, plain qty after confirm, darker 18px secondary, PAKKA inside ring, maroon tick).
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
