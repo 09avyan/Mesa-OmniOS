@@ -112,7 +112,8 @@ Approved, in this order:
 - Loop: one version at a time → run the panel → pass = continue, fail = next version. Owner approves the prototype on phone before the full rebuild.
 - Order after approval: merchant screens → customer pages (customer panel) → admin (admin panel). Language picked at onboarding, changeable in Settings.
 - Use every design skill that raises quality (impeccable, ui-ux-pro-max, interface-design, emil-design-eng, frontend-ui-engineering, design-taste-frontend).
-- 🔄 v1 "Aaj ka panna" (24 Nov): world = shop-wall tear-off date calendar (indigo header, white page, Teko numerals + Mukta text). Today's hisaab is the page; streak = pages behind it. New bill flow: pay button saves in one tap (Cash/UPI/Udhaar). Built at /proto/ (v6 kept at /proto-prev/). Next: screenshots → 7-member panel.
+- ❌ v1 "Aaj ka panna" (calendar page) FAILED panel 0/7, avg 6.3: looked like generic fintech (indigo slab header, pastel icon tiles, KPI arrow, mini bars, shimmer); bill items hidden under pay sheet; 'Cash mila' looked pre-selected + saved on one tap (Rekha scared); some text 15–16px; saved screen plain. Kept learnings: action list on Home, cash/UPI/udhaar on Home, fewer steps. Screens design/redo4/v1*.
+- 🔄 v2 (from scratch): new world — packet "MRP box" (Indian price boxes, ₹181/-), haldi-yellow shell, all text ≥17, all items visible above pay, 3 equal pay buttons with icons → big ✓ Save, "lagbhag" total until sure, printed bill slip + stamp on save.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
