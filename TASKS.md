@@ -142,7 +142,8 @@ Approved, in this order:
 - ✅ Design 2 (teal wallet card, quick actions, docked voice bar) — PASSED owner look; queued for panel.
 - Owner rule: panel runs only when owner asks, on all owner-passed designs, one after another.
 - ❌ Design 3 (black/gold, shelves) — vetoed by owner.
-- 🔄 Design 4: iOS widget-grid home (big sales widget, blue Bolo widget, udhaar + orders tiles), blue accent; waiting for owner look.
+- ❌ Design 4 (iOS widget grid) — vetoed by owner.
+- 🔄 Design 5: chat (WhatsApp-like thread; speak → bill arrives as a card with pay chips + Pakka karo); waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
