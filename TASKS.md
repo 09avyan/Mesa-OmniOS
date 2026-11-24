@@ -124,7 +124,9 @@ Approved, in this order:
 - ❌ v7 FAILED 5/7 YES (Aman, Rekha, Pooja, Baldev, super-app director), avg 8.89. NO: Shyam 8.7 (mic out of thumb reach, small brown text), payments designer 8.7 (band/customer card half-cut under sticky strip, steppers on review screen).
 - ❌ v8 FAILED 5/7 YES, avg 8.96 (Shyam 8.7, payments designer 8.7 NO). Left: "Bas" out of thumb reach while listening, picked payment too subtle in sunlight, empty gap above pay sheet, khata line cramped, qty shown twice, Hinglish "Save" vs Hindi "पक्का".
 - ❌ v9 FAILED 6/7 YES, avg 9.00 (only payments designer NO: 9/8/9 — pay sheet not pinned to bottom, Save button moves between steps, white strip below; heard-word white box looks like a glitch).
-- 🔄 v10: pin sheet, padding so last row clears it, "/-" on every total, underline heard word, darker "lagbhag", bigger Hindi chip text, bigger pay icons, warmer page tint.
+- ✅ v10 "MRP box" PASSED 7/7 YES, avg 9.15 (Shyam 9.0 · Aman 9.0 · Rekha 9.3 · Pooja 9.0 · Baldev 9.3 · payments designer 9.0 ×2 · super-app director 9.3 ×2). Polish applied after pass: "/-" min 14px, Kul row on pay/ready, "/-" on running total, bigger Hindi pay labels, darker tile borders, shorter Hindi undo note. Live at /proto/ (?lang=hi). Score path: 6.3 → 7.44 → 7.93 → 8.15 → 8.33 → 8.74 → 8.89 → 8.96 → 9.00 → 9.15.
+- ⏳ Owner approves v10 on phone → then rebuild ALL merchant screens in this design (Maal, Udhaar, Bill list, Hisaab, Galla, Orders, Settings, receipt, onboarding w/ language), then customer pages (customer panel), then admin (admin panel).
+- ⏳ Write DESIGN.md v4 "MRP box" (tokens + rules) when owner approves; current DESIGN.md (v3) moves to design/DESIGN-prev.md.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.

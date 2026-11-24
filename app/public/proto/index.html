@@ -30,7 +30,7 @@ svg{flex:none}
 .p{transition:transform .12s var(--ease),background-color .15s,border-color .15s}.p:active{transform:scale(.97)}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 .fig{font-family:"Baloo 2",sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
-.fig .s{font-size:.5em;font-weight:700;margin-left:2px}
+.fig .s{font-size:max(.5em,14px);font-weight:700;margin-left:2px}
 .view{display:none;padding-bottom:140px}
 #done{padding-bottom:32px}.view.on{display:block}
 
@@ -167,7 +167,7 @@ svg{flex:none}
 .hint{min-height:64px;margin-top:10px;border-radius:14px;background:var(--y-50);border:1.5px dashed #D9A84A;color:var(--y-ink)!important;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:18px;color:var(--ink2)}
 .pq{font-size:18px;font-weight:800;margin:0 2px 8px}
 .pays{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pay{height:72px;border-radius:14px;border:2px solid var(--line);background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;font-weight:800;font-size:18px;line-height:22px}
+.pay{height:72px;border-radius:14px;border:2px solid #CFCAB9;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;font-weight:800;font-size:18px;line-height:22px}
 .pay small{font-size:17px;font-weight:600;color:var(--ud);line-height:20px}
 .pay{position:relative}
 .pay.on{border:3px solid var(--mr);background:var(--y)}
@@ -208,6 +208,7 @@ svg{flex:none}
 .dt span{font-size:18px;font-weight:700;color:var(--ink2)}.dt b{font-size:30px;line-height:34px}.dt small{font-size:17px;color:var(--mute);font-weight:700;margin-right:6px}
 body.hi .ok i.seal span{font-size:32px!important;letter-spacing:0}
 body.hi .tag span:first-child{font-size:20px}body.hi .undo span{font-size:19px}
+body.hi .pay{font-size:20px}
 body.hi .batch{font-family:"Mukta";font-weight:700;letter-spacing:0}
 body.hi .shop b,body.hi .sec h2,body.hi .ok b{line-height:1.35}
 </style>
@@ -332,7 +333,7 @@ const T={
   o1:'2 नए ऑनलाइन ऑर्डर',o1s:'पैक करके तैयार करो',see:'देखो',u1:'मिश्रा जी',u1s:'₹2,523 · 5 दिन से बाकी',remind:'याद दिलाओ',l1:'माचिस, फ्रूटी',l1s:'1–2 दिन का माल बचा',order:'मंगाओ',c1:'3 सामान गिनो',c1s:'1 मिनट का काम',start:'शुरू',note:'प्रोटोटाइप · रीडू 4 · v4 · TEST दुकान के आँकड़े · कुछ सेव नहीं होता',
   back:'पीछे',listen:'सुन रहा हूँ…',heard:'सुना',stop:'बस',batchB:'बिल नं. 2205 · 24 नवंबर · शाम 6:15',batchP:'शर्मा जी · गली 4 · बिल 2205',said:'शर्मा जी, दो किलो चीनी, एक मैगी, आधा किलो तूर दाल',sharma:'शर्मा जी · गली 4',old:'पहले का उधार ₹2,416/-',change:'बदलो',colI:'सामान',empty:'बोलते जाइए, सामान यहाँ लिखता जाएगा',total:'कुल',about:'लगभग',why:'पहले ऊपर मैगी चुनो',how:'पैसा कैसे मिला?',usual:'अक्सर',khata:'शर्मा जी का खाता',save0:'ऊपर चुनिए: नकद, UPI या उधार',saveC:'पक्का करो · नकद ₹181',saveP:'पक्का करो · UPI ₹181',saveU:'पक्का करो · उधार ₹181',
   names:['चीनी','मैगी छोटा?','तूर दाल'],units:['2 किलो × ₹46','1 × ₹14','आधा किलो × ₹150'],q:['2 किलो','1','आधा किलो'],ask:'यही वाली मैगी? (मैगी छोटा, ₹14)',yes:'हाँ, यही',no:'दूसरी मैगी',
-  saved:'बिल बन गया',nowsale:'आज की बिक्री अब ₹14,399/- · 69 बिल',batchS:'बिल नं. 2205 · शाम 6:15 ✓',nitems:'3 सामान',i1:'चीनी · 2 किलो',i2:'मैगी छोटा · 1',i3:'तूर दाल · आधा किलो',tagU:'उधार में गया|खाता ₹2,597/-',tagC:'नकद मिला|₹181/-',tagP:'UPI से मिला|₹181/-',send:'WhatsApp करो',home:'घर',undonote:'गलती हुई? अगले बिल तक वापस ले सकते हैं।',undo:'वापस लो',
+  saved:'बिल बन गया',nowsale:'आज की बिक्री अब ₹14,399/- · 69 बिल',batchS:'बिल नं. 2205 · शाम 6:15 ✓',nitems:'3 सामान',i1:'चीनी · 2 किलो',i2:'मैगी छोटा · 1',i3:'तूर दाल · आधा किलो',tagU:'उधार में गया|खाता ₹2,597/-',tagC:'नकद मिला|₹181/-',tagP:'UPI से मिला|₹181/-',send:'WhatsApp करो',home:'घर',undonote:'गलती हुई? अगले बिल तक वापस लो।',undo:'वापस लो',
   tHome:'घर',tBill:'बिल',tMaal:'माल',tUd:'उधार',mic:'बोलो',micB:'और बोलो',sofar:'अब तक',itm:'सामान',seal:'पक्का',next:'अगला बिल · बोलो'},
  en:{shop:'Sharma General Store',area:'Grocery · Rajwada, Indore',set:'Settings',sold:"Today's sales",date:'Tue, 24 Nov',bills:'68 bills',cash:'Cash',udg:'Udhaar given',udhaar:'Udhaar',duel:'Total udhaar due · 15 people',batchH:'24 NOV · 23 DAYS OF ACCOUNTS ✓',todo:'To do today',todon:'4 tasks',
   o1:'2 new online orders',o1s:'Pack and mark ready',see:'View',u1:'Mishra ji',u1s:'₹2,523 · due 5 days',remind:'Remind',l1:'Matchbox, Frooti',l1s:'1–2 days of stock left',order:'Order',c1:'Count 3 items',c1s:'Takes 1 minute',start:'Start',note:'Prototype · redo 4 · v10 · TEST store numbers · nothing is saved',
@@ -349,11 +350,11 @@ const AMT=[92,14,75]
 function row(i){const q=i===1;return `<div class="tr${q?' q':''}"><div class="a"><span class="nm"><b>${D.names[i]}</b></span><span class="fig">₹${AMT[i]}</span></div><div class="c"><span>${D.units[i]}</span><b class="qty">${D.q[i]}</b><div class="stp"><button aria-label="-"><svg width="20" height="20"><use href="#minus"/></svg></button><em>${D.q[i]}</em><button aria-label="+"><svg width="20" height="20"><use href="#plus"/></svg></button></div></div>${q?`<div class="ask"><p>${D.ask}</p><div><button class="p">${D.no}</button><button class="y p" onclick="ok(this)"><svg width="20" height="20"><use href="#check"/></svg>${D.yes}</button></div></div>`:''}</div>`}
 function fit(){requestAnimationFrame(()=>{const d=$('#dock');$('#billv').style.paddingBottom=(d.offsetHeight+24)+'px';setTimeout(()=>{const done=$('#billv').classList.contains('done'),top=done?68+$('#billv .batch').offsetHeight+8:0,lim=innerHeight-d.offsetHeight-10,q=$('.tr.q');if(q){const r=q.getBoundingClientRect();if(r.bottom>lim)scrollBy({top:r.bottom-lim});return}const t=$('#tbl').getBoundingClientRect();if(!open){if(t.bottom>lim)scrollBy({top:t.bottom-lim});return}if(t.bottom>lim){const want=Math.min(t.bottom-lim+0,t.top-top);const c=$('#cust').getBoundingClientRect();let dy=Math.max(t.bottom-lim,c.bottom-top+4);scrollBy({top:dy})}},30)})}
 async function listen(){$('#billv').classList.remove('done','payst');setTimeout(()=>{$('#run').style.display='flex';$('#runl').textContent=D.sofar;$('#runv').textContent='₹0'},0);scrollTo(0,0);open=true;pay=null;$('#rows').innerHTML=`<div class="empty">${D.empty}</div>`;$('#nav').classList.add('hear');$('#tt').style.display='none';$('#dock').classList.remove('on');$('#cust').classList.remove('on');$('#listen').classList.remove('done');$('#hl').textContent=D.listen;$('#htxt').innerHTML='';document.querySelectorAll('.pay').forEach(x=>x.classList.remove('on'))
- const w=D.said.split(' ');let s='';for(let i=0;i<w.length;i++){await wait(220);$('#htxt').innerHTML=s+(i?' ':'')+'<mark>'+w[i]+'</mark>';s+=(i?' ':'')+w[i];if(i===1)$('#cust').classList.add('on');if(i===4||i===6||i===10){{const k=i===4?0:i===6?1:2,e=$('#rows .empty');$('#ghost')?.remove();e?e.outerHTML=row(k):$('#rows').insertAdjacentHTML('beforeend',row(k));const n=k+1,t=AMT.slice(0,n).reduce((a,b)=>a+b,0);$('#run').style.display='flex';$('#runl').textContent=D.sofar+' · '+n+' '+D.itm;$('#runv').textContent='₹'+t}}}
+ const w=D.said.split(' ');let s='';for(let i=0;i<w.length;i++){await wait(220);$('#htxt').innerHTML=s+(i?' ':'')+'<mark>'+w[i]+'</mark>';s+=(i?' ':'')+w[i];if(i===1)$('#cust').classList.add('on');if(i===4||i===6||i===10){{const k=i===4?0:i===6?1:2,e=$('#rows .empty');$('#ghost')?.remove();e?e.outerHTML=row(k):$('#rows').insertAdjacentHTML('beforeend',row(k));const n=k+1,t=AMT.slice(0,n).reduce((a,b)=>a+b,0);$('#run').style.display='flex';$('#runl').textContent=D.sofar+' · '+n+' '+D.itm;$('#runv').innerHTML='₹'+t+'<span class="s">/-</span>'}}}
  await wait(300);$('#htxt').textContent=s;$('#listen').classList.add('done');$('#billv').classList.add('done');$('#ghost')?.remove();$('#nav').classList.remove('hear');$('#run').style.display='none';$('#hl').textContent=D.heard;$('#dock').classList.add('on');state()}
 function stopNow(){}
 function ok(b){const l=b.closest('.tr');l.classList.remove('q');l.querySelector('.ask').remove();l.querySelector('b').textContent=D.names[1].replace('?','');open=false;state()}
-function state(){$('#billv').classList.toggle('payst',!open);$('#bandB').textContent=open?D.batchB:D.batchP;$('#why').style.display=open?'flex':'none';$('#lagd').style.display=open?'':'none';$('#dt .dtl').style.display=open?'none':'';$('#payw').style.display=open?'none':'block';$('#lag').style.display=open?'':'none';$('#save').style.display=pay?'flex':'none';$('#hint').style.display=pay?'none':'flex';$('#savet').textContent=pay==='u'?D.saveU:pay==='p'?D.saveP:D.saveC;$('#math').style.display=pay==='u'?'flex':'none';fit()}
+function state(){$('#billv').classList.toggle('payst',!open);$('#tt').style.display=open?'none':'flex';$('#bandB').textContent=open?D.batchB:D.batchP;$('#why').style.display=open?'flex':'none';$('#lagd').style.display=open?'':'none';$('#dt .dtl').style.display=open?'none':'';$('#payw').style.display=open?'none':'block';$('#lag').style.display=open?'':'none';$('#save').style.display=pay?'flex':'none';$('#hint').style.display=pay?'none':'flex';$('#savet').textContent=pay==='u'?D.saveU:pay==='p'?D.saveP:D.saveC;$('#math').style.display=pay==='u'?'flex':'none';fit()}
 document.querySelectorAll('.pay').forEach(b=>b.onclick=()=>{pay=b.dataset.p;document.querySelectorAll('.pay').forEach(x=>x.classList.toggle('on',x===b));state()})
 function saved(){const t=$('#tag'),v=(pay==='u'?D.tagU:pay==='p'?D.tagP:D.tagC).split('|');t.className='tag'+(pay==='u'?'':' c');t.innerHTML=`<span>${v[0]}</span><span class="fig">${v[1]}</span>`;go('done');setTimeout(()=>navigator.vibrate&&navigator.vibrate([20,30,60]),300)}
 paint()

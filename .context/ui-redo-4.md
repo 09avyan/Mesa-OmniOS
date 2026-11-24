@@ -10,3 +10,9 @@
 - Loop: build 1 version → full panel → pass = owner approves on phone → rebuild; fail = new version from scratch (not a patch).
 - After approval: merchant screens → customer pages (customer panel) → admin (admin panel). Language at onboarding + Settings.
 - Versions: keep current + one -prev in design/.
+
+## Result (24 Nov)
+- v1 calendar 6.3 ✗ → v2–v10 "MRP box" (packet world). v10 PASSED 7/7, 9.15.
+- v10 look: haldi #EFA51B field, maroon #7A1530 printed band (batch code: date / bill no / customer), money in 2px-ink ruled MRP boxes with "/-" (min 14px), bill = ruled packet table (6px rules), maroon = only primary (Bolo, Save "Pakka karo", Haan, Bas), Baloo 2 figures + Mukta text, radius 14 everywhere, page #F2F0E9.
+- v10 flow: Bolo (tab bar centre, flat) → listening: big transcript, underline on heard word, Bas + "Ab tak" total in bottom bar → strip collapses (Peeche · ✓ Suna), band sticks → pinned bottom sheet: Aur bolo (only mic) + total; unsure item blocks with hint slot; pay tiles (picked = 3px maroon + ✓ badge, nothing preselected) → khata sum → "Pakka karo · Udhaar ₹181" → saved: PAKKA ink stamp, band prints SAVED, table + udhaar tag, Agla bill · Bolo, WhatsApp/Ghar, Wapas lo.
+- Prev versions: design/redo4/proto-v*-prev.html, screenshots design/redo4/v*.png.
