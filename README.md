@@ -32,6 +32,10 @@ A voice-first app that runs a kirana (neighbourhood grocery) store. The owner sp
 | Item catalogue (232 Indore items + synonyms) | `supabase/seed/catalog.json` |
 | Code map | `graphify-out/GRAPH_REPORT.md` |
 
+## Project memory (`.context/`)
+Compressed memory so each session reads little: `.context/INDEX.md` has one line per topic; full detail is in the topic files next to it.
+**Keep it current:** after every chunk of work, update the matching INDEX line, the topic file, and add one line to `.context/log.md` (newest first). New topic → new file + INDEX row.
+
 ## For developers
 ```bash
 cd app && npm ci && npm run dev    # local app
