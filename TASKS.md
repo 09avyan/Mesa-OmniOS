@@ -150,6 +150,7 @@ Approved, in this order:
 - ❌ Design 9 (PhonePe structure, navy) — failed by owner.
 - ❌ Design 10 (voice orb home) — owner: "extra fail, very bad".
 - ❌ Design 11 (POS tap grid) — failed by owner.
+- 🔄 Design 12: Apple Health-style summary (coloured label + big number + one line per card), pink accent; waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
