@@ -1,5 +1,6 @@
 # Session log (newest first)
 - 24 Nov: .context/ created (owner: keep context small). Start rule = INDEX + TASKS + graphify. Owner answered redo #4 questions (see ui-redo-4.md). Starting redo #4.
+- 24 Nov: round 4 versions d13c/d2c/d6d built and sent for owner look.
 - 24 Nov: panel 3 (d13b 7.96 best); shared screens are the blocker.
 - 24 Nov: b-versions tweaked (store name in top bar, common words English, design code in watermark) and sent per design.
 - 24 Nov: panel 2 on b-versions — all fail; d13b best 7.88; improvement rounds used.
