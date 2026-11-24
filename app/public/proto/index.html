@@ -16,7 +16,7 @@
   --y:#EFA51B; --y-50:#FFF3D9; --y-ink:#3D2700;
   --mr:#7A1530; --mr2:#64102A; --mr-ink:#FFE6AE;
   --ink:#16120A; --ink2:#28241A; --mute:#575041; --line:#E2DED4; --line2:#ECE9E2;
-  --bg:#F3F2EF; --paper:#FFFFFF;
+  --bg:#F2F0E9; --paper:#FFFFFF;
   --gr:#0E6A3B; --ud:#573000; --ud-50:#FBEEDB;
   --ease:cubic-bezier(.22,1,.36,1);
 }
@@ -108,10 +108,7 @@ svg{flex:none}
 #billv.done .lh .st{flex:1}
 #billv.payst .stp{display:none}
 #billv.payst .cust{display:none}
-#billv.payst .dock{position:static;transform:none;margin:12px 0 0;border-radius:14px 14px 0 0;animation:none;box-shadow:0 -1px 0 var(--line)}
-#billv.payst{padding-bottom:0!important}
-#billv.on.payst{display:flex;flex-direction:column;min-height:100dvh}
-#billv.payst .dock{flex:1}
+
 .dt>span:last-child{margin-left:auto}
 .qty{display:none;font-weight:800;font-size:20px;min-height:44px;align-items:center}
 #billv.payst .qty{display:none}
@@ -128,7 +125,7 @@ svg{flex:none}
 .stop{min-height:56px;padding:0 18px;border-radius:14px;background:var(--mr);color:#fff;font-weight:800;font-size:18px;display:inline-flex;align-items:center;gap:8px}
 .listen.done .stop{display:none}
 .listen p{font-size:26px;line-height:36px;font-weight:700;margin-top:6px;min-height:68px}
-.listen p mark{background:#fff;color:inherit;border-radius:4px;padding:0 3px}
+.listen p mark{background:none;color:inherit;box-shadow:inset 0 -4px 0 var(--mr)}
 
 .cust{margin:14px 14px 0;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 16px;background:var(--paper);border-radius:14px;opacity:0;transition:opacity .3s}
 .cust.on{opacity:1}
@@ -210,6 +207,7 @@ svg{flex:none}
 .mini{min-height:56px;padding:0 14px;border-radius:14px;border:2px solid var(--mr);color:var(--mr);font-weight:800;font-size:18px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .dt span{font-size:18px;font-weight:700;color:var(--ink2)}.dt b{font-size:30px;line-height:34px}.dt small{font-size:17px;color:var(--mute);font-weight:700;margin-right:6px}
 body.hi .ok i.seal span{font-size:32px!important;letter-spacing:0}
+body.hi .tag span:first-child{font-size:20px}body.hi .undo span{font-size:19px}
 body.hi .batch{font-family:"Mukta";font-weight:700;letter-spacing:0}
 body.hi .shop b,body.hi .sec h2,body.hi .ok b{line-height:1.35}
 </style>
@@ -281,16 +279,16 @@ body.hi .shop b,body.hi .sec h2,body.hi .ok b{line-height:1.35}
   <div class="tbl" id="tbl"><div class="th"><span data-t="colI"></span><span>₹</span></div><div id="rows"></div><div class="tt" id="tt" style="display:none"><span><span data-t="total"></span><small id="lag" data-t="about"></small></span><b class="fig">₹181<span class="s">/-</span></b></div></div>
     <div class="run" id="run" style="display:none" data-x><button class="stop p" onclick="stopNow()"><svg width="16" height="16"><use href="#sq"/></svg><span data-t="stop"></span></button><span id="runl"></span><b class="fig" id="runv"></b></div>
   <div class="dock" id="dock">
-    <div class="dt" id="dt"><button class="mini p" onclick="listen()"><svg width="22" height="22"><use href="#mic"/></svg><span data-t="micB"></span></button><span class="dtl"><span data-t="nitems"></span></span><span><small id="lagd" data-t="about"></small><b class="fig">₹181<span class="s">/-</span></b></span></div>
+    <div class="dt" id="dt"><button class="mini p" onclick="listen()"><svg width="22" height="22"><use href="#mic"/></svg><span data-t="micB"></span></button><span class="dtl"><span data-t="nitems"></span></span><span><small id="lagd" data-t="about" style="font-style:normal;color:var(--ink2);font-size:18px;font-weight:700;margin-right:6px"></small><b class="fig">₹181<span class="s">/-</span></b></span></div>
     <button class="why p" id="why" onclick="document.querySelector('.tr.q')?.scrollIntoView({behavior:'smooth',block:'center'})"><svg width="20" height="20"><use href="#up"/></svg><span data-t="why"></span></button>
     <div id="payw" style="display:none">
       <div class="pq" data-t="how"></div>
       <div class="pays">
-        <button class="pay p" data-p="c"><svg width="26" height="26"><use href="#note"/></svg><span data-t="cash"></span></button>
-        <button class="pay p" data-p="p"><svg width="26" height="26"><use href="#qr"/></svg><span>UPI</span></button>
-        <button class="pay u p" data-p="u"><svg width="26" height="26"><use href="#book"/></svg><span data-t="udhaar"></span></button>
+        <button class="pay p" data-p="c"><svg width="30" height="30"><use href="#note"/></svg><span data-t="cash"></span></button>
+        <button class="pay p" data-p="p"><svg width="30" height="30"><use href="#qr"/></svg><span>UPI</span></button>
+        <button class="pay u p" data-p="u"><svg width="30" height="30"><use href="#book"/></svg><span data-t="udhaar"></span></button>
       </div>
-      <div class="math" id="math" style="display:none"><span data-t="khata" style="width:100%"></span><span class="fig" style="margin-left:auto">₹2,416 + ₹181 = ₹2,597</span></div>
+      <div class="math" id="math" style="display:none"><span data-t="khata" style="width:100%"></span><span class="fig" style="margin-left:auto">₹2,416 + ₹181 = ₹2,597<span class="s">/-</span></span></div>
       <p class="hint" id="hint"><svg width="20" height="20"><use href="#up"/></svg><span data-t="save0"></span></p>
       <button class="save p" id="save" onclick="saved()"><svg width="24" height="24" id="saveic"><use href="#check"/></svg><span id="savet"></span></button>
     </div>
@@ -325,7 +323,7 @@ body.hi .shop b,body.hi .sec h2,body.hi .ok b{line-height:1.35}
 <script>
 const T={
  hinglish:{shop:'Sharma General Store',area:'Kirana · Rajwada, Indore',set:'Setting',sold:'Aaj ki bikri',date:'Mangal, 24 Nov',bills:'68 bill',cash:'Cash',udg:'Udhaar diya',udhaar:'Udhaar',duel:'Kul udhaar baaki · 15 log',batchH:'24 NOV · 23 DIN SE ROZ HISAAB ✓',todo:'Aaj karna hai',todon:'4 kaam',
-  o1:'2 naye online order',o1s:'Pack karke ready karo',see:'Dekho',u1:'Mishra ji',u1s:'₹2,523 · 5 din se baaki',remind:'Yaad dilao',l1:'Machis, Frooti',l1s:'1–2 din ka maal bacha',order:'Mangao',c1:'3 saaman gino',c1s:'1 minute ka kaam',start:'Shuru',note:'Prototype · redo 4 · v9 · TEST dukaan ke number · kuch save nahi hota',
+  o1:'2 naye online order',o1s:'Pack karke ready karo',see:'Dekho',u1:'Mishra ji',u1s:'₹2,523 · 5 din se baaki',remind:'Yaad dilao',l1:'Machis, Frooti',l1s:'1–2 din ka maal bacha',order:'Mangao',c1:'3 saaman gino',c1s:'1 minute ka kaam',start:'Shuru',note:'Prototype · redo 4 · v10 · TEST dukaan ke number · kuch save nahi hota',
   back:'Peeche',listen:'Sun raha hoon…',heard:'Suna',stop:'Bas',batchB:'BILL NO. 2205 · 24 NOV · 6:15 PM',batchP:'SHARMA JI · GALI 4 · BILL 2205',said:'Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal',sharma:'Sharma ji · gali 4',old:'Pehle ka udhaar ₹2,416/-',change:'Badlo',colI:'Saaman',empty:'Bolte jaiye, saaman yahan likhta jayega',total:'Kul',about:'lagbhag',why:'Pehle upar Maggi chuniye',how:'Paisa kaise mila?',usual:'aksar',khata:'Sharma ji ka khata',save0:'Upar chuniye: Cash, UPI ya Udhaar',saveC:'Pakka karo · Cash ₹181',saveP:'Pakka karo · UPI ₹181',saveU:'Pakka karo · Udhaar ₹181',
   names:['Cheeni','Maggi chhota?','Toor dal'],units:['2 kg × ₹46','1 × ₹14','½ kg × ₹150'],q:['2 kg','1','½ kg'],ask:'Yahi wali Maggi? (Maggi chhota, ₹14)',yes:'Haan, yahi',no:'Doosri Maggi',
   saved:'Bill save ho gaya',nowsale:'Aaj ki bikri ab ₹14,399/- · 69 bill',batchS:'BILL NO. 2205 · 6:15 PM · SAVED ✓',nitems:'3 saaman',i1:'Cheeni · 2 kg',i2:'Maggi chhota · 1',i3:'Toor dal · ½ kg',tagU:'Udhaar mein gaya|Khata ₹2,597/-',tagC:'Cash mila|₹181/-',tagP:'UPI se mila|₹181/-',send:'WhatsApp karo',home:'Ghar',undonote:'Galti hui? Agle bill tak wapas le sakte hain.',undo:'Wapas lo',
@@ -337,7 +335,7 @@ const T={
   saved:'बिल बन गया',nowsale:'आज की बिक्री अब ₹14,399/- · 69 बिल',batchS:'बिल नं. 2205 · शाम 6:15 ✓',nitems:'3 सामान',i1:'चीनी · 2 किलो',i2:'मैगी छोटा · 1',i3:'तूर दाल · आधा किलो',tagU:'उधार में गया|खाता ₹2,597/-',tagC:'नकद मिला|₹181/-',tagP:'UPI से मिला|₹181/-',send:'WhatsApp करो',home:'घर',undonote:'गलती हुई? अगले बिल तक वापस ले सकते हैं।',undo:'वापस लो',
   tHome:'घर',tBill:'बिल',tMaal:'माल',tUd:'उधार',mic:'बोलो',micB:'और बोलो',sofar:'अब तक',itm:'सामान',seal:'पक्का',next:'अगला बिल · बोलो'},
  en:{shop:'Sharma General Store',area:'Grocery · Rajwada, Indore',set:'Settings',sold:"Today's sales",date:'Tue, 24 Nov',bills:'68 bills',cash:'Cash',udg:'Udhaar given',udhaar:'Udhaar',duel:'Total udhaar due · 15 people',batchH:'24 NOV · 23 DAYS OF ACCOUNTS ✓',todo:'To do today',todon:'4 tasks',
-  o1:'2 new online orders',o1s:'Pack and mark ready',see:'View',u1:'Mishra ji',u1s:'₹2,523 · due 5 days',remind:'Remind',l1:'Matchbox, Frooti',l1s:'1–2 days of stock left',order:'Order',c1:'Count 3 items',c1s:'Takes 1 minute',start:'Start',note:'Prototype · redo 4 · v9 · TEST store numbers · nothing is saved',
+  o1:'2 new online orders',o1s:'Pack and mark ready',see:'View',u1:'Mishra ji',u1s:'₹2,523 · due 5 days',remind:'Remind',l1:'Matchbox, Frooti',l1s:'1–2 days of stock left',order:'Order',c1:'Count 3 items',c1s:'Takes 1 minute',start:'Start',note:'Prototype · redo 4 · v10 · TEST store numbers · nothing is saved',
   back:'Back',listen:'Listening…',heard:'Heard',stop:'Stop',batchB:'BILL NO. 2205 · 24 NOV · 6:15 PM',batchP:'SHARMA JI · GALI 4 · BILL 2205',said:'Sharma ji, two kilo sugar, one Maggi, half kilo toor dal',sharma:'Sharma ji · gali 4',old:'Old udhaar ₹2,416/-',change:'Change',colI:'Item',empty:'Keep speaking, items appear here',total:'Total',about:'about',why:'First confirm Maggi above',how:'How was it paid?',usual:'usually',khata:"Sharma ji's account",save0:'Choose above: Cash, UPI or Udhaar',saveC:'Save · Cash ₹181',saveP:'Save · UPI ₹181',saveU:'Save · Udhaar ₹181',
   names:['Sugar','Maggi small?','Toor dal'],units:['2 kg × ₹46','1 × ₹14','½ kg × ₹150'],q:['2 kg','1','½ kg'],ask:'This Maggi? (Maggi small, ₹14)',yes:'Yes, this',no:'Other Maggi',
   saved:'Bill saved',nowsale:"Today's sales now ₹14,399/- · 69 bills",batchS:'BILL NO. 2205 · 6:15 PM · SAVED ✓',nitems:'3 items',i1:'Sugar · 2 kg',i2:'Maggi small · 1',i3:'Toor dal · ½ kg',tagU:'On udhaar|Account ₹2,597/-',tagC:'Paid in cash|₹181/-',tagP:'Paid by UPI|₹181/-',send:'WhatsApp',home:'Home',undonote:'Mistake? You can take it back until the next bill.',undo:'Take back',
@@ -349,7 +347,7 @@ function paint(){document.querySelectorAll('[data-t]').forEach(e=>{const v=D[e.d
 function go(v){view=v;$('#nav').classList.remove('hear');$('#nav').classList.toggle('gone',v!=='home');$('#run').style.display='none';document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id===v));scrollTo(0,0);$('#nav').classList.toggle('flow',v!=='home');paint();if(v==='billv')listen()}
 const AMT=[92,14,75]
 function row(i){const q=i===1;return `<div class="tr${q?' q':''}"><div class="a"><span class="nm"><b>${D.names[i]}</b></span><span class="fig">₹${AMT[i]}</span></div><div class="c"><span>${D.units[i]}</span><b class="qty">${D.q[i]}</b><div class="stp"><button aria-label="-"><svg width="20" height="20"><use href="#minus"/></svg></button><em>${D.q[i]}</em><button aria-label="+"><svg width="20" height="20"><use href="#plus"/></svg></button></div></div>${q?`<div class="ask"><p>${D.ask}</p><div><button class="p">${D.no}</button><button class="y p" onclick="ok(this)"><svg width="20" height="20"><use href="#check"/></svg>${D.yes}</button></div></div>`:''}</div>`}
-function fit(){if(!open){requestAnimationFrame(()=>setTimeout(()=>scrollTo(0,document.body.scrollHeight),30));return}requestAnimationFrame(()=>{const d=$('#dock');$('#billv').style.paddingBottom=(d.offsetHeight+180)+'px';setTimeout(()=>{const done=$('#billv').classList.contains('done'),top=done?68+$('#billv .batch').offsetHeight+8:0,lim=innerHeight-d.offsetHeight-10,q=$('.tr.q');if(q){const r=q.getBoundingClientRect();if(r.bottom>lim)scrollBy({top:r.bottom-lim});return}const t=$('#tbl').getBoundingClientRect();if(t.bottom>lim){const want=Math.min(t.bottom-lim+0,t.top-top);const c=$('#cust').getBoundingClientRect();let dy=Math.max(t.bottom-lim,c.bottom-top+4);scrollBy({top:dy})}},30)})}
+function fit(){requestAnimationFrame(()=>{const d=$('#dock');$('#billv').style.paddingBottom=(d.offsetHeight+24)+'px';setTimeout(()=>{const done=$('#billv').classList.contains('done'),top=done?68+$('#billv .batch').offsetHeight+8:0,lim=innerHeight-d.offsetHeight-10,q=$('.tr.q');if(q){const r=q.getBoundingClientRect();if(r.bottom>lim)scrollBy({top:r.bottom-lim});return}const t=$('#tbl').getBoundingClientRect();if(!open){if(t.bottom>lim)scrollBy({top:t.bottom-lim});return}if(t.bottom>lim){const want=Math.min(t.bottom-lim+0,t.top-top);const c=$('#cust').getBoundingClientRect();let dy=Math.max(t.bottom-lim,c.bottom-top+4);scrollBy({top:dy})}},30)})}
 async function listen(){$('#billv').classList.remove('done','payst');setTimeout(()=>{$('#run').style.display='flex';$('#runl').textContent=D.sofar;$('#runv').textContent='₹0'},0);scrollTo(0,0);open=true;pay=null;$('#rows').innerHTML=`<div class="empty">${D.empty}</div>`;$('#nav').classList.add('hear');$('#tt').style.display='none';$('#dock').classList.remove('on');$('#cust').classList.remove('on');$('#listen').classList.remove('done');$('#hl').textContent=D.listen;$('#htxt').innerHTML='';document.querySelectorAll('.pay').forEach(x=>x.classList.remove('on'))
  const w=D.said.split(' ');let s='';for(let i=0;i<w.length;i++){await wait(220);$('#htxt').innerHTML=s+(i?' ':'')+'<mark>'+w[i]+'</mark>';s+=(i?' ':'')+w[i];if(i===1)$('#cust').classList.add('on');if(i===4||i===6||i===10){{const k=i===4?0:i===6?1:2,e=$('#rows .empty');$('#ghost')?.remove();e?e.outerHTML=row(k):$('#rows').insertAdjacentHTML('beforeend',row(k));const n=k+1,t=AMT.slice(0,n).reduce((a,b)=>a+b,0);$('#run').style.display='flex';$('#runl').textContent=D.sofar+' · '+n+' '+D.itm;$('#runv').textContent='₹'+t}}}
  await wait(300);$('#htxt').textContent=s;$('#listen').classList.add('done');$('#billv').classList.add('done');$('#ghost')?.remove();$('#nav').classList.remove('hear');$('#run').style.display='none';$('#hl').textContent=D.heard;$('#dock').classList.add('on');state()}
