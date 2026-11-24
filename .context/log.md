@@ -1,5 +1,6 @@
 # Session log (newest first)
 - 24 Nov: .context/ created (owner: keep context small). Start rule = INDEX + TASKS + graphify. Owner answered redo #4 questions (see ui-redo-4.md). Starting redo #4.
+- 24 Nov: owner vetoed design C, asked to delete A/B/C (deleted) and restart from square 0.
 - 24 Nov: owner vetoed design B (block print), no fix round. Design C next.
 - 24 Nov: added AI-detector panelist (≥8 to pass; 3 fix rounds if only AI fails); use ui-ux-pro-max + impeccable.
 - 24 Nov: redo #5 design A (banknote) 7.48 → 8.04 after its one fix → closed; design B (indigo block print) next.
