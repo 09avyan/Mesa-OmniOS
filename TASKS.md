@@ -112,6 +112,7 @@ Approved, in this order:
 - Loop: one version at a time → run the panel → pass = continue, fail = next version. Owner approves the prototype on phone before the full rebuild.
 - Order after approval: merchant screens → customer pages (customer panel) → admin (admin panel). Language picked at onboarding, changeable in Settings.
 - Use every design skill that raises quality (impeccable, ui-ux-pro-max, interface-design, emil-design-eng, frontend-ui-engineering, design-taste-frontend).
+- 🔄 v1 "Aaj ka panna" (24 Nov): world = shop-wall tear-off date calendar (indigo header, white page, Teko numerals + Mukta text). Today's hisaab is the page; streak = pages behind it. New bill flow: pay button saves in one tap (Cash/UPI/Udhaar). Built at /proto/ (v6 kept at /proto-prev/). Next: screenshots → 7-member panel.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.

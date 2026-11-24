@@ -34,7 +34,7 @@ A voice-first app that runs a kirana (neighbourhood grocery) store. The owner sp
 
 ## Project memory (`.context/`)
 Compressed memory so each session reads little: `.context/INDEX.md` has one line per topic; full detail is in the topic files next to it.
-**Keep it current:** after every chunk of work, update the matching INDEX line, the topic file, and add one line to `.context/log.md` (newest first). New topic → new file + INDEX row.
+**Keep it current:** update TASKS.md as you work (mark 🔄 when starting, ✅ when seen working, add new owner asks at once). After every chunk of work, update the matching INDEX line, the topic file, and add one line to `.context/log.md` (newest first). New topic → new file + INDEX row.
 
 ## For developers
 ```bash
