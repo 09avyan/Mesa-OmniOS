@@ -143,7 +143,8 @@ Approved, in this order:
 - Owner rule: panel runs only when owner asks, on all owner-passed designs, one after another.
 - ❌ Design 3 (black/gold, shelves) — vetoed by owner.
 - ❌ Design 4 (iOS widget grid) — vetoed by owner.
-- 🔄 Design 5: chat (WhatsApp-like thread; speak → bill arrives as a card with pay chips + Pakka karo); waiting for owner look.
+- ⏸ Design 5 (chat thread) — owner: neither pass nor fail; ASK OWNER what to do with it just before running the panel.
+- 🔄 Design 6: bank-style timeline home (today's bills list with time, customer, amount, Cash/UPI/Udhaar badge), violet accent, centre mic; waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
