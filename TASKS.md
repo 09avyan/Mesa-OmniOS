@@ -113,7 +113,7 @@ Approved, in this order:
 - Order after approval: merchant screens → customer pages (customer panel) → admin (admin panel). Language picked at onboarding, changeable in Settings.
 - Use every design skill that raises quality (impeccable, ui-ux-pro-max, interface-design, emil-design-eng, frontend-ui-engineering, design-taste-frontend).
 - ❌ v1 "Aaj ka panna" (calendar page) FAILED panel 0/7, avg 6.3: looked like generic fintech (indigo slab header, pastel icon tiles, KPI arrow, mini bars, shimmer); bill items hidden under pay sheet; 'Cash mila' looked pre-selected + saved on one tap (Rekha scared); some text 15–16px; saved screen plain. Kept learnings: action list on Home, cash/UPI/udhaar on Home, fewer steps. Screens design/redo4/v1*.
-- 🔄 v2 (from scratch): new world — packet "MRP box" (Indian price boxes, ₹181/-), haldi-yellow shell, all text ≥17, all items visible above pay, 3 equal pay buttons with icons → big ✓ Save, "lagbhag" total until sure, printed bill slip + stamp on save.
+- ❌ v2 "MRP box" (packet yellow, ₹/- MRP box) FAILED panel 0/7 but best yet, avg 7.44 (v1 6.3). Merchants 7.7/7.3/7.7/7.3/8.3, designers 7.3/7.0. Liked: home MRP box, khata maths before save, Save locked till sure. Gaps: packet look stops after Home; Bolo not bigger than tabs, weak listening state; no total udhaar on Home; 4 button styles in one list; stamp/zigzag copied from v6; looks like Blinkit colours. Panel: keep direction, push it through all screens. ⏳ Asked owner: fresh direction vs push v2.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
