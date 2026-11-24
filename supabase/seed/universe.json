@@ -1,6 +1,6 @@
 {
  "about": "OmniOS Universe: master list of every item any current or future customer store may sell (kirana, regional, supermart/POS). Used by voice + receipt matching so Gemini is needed less. Grows in batches by category; merges with catalog.json.",
- "version": 3,
+ "version": 4,
  "items": [
   {
    "id": "sugar",
@@ -4164,6 +4164,1409 @@
    "brand": null,
    "aliases": [
     "papita"
+   ]
+  },
+  {
+   "id": "aashirvaad-atta-1kg",
+   "hinglish": "Aashirvaad atta 1kg",
+   "hi": "आशीर्वाद आटा 1kg",
+   "en": "Aashirvaad Atta 1kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Aashirvaad",
+   "aliases": [
+    "atta 1kg",
+    "ashirwad 1kg",
+    "aashirvaad atta 1kg"
+   ]
+  },
+  {
+   "id": "aashirvaad-atta-10kg",
+   "hinglish": "Aashirvaad atta 10kg",
+   "hi": "आशीर्वाद आटा 10kg",
+   "en": "Aashirvaad Atta 10kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Aashirvaad",
+   "aliases": [
+    "atta 10kg",
+    "ashirwad 10kg",
+    "aashirvaad atta 10kg"
+   ]
+  },
+  {
+   "id": "fortune-chakki-atta-5kg",
+   "hinglish": "Fortune atta 5kg",
+   "hi": "फॉर्च्यून आटा 5kg",
+   "en": "Fortune Chakki Atta 5kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "fortune atta 5kg",
+    "fortune atta 5kg"
+   ]
+  },
+  {
+   "id": "fortune-chakki-atta-10kg",
+   "hinglish": "Fortune atta 10kg",
+   "hi": "फॉर्च्यून आटा 10kg",
+   "en": "Fortune Chakki Atta 10kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "fortune atta 10kg",
+    "fortune atta 10kg"
+   ]
+  },
+  {
+   "id": "pillsbury-atta-5kg",
+   "hinglish": "Pillsbury atta 5kg",
+   "hi": "पिल्सबरी आटा 5kg",
+   "en": "Pillsbury Atta 5kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Pillsbury",
+   "aliases": [
+    "pillsbury 5kg",
+    "pillsbury atta 5kg"
+   ]
+  },
+  {
+   "id": "pillsbury-atta-10kg",
+   "hinglish": "Pillsbury atta 10kg",
+   "hi": "पिल्सबरी आटा 10kg",
+   "en": "Pillsbury Atta 10kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Pillsbury",
+   "aliases": [
+    "pillsbury 10kg",
+    "pillsbury atta 10kg"
+   ]
+  },
+  {
+   "id": "tata-salt-500g",
+   "hinglish": "Tata namak 500g",
+   "hi": "टाटा नमक 500g",
+   "en": "Tata Salt 500g",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tata",
+   "aliases": [
+    "namak 500g",
+    "tata namak 500g"
+   ]
+  },
+  {
+   "id": "catch-salt-1kg",
+   "hinglish": "Catch namak 1kg",
+   "hi": "कैच नमक 1kg",
+   "en": "Catch Salt 1kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Catch",
+   "aliases": [
+    "catch 1kg",
+    "catch namak 1kg"
+   ]
+  },
+  {
+   "id": "fortune-soy-500ml",
+   "hinglish": "Fortune soyabean tel 500ml",
+   "hi": "फॉर्च्यून सोयाबीन तेल 500ml",
+   "en": "Fortune Soyabean 500ml",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "fortune tel 500ml",
+    "soya 500ml",
+    "fortune soyabean tel 500ml"
+   ]
+  },
+  {
+   "id": "fortune-soy-2l",
+   "hinglish": "Fortune soyabean tel 2L",
+   "hi": "फॉर्च्यून सोयाबीन तेल 2L",
+   "en": "Fortune Soyabean 2L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "fortune tel 2L",
+    "soya 2L",
+    "fortune soyabean tel 2l"
+   ]
+  },
+  {
+   "id": "fortune-soy-5l",
+   "hinglish": "Fortune soyabean tel 5L",
+   "hi": "फॉर्च्यून सोयाबीन तेल 5L",
+   "en": "Fortune Soyabean 5L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "fortune tel 5L",
+    "soya 5L",
+    "fortune soyabean tel 5l"
+   ]
+  },
+  {
+   "id": "fortune-soy-15l-tin",
+   "hinglish": "Fortune soyabean tel 15L tin",
+   "hi": "फॉर्च्यून सोयाबीन तेल 15L tin",
+   "en": "Fortune Soyabean 15L tin",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "fortune tel 15L tin",
+    "soya 15L tin",
+    "fortune soyabean tel 15l tin"
+   ]
+  },
+  {
+   "id": "fortune-mustard-1l",
+   "hinglish": "Fortune sarson tel 1L",
+   "hi": "फॉर्च्यून सरसों तेल 1L",
+   "en": "Fortune Kachi Ghani 1L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "kachi ghani 1L",
+    "fortune sarson tel 1l"
+   ]
+  },
+  {
+   "id": "fortune-mustard-5l",
+   "hinglish": "Fortune sarson tel 5L",
+   "hi": "फॉर्च्यून सरसों तेल 5L",
+   "en": "Fortune Kachi Ghani 5L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "kachi ghani 5L",
+    "fortune sarson tel 5l"
+   ]
+  },
+  {
+   "id": "dhara-mustard-1l",
+   "hinglish": "Dhara sarson tel 1L",
+   "hi": "धारा सरसों तेल 1L",
+   "en": "Dhara Mustard Oil 1L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Dhara",
+   "aliases": [
+    "dhara 1L",
+    "dhara sarson tel 1l"
+   ]
+  },
+  {
+   "id": "gemini-sunflower-1l",
+   "hinglish": "Gemini tel 1L",
+   "hi": "जेमिनी तेल 1L",
+   "en": "Gemini Sunflower 1L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Gemini",
+   "aliases": [
+    "gemini 1L",
+    "gemini tel 1l"
+   ]
+  },
+  {
+   "id": "gemini-sunflower-5l",
+   "hinglish": "Gemini tel 5L",
+   "hi": "जेमिनी तेल 5L",
+   "en": "Gemini Sunflower 5L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Gemini",
+   "aliases": [
+    "gemini 5L",
+    "gemini tel 5l"
+   ]
+  },
+  {
+   "id": "amul-ghee-200ml",
+   "hinglish": "Amul ghee 200ml",
+   "hi": "अमूल घी 200ml",
+   "en": "Amul Ghee 200ml",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "ghee 200ml",
+    "amul ghee 200ml"
+   ]
+  },
+  {
+   "id": "amul-ghee-500ml",
+   "hinglish": "Amul ghee 500ml",
+   "hi": "अमूल घी 500ml",
+   "en": "Amul Ghee 500ml",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "ghee 500ml",
+    "amul ghee 500ml"
+   ]
+  },
+  {
+   "id": "amul-ghee-5l-tin",
+   "hinglish": "Amul ghee 5L tin",
+   "hi": "अमूल घी 5L tin",
+   "en": "Amul Ghee 5L tin",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "ghee 5L tin",
+    "amul ghee 5l tin"
+   ]
+  },
+  {
+   "id": "patanjali-ghee-500ml",
+   "hinglish": "Patanjali ghee 500ml",
+   "hi": "पतंजलि घी 500ml",
+   "en": "Patanjali Cow Ghee 500ml",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Patanjali",
+   "aliases": [
+    "patanjali ghee 500ml",
+    "patanjali ghee 500ml"
+   ]
+  },
+  {
+   "id": "patanjali-ghee-1l",
+   "hinglish": "Patanjali ghee 1L",
+   "hi": "पतंजलि घी 1L",
+   "en": "Patanjali Cow Ghee 1L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Patanjali",
+   "aliases": [
+    "patanjali ghee 1L",
+    "patanjali ghee 1l"
+   ]
+  },
+  {
+   "id": "tata-tea-premium-100g",
+   "hinglish": "Tata chai 100g",
+   "hi": "टाटा चाय 100g",
+   "en": "Tata Tea Premium 100g",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tata",
+   "aliases": [
+    "tata tea 100g",
+    "tata chai 100g"
+   ]
+  },
+  {
+   "id": "tata-tea-premium-250g",
+   "hinglish": "Tata chai 250g",
+   "hi": "टाटा चाय 250g",
+   "en": "Tata Tea Premium 250g",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tata",
+   "aliases": [
+    "tata tea 250g",
+    "tata chai 250g"
+   ]
+  },
+  {
+   "id": "tata-tea-premium-1kg",
+   "hinglish": "Tata chai 1kg",
+   "hi": "टाटा चाय 1kg",
+   "en": "Tata Tea Premium 1kg",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tata",
+   "aliases": [
+    "tata tea 1kg",
+    "tata chai 1kg"
+   ]
+  },
+  {
+   "id": "redlabel-100g",
+   "hinglish": "Red Label 100g",
+   "hi": "रेड लेबल 100g",
+   "en": "Red Label Tea 100g",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Brooke Bond",
+   "aliases": [
+    "red label 100g",
+    "red label 100g"
+   ]
+  },
+  {
+   "id": "redlabel-500g",
+   "hinglish": "Red Label 500g",
+   "hi": "रेड लेबल 500g",
+   "en": "Red Label Tea 500g",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Brooke Bond",
+   "aliases": [
+    "red label 500g",
+    "red label 500g"
+   ]
+  },
+  {
+   "id": "redlabel-1kg",
+   "hinglish": "Red Label 1kg",
+   "hi": "रेड लेबल 1kg",
+   "en": "Red Label Tea 1kg",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Brooke Bond",
+   "aliases": [
+    "red label 1kg",
+    "red label 1kg"
+   ]
+  },
+  {
+   "id": "nescafe-classic-50g",
+   "hinglish": "Nescafe 50g",
+   "hi": "नेस्कैफे 50g",
+   "en": "Nescafe Classic 50g",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Nescafe",
+   "aliases": [
+    "nescafe jar 50g",
+    "nescafe 50g"
+   ]
+  },
+  {
+   "id": "nescafe-classic-100g",
+   "hinglish": "Nescafe 100g",
+   "hi": "नेस्कैफे 100g",
+   "en": "Nescafe Classic 100g",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Nescafe",
+   "aliases": [
+    "nescafe jar 100g",
+    "nescafe 100g"
+   ]
+  },
+  {
+   "id": "amul-milk-gold-1l",
+   "hinglish": "Amul Gold 1L",
+   "hi": "अमूल गोल्ड 1L",
+   "en": "Amul Gold Milk 1L",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "amul gold 1L",
+    "amul gold 1l"
+   ]
+  },
+  {
+   "id": "amul-butter-500g",
+   "hinglish": "Amul makhan 500g",
+   "hi": "अमूल मक्खन 500g",
+   "en": "Amul Butter 500g",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "butter 500g",
+    "amul makhan 500g"
+   ]
+  },
+  {
+   "id": "parle-g-pack-rs5",
+   "hinglish": "Parle-G ₹5",
+   "hi": "पारले-जी ₹5",
+   "en": "Parle-G ₹5",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle",
+   "aliases": [
+    "parle g ₹5",
+    "parle-g ₹5"
+   ]
+  },
+  {
+   "id": "parle-g-pack-rs10",
+   "hinglish": "Parle-G ₹10",
+   "hi": "पारले-जी ₹10",
+   "en": "Parle-G ₹10",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle",
+   "aliases": [
+    "parle g ₹10",
+    "parle-g ₹10"
+   ]
+  },
+  {
+   "id": "parle-g-pack-800g",
+   "hinglish": "Parle-G 800g",
+   "hi": "पारले-जी 800g",
+   "en": "Parle-G 800g",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle",
+   "aliases": [
+    "parle g 800g",
+    "parle-g 800g"
+   ]
+  },
+  {
+   "id": "good-day-pack-rs10",
+   "hinglish": "Good Day ₹10",
+   "hi": "गुड डे ₹10",
+   "en": "Good Day ₹10",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Britannia",
+   "aliases": [
+    "good day ₹10",
+    "good day ₹10"
+   ]
+  },
+  {
+   "id": "good-day-pack-rs30",
+   "hinglish": "Good Day ₹30",
+   "hi": "गुड डे ₹30",
+   "en": "Good Day ₹30",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Britannia",
+   "aliases": [
+    "good day ₹30",
+    "good day ₹30"
+   ]
+  },
+  {
+   "id": "maggi-pack-140g",
+   "hinglish": "Maggi 140g",
+   "hi": "मैगी 140g",
+   "en": "Maggi Masala 140g",
+   "category": "noodles",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Maggi",
+   "aliases": [
+    "maggi 140g",
+    "maggi 140g"
+   ]
+  },
+  {
+   "id": "maggi-pack-420g",
+   "hinglish": "Maggi 420g",
+   "hi": "मैगी 420g",
+   "en": "Maggi Masala 420g",
+   "category": "noodles",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Maggi",
+   "aliases": [
+    "maggi 420g",
+    "maggi 420g"
+   ]
+  },
+  {
+   "id": "maggi-pack-560g",
+   "hinglish": "Maggi 560g",
+   "hi": "मैगी 560g",
+   "en": "Maggi Masala 560g",
+   "category": "noodles",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Maggi",
+   "aliases": [
+    "maggi 560g",
+    "maggi 560g"
+   ]
+  },
+  {
+   "id": "lays-pack-rs10",
+   "hinglish": "Lays ₹10",
+   "hi": "लेज़ ₹10",
+   "en": "Lay's ₹10",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lay's",
+   "aliases": [
+    "lays ₹10",
+    "lays ₹10"
+   ]
+  },
+  {
+   "id": "lays-pack-rs20",
+   "hinglish": "Lays ₹20",
+   "hi": "लेज़ ₹20",
+   "en": "Lay's ₹20",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lay's",
+   "aliases": [
+    "lays ₹20",
+    "lays ₹20"
+   ]
+  },
+  {
+   "id": "lays-pack-rs50",
+   "hinglish": "Lays ₹50",
+   "hi": "लेज़ ₹50",
+   "en": "Lay's ₹50",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lay's",
+   "aliases": [
+    "lays ₹50",
+    "lays ₹50"
+   ]
+  },
+  {
+   "id": "kurkure-pack-rs10",
+   "hinglish": "Kurkure ₹10",
+   "hi": "कुरकुरे ₹10",
+   "en": "Kurkure ₹10",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Kurkure",
+   "aliases": [
+    "kurkure ₹10",
+    "kurkure ₹10"
+   ]
+  },
+  {
+   "id": "kurkure-pack-rs20",
+   "hinglish": "Kurkure ₹20",
+   "hi": "कुरकुरे ₹20",
+   "en": "Kurkure ₹20",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Kurkure",
+   "aliases": [
+    "kurkure ₹20",
+    "kurkure ₹20"
+   ]
+  },
+  {
+   "id": "haldiram-bhujia-pack-200g",
+   "hinglish": "Bhujia 200g",
+   "hi": "भुजिया 200g",
+   "en": "Haldiram's Bhujia 200g",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Haldiram's",
+   "aliases": [
+    "bhujia 200g",
+    "bhujia 200g"
+   ]
+  },
+  {
+   "id": "haldiram-bhujia-pack-400g",
+   "hinglish": "Bhujia 400g",
+   "hi": "भुजिया 400g",
+   "en": "Haldiram's Bhujia 400g",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Haldiram's",
+   "aliases": [
+    "bhujia 400g",
+    "bhujia 400g"
+   ]
+  },
+  {
+   "id": "haldiram-bhujia-pack-1kg",
+   "hinglish": "Bhujia 1kg",
+   "hi": "भुजिया 1kg",
+   "en": "Haldiram's Bhujia 1kg",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Haldiram's",
+   "aliases": [
+    "bhujia 1kg",
+    "bhujia 1kg"
+   ]
+  },
+  {
+   "id": "dairy-milk-pack-rs20",
+   "hinglish": "Dairy Milk ₹20",
+   "hi": "डेयरी मिल्क ₹20",
+   "en": "Cadbury Dairy Milk ₹20",
+   "category": "chocolates",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Cadbury",
+   "aliases": [
+    "dairy milk ₹20",
+    "dairy milk ₹20"
+   ]
+  },
+  {
+   "id": "dairy-milk-pack-rs50",
+   "hinglish": "Dairy Milk ₹50",
+   "hi": "डेयरी मिल्क ₹50",
+   "en": "Cadbury Dairy Milk ₹50",
+   "category": "chocolates",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Cadbury",
+   "aliases": [
+    "dairy milk ₹50",
+    "dairy milk ₹50"
+   ]
+  },
+  {
+   "id": "dairy-milk-pack-silk",
+   "hinglish": "Dairy Milk Silk",
+   "hi": "डेयरी मिल्क Silk",
+   "en": "Cadbury Dairy Milk Silk",
+   "category": "chocolates",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Cadbury",
+   "aliases": [
+    "dairy milk Silk",
+    "dairy milk silk"
+   ]
+  },
+  {
+   "id": "frooti-pack-rs20",
+   "hinglish": "Frooti ₹20",
+   "hi": "फ्रूटी ₹20",
+   "en": "Frooti ₹20",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle Agro",
+   "aliases": [
+    "frooti ₹20",
+    "frooti ₹20"
+   ]
+  },
+  {
+   "id": "frooti-pack-600ml",
+   "hinglish": "Frooti 600ml",
+   "hi": "फ्रूटी 600ml",
+   "en": "Frooti 600ml",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle Agro",
+   "aliases": [
+    "frooti 600ml",
+    "frooti 600ml"
+   ]
+  },
+  {
+   "id": "frooti-pack-1.2l",
+   "hinglish": "Frooti 1.2L",
+   "hi": "फ्रूटी 1.2L",
+   "en": "Frooti 1.2L",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle Agro",
+   "aliases": [
+    "frooti 1.2L",
+    "frooti 1.2l"
+   ]
+  },
+  {
+   "id": "thums-up-pack-250ml",
+   "hinglish": "Thums Up 250ml",
+   "hi": "थम्स अप 250ml",
+   "en": "Thums Up 250ml",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "thumsup 250ml",
+    "thums up 250ml"
+   ]
+  },
+  {
+   "id": "thums-up-pack-750ml",
+   "hinglish": "Thums Up 750ml",
+   "hi": "थम्स अप 750ml",
+   "en": "Thums Up 750ml",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "thumsup 750ml",
+    "thums up 750ml"
+   ]
+  },
+  {
+   "id": "thums-up-pack-2l",
+   "hinglish": "Thums Up 2L",
+   "hi": "थम्स अप 2L",
+   "en": "Thums Up 2L",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "thumsup 2L",
+    "thums up 2l"
+   ]
+  },
+  {
+   "id": "sprite-pack-750ml",
+   "hinglish": "Sprite 750ml",
+   "hi": "स्प्राइट 750ml",
+   "en": "Sprite 750ml",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "sprite 750ml",
+    "sprite 750ml"
+   ]
+  },
+  {
+   "id": "sprite-pack-2l",
+   "hinglish": "Sprite 2L",
+   "hi": "स्प्राइट 2L",
+   "en": "Sprite 2L",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "sprite 2L",
+    "sprite 2l"
+   ]
+  },
+  {
+   "id": "bisleri-pack-500ml",
+   "hinglish": "Bisleri 500ml",
+   "hi": "बिसलेरी 500ml",
+   "en": "Bisleri 500ml",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Bisleri",
+   "aliases": [
+    "bisleri 500ml",
+    "paani 500ml",
+    "bisleri 500ml"
+   ]
+  },
+  {
+   "id": "bisleri-pack-2l",
+   "hinglish": "Bisleri 2L",
+   "hi": "बिसलेरी 2L",
+   "en": "Bisleri 2L",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Bisleri",
+   "aliases": [
+    "bisleri 2L",
+    "paani 2L",
+    "bisleri 2l"
+   ]
+  },
+  {
+   "id": "bisleri-pack-20l-jar",
+   "hinglish": "Bisleri 20L jar",
+   "hi": "बिसलेरी 20L jar",
+   "en": "Bisleri 20L jar",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Bisleri",
+   "aliases": [
+    "bisleri 20L jar",
+    "paani 20L jar",
+    "bisleri 20l jar"
+   ]
+  },
+  {
+   "id": "surf-pack-500g",
+   "hinglish": "Surf Excel 500g",
+   "hi": "सर्फ एक्सेल 500g",
+   "en": "Surf Excel 500g",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Surf Excel",
+   "aliases": [
+    "surf 500g",
+    "surf excel 500g"
+   ]
+  },
+  {
+   "id": "surf-pack-2kg",
+   "hinglish": "Surf Excel 2kg",
+   "hi": "सर्फ एक्सेल 2kg",
+   "en": "Surf Excel 2kg",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Surf Excel",
+   "aliases": [
+    "surf 2kg",
+    "surf excel 2kg"
+   ]
+  },
+  {
+   "id": "surf-pack-rs10",
+   "hinglish": "Surf Excel ₹10",
+   "hi": "सर्फ एक्सेल ₹10",
+   "en": "Surf Excel ₹10",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Surf Excel",
+   "aliases": [
+    "surf ₹10",
+    "surf excel ₹10"
+   ]
+  },
+  {
+   "id": "tide-pack-500g",
+   "hinglish": "Tide 500g",
+   "hi": "टाइड 500g",
+   "en": "Tide 500g",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tide",
+   "aliases": [
+    "tide 500g",
+    "tide 500g"
+   ]
+  },
+  {
+   "id": "tide-pack-2kg",
+   "hinglish": "Tide 2kg",
+   "hi": "टाइड 2kg",
+   "en": "Tide 2kg",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tide",
+   "aliases": [
+    "tide 2kg",
+    "tide 2kg"
+   ]
+  },
+  {
+   "id": "tide-pack-rs10",
+   "hinglish": "Tide ₹10",
+   "hi": "टाइड ₹10",
+   "en": "Tide ₹10",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tide",
+   "aliases": [
+    "tide ₹10",
+    "tide ₹10"
+   ]
+  },
+  {
+   "id": "wheel-pack-500g",
+   "hinglish": "Wheel 500g",
+   "hi": "व्हील 500g",
+   "en": "Wheel 500g",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Wheel",
+   "aliases": [
+    "wheel 500g",
+    "wheel 500g"
+   ]
+  },
+  {
+   "id": "wheel-pack-2kg",
+   "hinglish": "Wheel 2kg",
+   "hi": "व्हील 2kg",
+   "en": "Wheel 2kg",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Wheel",
+   "aliases": [
+    "wheel 2kg",
+    "wheel 2kg"
+   ]
+  },
+  {
+   "id": "vim-bar-pack-rs10",
+   "hinglish": "Vim bar ₹10",
+   "hi": "विम बार ₹10",
+   "en": "Vim Bar ₹10",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Vim",
+   "aliases": [
+    "vim ₹10",
+    "vim bar ₹10"
+   ]
+  },
+  {
+   "id": "vim-bar-pack-rs20",
+   "hinglish": "Vim bar ₹20",
+   "hi": "विम बार ₹20",
+   "en": "Vim Bar ₹20",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Vim",
+   "aliases": [
+    "vim ₹20",
+    "vim bar ₹20"
+   ]
+  },
+  {
+   "id": "vim-bar-pack-bada",
+   "hinglish": "Vim bar bada",
+   "hi": "विम बार bada",
+   "en": "Vim Bar bada",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Vim",
+   "aliases": [
+    "vim bada",
+    "vim bar bada"
+   ]
+  },
+  {
+   "id": "harpic-pack-200ml",
+   "hinglish": "Harpic 200ml",
+   "hi": "हार्पिक 200ml",
+   "en": "Harpic 200ml",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Harpic",
+   "aliases": [
+    "harpic 200ml",
+    "harpic 200ml"
+   ]
+  },
+  {
+   "id": "harpic-pack-1l",
+   "hinglish": "Harpic 1L",
+   "hi": "हार्पिक 1L",
+   "en": "Harpic 1L",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Harpic",
+   "aliases": [
+    "harpic 1L",
+    "harpic 1l"
+   ]
+  },
+  {
+   "id": "lifebuoy-pack-rs10",
+   "hinglish": "Lifebuoy ₹10",
+   "hi": "लाइफबॉय ₹10",
+   "en": "Lifebuoy Soap ₹10",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lifebuoy",
+   "aliases": [
+    "lifebuoy ₹10",
+    "lifebuoy ₹10"
+   ]
+  },
+  {
+   "id": "lifebuoy-pack-4-pack",
+   "hinglish": "Lifebuoy 4 pack",
+   "hi": "लाइफबॉय 4 pack",
+   "en": "Lifebuoy Soap 4 pack",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lifebuoy",
+   "aliases": [
+    "lifebuoy 4 pack",
+    "lifebuoy 4 pack"
+   ]
+  },
+  {
+   "id": "colgate-pack-50g",
+   "hinglish": "Colgate 50g",
+   "hi": "कोलगेट 50g",
+   "en": "Colgate 50g",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Colgate",
+   "aliases": [
+    "colgate 50g",
+    "colgate 50g"
+   ]
+  },
+  {
+   "id": "colgate-pack-200g",
+   "hinglish": "Colgate 200g",
+   "hi": "कोलगेट 200g",
+   "en": "Colgate 200g",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Colgate",
+   "aliases": [
+    "colgate 200g",
+    "colgate 200g"
+   ]
+  },
+  {
+   "id": "colgate-pack-rs10",
+   "hinglish": "Colgate ₹10",
+   "hi": "कोलगेट ₹10",
+   "en": "Colgate ₹10",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Colgate",
+   "aliases": [
+    "colgate ₹10",
+    "colgate ₹10"
+   ]
+  },
+  {
+   "id": "parachute-pack-200ml",
+   "hinglish": "Parachute 200ml",
+   "hi": "पैराशूट 200ml",
+   "en": "Parachute 200ml",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parachute",
+   "aliases": [
+    "parachute 200ml",
+    "parachute 200ml"
+   ]
+  },
+  {
+   "id": "parachute-pack-500ml",
+   "hinglish": "Parachute 500ml",
+   "hi": "पैराशूट 500ml",
+   "en": "Parachute 500ml",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parachute",
+   "aliases": [
+    "parachute 500ml",
+    "parachute 500ml"
+   ]
+  },
+  {
+   "id": "parachute-pack-rs10",
+   "hinglish": "Parachute ₹10",
+   "hi": "पैराशूट ₹10",
+   "en": "Parachute ₹10",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parachute",
+   "aliases": [
+    "parachute ₹10",
+    "parachute ₹10"
+   ]
+  },
+  {
+   "id": "clinic-plus-pack-175ml",
+   "hinglish": "Clinic Plus 175ml",
+   "hi": "क्लिनिक प्लस 175ml",
+   "en": "Clinic Plus 175ml",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Clinic Plus",
+   "aliases": [
+    "clinic plus 175ml",
+    "clinic plus 175ml"
+   ]
+  },
+  {
+   "id": "clinic-plus-pack-340ml",
+   "hinglish": "Clinic Plus 340ml",
+   "hi": "क्लिनिक प्लस 340ml",
+   "en": "Clinic Plus 340ml",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Clinic Plus",
+   "aliases": [
+    "clinic plus 340ml",
+    "clinic plus 340ml"
+   ]
+  },
+  {
+   "id": "eveready-pack-aaa",
+   "hinglish": "Eveready cell AAA",
+   "hi": "एवरेडी सेल AAA",
+   "en": "Eveready AAA",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Eveready",
+   "aliases": [
+    "cell AAA",
+    "everyday AAA",
+    "eveready cell aaa"
+   ]
+  },
+  {
+   "id": "eveready-pack-d-bada",
+   "hinglish": "Eveready cell D bada",
+   "hi": "एवरेडी सेल D bada",
+   "en": "Eveready D bada",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Eveready",
+   "aliases": [
+    "cell D bada",
+    "everyday D bada",
+    "eveready cell d bada"
+   ]
+  },
+  {
+   "id": "good-knight-pack-machine",
+   "hinglish": "Good Knight machine",
+   "hi": "गुड नाइट machine",
+   "en": "Good Knight machine",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Good Knight",
+   "aliases": [
+    "good night machine",
+    "good knight machine"
+   ]
+  },
+  {
+   "id": "good-knight-pack-coil",
+   "hinglish": "Good Knight coil",
+   "hi": "गुड नाइट coil",
+   "en": "Good Knight coil",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Good Knight",
+   "aliases": [
+    "good night coil",
+    "good knight coil"
+   ]
+  },
+  {
+   "id": "agarbatti-pack-cycle",
+   "hinglish": "Agarbatti Cycle",
+   "hi": "अगरबत्ती Cycle",
+   "en": "Agarbatti Cycle",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "agarbatti Cycle",
+    "cycle Cycle",
+    "agarbatti cycle"
+   ]
+  },
+  {
+   "id": "agarbatti-pack-zed-black",
+   "hinglish": "Agarbatti Zed Black",
+   "hi": "अगरबत्ती Zed Black",
+   "en": "Agarbatti Zed Black",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "agarbatti Zed Black",
+    "cycle Zed Black",
+    "agarbatti zed black"
+   ]
+  },
+  {
+   "id": "sugar-pack-1kg",
+   "hinglish": "Cheeni packet 1kg",
+   "hi": "चीनी पैकेट 1kg",
+   "en": "Sugar packet 1kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "cheeni packet 1kg",
+    "cheeni packet 1kg"
+   ]
+  },
+  {
+   "id": "sugar-pack-5kg",
+   "hinglish": "Cheeni packet 5kg",
+   "hi": "चीनी पैकेट 5kg",
+   "en": "Sugar packet 5kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "cheeni packet 5kg",
+    "cheeni packet 5kg"
+   ]
+  },
+  {
+   "id": "toor-dal-pack-1kg",
+   "hinglish": "Toor dal packet 1kg",
+   "hi": "तूर दाल पैकेट 1kg",
+   "en": "Toor dal packet 1kg",
+   "category": "dal",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tata Sampann",
+   "aliases": [
+    "tata sampann 1kg",
+    "toor 1kg",
+    "toor dal packet 1kg"
+   ]
+  },
+  {
+   "id": "toor-dal-pack-500g",
+   "hinglish": "Toor dal packet 500g",
+   "hi": "तूर दाल पैकेट 500g",
+   "en": "Toor dal packet 500g",
+   "category": "dal",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tata Sampann",
+   "aliases": [
+    "tata sampann 500g",
+    "toor 500g",
+    "toor dal packet 500g"
+   ]
+  },
+  {
+   "id": "basmati-pack-1kg",
+   "hinglish": "India Gate basmati 1kg",
+   "hi": "इंडिया गेट बासमती 1kg",
+   "en": "India Gate Basmati 1kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "India Gate",
+   "aliases": [
+    "india gate 1kg",
+    "india gate basmati 1kg"
+   ]
+  },
+  {
+   "id": "basmati-pack-5kg",
+   "hinglish": "India Gate basmati 5kg",
+   "hi": "इंडिया गेट बासमती 5kg",
+   "en": "India Gate Basmati 5kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "India Gate",
+   "aliases": [
+    "india gate 5kg",
+    "india gate basmati 5kg"
+   ]
+  },
+  {
+   "id": "daawat-pack-1kg",
+   "hinglish": "Daawat basmati 1kg",
+   "hi": "दावत बासमती 1kg",
+   "en": "Daawat Basmati 1kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Daawat",
+   "aliases": [
+    "daawat 1kg",
+    "dawat 1kg",
+    "daawat basmati 1kg"
+   ]
+  },
+  {
+   "id": "daawat-pack-5kg",
+   "hinglish": "Daawat basmati 5kg",
+   "hi": "दावत बासमती 5kg",
+   "en": "Daawat Basmati 5kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Daawat",
+   "aliases": [
+    "daawat 5kg",
+    "dawat 5kg",
+    "daawat basmati 5kg"
    ]
   }
  ]

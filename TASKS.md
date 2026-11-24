@@ -97,7 +97,7 @@ Approved, in this order:
 5. Admin usage per store + CSV + pitch line + read-only store view.
 6. Full UI redo (now UI REDO #4, next session) + panel ≥ 9.
 7. Speed (Supabase + site) + spoken-answer settings.
-- 🔄 Universe file (was "`.items`", renamed by owner 24 Nov): supabase/seed/universe.json — batch 1 = 100 best-known items ✅, batch 2 (200) ✅, batch 3 (304) ✅. Speed log: v1 one hashed 10 KB file + O(1) lookup → v2 voice matcher uses Map for exact names + letter-pair index (4.3× faster: 7.96 → 1.84 ms per name) → v3 aliases inside rows, no key table (smaller download), saved on phone (works offline, instant start), refresh in background. ✅ Voice parser now uses Universe (items the shop catalogue doesn't know). ⏳ receipts; ⏳ next batches. Next batches by category. Original aim: master items file (`.items`): every item any current or future customer store could sell — kirana, niche/regional, supermart/POS ranges (pack sizes, flavours, brands, Hindi/Hinglish/English names, aliases, barcodes where known). Used by voice + receipts so Gemini is needed less. Plan: build in batches by category, merge with catalog.json.
+- 🔄 Universe file (was "`.items`", renamed by owner 24 Nov): supabase/seed/universe.json — batch 1 = 100 best-known items ✅, batch 2 (200) ✅, batch 3 (304) ✅, batch 4 (403: real pack sizes like Fortune 5L, Maggi 420g, Bisleri 20L jar) ✅. Speed log: v1 one hashed 10 KB file + O(1) lookup → v2 voice matcher uses Map for exact names + letter-pair index (4.3× faster: 7.96 → 1.84 ms per name) → v3 aliases inside rows, no key table (smaller download), saved on phone (works offline, instant start), refresh in background → v4 duplicate names removed at build, Universe joins the voice index in small chunks when the phone is idle (no stutter); 403 items = 12 KB download, index built in ~12 ms. ✅ Voice parser now uses Universe (items the shop catalogue doesn't know). ⏳ receipts; ⏳ next batches. Next batches by category. Original aim: master items file (`.items`): every item any current or future customer store could sell — kirana, niche/regional, supermart/POS ranges (pack sizes, flavours, brands, Hindi/Hinglish/English names, aliases, barcodes where known). Used by voice + receipts so Gemini is needed less. Plan: build in batches by category, merge with catalog.json.
 - ✅ T&C wording approved by owner (lawyer check before real pilots).
 - ⏸ Not approved yet: hidden pitch-mode screen.
 - ⏸ DISCUSS LATER — remind owner: edge cases + safety, sponsored items, item photos plan, khata photo import (Phase 2 vs now).
@@ -148,7 +148,7 @@ Approved, in this order:
 - ❌ Design 7 (monochrome + lime) — failed by owner.
 - ❌ Design 8 (colour tiles) — owner: "extra fail, awful".
 - ❌ Design 9 (PhonePe structure, navy) — failed by owner.
-- 🔄 Design 10: voice-first home (huge green Bolo orb at top, today's sale + bill count, last bill, lists); waiting for owner look.
+- ❌ Design 10 (voice orb home) — owner: "extra fail, very bad".
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.

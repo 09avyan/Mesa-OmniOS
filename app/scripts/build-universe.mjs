@@ -15,8 +15,10 @@ export const norm = (s) => s.toLowerCase().normalize('NFC').replace(/[^\p{L}\p{N
 const tab = { c: [], u: [], b: [] }
 const ix = (t, v) => { if (v == null) return -1; let i = tab[t].indexOf(v); if (i < 0) { i = tab[t].length; tab[t].push(v) } return i }
 const rows = [], keys = {}
+// drop aliases that read the same as the item's own names (after lower-casing/folding): smaller file, fewer index entries
+const dedupe = (it) => { const seen = new Set([it.hinglish, it.hi, it.en].map(norm)); return (it.aliases || []).filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true }) }
 src.items.forEach((it, n) => {
-  rows.push([it.id, it.hinglish, it.hi, it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand), it.aliases || []])
+  rows.push([it.id, it.hinglish, it.hi, it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand), dedupe(it)])
   for (const a of new Set([it.hinglish, it.hi, it.en, it.id.replace(/-/g, ' '), ...(it.aliases || [])])) {
     const k = norm(a); if (!k) continue
     if (keys[k] === undefined) keys[k] = n; else if (keys[k] !== n && !Array.isArray(keys[k])) keys[k] = [keys[k], n]; else if (Array.isArray(keys[k]) && !keys[k].includes(n)) keys[k].push(n)
