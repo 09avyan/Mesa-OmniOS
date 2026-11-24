@@ -125,8 +125,14 @@ Approved, in this order:
 - ❌ v8 FAILED 5/7 YES, avg 8.96 (Shyam 8.7, payments designer 8.7 NO). Left: "Bas" out of thumb reach while listening, picked payment too subtle in sunlight, empty gap above pay sheet, khata line cramped, qty shown twice, Hinglish "Save" vs Hindi "पक्का".
 - ❌ v9 FAILED 6/7 YES, avg 9.00 (only payments designer NO: 9/8/9 — pay sheet not pinned to bottom, Save button moves between steps, white strip below; heard-word white box looks like a glitch).
 - ✅ v10 "MRP box" PASSED 7/7 YES, avg 9.15 (Shyam 9.0 · Aman 9.0 · Rekha 9.3 · Pooja 9.0 · Baldev 9.3 · payments designer 9.0 ×2 · super-app director 9.3 ×2). Polish applied after pass: "/-" min 14px, Kul row on pay/ready, "/-" on running total, bigger Hindi pay labels, darker tile borders, shorter Hindi undo note. Live at /proto/ (?lang=hi). Score path: 6.3 → 7.44 → 7.93 → 8.15 → 8.33 → 8.74 → 8.89 → 8.96 → 9.00 → 9.15.
-- ⏳ Owner approves v10 on phone → then rebuild ALL merchant screens in this design (Maal, Udhaar, Bill list, Hisaab, Galla, Orders, Settings, receipt, onboarding w/ language), then customer pages (customer panel), then admin (admin panel).
+- ⏸ (superseded by REDO #5) Owner approves v10 on phone → then rebuild ALL merchant screens in this design (Maal, Udhaar, Bill list, Hisaab, Galla, Orders, Settings, receipt, onboarding w/ language), then customer pages (customer panel), then admin (admin panel).
 - ⏳ Write DESIGN.md v4 "MRP box" (tokens + rules) when owner approves; current DESIGN.md (v3) moves to design/DESIGN-prev.md.
+
+## UI REDO #5 — 🔄 STARTED 24 Nov (owner: "Redo UI from absolute scratch, forget everything UI UX related")
+- v10 (passed 9.15) dropped unapproved; kept at /proto-prev/ + design/redo4/proto-v10-passed.html as archive only, not a reference.
+- Kept from the brief (product rules, not UI): text ≥18 / buttons ≥56 icon+word, dictate → review → ✓, udhaar never red, nothing pre-selected for money, Hindi/Hinglish/English, mic reachable everywhere.
+- Loop (owner rule): version → 7-member panel (5 merchants ×1, 2 premium designers ×2; pass = all ≥9) → if fail: ONE improvement attempt → panel → if still fail: brand-new design from scratch.
+- Panel judges each design fresh (no earlier versions shown).
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.

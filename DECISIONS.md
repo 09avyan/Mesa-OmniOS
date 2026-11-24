@@ -43,3 +43,7 @@
 - Redo look AND flows from scratch (within the brief: 4 tabs + one mic, dictate → review → ✓).
 - Test: 3 totally different simulated merchants must all review the look and feel positively (plus designer "not AI" check).
 - Owner approves a live prototype (Home + bill flow) on his phone BEFORE any full rebuild.
+
+## UI redo #5 (24 Nov 2026, owner)
+- v10 "MRP box" passed the panel but owner asked for a full redo from absolute scratch, forgetting all earlier UI/UX.
+- Loop: each design gets the panel, then at most ONE improvement round; still failing → new design from scratch.
