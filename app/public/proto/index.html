@@ -31,7 +31,7 @@ svg{flex:none}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 .fig{font-family:"Baloo 2",sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
 .fig .s{font-size:.5em;font-weight:700;margin-left:2px}
-.view{display:none;padding-bottom:120px}
+.view{display:none;padding-bottom:140px}
 #done{padding-bottom:32px}.view.on{display:block}
 
 /* packet field + printed batch band (the signature) */
@@ -78,14 +78,14 @@ svg{flex:none}
 .row .btn{min-width:132px}
 
 /* bottom bar: tabs + big speak key */
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;height:88px;background:var(--paper);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 124px 1fr 1fr;align-items:end;padding:0 2px calc(8px + env(safe-area-inset-bottom));z-index:40}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;height:88px;background:var(--paper);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 124px 1fr 1fr;align-items:center;padding:0 4px env(safe-area-inset-bottom);z-index:40}
 .tab{height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:17px;line-height:20px;font-weight:600;color:var(--mute)}
 .tab.on{color:var(--ink);font-weight:800}
-.speak{height:86px;margin:0 4px;border-radius:14px;background:var(--mr);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-family:"Baloo 2";font-size:20px;line-height:22px;font-weight:800;box-shadow:0 8px 18px -8px rgba(122,21,48,.6)}
+.speak{height:72px;margin:0 2px;border-radius:14px;background:var(--mr);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-family:"Baloo 2";font-size:20px;line-height:22px;font-weight:800}
 .speak svg{color:var(--y)}
 .nav.flow .tab{visibility:hidden}
 .nav.gone{display:none}
-.again{min-height:56px;padding:0 16px;border-radius:14px;border:2px solid var(--mr);color:var(--mr);background:#fff;font-weight:800;font-size:18px;display:none;align-items:center;gap:8px}
+.again{min-height:56px;padding:0 16px;border-radius:14px;background:var(--mr);color:#fff;white-space:nowrap;font-weight:800;font-size:18px;display:none;align-items:center;gap:8px}
 .listen.done .again{display:inline-flex}
 .run{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:var(--paper);border-top:1px solid var(--line);padding:14px 18px calc(14px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:baseline;z-index:30}
 .run span{font-size:18px;font-weight:700;color:var(--ink2)}.run b{font-size:30px;line-height:34px}
@@ -121,14 +121,15 @@ svg{flex:none}
 .tr+.tr{border-top:1px solid var(--ink)}
 @keyframes in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .tr .a{display:flex;justify-content:space-between;align-items:flex-start}
-.tr .a b{font-size:20px;line-height:26px;font-weight:700}
+.tr .a b{font-size:21px;line-height:28px;font-weight:700}
 .tr .a .fig{font-size:24px}
-.tr .c{display:flex;justify-content:flex-end;align-items:center;margin-top:6px}
+.tr .c{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:4px}
+.tr .c>span{font-size:18px;line-height:22px;color:#463F31;font-weight:600}
 .tr .nm span{display:block;font-size:17px;line-height:22px;color:var(--ink2);font-weight:600}
 .tr .c span{font-size:17px;color:var(--ink2);font-weight:600}
 .stp{display:flex;align-items:center;height:56px;border:2px solid var(--line);border-radius:14px}
-.stp button{width:54px;height:52px;display:grid;place-items:center}
-.stp em{width:96px;text-align:center;white-space:nowrap;font-style:normal;font-weight:700;font-size:19px}
+.stp button{width:52px;height:52px;display:grid;place-items:center}
+.stp em{width:76px;text-align:center;white-space:nowrap;font-style:normal;font-weight:700;font-size:19px}
 .tr.q{background:var(--y-50)}
 .ask{margin-top:10px;padding-top:10px;border-top:1.5px dashed #D9A84A}
 .ask p{font-size:18px;font-weight:700;color:var(--y-ink)}
@@ -159,8 +160,8 @@ svg{flex:none}
 .save[disabled]{background:var(--y-50);color:var(--ink);border-style:dashed;font-size:18px}
 
 /* saved */
-.ok{display:flex;align-items:center;gap:14px;padding:10px 0 4px}
-.ok i{width:84px;height:84px;border-radius:50%;background:var(--mr);color:var(--y);box-shadow:inset 0 0 0 4px var(--mr),inset 0 0 0 6px var(--y);flex-direction:column;gap:0;font-family:"Baloo 2";font-weight:800;font-size:18px;line-height:20px;transform:rotate(-10deg);animation:seal .55s cubic-bezier(.34,1.5,.64,1) both .1s;display:grid;place-items:center}
+.ok{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:14px 0 2px}
+.ok i{width:128px;height:128px;border-radius:50%;background:var(--mr);color:var(--y);box-shadow:inset 0 0 0 6px var(--mr),inset 0 0 0 9px var(--y),0 10px 22px -10px rgba(122,21,48,.7);flex-direction:column;gap:0;font-family:"Baloo 2";font-weight:800;font-size:18px;line-height:20px;transform:rotate(-10deg);animation:seal .55s cubic-bezier(.34,1.5,.64,1) both .1s;display:grid;place-items:center}
 .ok b{display:block;font-family:"Baloo 2";font-size:26px;line-height:30px;font-weight:800;padding-top:4px}
 .ok span{display:block;font-size:18px;color:var(--y-ink);font-weight:700}
 .sv .tbl{margin-top:18px}
@@ -173,15 +174,17 @@ svg{flex:none}
 .next{margin:18px 14px 0;width:calc(100% - 28px);min-height:64px;border-radius:14px;background:var(--mr);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;gap:10px}.next svg{color:var(--y)}
 .acts{margin:10px 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .acts .btn{width:100%;min-height:60px;white-space:nowrap}
-.undo{margin:12px 14px 0;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 16px;background:var(--paper);border:1px solid var(--line);border-radius:14px;font-size:17px;line-height:22px;color:var(--ink2)}
+.undo{margin:12px 14px 0;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 16px;background:var(--paper);border-radius:14px;font-size:17px;line-height:22px;color:var(--ink2)}
 .undo span{flex:1}
 .note{margin:26px 18px 0;text-align:center;font-size:17px;color:var(--mute)}
 .sv .batch{animation:print .9s steps(24) both .15s}
 @keyframes print{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-.ok i.seal{display:flex;align-items:center;justify-content:center}.ok i.seal span{display:block;color:var(--y);font-size:17px;line-height:18px;font-weight:800;padding-top:4px}
+.ok i.seal{display:flex;align-items:center;justify-content:center}.ok i.seal span{display:block;color:var(--y)!important;font-size:24px!important;line-height:26px;font-weight:800;padding-top:6px}
 .tag span{white-space:nowrap}
 @keyframes seal{0%{transform:rotate(-10deg) scale(1.8);opacity:0}100%{transform:rotate(-10deg) scale(1);opacity:1}}
-.dt{display:flex;justify-content:space-between;align-items:baseline;margin:0 2px 8px}
+.dt{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+.dtl{flex:1;text-align:right;font-size:18px;font-weight:700;color:var(--ink2)}
+.mini{min-height:56px;padding:0 14px;border-radius:14px;border:2px solid var(--mr);color:var(--mr);font-weight:800;font-size:18px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .dt span{font-size:18px;font-weight:700;color:var(--ink2)}.dt b{font-size:30px;line-height:34px}.dt small{font-size:17px;color:var(--mute);font-weight:700;margin-right:6px}
 body.hi .batch{font-family:"Mukta";font-weight:700;letter-spacing:0}
 body.hi .shop b,body.hi .sec h2,body.hi .ok b{line-height:1.35}
@@ -254,14 +257,14 @@ body.hi .shop b,body.hi .sec h2,body.hi .ok b{line-height:1.35}
   <div class="tbl" id="tbl"><div class="th"><span data-t="colI"></span><span>₹</span></div><div id="rows"></div><div class="tt" id="tt" style="display:none"><span><span data-t="total"></span><small id="lag" data-t="about"></small></span><b class="fig">₹181<span class="s">/-</span></b></div></div>
   <div class="run" id="run" style="display:none"><span id="runl"></span><b class="fig" id="runv"></b></div>
   <div class="dock" id="dock">
-    <div class="dt" id="dt"><span data-t="total"></span><span><small data-t="about"></small><b class="fig">₹181<span class="s">/-</span></b></span></div>
+    <div class="dt" id="dt"><button class="mini p" onclick="listen()"><svg width="20" height="20"><use href="#mic"/></svg><span data-t="micB"></span></button><span class="dtl"><span data-t="total"></span></span><span><small id="lagd" data-t="about"></small><b class="fig">₹181<span class="s">/-</span></b></span></div>
     <button class="why p" id="why" onclick="document.querySelector('.tr.q')?.scrollIntoView({behavior:'smooth',block:'center'})"><svg width="20" height="20"><use href="#up"/></svg><span data-t="why"></span></button>
     <div id="payw" style="display:none">
       <div class="pq" data-t="how"></div>
       <div class="pays">
         <button class="pay p" data-p="c"><svg width="26" height="26"><use href="#note"/></svg><span data-t="cash"></span></button>
         <button class="pay p" data-p="p"><svg width="26" height="26"><use href="#qr"/></svg><span>UPI</span></button>
-        <button class="pay u p" data-p="u"><svg width="26" height="26"><use href="#book"/></svg><span data-t="udhaar"></span><small data-t="usual"></small></button>
+        <button class="pay u p" data-p="u"><svg width="26" height="26"><use href="#book"/></svg><span data-t="udhaar"></span></button>
       </div>
       <div class="math" id="math" style="display:none"><span data-t="khata"></span><span class="fig">₹2,416 + ₹181 = ₹2,597</span></div>
       <p class="hint" id="hint"><svg width="20" height="20"><use href="#up"/></svg><span data-t="save0"></span></p>
@@ -272,7 +275,7 @@ body.hi .shop b,body.hi .sec h2,body.hi .ok b{line-height:1.35}
 
 <!-- ================= SAVED ================= -->
 <section class="view sv" id="done">
-  <div class="field"><div class="ok"><i class="seal"><span data-t="seal"></span><svg width="22" height="22"><use href="#check"/></svg></i><div><b data-t="saved"></b><span data-t="nowsale"></span></div></div></div>
+  <div class="field"><div class="ok"><i class="seal"><span data-t="seal"></span><svg width="34" height="34"><use href="#check"/></svg></i><div><b data-t="saved"></b><span data-t="nowsale"></span></div></div></div>
   <div class="batch" data-t="batchS"></div>
   <div class="tbl">
     <div class="who"><span data-t="sharma"></span><span data-t="nitems"></span></div>
@@ -298,20 +301,20 @@ body.hi .shop b,body.hi .sec h2,body.hi .ok b{line-height:1.35}
 <script>
 const T={
  hinglish:{shop:'Sharma General Store',area:'Kirana · Rajwada, Indore',set:'Setting',sold:'Aaj ki bikri',date:'Mangal, 24 Nov',bills:'68 bill',cash:'Cash',udg:'Udhaar diya',udhaar:'Udhaar',duel:'Kul udhaar baaki · 15 log',batchH:'24 NOV · 23 DIN SE ROZ HISAAB ✓',todo:'Aaj karna hai',todon:'4 kaam',
-  o1:'2 naye online order',o1s:'Pack karke ready karo',see:'Dekho',u1:'Mishra ji',u1s:'₹2,523 · 5 din se baaki',remind:'Yaad dilao',l1:'Machis, Frooti',l1s:'1–2 din ka maal bacha',order:'Mangao',c1:'3 saaman gino',c1s:'1 minute ka kaam',start:'Shuru',note:'Prototype · redo 4 · v4 · TEST dukaan ke number · kuch save nahi hota',
-  back:'Peeche',listen:'Sun raha hoon…',heard:'Suna. Neeche dekh lijiye',stop:'Bas',batchB:'BILL NO. 2205 · 24 NOV · 6:15 PM',said:'Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal',sharma:'Sharma ji · gali 4',old:'Pehle ka udhaar ₹2,416/-',change:'Badlo',colI:'Saaman',empty:'Bolte jaiye, saaman yahan likhta jayega',total:'Kul',about:'lagbhag',why:'Pehle upar Maggi pakka karo',how:'Paisa kaise mila?',usual:'aksar',khata:'Khata',save0:'Upar chuniye: Cash, UPI ya Udhaar',saveC:'Save karo · Cash ₹181',saveP:'Save karo · UPI ₹181',saveU:'Save karo · Udhaar ₹181',
+  o1:'2 naye online order',o1s:'Pack karke ready karo',see:'Dekho',u1:'Mishra ji',u1s:'₹2,523 · 5 din se baaki',remind:'Yaad dilao',l1:'Machis, Frooti',l1s:'1–2 din ka maal bacha',order:'Mangao',c1:'3 saaman gino',c1s:'1 minute ka kaam',start:'Shuru',note:'Prototype · redo 4 · v6 · TEST dukaan ke number · kuch save nahi hota',
+  back:'Peeche',listen:'Sun raha hoon…',heard:'Suna',stop:'Bas',batchB:'BILL NO. 2205 · 24 NOV · 6:15 PM',said:'Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal',sharma:'Sharma ji · gali 4',old:'Pehle ka udhaar ₹2,416/-',change:'Badlo',colI:'Saaman',empty:'Bolte jaiye, saaman yahan likhta jayega',total:'Kul',about:'lagbhag',why:'Pehle upar Maggi pakka karo',how:'Paisa kaise mila?',usual:'aksar',khata:'Khata',save0:'Upar chuniye: Cash, UPI ya Udhaar',saveC:'Save karo · Cash ₹181',saveP:'Save karo · UPI ₹181',saveU:'Save karo · Udhaar ₹181',
   names:['Cheeni','Maggi chhota?','Toor dal'],units:['2 kg × ₹46','1 × ₹14','½ kg × ₹150'],q:['2 kg','1','½ kg'],ask:'Yahi wali Maggi? (Maggi chhota, ₹14)',yes:'Haan, yahi',no:'Doosri Maggi',
   saved:'Bill save ho gaya',nowsale:'Aaj ki bikri ab ₹14,399/- · 69 bill',batchS:'BILL NO. 2205 · 6:15 PM · SAVED ✓',nitems:'3 saaman',i1:'Cheeni · 2 kg',i2:'Maggi chhota · 1',i3:'Toor dal · ½ kg',tagU:'Udhaar mein gaya|Khata ₹2,597/-',tagC:'Cash mila|₹181/-',tagP:'UPI se mila|₹181/-',send:'WhatsApp karo',home:'Ghar',undonote:'Galti hui? Agle bill tak wapas le sakte hain.',undo:'Wapas lo',
   tHome:'Ghar',tBill:'Bill',tMaal:'Maal',tUd:'Udhaar',mic:'Bolo',micB:'Aur bolo',sofar:'Ab tak',itm:'saaman',seal:'PAKKA',next:'Agla bill · Bolo'},
  hi:{shop:'शर्मा जनरल स्टोर',area:'किराना · राजवाड़ा, इंदौर',set:'सेटिंग',sold:'आज की बिक्री',date:'मंगल, 24 नवंबर',bills:'68 बिल',cash:'नकद',udg:'उधार दिया',udhaar:'उधार',duel:'कुल उधार बाकी · 15 लोग',batchH:'24 नवंबर · 23 दिन से रोज़ हिसाब ✓',todo:'आज करना है',todon:'4 काम',
   o1:'2 नए ऑनलाइन ऑर्डर',o1s:'पैक करके तैयार करो',see:'देखो',u1:'मिश्रा जी',u1s:'₹2,523 · 5 दिन से बाकी',remind:'याद दिलाओ',l1:'माचिस, फ्रूटी',l1s:'1–2 दिन का माल बचा',order:'मंगाओ',c1:'3 सामान गिनो',c1s:'1 मिनट का काम',start:'शुरू',note:'प्रोटोटाइप · रीडू 4 · v4 · TEST दुकान के आँकड़े · कुछ सेव नहीं होता',
-  back:'पीछे',listen:'सुन रहा हूँ…',heard:'सुना। नीचे देख लीजिए',stop:'बस',batchB:'बिल नं. 2205 · 24 नवंबर · शाम 6:15',said:'शर्मा जी, दो किलो चीनी, एक मैगी, आधा किलो तूर दाल',sharma:'शर्मा जी · गली 4',old:'पहले का उधार ₹2,416/-',change:'बदलो',colI:'सामान',empty:'बोलते जाइए, सामान यहाँ लिखता जाएगा',total:'कुल',about:'लगभग',why:'पहले ऊपर मैगी पक्का करो',how:'पैसा कैसे मिला?',usual:'अक्सर',khata:'खाता',save0:'ऊपर चुनिए: नकद, UPI या उधार',saveC:'पक्का करो · नकद ₹181',saveP:'पक्का करो · UPI ₹181',saveU:'पक्का करो · उधार ₹181',
+  back:'पीछे',listen:'सुन रहा हूँ…',heard:'सुना',stop:'बस',batchB:'बिल नं. 2205 · 24 नवंबर · शाम 6:15',said:'शर्मा जी, दो किलो चीनी, एक मैगी, आधा किलो तूर दाल',sharma:'शर्मा जी · गली 4',old:'पहले का उधार ₹2,416/-',change:'बदलो',colI:'सामान',empty:'बोलते जाइए, सामान यहाँ लिखता जाएगा',total:'कुल',about:'लगभग',why:'पहले ऊपर मैगी पक्का करो',how:'पैसा कैसे मिला?',usual:'अक्सर',khata:'खाता',save0:'ऊपर चुनिए: नकद, UPI या उधार',saveC:'पक्का करो · नकद ₹181',saveP:'पक्का करो · UPI ₹181',saveU:'पक्का करो · उधार ₹181',
   names:['चीनी','मैगी छोटा?','तूर दाल'],units:['2 किलो × ₹46','1 × ₹14','आधा किलो × ₹150'],q:['2 किलो','1','आधा किलो'],ask:'यही वाली मैगी? (मैगी छोटा, ₹14)',yes:'हाँ, यही',no:'दूसरी मैगी',
-  saved:'बिल पक्का हो गया',nowsale:'आज की बिक्री अब ₹14,399/- · 69 बिल',batchS:'बिल नं. 2205 · शाम 6:15 · पक्का ✓',nitems:'3 सामान',i1:'चीनी · 2 किलो',i2:'मैगी छोटा · 1',i3:'तूर दाल · आधा किलो',tagU:'उधार में गया|खाता ₹2,597/-',tagC:'नकद मिला|₹181/-',tagP:'UPI से मिला|₹181/-',send:'WhatsApp करो',home:'घर',undonote:'गलती हुई? अगले बिल तक वापस ले सकते हैं।',undo:'वापस लो',
+  saved:'बिल बन गया',nowsale:'आज की बिक्री अब ₹14,399/- · 69 बिल',batchS:'बिल नं. 2205 · शाम 6:15 ✓',nitems:'3 सामान',i1:'चीनी · 2 किलो',i2:'मैगी छोटा · 1',i3:'तूर दाल · आधा किलो',tagU:'उधार में गया|खाता ₹2,597/-',tagC:'नकद मिला|₹181/-',tagP:'UPI से मिला|₹181/-',send:'WhatsApp करो',home:'घर',undonote:'गलती हुई? अगले बिल तक वापस ले सकते हैं।',undo:'वापस लो',
   tHome:'घर',tBill:'बिल',tMaal:'माल',tUd:'उधार',mic:'बोलो',micB:'और बोलो',sofar:'अब तक',itm:'सामान',seal:'पक्का',next:'अगला बिल · बोलो'},
  en:{shop:'Sharma General Store',area:'Grocery · Rajwada, Indore',set:'Settings',sold:"Today's sales",date:'Tue, 24 Nov',bills:'68 bills',cash:'Cash',udg:'Udhaar given',udhaar:'Udhaar',duel:'Total udhaar due · 15 people',batchH:'24 NOV · 23 DAYS OF ACCOUNTS ✓',todo:'To do today',todon:'4 tasks',
-  o1:'2 new online orders',o1s:'Pack and mark ready',see:'View',u1:'Mishra ji',u1s:'₹2,523 · due 5 days',remind:'Remind',l1:'Matchbox, Frooti',l1s:'1–2 days of stock left',order:'Order',c1:'Count 3 items',c1s:'Takes 1 minute',start:'Start',note:'Prototype · redo 4 · v4 · TEST store numbers · nothing is saved',
-  back:'Back',listen:'Listening…',heard:'Heard. Check below',stop:'Stop',batchB:'BILL NO. 2205 · 24 NOV · 6:15 PM',said:'Sharma ji, two kilo sugar, one Maggi, half kilo toor dal',sharma:'Sharma ji · gali 4',old:'Old udhaar ₹2,416/-',change:'Change',colI:'Item',empty:'Keep speaking, items appear here',total:'Total',about:'about',why:'First confirm Maggi above',how:'How was it paid?',usual:'usually',khata:'Account',save0:'Choose above: Cash, UPI or Udhaar',saveC:'Save · Cash ₹181',saveP:'Save · UPI ₹181',saveU:'Save · Udhaar ₹181',
+  o1:'2 new online orders',o1s:'Pack and mark ready',see:'View',u1:'Mishra ji',u1s:'₹2,523 · due 5 days',remind:'Remind',l1:'Matchbox, Frooti',l1s:'1–2 days of stock left',order:'Order',c1:'Count 3 items',c1s:'Takes 1 minute',start:'Start',note:'Prototype · redo 4 · v6 · TEST store numbers · nothing is saved',
+  back:'Back',listen:'Listening…',heard:'Heard',stop:'Stop',batchB:'BILL NO. 2205 · 24 NOV · 6:15 PM',said:'Sharma ji, two kilo sugar, one Maggi, half kilo toor dal',sharma:'Sharma ji · gali 4',old:'Old udhaar ₹2,416/-',change:'Change',colI:'Item',empty:'Keep speaking, items appear here',total:'Total',about:'about',why:'First confirm Maggi above',how:'How was it paid?',usual:'usually',khata:'Account',save0:'Choose above: Cash, UPI or Udhaar',saveC:'Save · Cash ₹181',saveP:'Save · UPI ₹181',saveU:'Save · Udhaar ₹181',
   names:['Sugar','Maggi small?','Toor dal'],units:['2 kg × ₹46','1 × ₹14','½ kg × ₹150'],q:['2 kg','1','½ kg'],ask:'This Maggi? (Maggi small, ₹14)',yes:'Yes, this',no:'Other Maggi',
   saved:'Bill saved',nowsale:"Today's sales now ₹14,399/- · 69 bills",batchS:'BILL NO. 2205 · 6:15 PM · SAVED ✓',nitems:'3 items',i1:'Sugar · 2 kg',i2:'Maggi small · 1',i3:'Toor dal · ½ kg',tagU:'On udhaar|Account ₹2,597/-',tagC:'Paid in cash|₹181/-',tagP:'Paid by UPI|₹181/-',send:'WhatsApp',home:'Home',undonote:'Mistake? You can take it back until the next bill.',undo:'Take back',
   tHome:'Home',tBill:'Bills',tMaal:'Stock',tUd:'Udhaar',mic:'Speak',micB:'Speak more',sofar:'So far',itm:'items',seal:'DONE',next:'Next bill · Speak'}}
@@ -321,16 +324,16 @@ document.body.classList.toggle('hi',L==='hi')
 function paint(){document.querySelectorAll('[data-t]').forEach(e=>{const v=D[e.dataset.t];if(typeof v==='string')e.textContent=v});$('#micl').textContent=view==='billv'?D.micB:D.mic}
 function go(v){view=v;$('#nav').classList.remove('hear');$('#nav').classList.toggle('gone',v!=='home');$('#run').style.display='none';document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id===v));scrollTo(0,0);$('#nav').classList.toggle('flow',v!=='home');paint();if(v==='billv')listen()}
 const AMT=[92,14,75]
-function row(i){const q=i===1;return `<div class="tr${q?' q':''}"><div class="a"><span class="nm"><b>${D.names[i]}</b><span>${D.units[i]}</span></span><span class="fig">₹${AMT[i]}</span></div><div class="c"><div class="stp"><button aria-label="-"><svg width="20" height="20"><use href="#minus"/></svg></button><em>${D.q[i]}</em><button aria-label="+"><svg width="20" height="20"><use href="#plus"/></svg></button></div></div>${q?`<div class="ask"><p>${D.ask}</p><div><button class="p">${D.no}</button><button class="y p" onclick="ok(this)"><svg width="20" height="20"><use href="#check"/></svg>${D.yes}</button></div></div>`:''}</div>`}
+function row(i){const q=i===1;return `<div class="tr${q?' q':''}"><div class="a"><span class="nm"><b>${D.names[i]}</b></span><span class="fig">₹${AMT[i]}</span></div><div class="c"><span>${D.units[i]}</span><div class="stp"><button aria-label="-"><svg width="20" height="20"><use href="#minus"/></svg></button><em>${D.q[i]}</em><button aria-label="+"><svg width="20" height="20"><use href="#plus"/></svg></button></div></div>${q?`<div class="ask"><p>${D.ask}</p><div><button class="p">${D.no}</button><button class="y p" onclick="ok(this)"><svg width="20" height="20"><use href="#check"/></svg>${D.yes}</button></div></div>`:''}</div>`}
 function fit(){requestAnimationFrame(()=>{const d=$('#dock');$('#billv').style.paddingBottom=(d.offsetHeight+16)+'px';const q=$('.tr.q')||$('#tt');const r=q.getBoundingClientRect(),lim=innerHeight-d.offsetHeight-12;if(r.bottom>lim)scrollBy({top:r.bottom-lim,behavior:'smooth'})})}
-async function listen(){open=true;pay=null;$('#rows').innerHTML=`<div class="empty">${D.empty}</div><div class="empty"></div><div class="empty"></div>`;$('#nav').classList.add('hear');$('#tt').style.display='none';$('#dock').classList.remove('on');$('#cust').classList.remove('on');$('#listen').classList.remove('done');$('#hl').textContent=D.listen;$('#htxt').innerHTML='';document.querySelectorAll('.pay').forEach(x=>x.classList.remove('on'))
- const w=D.said.split(' ');let s='';for(let i=0;i<w.length;i++){await wait(220);$('#htxt').innerHTML=s+(i?' ':'')+'<mark>'+w[i]+'</mark>';s+=(i?' ':'')+w[i];if(i===1)$('#cust').classList.add('on');if(i===4||i===6||i===10){{const k=i===4?0:i===6?1:2,e=$('#rows .empty');e?e.outerHTML=row(k):0;const n=k+1,t=AMT.slice(0,n).reduce((a,b)=>a+b,0);$('#run').style.display='flex';$('#runl').textContent=D.sofar+' · '+n+' '+D.itm;$('#runv').textContent='₹'+t}}}
- await wait(300);$('#htxt').textContent=s;$('#listen').classList.add('done');$('#nav').classList.remove('hear');$('#run').style.display='none';$('#hl').textContent=D.heard;$('#tt').style.display='flex';$('#dock').classList.add('on');state()}
+async function listen(){open=true;pay=null;$('#rows').innerHTML=`<div class="empty">${D.empty}</div>`;$('#nav').classList.add('hear');$('#tt').style.display='none';$('#dock').classList.remove('on');$('#cust').classList.remove('on');$('#listen').classList.remove('done');$('#hl').textContent=D.listen;$('#htxt').innerHTML='';document.querySelectorAll('.pay').forEach(x=>x.classList.remove('on'))
+ const w=D.said.split(' ');let s='';for(let i=0;i<w.length;i++){await wait(220);$('#htxt').innerHTML=s+(i?' ':'')+'<mark>'+w[i]+'</mark>';s+=(i?' ':'')+w[i];if(i===1)$('#cust').classList.add('on');if(i===4||i===6||i===10){{const k=i===4?0:i===6?1:2,e=$('#rows .empty');e?e.outerHTML=row(k):$('#rows').insertAdjacentHTML('beforeend',row(k));const n=k+1,t=AMT.slice(0,n).reduce((a,b)=>a+b,0);$('#run').style.display='flex';$('#runl').textContent=D.sofar+' · '+n+' '+D.itm;$('#runv').textContent='₹'+t}}}
+ await wait(300);$('#htxt').textContent=s;$('#listen').classList.add('done');$('#nav').classList.remove('hear');$('#run').style.display='none';$('#hl').textContent=D.heard;$('#dock').classList.add('on');state()}
 function stopNow(){}
 function ok(b){const l=b.closest('.tr');l.classList.remove('q');l.querySelector('.ask').remove();l.querySelector('b').textContent=D.names[1].replace('?','');open=false;state()}
-function state(){$('#why').style.display=open?'flex':'none';$('#dt').style.display=open?'flex':'none';$('#payw').style.display=open?'none':'block';$('#lag').style.display=open?'':'none';$('#save').style.display=pay?'flex':'none';$('#hint').style.display=pay?'none':'flex';$('#savet').textContent=pay==='u'?D.saveU:pay==='p'?D.saveP:D.saveC;$('#math').style.display=pay==='u'?'flex':'none';fit()}
+function state(){$('#why').style.display=open?'flex':'none';$('#lagd').style.display=open?'':'none';$('#payw').style.display=open?'none':'block';$('#lag').style.display=open?'':'none';$('#save').style.display=pay?'flex':'none';$('#hint').style.display=pay?'none':'flex';$('#savet').textContent=pay==='u'?D.saveU:pay==='p'?D.saveP:D.saveC;$('#math').style.display=pay==='u'?'flex':'none';fit()}
 document.querySelectorAll('.pay').forEach(b=>b.onclick=()=>{pay=b.dataset.p;document.querySelectorAll('.pay').forEach(x=>x.classList.toggle('on',x===b));state()})
-function saved(){const t=$('#tag'),v=(pay==='u'?D.tagU:pay==='p'?D.tagP:D.tagC).split('|');t.className='tag'+(pay==='u'?'':' c');t.innerHTML=`<span>${v[0]}</span><span class="fig">${v[1]}</span>`;if(navigator.vibrate)navigator.vibrate(25);go('done')}
+function saved(){const t=$('#tag'),v=(pay==='u'?D.tagU:pay==='p'?D.tagP:D.tagC).split('|');t.className='tag'+(pay==='u'?'':' c');t.innerHTML=`<span>${v[0]}</span><span class="fig">${v[1]}</span>`;go('done');setTimeout(()=>navigator.vibrate&&navigator.vibrate([20,30,60]),300)}
 paint()
 </script>
 </body>
