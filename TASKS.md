@@ -97,7 +97,7 @@ Approved, in this order:
 5. Admin usage per store + CSV + pitch line + read-only store view.
 6. Full UI redo (now UI REDO #4, next session) + panel ≥ 9.
 7. Speed (Supabase + site) + spoken-answer settings.
-- 🔄 Universe file (was "`.items`", renamed by owner 24 Nov): supabase/seed/universe.json — batch 1 = 100 best-known items ✅. Next batches by category. Original aim: master items file (`.items`): every item any current or future customer store could sell — kirana, niche/regional, supermart/POS ranges (pack sizes, flavours, brands, Hindi/Hinglish/English names, aliases, barcodes where known). Used by voice + receipts so Gemini is needed less. Plan: build in batches by category, merge with catalog.json.
+- 🔄 Universe file (was "`.items`", renamed by owner 24 Nov): supabase/seed/universe.json — batch 1 = 100 best-known items ✅, batch 2 = +100 (200 total) ✅. Fast build: app/scripts/build-universe.mjs → one 10 KB (gzip) hashed file cached forever, O(1) alias lookup (app/src/lib/universe.ts); runs in every build. ⏳ wire into voice parser + receipts. Next batches by category. Original aim: master items file (`.items`): every item any current or future customer store could sell — kirana, niche/regional, supermart/POS ranges (pack sizes, flavours, brands, Hindi/Hinglish/English names, aliases, barcodes where known). Used by voice + receipts so Gemini is needed less. Plan: build in batches by category, merge with catalog.json.
 - ✅ T&C wording approved by owner (lawyer check before real pilots).
 - ⏸ Not approved yet: hidden pitch-mode screen.
 - ⏸ DISCUSS LATER — remind owner: edge cases + safety, sponsored items, item photos plan, khata photo import (Phase 2 vs now).
@@ -146,7 +146,8 @@ Approved, in this order:
 - ⏸ Design 5 (chat thread) — owner: neither pass nor fail; ASK OWNER what to do with it just before running the panel.
 - ⏸ Design 6 (bank-style timeline) — HOLD; owner: needs AI-reduction steps before panel.
 - ❌ Design 7 (monochrome + lime) — failed by owner.
-- 🔄 Design 8: Spotify-style colour-block tiles on dark (cash, UPI, udhaar due, orders, low stock, count), green mic; waiting for owner look.
+- ❌ Design 8 (colour tiles) — owner: "extra fail, awful".
+- 🔄 Design 9: PhonePe structure (navy band with sales, white sheet with cash/UPI/udhaar, 'Jaldi karo' round icon row, lists), navy accent; waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
