@@ -137,7 +137,9 @@ Approved, in this order:
 - ✅ Owner: "remove proto" → /proto/ and /proto-prev/ removed from the live site (24 Nov). Copies kept in design/redo4/ + git history.
 - Redo #5 versions are built as files in design/redo5/ (not on the live site); panel reviews screenshots. ⏳ Asked owner how to show an approved version on the phone.
 - 🗑 Designs A (banknote), B (block print), C (handwritten slip) — all vetoed by owner and deleted on owner request (24 Nov). Restart from square 0.
-- 🔄 New design (fresh numbering) from scratch.
+- Owner answers (24 Nov): vetoes were about everything (look, theme idea, layout); references = Apple, PhonePe, Spotify; light+dark toggle; owner sees labelled screenshots (small translucent watermark: screen + stage) before every panel.
+- Design 1 (clean modern, orange accent, centre mic) — owner: "fine, but not up to the mark".
+- 🔄 Design 2: teal Wallet-style day card, PhonePe quick-action grid, Spotify-style docked voice bar + full-screen listening; waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
