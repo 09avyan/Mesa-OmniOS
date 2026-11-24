@@ -144,7 +144,8 @@ Approved, in this order:
 - ❌ Design 3 (black/gold, shelves) — vetoed by owner.
 - ❌ Design 4 (iOS widget grid) — vetoed by owner.
 - ⏸ Design 5 (chat thread) — owner: neither pass nor fail; ASK OWNER what to do with it just before running the panel.
-- 🔄 Design 6: bank-style timeline home (today's bills list with time, customer, amount, Cash/UPI/Udhaar badge), violet accent, centre mic; waiting for owner look.
+- ⏸ Design 6 (bank-style timeline) — HOLD; owner: needs AI-reduction steps before panel.
+- 🔄 Design 7: monochrome + lime, Schibsted Grotesk, hairline rows (no cards/avatars/blur/KPI arrows) — AI-reduction baked in; waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
