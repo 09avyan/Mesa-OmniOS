@@ -18,8 +18,7 @@ A voice-first app that runs a kirana (neighbourhood grocery) store. The owner sp
 - TEST shop has the top 150 kirana items (brands, loose, flavours) and mock data — real shops never get mock data.
 
 ## Design status
-- Prototype v6 passed a 5-merchant + designer panel: omnidukaan.vercel.app/proto/ (`?lang=hi` for Hindi).
-- Next session: full UI + UX redo from scratch with a 5–7 person panel (see TASKS.md → UI REDO #4).
+- UI redo #5 in progress, from scratch (owner, 24 Nov). Each version → 7-member panel → one fix round → else a new design. Versions are kept in `design/redo5/`; the old /proto pages were removed from the live site.
 
 ## How it is built
 | Part | Where |

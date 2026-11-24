@@ -1,6 +1,6 @@
 # Tech, compressed (code map: ../graphify-out/GRAPH_REPORT.md)
 - app/: React 19 + Vite + TS. Screens app/src/screens (Home, Briefing, Voice, Bills, BillPage, Maal, Forecast, Receipt, Udhaar, Hisaab, Extras, Orders, Store, Settings, Admin, Login, Language, Building). lib/: auth.ts (storeLogin), store.tsx (device_ping), i18n.tsx. voice/: parser (51 tests, `npm test`). styles/app.css.
-- Prototype (standalone HTML): app/public/proto/index.html → omnidukaan.vercel.app/proto/ (?lang=hi).
+- Prototypes: no longer on the live site (owner removed /proto 24 Nov). Redo #5 versions = standalone HTML in design/redo5/; old ones in design/redo4/.
 - Supabase msqmuvqhbxyrhogbhtta. RLS via my_store_id(), is_admin(); writes via security-definer fns. Migrations 0001–0011 (0007+ applied via MCP, files are records).
 - Tables: stores, store_users, admins, items, bills, customers, udhaar, usage_events, login_attempts, store_devices, bag_requests, feature_interest, suppliers, supplier_entries (+ supplier_balances view), orders/requests.
 - Fns: day_summary, briefing, stock_check, forecast, save_receipt, pay_supplier, request_bags, want_feature, device_ping, device_revoke, public_bill, order_status, public_balance.
