@@ -144,14 +144,14 @@ Approved, in this order:
 - ❌ Design 3 (black/gold, shelves) — vetoed by owner.
 - ❌ Design 4 (iOS widget grid) — vetoed by owner.
 - ⏸ Design 5 (chat thread) — owner: neither pass nor fail; ASK OWNER what to do with it just before running the panel.
-- ⏸ Design 6 (bank-style timeline) — HOLD; owner: needs AI-reduction steps before panel.
+- ⏸ Design 6 (bank-style timeline) — HOLD. ✅ AI clean-up done → design/redo5/d6b.html (own font Hanken Grotesk, no initials bubbles, no green delta, no pill chips, no blur, hairline list, square corners, quieter violet). ⏳ Owner scores 6b, then panel.
 - ❌ Design 7 (monochrome + lime) — failed by owner.
 - ❌ Design 8 (colour tiles) — owner: "extra fail, awful".
 - ❌ Design 9 (PhonePe structure, navy) — failed by owner.
 - ❌ Design 10 (voice orb home) — owner: "extra fail, very bad".
 - ❌ Design 11 (POS tap grid) — failed by owner.
 - ❌ Design 12 (Health-style summary) — failed by owner.
-- 🔄 Design 14 (owner: LAST design): chat flow (Design 5) inside Design 2 look — teal sales card at top of the thread, bill arrives as a chat card, teal voice composer docked at bottom; waiting for owner look.
+- ❌ Design 14 (LAST) — failed by owner. Was: chat flow (Design 5) inside Design 2 look — teal sales card at top of the thread, bill arrives as a chat card, teal voice composer docked at bottom; waiting for owner look.
 - ⏸ Design 13 — HOLD (owner). Was: built from what owner kept — Design 2 teal card + docked voice bar, Design 6 bills timeline, udhaar strip + order line; waiting for owner look.
 
 ## S5 · Daily payoff
