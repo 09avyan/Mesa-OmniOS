@@ -138,7 +138,8 @@ Approved, in this order:
 - Redo #5 versions are built as files in design/redo5/ (not on the live site); panel reviews screenshots. ⏳ Asked owner how to show an approved version on the phone.
 - ❌ Design A "Note" (banknote language: ₹100 lavender, guilloche, watermark, totals in words) v1 FAILED 0/7, avg 7.48 (Shyam 7.7 · Aman 7.3 · Rekha 8.3 · Pooja 7.3 · Baldev 8.0 · payments 7.0 · super-app 7.3). Panel: concept strong (amount in words, money safety), execution weak (empty listen screen, Bolo moves sides, blurry watermark, tiled waves, purple template feel, stock tick).
 - ❌ Design A improvement round FAILED 2/7 YES (Rekha, Baldev), avg 8.04. Design A closed (rule: one fix round only). Files: design/redo5/v1.html, v2.html.
-- 🔄 Design B from scratch: indigo hand-block-print (dabu/Bagru) world, full-bleed bands instead of card stacks, one Bolo key same size/place on every screen, one-screen check.
+- ❌ Design B "Dabu" (indigo block print) — VETOED by owner before panel, no improvement round (24 Nov). File: design/redo5/B1.html.
+- 🔄 Design C from scratch (ui-ux-pro-max + impeccable together; 8-member panel incl. AI-detector).
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
