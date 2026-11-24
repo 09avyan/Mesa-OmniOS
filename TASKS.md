@@ -97,7 +97,7 @@ Approved, in this order:
 5. Admin usage per store + CSV + pitch line + read-only store view.
 6. Full UI redo (now UI REDO #4, next session) + panel ≥ 9.
 7. Speed (Supabase + site) + spoken-answer settings.
-- ⏳ Master items file (`.items`): every item any current or future customer store could sell — kirana, niche/regional, supermart/POS ranges (pack sizes, flavours, brands, Hindi/Hinglish/English names, aliases, barcodes where known). Used by voice + receipts so Gemini is needed less. Plan: build in batches by category, merge with catalog.json.
+- 🔄 Universe file (was "`.items`", renamed by owner 24 Nov): supabase/seed/universe.json — batch 1 = 100 best-known items ✅. Next batches by category. Original aim: master items file (`.items`): every item any current or future customer store could sell — kirana, niche/regional, supermart/POS ranges (pack sizes, flavours, brands, Hindi/Hinglish/English names, aliases, barcodes where known). Used by voice + receipts so Gemini is needed less. Plan: build in batches by category, merge with catalog.json.
 - ✅ T&C wording approved by owner (lawyer check before real pilots).
 - ⏸ Not approved yet: hidden pitch-mode screen.
 - ⏸ DISCUSS LATER — remind owner: edge cases + safety, sponsored items, item photos plan, khata photo import (Phase 2 vs now).

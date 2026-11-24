@@ -1,0 +1,1396 @@
+{
+ "about": "OmniOS Universe: master list of every item any current or future customer store may sell (kirana, regional, supermart/POS). Used by voice + receipt matching so Gemini is needed less. Grows in batches by category; merges with catalog.json.",
+ "version": 1,
+ "items": [
+  {
+   "id": "sugar",
+   "hinglish": "Cheeni",
+   "hi": "चीनी",
+   "en": "Sugar",
+   "category": "staples",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "chini",
+    "shakkar",
+    "sugar"
+   ]
+  },
+  {
+   "id": "salt-tata-1kg",
+   "hinglish": "Tata namak",
+   "hi": "टाटा नमक",
+   "en": "Tata Salt 1kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tata",
+   "aliases": [
+    "namak",
+    "salt",
+    "tata salt"
+   ]
+  },
+  {
+   "id": "atta-aashirvaad-5kg",
+   "hinglish": "Aashirvaad atta 5kg",
+   "hi": "आशीर्वाद आटा 5 किलो",
+   "en": "Aashirvaad Atta 5kg",
+   "category": "staples",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Aashirvaad",
+   "aliases": [
+    "atta",
+    "aata",
+    "ashirwad"
+   ]
+  },
+  {
+   "id": "atta-loose",
+   "hinglish": "Atta",
+   "hi": "आटा",
+   "en": "Wheat flour",
+   "category": "staples",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "aata",
+    "gehu ka atta"
+   ]
+  },
+  {
+   "id": "maida",
+   "hinglish": "Maida",
+   "hi": "मैदा",
+   "en": "Maida",
+   "category": "staples",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "meda",
+    "maida"
+   ]
+  },
+  {
+   "id": "suji",
+   "hinglish": "Suji",
+   "hi": "सूजी",
+   "en": "Semolina",
+   "category": "staples",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "sooji",
+    "rava",
+    "rawa"
+   ]
+  },
+  {
+   "id": "besan",
+   "hinglish": "Besan",
+   "hi": "बेसन",
+   "en": "Gram flour",
+   "category": "staples",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "besan",
+    "chana atta"
+   ]
+  },
+  {
+   "id": "rice-basmati",
+   "hinglish": "Basmati chawal",
+   "hi": "बासमती चावल",
+   "en": "Basmati rice",
+   "category": "staples",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "chawal",
+    "basmati",
+    "rice"
+   ]
+  },
+  {
+   "id": "rice-regular",
+   "hinglish": "Chawal",
+   "hi": "चावल",
+   "en": "Rice",
+   "category": "staples",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "chaawal",
+    "rice",
+    "kolam"
+   ]
+  },
+  {
+   "id": "poha",
+   "hinglish": "Poha",
+   "hi": "पोहा",
+   "en": "Flattened rice",
+   "category": "staples",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "poha",
+    "chivda"
+   ]
+  },
+  {
+   "id": "toor-dal",
+   "hinglish": "Toor dal",
+   "hi": "तूर दाल",
+   "en": "Toor dal",
+   "category": "dal",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "arhar",
+    "tuar",
+    "toor"
+   ]
+  },
+  {
+   "id": "moong-dal",
+   "hinglish": "Moong dal",
+   "hi": "मूंग दाल",
+   "en": "Moong dal",
+   "category": "dal",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "mung",
+    "moong"
+   ]
+  },
+  {
+   "id": "chana-dal",
+   "hinglish": "Chana dal",
+   "hi": "चना दाल",
+   "en": "Chana dal",
+   "category": "dal",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "chane ki dal"
+   ]
+  },
+  {
+   "id": "masoor-dal",
+   "hinglish": "Masoor dal",
+   "hi": "मसूर दाल",
+   "en": "Masoor dal",
+   "category": "dal",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "masur",
+    "lal dal"
+   ]
+  },
+  {
+   "id": "urad-dal",
+   "hinglish": "Urad dal",
+   "hi": "उड़द दाल",
+   "en": "Urad dal",
+   "category": "dal",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "udad",
+    "urad"
+   ]
+  },
+  {
+   "id": "kabuli-chana",
+   "hinglish": "Kabuli chana",
+   "hi": "काबुली चना",
+   "en": "Chickpeas",
+   "category": "dal",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "chole",
+    "chhole"
+   ]
+  },
+  {
+   "id": "rajma",
+   "hinglish": "Rajma",
+   "hi": "राजमा",
+   "en": "Kidney beans",
+   "category": "dal",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "rajmah"
+   ]
+  },
+  {
+   "id": "oil-fortune-soy-1l",
+   "hinglish": "Fortune soyabean tel",
+   "hi": "फॉर्च्यून सोयाबीन तेल",
+   "en": "Fortune Soyabean Oil 1L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Fortune",
+   "aliases": [
+    "fortune",
+    "soya tel",
+    "soyabean oil"
+   ]
+  },
+  {
+   "id": "oil-mustard-1l",
+   "hinglish": "Sarson ka tel",
+   "hi": "सरसों का तेल",
+   "en": "Mustard oil 1L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "sarso tel",
+    "kachi ghani",
+    "mustard"
+   ]
+  },
+  {
+   "id": "oil-groundnut-1l",
+   "hinglish": "Mungfali tel",
+   "hi": "मूंगफली तेल",
+   "en": "Groundnut oil 1L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "singdana tel",
+    "moongfali"
+   ]
+  },
+  {
+   "id": "ghee-amul-1l",
+   "hinglish": "Amul ghee",
+   "hi": "अमूल घी",
+   "en": "Amul Ghee 1L",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "ghee",
+    "amul ghee"
+   ]
+  },
+  {
+   "id": "vanaspati-dalda",
+   "hinglish": "Dalda",
+   "hi": "डालडा",
+   "en": "Dalda Vanaspati",
+   "category": "oil-ghee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Dalda",
+   "aliases": [
+    "dalda",
+    "vanaspati"
+   ]
+  },
+  {
+   "id": "haldi",
+   "hinglish": "Haldi",
+   "hi": "हल्दी",
+   "en": "Turmeric",
+   "category": "spices",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "haldi powder",
+    "turmeric"
+   ]
+  },
+  {
+   "id": "mirch-powder",
+   "hinglish": "Lal mirch",
+   "hi": "लाल मिर्च",
+   "en": "Chilli powder",
+   "category": "spices",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "mirchi powder",
+    "red chilli"
+   ]
+  },
+  {
+   "id": "dhaniya-powder",
+   "hinglish": "Dhaniya powder",
+   "hi": "धनिया पाउडर",
+   "en": "Coriander powder",
+   "category": "spices",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "dhania"
+   ]
+  },
+  {
+   "id": "jeera",
+   "hinglish": "Jeera",
+   "hi": "जीरा",
+   "en": "Cumin",
+   "category": "spices",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "zeera",
+    "cumin"
+   ]
+  },
+  {
+   "id": "rai",
+   "hinglish": "Rai",
+   "hi": "राई",
+   "en": "Mustard seeds",
+   "category": "spices",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "sarson dana",
+    "rai"
+   ]
+  },
+  {
+   "id": "garam-masala-mdh",
+   "hinglish": "MDH garam masala",
+   "hi": "एमडीएच गरम मसाला",
+   "en": "MDH Garam Masala",
+   "category": "spices",
+   "unit": "pc",
+   "loose": false,
+   "brand": "MDH",
+   "aliases": [
+    "garam masala",
+    "mdh"
+   ]
+  },
+  {
+   "id": "everest-kitchen-king",
+   "hinglish": "Everest kitchen king",
+   "hi": "एवरेस्ट किचन किंग",
+   "en": "Everest Kitchen King",
+   "category": "spices",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Everest",
+   "aliases": [
+    "kitchen king",
+    "everest"
+   ]
+  },
+  {
+   "id": "hing",
+   "hinglish": "Hing",
+   "hi": "हींग",
+   "en": "Asafoetida",
+   "category": "spices",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "heeng",
+    "asafoetida"
+   ]
+  },
+  {
+   "id": "tea-tata-500g",
+   "hinglish": "Tata chai patti",
+   "hi": "टाटा चाय पत्ती",
+   "en": "Tata Tea Premium 500g",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tata",
+   "aliases": [
+    "chai",
+    "chai patti",
+    "tata tea"
+   ]
+  },
+  {
+   "id": "tea-redlabel-250g",
+   "hinglish": "Red Label chai",
+   "hi": "रेड लेबल चाय",
+   "en": "Red Label Tea 250g",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Brooke Bond",
+   "aliases": [
+    "red label",
+    "chai"
+   ]
+  },
+  {
+   "id": "tea-wagh-bakri",
+   "hinglish": "Wagh Bakri chai",
+   "hi": "वाघ बकरी चाय",
+   "en": "Wagh Bakri Tea",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Wagh Bakri",
+   "aliases": [
+    "wagh bakri",
+    "bagh bakri"
+   ]
+  },
+  {
+   "id": "coffee-nescafe-sachet",
+   "hinglish": "Nescafe sachet",
+   "hi": "नेस्कैफे पाउच",
+   "en": "Nescafe Classic sachet",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Nescafe",
+   "aliases": [
+    "coffee",
+    "nescafe"
+   ]
+  },
+  {
+   "id": "bru",
+   "hinglish": "Bru coffee",
+   "hi": "ब्रू कॉफी",
+   "en": "Bru Instant",
+   "category": "tea-coffee",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Bru",
+   "aliases": [
+    "bru"
+   ]
+  },
+  {
+   "id": "milk-amul-gold-500",
+   "hinglish": "Amul Gold doodh",
+   "hi": "अमूल गोल्ड दूध",
+   "en": "Amul Gold Milk 500ml",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "doodh",
+    "milk",
+    "amul gold"
+   ]
+  },
+  {
+   "id": "milk-sanchi-500",
+   "hinglish": "Sanchi doodh",
+   "hi": "साँची दूध",
+   "en": "Sanchi Milk 500ml",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Sanchi",
+   "aliases": [
+    "sanchi",
+    "doodh"
+   ]
+  },
+  {
+   "id": "curd",
+   "hinglish": "Dahi",
+   "hi": "दही",
+   "en": "Curd",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "dahi",
+    "curd"
+   ]
+  },
+  {
+   "id": "paneer",
+   "hinglish": "Paneer",
+   "hi": "पनीर",
+   "en": "Paneer",
+   "category": "dairy",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "panir"
+   ]
+  },
+  {
+   "id": "butter-amul-100",
+   "hinglish": "Amul makhan",
+   "hi": "अमूल मक्खन",
+   "en": "Amul Butter 100g",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Amul",
+   "aliases": [
+    "butter",
+    "makhan"
+   ]
+  },
+  {
+   "id": "eggs",
+   "hinglish": "Anda",
+   "hi": "अंडा",
+   "en": "Egg",
+   "category": "dairy",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "ande",
+    "egg"
+   ]
+  },
+  {
+   "id": "bread",
+   "hinglish": "Bread",
+   "hi": "ब्रेड",
+   "en": "Bread",
+   "category": "bakery",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "double roti",
+    "pav"
+   ]
+  },
+  {
+   "id": "pav",
+   "hinglish": "Pav",
+   "hi": "पाव",
+   "en": "Pav",
+   "category": "bakery",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "pao",
+    "bun"
+   ]
+  },
+  {
+   "id": "rusk",
+   "hinglish": "Rusk",
+   "hi": "रस्क",
+   "en": "Rusk",
+   "category": "bakery",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "toast",
+    "rusk"
+   ]
+  },
+  {
+   "id": "parle-g",
+   "hinglish": "Parle-G",
+   "hi": "पारले-जी",
+   "en": "Parle-G biscuit",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle",
+   "aliases": [
+    "parle g",
+    "parle ji",
+    "biscuit"
+   ]
+  },
+  {
+   "id": "good-day",
+   "hinglish": "Good Day",
+   "hi": "गुड डे",
+   "en": "Britannia Good Day",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Britannia",
+   "aliases": [
+    "good day",
+    "gudday"
+   ]
+  },
+  {
+   "id": "marie-gold",
+   "hinglish": "Marie Gold",
+   "hi": "मैरी गोल्ड",
+   "en": "Britannia Marie Gold",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Britannia",
+   "aliases": [
+    "marie",
+    "mari"
+   ]
+  },
+  {
+   "id": "monaco",
+   "hinglish": "Monaco",
+   "hi": "मोनाको",
+   "en": "Parle Monaco",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle",
+   "aliases": [
+    "monaco"
+   ]
+  },
+  {
+   "id": "hide-seek",
+   "hinglish": "Hide & Seek",
+   "hi": "हाइड एंड सीक",
+   "en": "Parle Hide & Seek",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle",
+   "aliases": [
+    "hide and seek"
+   ]
+  },
+  {
+   "id": "oreo",
+   "hinglish": "Oreo",
+   "hi": "ओरियो",
+   "en": "Oreo",
+   "category": "biscuits",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Cadbury",
+   "aliases": [
+    "oreo"
+   ]
+  },
+  {
+   "id": "maggi-70",
+   "hinglish": "Maggi chhota",
+   "hi": "मैगी छोटा",
+   "en": "Maggi Masala 70g",
+   "category": "noodles",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Maggi",
+   "aliases": [
+    "maggi",
+    "maggie"
+   ]
+  },
+  {
+   "id": "yippee",
+   "hinglish": "Yippee",
+   "hi": "यिप्पी",
+   "en": "Sunfeast Yippee",
+   "category": "noodles",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Sunfeast",
+   "aliases": [
+    "yippee",
+    "yipee"
+   ]
+  },
+  {
+   "id": "lays-classic",
+   "hinglish": "Lays namkeen salted",
+   "hi": "लेज़ नमकीन",
+   "en": "Lay's Classic Salted",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lay's",
+   "aliases": [
+    "lays",
+    "lez"
+   ]
+  },
+  {
+   "id": "kurkure",
+   "hinglish": "Kurkure",
+   "hi": "कुरकुरे",
+   "en": "Kurkure Masala Munch",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Kurkure",
+   "aliases": [
+    "kurkure"
+   ]
+  },
+  {
+   "id": "haldiram-bhujia",
+   "hinglish": "Haldiram bhujia",
+   "hi": "हल्दीराम भुजिया",
+   "en": "Haldiram's Bhujia",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Haldiram's",
+   "aliases": [
+    "bhujia",
+    "haldiram"
+   ]
+  },
+  {
+   "id": "ratlami-sev",
+   "hinglish": "Ratlami sev",
+   "hi": "रतलामी सेव",
+   "en": "Ratlami Sev",
+   "category": "snacks",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "sev",
+    "ratlami"
+   ]
+  },
+  {
+   "id": "bingo",
+   "hinglish": "Bingo",
+   "hi": "बिंगो",
+   "en": "Bingo Mad Angles",
+   "category": "snacks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Bingo",
+   "aliases": [
+    "bingo",
+    "mad angles"
+   ]
+  },
+  {
+   "id": "dairy-milk-10",
+   "hinglish": "Dairy Milk chhoti",
+   "hi": "डेयरी मिल्क छोटी",
+   "en": "Cadbury Dairy Milk 10",
+   "category": "chocolates",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Cadbury",
+   "aliases": [
+    "dairy milk",
+    "cadbury"
+   ]
+  },
+  {
+   "id": "5star",
+   "hinglish": "5 Star",
+   "hi": "5 स्टार",
+   "en": "Cadbury 5 Star",
+   "category": "chocolates",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Cadbury",
+   "aliases": [
+    "five star"
+   ]
+  },
+  {
+   "id": "kitkat",
+   "hinglish": "KitKat",
+   "hi": "किटकैट",
+   "en": "KitKat",
+   "category": "chocolates",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Nestle",
+   "aliases": [
+    "kitkat",
+    "kit kat"
+   ]
+  },
+  {
+   "id": "pulse",
+   "hinglish": "Pulse toffee",
+   "hi": "पल्स टॉफी",
+   "en": "Pass Pass Pulse",
+   "category": "chocolates",
+   "unit": "pc",
+   "loose": false,
+   "brand": "DS",
+   "aliases": [
+    "pulse",
+    "toffee"
+   ]
+  },
+  {
+   "id": "frooti",
+   "hinglish": "Frooti",
+   "hi": "फ्रूटी",
+   "en": "Frooti",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parle Agro",
+   "aliases": [
+    "frooti",
+    "fruti"
+   ]
+  },
+  {
+   "id": "maaza",
+   "hinglish": "Maaza",
+   "hi": "माज़ा",
+   "en": "Maaza",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "maza"
+   ]
+  },
+  {
+   "id": "thums-up",
+   "hinglish": "Thums Up",
+   "hi": "थम्स अप",
+   "en": "Thums Up",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "thumsup",
+    "thums"
+   ]
+  },
+  {
+   "id": "sprite",
+   "hinglish": "Sprite",
+   "hi": "स्प्राइट",
+   "en": "Sprite",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Coca-Cola",
+   "aliases": [
+    "sprite"
+   ]
+  },
+  {
+   "id": "pepsi",
+   "hinglish": "Pepsi",
+   "hi": "पेप्सी",
+   "en": "Pepsi",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "PepsiCo",
+   "aliases": [
+    "pepsi"
+   ]
+  },
+  {
+   "id": "bisleri-1l",
+   "hinglish": "Bisleri paani",
+   "hi": "बिसलेरी पानी",
+   "en": "Bisleri 1L",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Bisleri",
+   "aliases": [
+    "paani bottle",
+    "water",
+    "bisleri"
+   ]
+  },
+  {
+   "id": "rasna",
+   "hinglish": "Rasna",
+   "hi": "रसना",
+   "en": "Rasna",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Rasna",
+   "aliases": [
+    "rasna"
+   ]
+  },
+  {
+   "id": "horlicks",
+   "hinglish": "Horlicks",
+   "hi": "हॉर्लिक्स",
+   "en": "Horlicks",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Horlicks",
+   "aliases": [
+    "horlicks"
+   ]
+  },
+  {
+   "id": "bournvita",
+   "hinglish": "Bournvita",
+   "hi": "बॉर्नविटा",
+   "en": "Bournvita",
+   "category": "drinks",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Cadbury",
+   "aliases": [
+    "bornvita"
+   ]
+  },
+  {
+   "id": "surf-excel-1kg",
+   "hinglish": "Surf Excel",
+   "hi": "सर्फ एक्सेल",
+   "en": "Surf Excel 1kg",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Surf Excel",
+   "aliases": [
+    "surf",
+    "surf excel"
+   ]
+  },
+  {
+   "id": "tide",
+   "hinglish": "Tide",
+   "hi": "टाइड",
+   "en": "Tide 1kg",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Tide",
+   "aliases": [
+    "tide"
+   ]
+  },
+  {
+   "id": "wheel",
+   "hinglish": "Wheel",
+   "hi": "व्हील",
+   "en": "Wheel 1kg",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Wheel",
+   "aliases": [
+    "wheel",
+    "vheel"
+   ]
+  },
+  {
+   "id": "rin-bar",
+   "hinglish": "Rin sabun",
+   "hi": "रिन साबुन",
+   "en": "Rin bar",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Rin",
+   "aliases": [
+    "rin"
+   ]
+  },
+  {
+   "id": "vim-bar",
+   "hinglish": "Vim bar",
+   "hi": "विम बार",
+   "en": "Vim bar",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Vim",
+   "aliases": [
+    "vim"
+   ]
+  },
+  {
+   "id": "harpic",
+   "hinglish": "Harpic",
+   "hi": "हार्पिक",
+   "en": "Harpic",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Harpic",
+   "aliases": [
+    "harpic"
+   ]
+  },
+  {
+   "id": "lizol",
+   "hinglish": "Lizol",
+   "hi": "लिज़ोल",
+   "en": "Lizol",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lizol",
+   "aliases": [
+    "lizol",
+    "phenyl"
+   ]
+  },
+  {
+   "id": "phenyl",
+   "hinglish": "Phenyl",
+   "hi": "फिनाइल",
+   "en": "Phenyl",
+   "category": "cleaning",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "finail"
+   ]
+  },
+  {
+   "id": "lifebuoy",
+   "hinglish": "Lifebuoy sabun",
+   "hi": "लाइफबॉय साबुन",
+   "en": "Lifebuoy soap",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lifebuoy",
+   "aliases": [
+    "lifeboy",
+    "sabun"
+   ]
+  },
+  {
+   "id": "lux",
+   "hinglish": "Lux sabun",
+   "hi": "लक्स साबुन",
+   "en": "Lux soap",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Lux",
+   "aliases": [
+    "lux"
+   ]
+  },
+  {
+   "id": "dettol-soap",
+   "hinglish": "Dettol sabun",
+   "hi": "डेटॉल साबुन",
+   "en": "Dettol soap",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Dettol",
+   "aliases": [
+    "detol"
+   ]
+  },
+  {
+   "id": "santoor",
+   "hinglish": "Santoor",
+   "hi": "संतूर",
+   "en": "Santoor soap",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Santoor",
+   "aliases": [
+    "santur"
+   ]
+  },
+  {
+   "id": "colgate-100",
+   "hinglish": "Colgate",
+   "hi": "कोलगेट",
+   "en": "Colgate 100g",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Colgate",
+   "aliases": [
+    "colgate",
+    "toothpaste",
+    "manjan"
+   ]
+  },
+  {
+   "id": "pepsodent",
+   "hinglish": "Pepsodent",
+   "hi": "पेप्सोडेंट",
+   "en": "Pepsodent",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Pepsodent",
+   "aliases": [
+    "pepsodent"
+   ]
+  },
+  {
+   "id": "toothbrush",
+   "hinglish": "Brush",
+   "hi": "ब्रश",
+   "en": "Toothbrush",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "tooth brush",
+    "brush"
+   ]
+  },
+  {
+   "id": "clinic-plus-sachet",
+   "hinglish": "Clinic Plus shampoo",
+   "hi": "क्लिनिक प्लस शैम्पू",
+   "en": "Clinic Plus sachet",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Clinic Plus",
+   "aliases": [
+    "shampoo",
+    "clinic plus"
+   ]
+  },
+  {
+   "id": "parachute-100",
+   "hinglish": "Parachute tel",
+   "hi": "पैराशूट तेल",
+   "en": "Parachute 100ml",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Parachute",
+   "aliases": [
+    "nariyal tel",
+    "coconut oil"
+   ]
+  },
+  {
+   "id": "vaseline",
+   "hinglish": "Vaseline",
+   "hi": "वैसलीन",
+   "en": "Vaseline",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Vaseline",
+   "aliases": [
+    "vaselin"
+   ]
+  },
+  {
+   "id": "fair-lovely",
+   "hinglish": "Glow & Lovely",
+   "hi": "ग्लो एंड लवली",
+   "en": "Glow & Lovely",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "HUL",
+   "aliases": [
+    "fair and lovely",
+    "glow lovely"
+   ]
+  },
+  {
+   "id": "whisper",
+   "hinglish": "Whisper",
+   "hi": "व्हिस्पर",
+   "en": "Whisper pads",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Whisper",
+   "aliases": [
+    "pad",
+    "whisper"
+   ]
+  },
+  {
+   "id": "gillette-blade",
+   "hinglish": "Blade",
+   "hi": "ब्लेड",
+   "en": "Razor blade",
+   "category": "personal-care",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "blade",
+    "gillette"
+   ]
+  },
+  {
+   "id": "matchbox",
+   "hinglish": "Machis",
+   "hi": "माचिस",
+   "en": "Matchbox",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "machis",
+    "match box",
+    "ship"
+   ]
+  },
+  {
+   "id": "agarbatti",
+   "hinglish": "Agarbatti",
+   "hi": "अगरबत्ती",
+   "en": "Incense sticks",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "agarbati",
+    "dhoop"
+   ]
+  },
+  {
+   "id": "good-knight",
+   "hinglish": "Good Knight",
+   "hi": "गुड नाइट",
+   "en": "Good Knight refill",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Good Knight",
+   "aliases": [
+    "goodnight",
+    "machhar"
+   ]
+  },
+  {
+   "id": "candle",
+   "hinglish": "Mombatti",
+   "hi": "मोमबत्ती",
+   "en": "Candle",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": null,
+   "aliases": [
+    "candle",
+    "mombati"
+   ]
+  },
+  {
+   "id": "battery-eveready",
+   "hinglish": "Eveready cell",
+   "hi": "एवरेडी सेल",
+   "en": "Eveready AA cell",
+   "category": "household",
+   "unit": "pc",
+   "loose": false,
+   "brand": "Eveready",
+   "aliases": [
+    "cell",
+    "battery",
+    "everyday"
+   ]
+  },
+  {
+   "id": "onion",
+   "hinglish": "Pyaaz",
+   "hi": "प्याज़",
+   "en": "Onion",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "kanda",
+    "pyaj"
+   ]
+  },
+  {
+   "id": "potato",
+   "hinglish": "Aloo",
+   "hi": "आलू",
+   "en": "Potato",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "aaloo",
+    "batata"
+   ]
+  },
+  {
+   "id": "tomato",
+   "hinglish": "Tamatar",
+   "hi": "टमाटर",
+   "en": "Tomato",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "tamater",
+    "tomato"
+   ]
+  },
+  {
+   "id": "garlic",
+   "hinglish": "Lehsun",
+   "hi": "लहसुन",
+   "en": "Garlic",
+   "category": "veg",
+   "unit": "kg",
+   "loose": true,
+   "brand": null,
+   "aliases": [
+    "lasun",
+    "garlic"
+   ]
+  }
+ ]
+}
