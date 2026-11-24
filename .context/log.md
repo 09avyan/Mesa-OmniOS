@@ -1,5 +1,6 @@
 # Session log (newest first)
 - 24 Nov: .context/ created (owner: keep context small). Start rule = INDEX + TASKS + graphify. Owner answered redo #4 questions (see ui-redo-4.md). Starting redo #4.
+- 24 Nov: owner said "remove proto" → /proto/ + /proto-prev/ deleted from live site; redo #5 versions live in design/redo5/.
 - 24 Nov: owner ordered UI REDO #5 from absolute scratch (v10 dropped). Loop: version → panel → 1 fix → panel → else new design.
 - 24 Nov: v10 PASSED 7/7 (9.15). Waiting owner approval on phone before rebuild.
 - 24 Nov: v8 8.96, v9 9.00 (6/7 YES); v10 = bottom-sheet craft.
