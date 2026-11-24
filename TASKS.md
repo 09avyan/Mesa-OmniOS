@@ -117,7 +117,8 @@ Approved, in this order:
   - v3 = keep MRP-box world, every screen redrawn from scratch in it (panel: strongest idea).
   - Payment: hint only ("Aksar udhaar"), nothing pre-selected (money rule kept).
   - Colours: deeper haldi + packet-print maroon, so it doesn't read as Blinkit.
-- 🔄 v3 "MRP box, full flow": packet batch-code strip (bill no · date · MRP) replaces zigzag; bill lines as a packet-style ruled table; big Bolo key + listening state with Bas (stop); Home shows total udhaar baaki; one button style in Aaj karna hai; on-brand locked Save; new saved screen (no v6 stamp).
+- ❌ v3 "MRP box, full flow" FAILED 0/7, avg 7.93 (up from 7.44). Shyam 8.0 · Aman 8.0 · Rekha 8.3 · Pooja 7.7 · Baldev 8.7 · payments designer 7.7 · super-app director 7.7. Panel: direction right, fix craft: one main-button colour, readable batch code (dots looked like commas, wrapped), only "Bas" while listening, fill listening screen, keep total visible on confirm, aligned steppers, a payoff moment on save, clearer words ("Doosri Maggi dikhao", Hindi "पक्का करो").
+- 🔄 v4: all 10 v3 fixes.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
