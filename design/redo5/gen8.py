@@ -33,12 +33,12 @@ T={
 'o1':('Maggi bada','मैगी बड़ा'),'o2':('Maggi 4 ka pack','मैगी 4 का पैक'),'o3':('Atta Maggi','आटा मैगी'),'bolke':('Bolke batao','बोलकर बताओ'),
 'items3':('3 saaman','3 सामान'),'kul':('Kul','कुल'),'aage':('Paisa lo','पैसा लो'),
 'kaise':('Paisa kaise mila?','पैसा कैसे मिला?'),'haath':('Haath mein','हाथ में'),'qrd':('QR se','QR से'),'khatem':('Khate mein','खाते में'),
-'pehle':('Upar se chuno','ऊपर से चुनो'),'thoda':('Thoda abhi, baaki udhaar','थोड़ा अभी, बाकी उधार'),
+'pehle':('Pehle Cash, UPI ya Udhaar chuno','पहले Cash, UPI या उधार चुनो'),'thoda':('Thoda abhi, baaki udhaar','थोड़ा अभी, बाकी उधार'),
 'khata':('Sharma ji ka khata','शर्मा जी का खाता'),'save':('Udhaar mein likho','उधार में लिखो'),'cashsave':('Cash mila','Cash मिला'),'upisave':('UPI aaya','UPI आया'),
 'qrwait':('Paisa aate hi bill khud save hoga','पैसा आते ही Bill खुद save होगा'),'scan':('Grahak se scan karwao','ग्राहक से scan करवाओ'),
 'likhdiya':('Udhaar mein likh diya','उधार में लिख दिया'),'saved':('Bill 2205 save hua','Bill 2205 save हुआ'),
 'p1':('Pehle ka baaki','पहले का बाकी'),'p2':('Aaj ka bill','आज का Bill'),'p3':('Ab kul baaki','अब कुल बाकी'),
-'agla':('Agla bill','अगला Bill'),'wa':('WhatsApp','WhatsApp'),'undo':('Galti hui? Wapas lo','गलती हुई? वापस लो'),
+'agla':('Agla bill','अगला Bill'),'wa':('WhatsApp','WhatsApp'),'undo':('Wapas lo','वापस लो'),
 'bhejo':('Sharma ji ko bhejo','शर्मा जी को भेजो'),'grahak':('Grahak','ग्राहक'),
 'likha':('Udhaar mein likha. Khata ab ₹2,597','उधार में लिखा। खाता अब ₹2,597'),
 'addr':('Rajwada, Indore','राजवाड़ा, इंदौर'),'dhanya':('Dhanyavaad, phir aana','धन्यवाद, फिर आना'),
@@ -65,9 +65,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webki
 .tb{min-height:56px;display:inline-flex;align-items:center;gap:6px;padding:0 14px;font-weight:600;color:var(--tx2);border-radius:10px}.tb.l{margin-left:-14px}
 .ctx{color:var(--tx2);font-weight:600;padding-right:12px;text-align:right;line-height:22px}
 .btn{min-height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:20px;font-weight:700;padding:0 18px;white-space:nowrap;transition:transform 90ms,filter 90ms}
-.btn:active{filter:brightness(.9)}.b56{min-height:56px;font-size:19px}
+.btn:active{filter:brightness(.92);transform:scale(.985)}.b56{min-height:56px;font-size:19px}
 .ink{background:var(--ink);color:var(--inktx)}.sf{background:var(--surf2);color:var(--tx)}.ol{background:var(--surf);box-shadow:inset 0 0 0 1.5px var(--sep2);color:var(--tx)}.vo{background:var(--vf);color:#fff}
-.btn[disabled]{background:transparent;box-shadow:inset 0 0 0 1.5px var(--sep2);color:var(--tx3);font-size:19px;font-weight:600;background-image:repeating-linear-gradient(135deg,transparent 0 7px,var(--surf2) 7px 8px)}
+.btn[disabled]{background:transparent;box-shadow:none;color:var(--tx2);font-size:20px;font-weight:600}
 .fix{position:fixed;left:0;right:0;bottom:0;background:var(--bg);padding:12px 16px 18px;box-shadow:0 -1px 0 var(--sep)}
 .hint{color:var(--tx3);padding-top:10px;display:flex;align-items:center;gap:6px}
 .lab{color:var(--tx2);font-weight:600}
@@ -101,7 +101,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webki
 /* check */
 .dt{position:relative;background:var(--surf);margin-left:0;padding-left:16px;border-bottom:0}
 .dt:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ink)}
-.flag{display:inline-block;font-size:18px;font-weight:700;color:var(--tx);border-bottom:2px dotted var(--tx3);line-height:22px}
+.flag{display:inline-flex;align-items:center;gap:6px;font-size:18px;font-weight:700;color:var(--tx);line-height:22px}.flag:before{content:'?';display:grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--ink);color:var(--inktx);font-size:16px;font-weight:800}
 .ask{background:var(--surf);padding:2px 16px 16px 16px;position:relative;border-bottom:1px solid var(--sep)}
 .ask:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ink)}
 .ask .qq{font-size:21px;font-weight:700;line-height:28px}
@@ -113,7 +113,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webki
 .kul .m{font-size:36px;line-height:42px;font-weight:800;letter-spacing:-.025em}
 /* pay */
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.pay{min-height:96px;border-radius:18px;background:var(--surf);box-shadow:inset 0 0 0 1.5px var(--sep2);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:2px;padding:12px;position:relative;white-space:nowrap}
+.pay{min-height:100px;border-radius:18px;background:var(--surf);box-shadow:inset 0 0 0 1.5px var(--sep2);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:0;padding:14px;position:relative;white-space:nowrap}
 .pay svg{margin-bottom:auto}.pay b{font-size:20px;font-weight:700;line-height:26px}.pay small{font-size:18px;color:var(--tx3);font-weight:500}
 .pay .tk{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:7px;background:var(--ink);color:var(--inktx);display:none;place-items:center}
 .pay.on{box-shadow:inset 0 0 0 2.5px var(--ink)}.pay.on .tk{display:grid}
@@ -147,10 +147,10 @@ BILLS=[('6:12','n_rekha','rk','240','','cash'),('6:05','n_verma','vm','415','','
 def home():
   rows=''.join(f'<div class="row"><span class="tm m">{tm}</span><div class="g">{t(n,"b")}{t(it)}</div><div class="a">{rs(a,sg)}{t(mt,"small","ud" if mt=="ud" else "")}</div></div>' for tm,n,it,a,sg,mt in BILLS)
   owe=''.join(f'<div class="row"><div class="g">{t(n,"b")}{t(d)}</div><span class="m ud" style="font-size:20px;font-weight:700">{rs(a)}</span><button class="btn ol b56" style="padding:0 14px">{ic("wa",20)}{t("yaad")}</button></div>' for n,a,d in [('n_mishra','2,523','din23'),('n_gupta','1,980','din9'),('n_khan','860','din4')])
-  return f'''<section class="view on" id="home" style="padding-bottom:210px">
+  return f'''<section class="view on" id="home" style="padding-bottom:260px">
 {top('<span class="nm" data-t="store">'+T['store'][0]+'</span>','<button class="tb">'+ic('gear',22)+t('settings')+'</button>')}
 <div style="padding:14px 16px 0"><div class="lab" style="display:flex;justify-content:space-between">{t('today')}{t('bills68','span','t3')}</div><div class="hero m" style="margin-top:10px">{rs('14,218')}</div>
-<div class="splitline"><div data-t="cash">Cash<b class="m">9,642</b></div><div>UPI<b class="m">3,456</b></div><div><span data-t="ud">Udhaar</span><b class="m ud">1,120</b></div></div></div>
+<div class="splitline"><div><span>Cash</span><b class="m">9,642</b></div><div>UPI<b class="m">3,456</b></div><div><span data-t="ud">Udhaar</span><b class="m ud">1,120</b></div></div></div>
 <div class="row" style="margin-top:22px;border-top:1px solid var(--sep);min-height:80px"><span class="pill m">2</span><div class="g">{t('online','b')}{t('pack')}</div><button class="btn ink b56" style="padding:0 16px">{ic('bag',20)}{t('dekho')}</button></div>
 <div class="sec"><h4 data-t="lena">{T['lena'][0]}</h4><span class="m ud" style="font-weight:700;padding-right:12px">{rs('32,484')}</span></div>{owe}
 <div class="sec"><h4 data-t="aajbill">{T['aajbill'][0]}</h4></div>{rows}
@@ -171,7 +171,7 @@ def listen():
 <div class="livebox"><div class="row" style="border-top:1px solid var(--sep)"><div class="g">{t('cheeni','b')}{t('kg2')}</div><div class="a">{rs('92')}</div></div>
 <div class="row newrow" style="border-bottom:0"><div class="g">{t('maggi','b')}{t('mx')}</div><div class="a">{rs('14')}</div></div></div>
 <div class="fix" style="display:flex;align-items:center;justify-content:space-between;gap:8px"><div>{t('abtak','div','lab')}<div class="m" style="font-size:36px;line-height:42px;font-weight:800;letter-spacing:-.025em">{rs('106')}</div></div>
-<div style="display:flex;gap:8px"><button class="btn sf b56">{ic('pause',20)}{t('ruko')}</button><button class="btn ink b56" data-go="review">{ic('check',22)}{t('hogaya')}</button></div></div></section>'''
+<div style="display:flex;gap:8px"><button class="btn ol b56" style="padding:0 14px">{ic('pause',20)}{t('ruko')}</button><button class="btn ink" style="padding:0 22px" data-go="review">{ic('check',22)}{t('hogaya')}</button></div></div></section>'''
 
 def review():
   opts=''.join(f'<button class="opt" data-go="pay"><span data-t="{k}">{T[k][0]}</span><span class="m">{rs(p)}</span></button>' for k,p in [('o1','28'),('o2','56'),('o3','25')])
@@ -185,9 +185,7 @@ def review():
 <div id="askwhich" hidden><div class="qq" data-t="kaunsi">{T['kaunsi'][0]}</div><div class="opts">{opts}</div>
 <button class="btn sf b56" style="width:100%;margin-top:8px">{ic('mic',20)}{t('bolke')}</button></div></div>
 <div class="row"><div class="g">{t('toor','b')}{t('tx')}</div><div class="a">{rs('75')}</div></div>
-<div class="dbl" style="margin:16px 16px 0"></div>
-<div class="kul">{t('kul','span','lab')}<span class="m">{rs('181')}</span></div>
-<div class="fix"><button class="btn ink" style="width:100%" data-go="pay">{ic('cash',24)}{t('aage')}</button></div></section>'''
+<div class="fix"><div class="kul" style="padding:0 0 12px">{t('kul','span','lab')}<span class="m">{rs('181')}</span></div><button class="btn ink" style="width:100%" data-go="pay">{ic('cash',24)}{t('aage')}</button></div></section>'''
 
 def pay():
   random.seed(7);cells=''
@@ -201,24 +199,24 @@ def pay():
   return f'''<section class="view" id="pay" style="padding-bottom:350px">{top(back('wapas','review'),'Bill 2205<br><b style="color:var(--tx)" data-t="sharma">Sharma ji</b>')}
 <div style="padding:12px 16px 0">{t('kul','div','lab')}<div class="hero m" style="font-size:64px;line-height:64px;margin-top:8px">{rs('181')}</div></div>
 <div id="its" style="margin-top:18px;border-top:1px solid var(--sep)">{its}</div>
-<div class="qrbox" id="qrb"><div class="q">{qr}</div><div><div style="font-weight:700;font-size:20px" data-t="scan">{T['scan'][0]}</div><div class="t2" style="margin-top:6px"><span class="waitdot"></span><span data-t="qrwait">{T['qrwait'][0]}</span></div></div></div>
+<div class="qrbox" id="qrb"><div class="q">{qr}</div><div><div style="font-weight:700;font-size:20px" data-t="scan">{T['scan'][0]}</div><div class="t2" style="margin-top:6px"><span class="waitdot"></span><span data-t="qrwait">{T['qrwait'][0]}</span></div><div class="m" style="font-size:34px;line-height:40px;font-weight:800;margin-top:10px;letter-spacing:-.02em">{rs('181')}</div></div></div>
 <div class="fix"><div style="font-weight:700;font-size:20px" data-t="kaise">{T['kaise'][0]}</div>
-<div class="tiles"><button class="pay" data-p="c"><span class="tk">{ic('check',16,2.6)}</span>{ic('cash',28,1.7)}<b>Cash</b><small data-t="haath">{T['haath'][0]}</small></button>
-<button class="pay" data-p="p"><span class="tk">{ic('check',16,2.6)}</span>{ic('upi',28,1.7)}<b>UPI</b><small data-t="qrd">{T['qrd'][0]}</small></button>
-<button class="pay u" data-p="u"><span class="tk">{ic('check',16,2.6)}</span>{ic('khata',28,1.7)}<b data-t="ud">{T['ud'][0]}</b><small data-t="khatem">{T['khatem'][0]}</small></button></div>
+<div class="tiles"><button class="pay" data-p="c"><span class="tk">{ic('check',16,2.6)}</span>{ic('cash',28)}<b>Cash</b><small data-t="haath">{T['haath'][0]}</small></button>
+<button class="pay" data-p="p"><span class="tk">{ic('check',16,2.6)}</span>{ic('upi',28)}<b>UPI</b><small data-t="qrd">{T['qrd'][0]}</small></button>
+<button class="pay u" data-p="u"><span class="tk">{ic('check',16,2.6)}</span>{ic('khata',28)}<b data-t="ud">{T['ud'][0]}</b><small data-t="khatem">{T['khatem'][0]}</small></button></div>
 <div class="chg ud" id="chg"><span id="chgt" style="visibility:hidden"><span data-t="khata">{T['khata'][0]}</span> <span class="m">{rs('2,416')} → <b>{rs('2,597')}</b></span></span></div>
 <div class="tender" id="tender"><button class="btn ol b56 m" style="flex:1">{rs('200')}</button><button class="btn ol b56 m" style="flex:1">{rs('500')}</button><span class="t2" style="flex:1.2;font-weight:600;text-align:right">Lautao <b class="m" style="color:var(--tx)">{rs('19')}</b></span></div>
 <button class="btn ink" id="cf" style="width:100%;margin-top:10px" disabled data-go="done">{ic('up',22)}<span data-t="pehle" style="transform:rotate(0)">{T['pehle'][0]}</span></button>
-<button class="btn b56" id="thoda" style="width:100%;margin-top:4px;color:var(--tx2);font-weight:600">{ic('split',20)}{t('thoda')}</button></div></section>'''
+<button class="btn ol b56" id="thoda" style="width:100%;margin-top:8px;font-weight:600">{ic('split',20)}{t('thoda')}</button></div></section>'''
 
 def done():
   return f'''<section class="view" id="done" style="padding-bottom:260px">{top('<span></span>','<span class="m">6:15 pm</span>')}
-<div class="done-h"><span class="ok"><i>{ic('check',18,2.8)}</i>{t('saved')}</span><h2 data-t="likhdiya">{T['likhdiya'][0]}</h2><div class="hero m ud">{rs('181')}</div></div>
+<div class="done-h"><span class="ok"><i>{ic('check',18,2.8)}</i>{t('saved')}</span><h2 data-t="likhdiya">{T['likhdiya'][0]}</h2><div class="hero m ud"><span class="rs">₹</span><span id="cu">181</span></div></div>
 <div class="stub"><div class="r"><span class="t2" data-t="p1">{T['p1'][0]}</span><span class="m">{rs('2,416')}</span></div><div class="r"><span class="t2" data-t="p2">{T['p2'][0]}</span><span class="m">{rs('181','+ ')}</span></div>
 <div class="dbl" style="margin-top:4px"></div><div class="r" style="padding-top:12px"><span style="font-weight:700" data-t="p3">{T['p3'][0]}</span><span class="m ud" style="font-size:26px;font-weight:800">{rs('2,597')}</span></div></div>
 <div class="row" style="margin-top:12px;border-bottom:0"><div class="g">{t('items3','b')}<span>{t('cheeni')}, {t('maggi')}, {t('toor')}</span></div>{ic('chev',22)}</div>
 <div class="fix"><div style="display:grid;grid-template-columns:auto 1fr;gap:8px"><button class="btn ol" data-go="billimg">{ic('wa',22)}WhatsApp</button><button class="btn vo" data-go="listen">{ic('mic',24)}{t('agla')}</button></div>
-<button class="btn b56 undo">{ic('undo',20)}{t('undo')}<span class="m t3" style="margin-left:4px">10</span><i class="bar"></i></button></div></section>'''
+<button class="btn b56 undo">{ic('undo',20)}{t('undo')}<span class="m t3" style="margin-left:6px">10 sec</span><i class="bar"></i></button></div></section>'''
 
 def bill():
   its=[('cheeni','2 kg × 46','2 किलो × 46','92'),('maggi','1 × 14','1 × 14','14'),('toor','½ kg × 150','आधा किलो × 150','75')]
@@ -235,6 +233,7 @@ const T=%s;const q=new URLSearchParams(location.search);const HI=q.get('lang')==
 document.documentElement.dataset.theme=q.get('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 if(HI){document.querySelectorAll('[data-t]').forEach(e=>{const v=T[e.dataset.t];if(v)e.textContent=v[1]});document.querySelectorAll('[data-hi]').forEach(e=>e.textContent=e.dataset.hi)}
 function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===id));scrollTo(0,0)}
+new MutationObserver(()=>{if($('#done').classList.contains('on')){let n=0;const e=$('#cu');const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/600);e.textContent=Math.round(181*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}}).observe($('#done'),{attributes:true});
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{if(!b.disabled)go(b.dataset.go)}));
 $('#haan').onclick=()=>{$('#ask').hidden=true;const d=$('.dt');d.classList.remove('dt');d.querySelector('.flag').textContent=HI?'छोटा पैकेट':'chhota packet';d.querySelector('.flag').className=''};
 $('#nahi').onclick=()=>{$('#askyn').hidden=true;$('#askwhich').hidden=false};
