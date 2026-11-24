@@ -139,7 +139,9 @@ Approved, in this order:
 - 🗑 Designs A (banknote), B (block print), C (handwritten slip) — all vetoed by owner and deleted on owner request (24 Nov). Restart from square 0.
 - Owner answers (24 Nov): vetoes were about everything (look, theme idea, layout); references = Apple, PhonePe, Spotify; light+dark toggle; owner sees labelled screenshots (small translucent watermark: screen + stage) before every panel.
 - Design 1 (clean modern, orange accent, centre mic) — owner: "fine, but not up to the mark".
-- 🔄 Design 2: teal Wallet-style day card, PhonePe quick-action grid, Spotify-style docked voice bar + full-screen listening; waiting for owner look.
+- ✅ Design 2 (teal wallet card, quick actions, docked voice bar) — PASSED owner look; queued for panel.
+- Owner rule: panel runs only when owner asks, on all owner-passed designs, one after another.
+- 🔄 Design 3: black/gold (dark-first), search-style 'Bolkar bill banao' field, Spotify shelves (udhaar people as rings), split bar for cash/UPI/udhaar, gold round mic button; waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
