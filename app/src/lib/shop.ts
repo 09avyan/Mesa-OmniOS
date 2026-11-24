@@ -3,6 +3,7 @@ import { CATALOG } from '../voice/catalog'
 import { buildIndex, dice, type Matchable, type MatchIndex } from '../voice/match'
 import { fold } from '../voice/normalize'
 import { loadUniverse, universeMatchables } from './universe'
+import { loadHistory, mergeHistory, seedFromCounts, type FlavourHistory } from '../voice/flavour'
 
 export type ShopItem = { id: string; catalog_id: string | null; name: string; name_hi: string | null; unit: string; loose: boolean; price: number | null; learned_price: number | null; stock: number; stock_known: boolean; hidden_online: boolean }
 export type Customer = { id: string; name: string; tag: string | null; phone: string | null; balance: number }
@@ -11,7 +12,8 @@ export const custLabel = (c: { name: string; tag?: string | null }) => c.tag ? `
 
 // One matchable per thing the shop can sell: catalogue items merged with the shop's own items + learned names.
 export type ShopMatchable = Matchable & { shop?: ShopItem; lastPrice?: number }
-export type Shop = { items: ShopItem[]; customers: Customer[]; index: MatchIndex; byMatchId: Map<string, ShopMatchable> }
+export type Shop = { items: ShopItem[]; customers: Customer[]; index: MatchIndex; byMatchId: Map<string, ShopMatchable>
+  /** what this shop sold per product family (flavour engine); `shopKey` names it on this phone */ flavour: FlavourHistory; shopKey: string }
 
 let cache: Shop | null = null
 let loading: Promise<Shop> | null = null
@@ -21,11 +23,13 @@ export function invalidateShop() { cache = null }
 export async function loadShop(): Promise<Shop> {
   if (cache) return cache
   loading ??= (async () => {
-    const [it, al, cu, lp] = await Promise.all([
+    const [it, al, cu, lp, fs, ses] = await Promise.all([
       supabase.from('items').select('id,catalog_id,name,name_hi,unit,loose,price,learned_price,stock,stock_known,hidden_online'),
       supabase.from('item_aliases').select('alias,item_id'),
       supabase.from('customer_balances').select('id,name,tag,phone,balance').order('last_at', { ascending: false, nullsFirst: false }),
       supabase.from('bill_lines').select('item_id,price,bills!inner(created_at,status)').eq('bills.status', 'saved').order('created_at', { referencedTable: 'bills', ascending: false }).limit(500),
+      supabase.from('flavour_sales').select('family,match_id,n'),   // table from migration 0012; missing/denied = just no server seed
+      supabase.auth.getSession(),
     ])
     const items = (it.data ?? []).map((x) => ({ ...x, price: num(x.price), learned_price: num(x.learned_price), stock: Number(x.stock) })) as ShopItem[]
     const last = new Map<string, number>()
@@ -45,14 +49,17 @@ export async function loadShop(): Promise<Shop> {
     const known = new Set(list.flatMap((m) => [m.hinglish, m.en, m.hi, ...m.aliases].map((a) => fold(a.toLowerCase().trim()))))
     for (const u of uni) {
       if ([u.hinglish, u.en, u.hi].some((a) => known.has(fold(a.toLowerCase().trim())))) continue
-      const shop = byCatalog.get(u.id)
+      // a variant that replaced an old stand-alone item (Maggi 280g, Tata Salt 500g) keeps that item's stock row and price
+      const shop = byCatalog.get(u.id) ?? u.aka?.map((a) => byCatalog.get(a)).find(Boolean)
       list.push({ ...u, shop, lastPrice: shop ? last.get(shop.id) : undefined })
     }
     for (const s of items.filter((i) => !i.catalog_id)) {
       list.push({ id: 'shop:' + s.id, hinglish: s.name, hi: s.name_hi ?? s.name, en: s.name, brand: null, unit: s.unit, loose: s.loose, aliases: aliases.get(s.id) ?? [s.name.toLowerCase()], shop: s, lastPrice: last.get(s.id) })
     }
     const customers = ((cu.data ?? []) as Customer[]).map((c) => ({ ...c, balance: Number(c.balance) }))
-    cache = { items, customers, index: buildIndex(list), byMatchId: new Map(list.map((m) => [m.id, m])) }
+    const shopKey = ses.data.session?.user.id ?? 'local'
+    const flavour = mergeHistory(loadHistory(shopKey), seedFromCounts(fs.error ? [] : ((fs.data ?? []) as { family: string; match_id: string; n: number }[])))
+    cache = { items, customers, index: buildIndex(list), byMatchId: new Map(list.map((m) => [m.id, m])), flavour, shopKey }
     loading = null
     return cache
   })()

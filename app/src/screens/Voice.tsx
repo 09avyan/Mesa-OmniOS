@@ -8,13 +8,14 @@ import { custLabel, invalidateShop, loadShop, type Customer, type Shop, type Sho
 import { parse, parseItems } from '../voice/parse'
 import { tokenize } from '../voice/normalize'
 import { askAi, needsAi } from '../voice/ai'
-import { buildDraft, draftTotal, lineFrom, lineTotal, linesReady, searchItems, type Draft, type Line } from '../voice/draft'
+import { billLinePayload, buildDraft, draftTotal, lineFrom, lineTotal, linesReady, searchItems, withVariant, type Draft, type Line } from '../voice/draft'
+import { chooseFlavour, recordSales } from '../voice/flavour'
 import { goBack, navigate } from '../lib/router'
 import { errorFx, successFx } from '../lib/feedback'
 import { askText, BackBar, BottomBar, Sheet, Tap, toast } from '../components/ui'
 import { NumberSheet } from '../components/Pad'
 import { Icon } from '../components/Icon'
-import { BillCard } from '../components/BillCard'
+import { BillCard, billMessage } from '../components/BillCard'
 import { UpiSheet } from '../components/UpiSheet'
 
 type Stage = 'listen' | 'review' | 'done'
@@ -23,7 +24,12 @@ type Saved = { kind: 'bill'; billId: string; token: string; total: number; disco
 
 const unitLabel = (u?: string) => ({ kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' } as Record<string, string>)[u ?? ''] ?? ''
 // Item name in the owner's language: catalogue has Hindi / Hinglish / English; the shop's own name wins for Hinglish
-const itemLabel = (m: ShopMatchable, lang: string) => lang === 'hi' ? m.hi : lang === 'en' ? m.en : m.shop?.name ?? m.hinglish
+// a flavour/size entry is always named in full ("Maggi Masala 70g"); old stored shop names don't know the variant
+const itemLabel = (m: ShopMatchable, lang: string) => lang === 'hi' ? m.hi : lang === 'en' ? m.en : m.family ? m.hinglish : m.shop?.name ?? m.hinglish
+const varLabel = (m: ShopMatchable, lang: string) => (lang === 'hi' ? m.variantHi : m.variant) ?? ''
+/** bill text for WhatsApp, one line per item with flavour/size ("Maggi Masala 70g × 2 = ₹28") */
+const billText = (shopName: string, lang: string, total: number, lines: Line[], link: string) =>
+  billMessage(shopName, lang, total, lines.filter((l) => l.match).map((l) => ({ name: itemLabel(l.match!, lang), qty: l.qty ?? 0, amount: lineTotal(l) })), link)
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 const fmtQty = (q: number | null, u?: string) => q == null ? '?' : `${+q.toFixed(3)}${unitLabel(u) ? ' ' + unitLabel(u) : ''}`
 
@@ -241,17 +247,15 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
 
   async function save() {
     setBusy(true)
-    const lines = draft.lines.map((l) => ({
-      item_id: l.match!.shop?.id ?? null, catalog_id: l.match!.id.startsWith('shop:') ? null : l.match!.id,
-      name: l.match!.shop?.name ?? l.match!.hinglish, name_hi: l.match!.shop?.name_hi ?? l.match!.hi,
-      unit: l.match!.shop?.unit ?? l.match!.unit, loose: l.match!.loose, said: l.said, qty: l.qty, price: l.price,
-    }))
+    const lines = draft.lines.map(billLinePayload)
     const res = isBill
       ? await supabase.rpc('save_bill', { p: { customer: draft.customerName, customer_id: draft.customer?.id ?? null, order_id: draft.orderId ?? null, new_customer: !!draft.newCustomer, tag: draft.tag ?? null, phone: draft.phone ?? draft.customer?.phone ?? null, pay: draft.pay, discount: disc, voice_text: draft.heard, lines } })
       : await supabase.rpc('add_stock', { p: { reason: 'stock_in', lines } })
     setBusy(false)
     if (res.error) { errorFx(); toast({ text: t('saveFailed') }); return }
     successFx(); invalidateShop()
+    // flavour engine learns what this shop really sold (kept on this phone, and by the server through save_bill)
+    if (isBill && shop) shop.flavour = recordSales(shop.flavour, draft.lines.filter((l) => l.match).map((l) => ({ family: l.match!.family, id: l.match!.id })), shop.shopKey)
     if (isBill) {
       const r = res.data as { bill_id: string; share_token: string; total: number; balance: number | null; has_unrecorded: boolean }
       onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, fromOrder: !!draft.orderId, phone: (draft.phone ?? draft.customer?.phone ?? '').replace(/\D/g, ''), customer: draft.customerName, pay: draft.pay ?? "cash", balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
@@ -361,7 +365,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
       {bar}
 
       <ItemPicker open={!!pick} line={pick} shop={shop} onClose={() => setPick(null)}
-        onPick={(m) => { if (pick && pick.key === 'new') { const pr = m.shop?.price ?? m.shop?.learned_price ?? m.lastPrice ?? null; setDraft({ ...draft, lines: [...draft.lines, { key: 'n' + Date.now(), said: '', match: m, candidates: [m], sure: true, qty: 1, price: pr, priceSure: m.shop?.price != null || m.shop?.learned_price != null }] }) } else if (pick) { const pr = m.shop?.price ?? m.shop?.learned_price ?? m.lastPrice ?? null; fix(pick)({ match: m, sure: true, price: pr, priceSure: m.shop?.price != null || m.shop?.learned_price != null, qty: pick.qty ?? 1 }) } setPick(null) }} />
+        onPick={(m) => { if (pick && pick.key === 'new') { const pr = m.shop?.price ?? m.shop?.learned_price ?? m.lastPrice ?? null; setDraft({ ...draft, lines: [...draft.lines, { key: 'n' + Date.now(), said: '', match: m, candidates: [m], sure: true, qty: 1, price: pr, priceSure: m.shop?.price != null || m.shop?.learned_price != null, flavour: chooseFlavour(m, '', shop, shop.flavour) }] }) } else if (pick) { const pr = m.shop?.price ?? m.shop?.learned_price ?? m.lastPrice ?? null; fix(pick)({ match: m, sure: true, price: pr, priceSure: m.shop?.price != null || m.shop?.learned_price != null, qty: pick.qty ?? 1, flavour: chooseFlavour(m, '', shop, shop.flavour) }) } setPick(null) }} />
       <NumberSheet open={!!pad} title={pad?.field === 'price' ? `${pad.line.match?.hinglish ?? ''} — ${t('priceAsk')}` : `${pad?.line.match?.hinglish ?? ''} — ${t('qtyAsk')}`}
         initial={pad ? (pad.field === 'price' ? pad.line.price : pad.line.qty) : null} unit={pad?.field === 'qty' ? unitLabel(pad.line.match?.unit) : '₹'}
         onClose={() => setPad(null)} onDone={(n) => pad && fix(pad.line)(pad.field === 'price' ? { price: n, priceSure: true } : { qty: n })} />
@@ -375,6 +379,7 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
 
 function LineRow({ l, isBill, onPick, onPad, fix, onRemove }: { l: Line; isBill: boolean; onPick: () => void; onPad: (f: 'qty' | 'price') => void; fix: (p: Partial<Line>) => void; onRemove: () => void }) {
   const { t } = useT()
+  const [flOpen, setFlOpen] = useState(false)
   const unit = l.match?.shop?.unit ?? l.match?.unit
   const step = l.match?.loose && (unit === 'kg' || unit === 'l') ? 0.5 : 1
   const { lang } = useT()
@@ -408,6 +413,26 @@ function LineRow({ l, isBill, onPick, onPad, fix, onRemove }: { l: Line; isBill:
         <div className="guess"><span className="gtxt">{t('thisOne')}</span>
           <div style={{ display: 'flex', gap: 10 }}><Tap className="chg yes" onClick={() => fix({ sure: true })}><Icon name="tick" size={22} stroke={3} />{t('yes')}</Tap><Tap className="chg" onClick={onPick}>{t('other')}</Tap></div>
         </div>
+      )}
+      {l.flavour && l.match && (
+        // flavour engine: never a blocking question. Auto-picked flavour shown as a small chip; a shop that really sells a mix gets the top few as one-tap choices.
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10, marginTop: 10 }}>
+          {l.flavour.ask && <span className="gtxt">{t('flWhich')}</span>}
+          {(l.flavour.ask ?? [l.match]).map((m) => <Tap key={m.id} className={`chg ${l.flavour!.ask && m.id === l.match!.id ? 'yes' : ''}`} onClick={() => (l.flavour!.ask ? fix(withVariant(l, m)) : setFlOpen(true))}>
+            {l.flavour!.ask && m.id === l.match!.id && <Icon name="tick" size={22} stroke={3} />}{varLabel(m, lang)}{!l.flavour!.ask && ` · ${t('flChange')}`}</Tap>)}
+          {l.flavour.ask && <Tap className="chg" onClick={() => setFlOpen(true)}>{t('flChange')}</Tap>}
+        </div>
+      )}
+      {l.flavour && (
+        <Sheet open={flOpen} onClose={() => setFlOpen(false)}>
+          <h2 className="h2">{t('flTitle')}</h2><div className="gap8" />
+          <div className="stack" style={{ marginTop: 8, maxHeight: '60vh', overflowY: 'auto' }}>
+            {l.flavour.options.map((m) => (
+              <Tap key={m.id} className="rowb" style={{ minHeight: 56, ...(m.id === l.match?.id ? { boxShadow: 'inset 0 0 0 2px var(--ac)' } : {}) }} onClick={() => { fix(withVariant(l, m)); setFlOpen(false) }}>
+                <span className="grow">{varLabel(m, lang)}</span>{m.id === l.match?.id && <Icon name="tick" size={22} stroke={3} />}</Tap>
+            ))}
+          </div>
+        </Sheet>
       )}
     </div>
   )
@@ -567,8 +592,9 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
   const { t, lang } = useT()
   const { store } = useStore()
   const link = saved.kind === 'bill' ? `${location.origin}/b/${saved.token}` : ''
-  const waText = saved.kind === 'bill' ? encodeURIComponent(`${store?.name ?? ''}: ${lang === 'en' ? 'Your bill' : 'Aapka bill'} ${rupees(saved.total)}\n${link}`) : ''
-  const lineSummary = saved.kind !== 'payment' ? saved.lines.map((l) => `${fmtQty(l.qty, l.match?.unit)} ${l.match?.shop?.name ?? l.match?.hinglish ?? ''}`).join(', ') : ''
+  // WhatsApp text lists every line with its flavour/size ("Maggi Masala 70g x 2 = ₹28")
+  const waText = saved.kind === 'bill' ? encodeURIComponent(billText(store?.name ?? '', lang, saved.total, saved.lines, link)) : ''
+  const lineSummary = saved.kind !== 'payment' ? saved.lines.map((l) => `${fmtQty(l.qty, l.match?.unit)} ${l.match ? itemLabel(l.match, lang) : ''}`).join(', ') : ''
   return (
     <div className="app">
       <main className="screen has-flow">
@@ -589,7 +615,7 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
           <BillCard lang={lang} brand={false} b={{
             store: store?.name ?? '', customer: saved.customer, pay: saved.pay, subtotal: saved.total + saved.discount, discount: saved.discount, total: saved.total, status: 'saved',
             at: new Date().toISOString(), no: '',
-            lines: saved.lines.map((l) => ({ name: l.match?.shop?.name ?? l.match?.hinglish ?? '', name_hi: l.match?.hi, catalog_id: l.match && !l.match.id.startsWith('shop:') ? l.match.id : null, qty: l.qty ?? 0, unit: l.match?.shop?.unit ?? l.match?.unit ?? 'pc', price: l.price ?? 0, amount: lineTotal(l) })),
+            lines: saved.lines.map((l) => ({ name: l.match ? itemLabel(l.match, 'hinglish') : '', name_hi: l.match?.hi, variant: l.match?.variant, variant_hi: l.match?.variantHi, catalog_id: l.match && !l.match.id.startsWith('shop:') ? l.match.id : null, qty: l.qty ?? 0, unit: l.match?.shop?.unit ?? l.match?.unit ?? 'pc', price: l.price ?? 0, amount: lineTotal(l) })),
           }} />
         </div>}
       </main>

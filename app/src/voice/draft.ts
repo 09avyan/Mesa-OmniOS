@@ -1,5 +1,6 @@
 import type { Parsed, ParsedItem } from './parse'
 import { matchName, type Candidate } from './match'
+import { chooseFlavour, type FlavourChoice } from './flavour'
 import { priceOf, findCustomer, type Shop, type ShopMatchable, type Customer } from '../lib/shop'
 
 // What the Review card shows and edits. Built from what was heard; nothing is saved until ✓.
@@ -12,6 +13,8 @@ export type Line = {
   qty: number | null
   price: number | null   // per unit
   priceSure: boolean     // false -> price box highlighted ("Daam sahi?")
+  /** flavour engine: the variants of this product + the "Kaunsa?" one-tap choices (only if this shop sells a mix). Never blocks. */
+  flavour?: FlavourChoice<ShopMatchable> | null
 }
 export type Draft = {
   intent: Parsed['intent']
@@ -45,13 +48,22 @@ export function qtyFor(p: ParsedItem, m: ShopMatchable | null, price: number | n
 
 export function lineFrom(p: ParsedItem, shop: Shop): Line {
   const candidates = toMatchables(p.candidates, shop)
-  const match = candidates[0] ?? null
+  // several flavours/sizes of one product: pick this shop's favourite (else the Universe default) without asking; "badlo" stays one tap away
+  const flavour = candidates[0] ? chooseFlavour(candidates[0], p.said, shop, shop.flavour) : null
+  const match = flavour?.match ?? candidates[0] ?? null
   const { price, sure: priceSure } = match ? priceOf(match) : { price: null, sure: false }
   const rupeePrice = p.rupees != null && price == null ? null : price
   return {
     key: 'l' + ++n, said: p.said, match, candidates, sure: p.sure && !!match,
-    qty: qtyFor(p, match, rupeePrice), price, priceSure,
+    qty: qtyFor(p, match, rupeePrice), price, priceSure, flavour,
   }
+}
+
+/** The owner picked another flavour/size for a line ("badlo" / "Kaunsa?"): new item, its own price, and no more questions. */
+export function withVariant(l: Line, m: ShopMatchable): Partial<Line> {
+  const { price, sure } = priceOf(m)
+  const f = l.flavour
+  return { match: m, sure: true, price, priceSure: sure, flavour: f ? { ...f, match: m, ask: null, explicit: true, options: [m, ...f.options.filter((x) => x.id !== m.id)] } : f }
 }
 
 export function buildDraft(parsed: Parsed, shop: Shop): Draft {
@@ -78,3 +90,14 @@ export const lineTotal = (l: Line) => (l.qty != null && l.price != null ? Math.r
 export const draftTotal = (d: Draft) => d.lines.reduce((s, l) => s + lineTotal(l), 0)
 /** Everything answered? (items first, money second — DESIGN.md rule 16) */
 export const linesReady = (d: Draft) => d.lines.length > 0 && d.lines.every((l) => l.sure && l.match && l.qty != null && l.qty > 0 && l.price != null)
+
+/** One bill/stock line as save_bill / add_stock want it. Carries the flavour/size (variant, variant_hi) and the product family it belongs to. */
+export function billLinePayload(l: Line) {
+  const m = l.match!
+  return {
+    item_id: m.shop?.id ?? null, catalog_id: m.id.startsWith('shop:') ? null : m.id,
+    name: m.shop?.name ?? m.hinglish, name_hi: m.shop?.name_hi ?? m.hi,
+    unit: m.shop?.unit ?? m.unit, loose: m.loose, said: l.said, qty: l.qty, price: l.price,
+    variant: m.variant ?? null, variant_hi: m.variantHi ?? null, family: m.family ?? null,
+  }
+}

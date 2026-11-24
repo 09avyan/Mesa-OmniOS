@@ -17,9 +17,19 @@ const ix = (t, v) => { if (v == null) return -1; let i = tab[t].indexOf(v); if (
 const rows = [], keys = {}
 // drop aliases that read the same as the item's own names (after lower-casing/folding): smaller file, fewer index entries
 const dedupe = (it) => { const seen = new Set([it.hinglish, it.hi, it.en].map(norm)); return (it.aliases || []).filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true }) }
-// Variants (flavours/sizes) ride inside the parent row: r[9] = index of the default variant, r[10] = [vid, hinglish, hi, en ('' = same as hinglish), aliases].
-// Rows without variants stay 9 long. A variant's own spoken words are "<parent> <variant>" / "<variant> <parent>" (built on the phone); the parent name alone means the default.
-const vRow = (v) => { const h = norm(v.hinglish), seen = new Set([h, norm(v.hi), norm(v.en)]); return [v.id, v.hinglish, v.hi, v.en === v.hinglish ? '' : v.en, (v.aliases || []).filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true })] }
+// Variants (flavour + pack size) ride inside the parent row: r[9] = index of the default variant, r[10] = [[hinglish, hi, aliases?, legacyIds?], ...].
+// The variant id is the slug of its hinglish name (computed on the phone, not shipped); en is always the hinglish name; trailing empty fields are cut.
+// Rows without variants stay 9 long. Spoken forms ("<item> <flavour>", "<item> <size>") are built on the phone; the parent name alone means the default.
+export const slug = (s) => s.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '')
+const vRow = (v) => {
+  if (slug(v.hinglish) !== v.id) throw new Error(`variant id ${v.id} must be slug(hinglish) = ${slug(v.hinglish)}`)
+  if (v.en && v.en !== v.hinglish) throw new Error(`variant ${v.id}: en must equal hinglish`)
+  const seen = new Set([norm(v.hinglish), norm(v.hi)])
+  const al = (v.aliases || []).filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true })
+  const r = [v.hinglish, v.hi, al, v.legacy || []]
+  while (r.length > 2 && Array.isArray(r[r.length - 1]) && r[r.length - 1].length === 0) r.pop()
+  return r
+}
 let nVariants = 0
 src.items.forEach((it, n) => {
   const row = [it.id, it.hinglish, it.hi, it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand), dedupe(it)]

@@ -1,18 +1,26 @@
 import { rupees } from '../lib/i18n'
 import { CATALOG } from '../voice/catalog'
+import { norm } from '../lib/universe'
 
 // One bill design used everywhere: customer's WhatsApp page, "Bill ban gaya" screen and bill detail.
 // Modern-card style (like a UPI receipt): shop on top, big total with a status badge, items below.
 export type L3 = 'hi' | 'hinglish' | 'en'
-export type BillLine = { name: string; name_hi?: string | null; catalog_id?: string | null; qty: number; unit: string; price: number; amount: number }
+export type BillLine = { name: string; name_hi?: string | null; /** flavour / pack size of this line ("Masala 70g") and its Hindi form */ variant?: string | null; variant_hi?: string | null; catalog_id?: string | null; qty: number; unit: string; price: number; amount: number }
 export type BillData = { store: string; area?: string | null; customer: string | null; pay: string; subtotal: number; discount: number; total: number; status: string; at: string; no: string; lines: BillLine[] }
 
 const CAT = new Map(CATALOG.map((c) => [c.id, c]))
+const withVariant = (name: string, variant?: string | null) => (variant && !norm(name).includes(norm(variant)) ? `${name} ${variant}` : name)
+/** item name + its flavour/size once ("Maggi Masala 70g"); names that already carry it are left alone */
 export const itemName = (l: BillLine, lang: L3) => {
   const c = l.catalog_id ? CAT.get(l.catalog_id) : undefined
-  if (lang === 'hi') return c?.hi ?? l.name_hi ?? l.name
-  if (lang === 'en') return c?.en ?? l.name
-  return c?.hinglish ?? l.name
+  if (lang === 'hi') return withVariant(c?.hi ?? l.name_hi ?? l.name, l.variant_hi ?? l.variant)
+  if (lang === 'en') return withVariant(c?.en ?? l.name, l.variant)
+  return withVariant(c?.hinglish ?? l.name, l.variant)
+}
+/** WhatsApp / share text: shop, total, one line per item with its flavour/size, then the bill link */
+export function billMessage(shopName: string, lang: string, total: number, rows: { name: string; qty: number; amount: number }[], link: string) {
+  const items = rows.map((r) => `• ${r.name} × ${+Number(r.qty).toFixed(3)} = ${rupees(r.amount)}`)
+  return `${shopName ? shopName + ': ' : ''}${lang === 'en' ? 'Your bill' : 'Aapka bill'} ${rupees(total)}${items.length ? '\n' + items.join('\n') : ''}\n${link}`
 }
 const units: Record<string, string> = { kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' }
 

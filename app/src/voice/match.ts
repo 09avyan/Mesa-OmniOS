@@ -1,7 +1,11 @@
 import { fold, soundKey } from './normalize'
 
 // Anything that can be matched by name: catalogue items now, the shop's own items/learned names later.
-export type Matchable = { id: string; hinglish: string; hi: string; en: string; brand: string | null; unit: string; loose: boolean; aliases: string[] }
+export type Matchable = { id: string; hinglish: string; hi: string; en: string; brand: string | null; unit: string; loose: boolean; aliases: string[]
+  /** variant family: every flavour/size of one product shares the id of its parent entry (the default variant) */ family?: string
+  /** short label of the variant ("Masala 70g") and its Hindi form */ variant?: string; variantHi?: string
+  /** old item ids this entry replaces, as "u:<id>" */ aka?: string[]
+  /** only on a family's default entry: what the parent alone is called ("maggi", "मैगी") */ generic?: string[] }
 export type Candidate = { id: string; score: number; item: Matchable }
 
 type Entry = { key: string; sound: string; words: string[]; item: Matchable; exact: string }
@@ -57,7 +61,14 @@ export function matchName(phrase: string, idx: MatchIndex, limit = 6): Candidate
   const best = new Map<string, Candidate>()
   // candidate set: entries sharing any letter/sound pair, plus multi-word aliases contained in the phrase
   const seen = new Set<number>()
-  for (const g of gramsOf(pf, ps)) for (const n of idx.grams.get(g) ?? []) seen.add(n)
+  // Speed: count how many letter/sound pairs each entry shares with what was said and only score the best-overlapping ones
+  // (with 3,000+ variants a bare gram hit would drag thousands of entries through the similarity test on every word).
+  const grams = [...new Set(gramsOf(pf, ps))]
+  const shared = new Map<number, number>()
+  for (const g of grams) for (const n of idx.grams.get(g) ?? []) shared.set(n, (shared.get(n) ?? 0) + 1)
+  const need = Math.max(1, Math.floor(grams.length * 0.3))
+  const strong = [...shared].filter(([, c]) => c >= need).sort((a, b) => b[1] - a[1]).slice(0, 250)
+  for (const [n] of strong) seen.add(n)
   for (const n of idx.exact.get(pf) ?? []) seen.add(n)
   for (const n of idx.exact.get(p) ?? []) seen.add(n)
   for (const n of seen) {
@@ -82,15 +93,21 @@ export function matchName(phrase: string, idx: MatchIndex, limit = 6): Candidate
 
 /**
  * Is the top candidate certain? Not when the gap to the next is small, or when the owner said only a
- * brand/family word that several items share ("maggi", "aashirvaad"): then we ask "Yahi wali?".
+ * brand word that several different products share ("maggi" = noodles + ketchup): then we ask "Yahi wali?". Variants of one product never block.
  */
 export function isSure(phrase: string, cands: Candidate[], idx: MatchIndex): boolean {
   if (cands.length === 0) return false
-  const [a, b] = cands
+  const a = cands[0], fam = (c: Candidate) => c.item.family ?? c.item.id
+  // a runner-up that is just another flavour/size of the same product is no competition
+  const b = cands.find((c) => fam(c) !== fam(a))
   if (a.score < 0.85) return false
   if (b && b.score >= a.score - 0.12) return false
   const p = phrase.toLowerCase().trim()
-  const family = new Set(idx.entries.filter((e) => e.exact === p || e.exact.startsWith(p + ' ')).map((e) => e.item.id))
-  if (family.size > 1 && !a.item.loose) return false
+  // flavours/sizes of ONE product are not a reason to ask (the flavour engine picks one and offers "badlo");
+  // only different products sharing the word ("maggi" = noodles + ketchup + masala) are.
+  const family = new Set(idx.entries.filter((e) => e.exact === p || e.exact.startsWith(p + ' ')).map((e) => e.item.family ?? e.item.id))
+  // ...unless the word IS the product's own name ("maggi" for Maggi Noodles, whose variants the flavour engine handles)
+  const ownName = !!a.item.generic?.some((g) => g.toLowerCase().trim() === p)
+  if (family.size > 1 && !a.item.loose && !ownName) return false
   return true
 }

@@ -31,3 +31,4 @@
 - 24 Nov: mega round (5 merchants + 8 experts incl. typographer, a11y, motion, Devanagari, front-end, AI-detector) on df4 → 20-item list → df5 (gen9.py). Rescore after 7 more fixes: PASS, all ≥9, AI-detector 9. df5 = current final; awaiting owner.
 - 24 Nov: Universe v5 = 750 items + 2,484 flavour/size variants (one default each), voice matches variants; gz 12→62 KB. Bills don't save variant yet.
 - 24 Nov: owner PASSED design; df7 = final (e-bill, big QR). Universe → 1000 items + India-only flavours/sizes + flavour engine running (Sonnet helper).
+- 24 Nov: Universe v6 1000 items/3,335 variants, flavour engine, variant on bills+WhatsApp, matcher 17x faster; 82 tests pass. Migration 0012 pending apply.

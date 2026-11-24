@@ -6,10 +6,10 @@ import { invalidateShop } from '../lib/shop'
 import { errorFx, successFx } from '../lib/feedback'
 import { askText, BackBar, Tap, toast } from '../components/ui'
 import { Icon } from '../components/Icon'
-import { BillCard } from '../components/BillCard'
+import { BillCard, billMessage, itemName } from '../components/BillCard'
 import { useStore } from '../lib/store'
 
-type BillRow = { id: string; total: number; pay: 'cash' | 'upi' | 'udhaar'; status: string; created_at: string; share_token: string; customers: { id: string; name: string; phone: string | null } | null; order_id?: string | null; bill_lines: { name: string; qty: number; unit: string; price: number; amount: number; items: { catalog_id: string | null; name_hi: string | null } | null }[]; subtotal: number; discount: number }
+type BillRow = { id: string; total: number; pay: 'cash' | 'upi' | 'udhaar'; status: string; created_at: string; share_token: string; customers: { id: string; name: string; phone: string | null } | null; order_id?: string | null; bill_lines: { name: string; variant?: string | null; variant_hi?: string | null; qty: number; unit: string; price: number; amount: number; items: { catalog_id: string | null; name_hi: string | null } | null }[]; subtotal: number; discount: number }
 const time = (s: string) => new Date(s).toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' })
 
 // Bill tab: make a bill (voice or by choosing items) + today's bills.
@@ -60,14 +60,17 @@ export function BillDetail({ id }: { id: string }) {
   const { t, lang } = useT()
   const { store } = useStore()
   const [b, setB] = useState<BillRow | null | undefined>(undefined)
-  const load = () => supabase.from('bills').select('id,total,subtotal,discount,pay,status,created_at,share_token,order_id,customers(id,name,phone),bill_lines(name,qty,unit,price,amount,items(catalog_id,name_hi))').eq('id', id).maybeSingle()
+  // variant columns come with migration 0012; until it is applied, fall back to the old column list so bills still open
+  const sel = (v: boolean) => `id,total,subtotal,discount,pay,status,created_at,share_token,order_id,customers(id,name,phone),bill_lines(name,${v ? 'variant,variant_hi,' : ''}qty,unit,price,amount,items(catalog_id,name_hi))`
+  const load = () => supabase.from('bills').select(sel(true)).eq('id', id).maybeSingle()
+    .then((r) => r.error ? supabase.from('bills').select(sel(false)).eq('id', id).maybeSingle() : r)
     .then(({ data }) => setB(data as unknown as BillRow | null))
   useEffect(() => { load() }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
   if (b === undefined) return <main className="screen has-bar"><BackBar fallback="/bill" /><div className="skel" style={{ height: 200 }} /></main>
   if (!b) return <main className="screen has-bar"><BackBar fallback="/bill" /><p>{t('notUnderstood')}</p></main>
   const link = `${location.origin}/b/${b.share_token}`
   const ph = (b.customers?.phone ?? '').replace(/\D/g, '')
-  const wa = `https://wa.me/${ph ? (ph.length === 10 ? '91' + ph : ph) : ''}?text=${encodeURIComponent(`${lang === 'en' ? 'Your bill' : 'Aapka bill'} ${rupees(b.total)}\n${link}`)}`
+  const wa = `https://wa.me/${ph ? (ph.length === 10 ? '91' + ph : ph) : ''}?text=${encodeURIComponent(billMessage('', lang, b.total, b.bill_lines.map((l) => ({ name: itemName({ ...l, catalog_id: l.items?.catalog_id ?? null, name_hi: l.items?.name_hi ?? null, amount: Number(l.amount) }, lang), qty: l.qty, amount: Number(l.amount) })), link))}`
   async function remove() {
     const { error } = await supabase.rpc('undo_bill', { p_bill: b!.id })
     if (error) { errorFx(); toast({ text: t('saveFailed') }); return }
