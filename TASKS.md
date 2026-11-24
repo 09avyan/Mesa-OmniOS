@@ -148,6 +148,9 @@ Approved, in this order:
 - ✅ Owner tweaks on all b-versions (24 Nov): store name moved into the top mini bar (no big heading), common words stay English in Hindi (Cash, UPI, WhatsApp, Bill), watermark shows design code. Sent as files, one design per message.
 - ❌ d5b failed by owner. ✅ Layout + not-AI pass 2 on d2b/d6c/d13b: customer bill image (WhatsApp bill) added as screen 6, each design now has its own listening + pay style (no shared screens), sticky review header, 64px stepper, clear selected payment. 📊 Panel 3: all fail. d13b 7.96 (AI 6) · d6c 7.40 (AI 5) · d2b 7.16 (AI 5). Main blocker: check, saved and bill-image screens still identical across all three. Panel: take d13b + d6c's fixed centre mic + dark listening; design check/saved/bill screens new; bill image fully Hindi + 'aadha kg'; khata lines ≥17px; fix clipped check heading and Bolo-bar overlap.
 - ✅ Round 4 built: d13c (dark-teal listening, ledger-entry saved, thermal bill), d2c (no tile grid, item cards, banded saved + banded invoice), d6d (ink+amber not teal, 3-column split, mic inside bar, timeline saved, letter bill). All: own check/saved/bill per design, Hindi bill fully Hindi with 'aadha kilo', real bill footer (UPI + bill no.), no tick-circle, Bolo bar part of bottom chrome, bigger listening, ≥17px khata lines. ⏳ Owner pass/hold/fail, then panel.
+- ❌ Round 5a (60-30-10 recolour) — owner: forget it. Round 5b (calm listening, neutral side-by-side pay) — owner: all need layout overhaul.
+- ✅ Round 6: panel questionnaire → d13d Ledger / d2d Priority / d6e Voice (gen6.py), each its own layout.
+- 🔄 Round 7: joint meeting → ONE combined final design (df*), loop until AI-detector ≥8 and members 1–7 ≥9 (owner budget ≈20% usage).
 - Owner rule: panel runs only when owner asks, on all owner-passed designs, one after another.
 - ❌ Design 3 (black/gold, shelves) — vetoed by owner.
 - ❌ Design 4 (iOS widget grid) — vetoed by owner.
