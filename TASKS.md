@@ -143,7 +143,9 @@ Approved, in this order:
 - 📊 PANEL 24 Nov on passed+held (8 members; pass = all 1–7 ≥9 and AI-detector ≥8): ALL FAIL.
   - d13 7.31 (best; AI 6) · d5 6.97 (AI 6) · d2 6.66 (AI 5) · d6 6.37 (AI 3).
   - Best base: d13. Top fixes: clear crowded home (Bolo bar hides list), own font + numbers, no initials avatars / stock icons / 'kal se zyada' delta, full saved screen (receipt + next action), pay buttons ≥56px with icons, d5's one-decision-at-a-time check.
-- ⏳ Owner decides: one improvement round on d13 (rule: 1 round, or 3 if only the AI score fails) or other.
+- ✅ Owner: make b-version of each with all fixes + AI reduction → d2b, d5b, d6c (6b name taken), d13b.
+- 📊 PANEL 2 (b-versions): ALL FAIL. d13b 7.88 (AI 6) · d5b 7.23 (AI 7) · d2b 7.15 (AI 5) · d6c 7.06 (AI 4). Panel: d2b/d6c/d13b share identical bill screens → really one design with 3 homes. Take d13b forward + borrow d5b's human/chat warmth. Remaining: finish Hindi (names, Cash/UPI/WhatsApp), cut-off pay header + Hindi pay title, rows hidden under Bolo bar, bigger stepper, fuller listening screen with live bill + Ruko, break uniform card/teal template.
+- ⏳ Owner decides next (rule: each design has now used its one improvement round).
 - Owner rule: panel runs only when owner asks, on all owner-passed designs, one after another.
 - ❌ Design 3 (black/gold, shelves) — vetoed by owner.
 - ❌ Design 4 (iOS widget grid) — vetoed by owner.
