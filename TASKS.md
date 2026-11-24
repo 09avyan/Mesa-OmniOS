@@ -133,6 +133,7 @@ Approved, in this order:
 - Kept from the brief (product rules, not UI): text ≥18 / buttons ≥56 icon+word, dictate → review → ✓, udhaar never red, nothing pre-selected for money, Hindi/Hinglish/English, mic reachable everywhere.
 - Loop (owner rule): version → 7-member panel (5 merchants ×1, 2 premium designers ×2; pass = all ≥9) → if fail: ONE improvement attempt → panel → if still fail: brand-new design from scratch.
 - Panel judges each design fresh (no earlier versions shown).
+- Owner (24 Nov, later): use ui-ux-pro-max + impeccable together (no clash). Panel gets an 8th member: an AI-detector who scores 1–10 how NOT-AI-made it looks (lower = more AI); must be ≥8 to pass. If the AI score is the ONLY failing point, the design gets up to 3 improvement rounds instead of 1.
 - ✅ Owner: "remove proto" → /proto/ and /proto-prev/ removed from the live site (24 Nov). Copies kept in design/redo4/ + git history.
 - Redo #5 versions are built as files in design/redo5/ (not on the live site); panel reviews screenshots. ⏳ Asked owner how to show an approved version on the phone.
 - ❌ Design A "Note" (banknote language: ₹100 lavender, guilloche, watermark, totals in words) v1 FAILED 0/7, avg 7.48 (Shyam 7.7 · Aman 7.3 · Rekha 8.3 · Pooja 7.3 · Baldev 8.0 · payments 7.0 · super-app 7.3). Panel: concept strong (amount in words, money safety), execution weak (empty listen screen, Bolo moves sides, blurry watermark, tiled waves, purple template feel, stock tick).

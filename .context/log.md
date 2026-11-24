@@ -1,5 +1,6 @@
 # Session log (newest first)
 - 24 Nov: .context/ created (owner: keep context small). Start rule = INDEX + TASKS + graphify. Owner answered redo #4 questions (see ui-redo-4.md). Starting redo #4.
+- 24 Nov: added AI-detector panelist (≥8 to pass; 3 fix rounds if only AI fails); use ui-ux-pro-max + impeccable.
 - 24 Nov: redo #5 design A (banknote) 7.48 → 8.04 after its one fix → closed; design B (indigo block print) next.
 - 24 Nov: owner said "remove proto" → /proto/ + /proto-prev/ deleted from live site; redo #5 versions live in design/redo5/.
 - 24 Nov: owner ordered UI REDO #5 from absolute scratch (v10 dropped). Loop: version → panel → 1 fix → panel → else new design.

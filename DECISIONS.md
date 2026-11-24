@@ -47,3 +47,4 @@
 ## UI redo #5 (24 Nov 2026, owner)
 - v10 "MRP box" passed the panel but owner asked for a full redo from absolute scratch, forgetting all earlier UI/UX.
 - Loop: each design gets the panel, then at most ONE improvement round; still failing → new design from scratch.
+- (later, 24 Nov) Panel adds an AI-detector (score ≥8/10 = looks human-made). If only the AI score fails → up to 3 improvement rounds. Skills: ui-ux-pro-max + impeccable together.
