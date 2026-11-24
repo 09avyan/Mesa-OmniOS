@@ -30,3 +30,4 @@
 - 24 Nov: joint meeting combined d13d/d2d/d6e → df1..df4 (gen7/gen8.py). Owner asked: ultra-premium + yes/no under doubtful item, "which one?" on No. Panel: df1 8/7/8/8/8/7/7 AI6 → df2 AI7 → df3 users 9, designers 8, AI7 → df4 PASS all 9, AI 8. Polish applied: fade 48px, chip stroke. Owner to review df4.
 - 24 Nov: mega round (5 merchants + 8 experts incl. typographer, a11y, motion, Devanagari, front-end, AI-detector) on df4 → 20-item list → df5 (gen9.py). Rescore after 7 more fixes: PASS, all ≥9, AI-detector 9. df5 = current final; awaiting owner.
 - 24 Nov: Universe v5 = 750 items + 2,484 flavour/size variants (one default each), voice matches variants; gz 12→62 KB. Bills don't save variant yet.
+- 24 Nov: owner PASSED design; df7 = final (e-bill, big QR). Universe → 1000 items + India-only flavours/sizes + flavour engine running (Sonnet helper).
