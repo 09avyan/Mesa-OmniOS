@@ -145,7 +145,8 @@ Approved, in this order:
 - ❌ Design 4 (iOS widget grid) — vetoed by owner.
 - ⏸ Design 5 (chat thread) — owner: neither pass nor fail; ASK OWNER what to do with it just before running the panel.
 - ⏸ Design 6 (bank-style timeline) — HOLD; owner: needs AI-reduction steps before panel.
-- 🔄 Design 7: monochrome + lime, Schibsted Grotesk, hairline rows (no cards/avatars/blur/KPI arrows) — AI-reduction baked in; waiting for owner look.
+- ❌ Design 7 (monochrome + lime) — failed by owner.
+- 🔄 Design 8: Spotify-style colour-block tiles on dark (cash, UPI, udhaar due, orders, low stock, count), green mic; waiting for owner look.
 
 ## S5 · Daily payoff
 - ✅ Home shows real today's sales and udhaar.
