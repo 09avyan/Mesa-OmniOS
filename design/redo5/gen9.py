@@ -65,9 +65,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webki
 .tb{min-height:56px;display:inline-flex;align-items:center;gap:8px;padding:0 16px;font-weight:600;color:var(--tx2);border-radius:14px}.tb.l{margin-left:-16px}.tb.l{margin-left:-14px}
 .ctx{color:var(--tx2);font-weight:600;padding-right:12px;text-align:right;line-height:24px}
 .btn{min-height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:20px;font-weight:700;padding:0 20px;white-space:nowrap}.btn,.pay,.opt{transition:transform 180ms cubic-bezier(.2,.8,.2,1),filter 180ms,box-shadow 180ms}
-.btn:active,.opt:active{transition-duration:80ms;filter:brightness(.92);transform:scale(.98)}:focus-visible{outline:3px solid var(--tx);outline-offset:2px;border-radius:14px}::selection{background:var(--vt);color:#fff}.b56{min-height:56px;font-size:20px}
+.btn svg{flex:0 0 auto}.btn:active,.opt:active{transition-duration:80ms;filter:brightness(.92);transform:scale(.98)}:focus-visible{outline:3px solid var(--tx);outline-offset:2px;border-radius:14px}::selection{background:var(--vt);color:#fff}.b56{min-height:56px;font-size:20px}
 .ink{background:var(--ink);color:var(--inktx)}.sf{background:var(--surf2);color:var(--tx)}.ol{background:var(--surf);box-shadow:inset 0 0 0 1.5px var(--sep2);color:var(--tx)}.vo{background:var(--vf);color:#fff}
-.btn[disabled]{background:transparent;box-shadow:inset 0 0 0 1.5px var(--sep2);color:var(--tx2);font-size:20px;font-weight:600}
+.btn[disabled]{background:transparent;box-shadow:inset 0 0 0 1.5px var(--sep);color:var(--tx2);font-size:20px;font-weight:600}
 .fix{position:fixed;left:0;right:0;bottom:0;background:var(--bg);padding:12px 16px max(20px,env(safe-area-inset-bottom));box-shadow:0 -1px 0 var(--sep),0 -12px 24px rgba(0,0,0,.06)}[data-theme=dark] .fix{box-shadow:0 -1px 0 var(--sep),0 -12px 24px rgba(0,0,0,.45)}
 .hint{color:var(--tx3);padding-top:10px;display:flex;align-items:center;gap:6px}
 .lab{color:var(--tx2);font-weight:600}
@@ -155,7 +155,7 @@ def home():
 <div class="row" style="margin-top:22px;border-top:1px solid var(--sep);min-height:80px"><span class="pill m">2</span><div class="g">{t('online','b')}{t('pack')}</div><button class="btn ink b56" style="padding:0 16px">{ic('bag',20)}{t('dekho')}</button></div>
 <div class="sec"><h4 data-t="lena">{T['lena'][0]}</h4><span class="m ud" style="font-weight:700;padding-right:12px">{rs('32,484')}</span></div>{owe}
 <div class="sec"><h4 data-t="aajbill">{T['aajbill'][0]}</h4></div>{rows}
-<div class="fix" style="box-shadow:none;padding-top:8px"><button class="bolo" id="voicebar" data-go="listen"><b data-t="bolo">{T['bolo'][0]}</b><span data-t="bolohint">{T['bolohint'][0]}</span><i class="mk">{ic('mic',26)}</i></button>
+<div class="fix" style="padding-top:8px"><button class="bolo" id="voicebar" data-go="listen"><b data-t="bolo">{T['bolo'][0]}</b><span data-t="bolohint">{T['bolohint'][0]}</span><i class="mk">{ic('mic',26)}</i></button>
 <nav class="tabs"><a class="on">{ic('home',22)}{t('ghar')}</a><a>{ic('bill',22)}{t('billt')}</a><a>{ic('box',22)}{t('maal')}</a><a>{ic('khata',22)}{t('ud')}</a></nav></div></section>'''
 
 def listen():
@@ -197,10 +197,10 @@ def pay():
       if on: cells+=f'<rect x="{x}" y="{y}" width="1.02" height="1.02"/>'
   qr=f'<svg viewBox="0 0 25 25" width="132" height="132" shape-rendering="crispEdges" fill="#111">{cells}</svg>'
   its=''.join(f'<div class="row" style="min-height:60px"><div class="g">{t(k,"b")}</div><div class="a" style="font-weight:600">{rs(a)}</div></div>' for k,a in [('cheeni','92'),('maggi','14'),('toor','75')])
-  return f'''<section class="view" id="pay" style="padding-bottom:350px">{top(back('wapas','review'),'Bill 2205<br><b style="color:var(--tx)" data-t="sharma">Sharma ji</b>')}
+  return f'''<section class="view" id="pay" style="padding-bottom:350px">{top(back('wapas','review'),'<b style="color:var(--tx);font-weight:600" data-t="sharma">Sharma ji</b>&nbsp; <span class="t3">2205</span>')}
 <div style="padding:12px 16px 0">{t('kul','div','lab')}<div class="hero m" style="font-size:64px;line-height:64px;margin-top:8px">{rs('181')}</div></div>
 <div id="its" style="margin-top:18px;border-top:1px solid var(--sep)">{its}</div>
-<div class="qrbox" id="qrb"><div class="q">{qr}</div><div><div style="font-weight:700;font-size:20px" data-t="scan">{T['scan'][0]}</div><div class="t2" style="margin-top:6px"><span class="waitdot"></span><span data-t="qrwait">{T['qrwait'][0]}</span></div><div class="m" style="font-size:34px;line-height:40px;font-weight:800;margin-top:10px;letter-spacing:-.02em">{rs('181')}</div><div class="t2" style="margin-top:2px">sharmastore@upi</div></div></div>
+<div class="qrbox" id="qrb"><div class="q">{qr}</div><div><div style="font-weight:700;font-size:20px" data-t="scan">{T['scan'][0]}</div><div class="t2" style="margin-top:6px"><i style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--tx3);margin-right:8px;vertical-align:3px"></i><span data-t="qrwait">{T['qrwait'][0]}</span></div><div class="m" style="font-size:34px;line-height:40px;font-weight:800;margin-top:10px;letter-spacing:-.02em">{rs('181')}</div><div class="t2" style="margin-top:2px">sharmastore@upi</div></div></div>
 <div class="fix"><div style="font-weight:700;font-size:20px" data-t="kaise">{T['kaise'][0]}</div>
 <div class="tiles" role="radiogroup" aria-label="Paisa kaise mila"><button class="pay" data-p="c"><span class="tk">{ic('check',16,2.6)}</span>{ic('cash',28)}<b>Cash</b><small data-t="haath">{T['haath'][0]}</small></button>
 <button class="pay" data-p="p"><span class="tk">{ic('check',16,2.6)}</span>{ic('upi',28)}<b>UPI</b><small data-t="qrd">{T['qrd'][0]}</small></button>
@@ -209,7 +209,7 @@ def pay():
 <div class="tender" id="tender"><button class="btn ol b56 m" style="flex:1">{rs('200')}</button><button class="btn ol b56 m" style="flex:1">{rs('500')}</button><span class="t2" style="flex:1.2;font-weight:600;text-align:right">Lautao <b class="m" style="color:var(--tx)">{rs('19')}</b></span></div>
 <button class="btn ink" id="cf" aria-live="polite" style="width:100%;margin-top:10px" disabled data-go="done">{ic('up',22)}<span data-t="pehle" style="transform:rotate(0)">{T['pehle'][0]}</span></button>
 <button class="btn ol b56" id="aagaya" hidden style="width:100%;margin-top:8px" data-go="done">{ic('check',22)}{t('aagaya')}</button>
-<button class="btn ol b56" id="thoda" style="width:100%;margin-top:8px;font-weight:600">{ic('split',20)}{t('thoda')}</button></div></section>'''
+<button class="btn ol b56" id="thoda" style="width:100%;margin-top:8px;font-weight:700">{ic('split',20)}{t('thoda')}</button></div></section>'''
 
 def done():
   return f'''<section class="view" id="done" style="padding-bottom:260px">{top('<span></span>','<span class="m">6:15 pm</span>')}
@@ -237,12 +237,12 @@ document.documentElement.lang=HI?'hi':'en-IN';if(HI){document.querySelectorAll('
 const fmt=n=>n.toLocaleString('en-IN');let prev='home';
 function go(id){const cur=document.querySelector('.view.on');if(cur)prev=cur.id;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===id));scrollTo(0,0);if(id==='done')countUp();if(id==='pay')upiTimer&&clearInterval(upiTimer);}
 function countUp(){const e=$('#cu');const t0=performance.now()+220;const f=t=>{const k=Math.max(0,Math.min(1,(t-t0)/480));e.textContent=fmt(Math.round(2416+181*(1-Math.pow(1-k,3))));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f);
- let n=10;const u=$('#ucount');u.textContent=n+' sec';clearInterval(window._u);window._u=setInterval(()=>{n--;u.textContent=n>0?n+' sec':'';if(n<=0)clearInterval(window._u)},1000)}
+ let n=10;const u=$('#ucount');const SEC=HI?' सेकंड':' sec';u.textContent=n+SEC;clearInterval(window._u);window._u=setInterval(()=>{n--;u.textContent=n>0?n+SEC:'';if(n<=0)clearInterval(window._u)},1000)}
 let sx=null;addEventListener('touchstart',e=>{sx=e.touches[0].clientX<24?e.touches[0].clientX:null});addEventListener('touchend',e=>{if(sx!==null&&e.changedTouches[0].clientX-sx>60)go(prev);sx=null});
 let upiTimer=null;
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{if(!b.disabled)go(b.dataset.go)}));
 $('#haan').onclick=()=>{navigator.vibrate?.(10);$('#ask').hidden=true;const d=$('.dt');d.classList.remove('dt');d.querySelector('.flag').textContent=HI?'छोटा पैकेट':'chhota packet';d.querySelector('.flag').className=''};
-$('#nahi').onclick=()=>{$('#askyn').hidden=true;const w=$('#askwhich');w.hidden=false;w.classList.add('rise');$('.dt .flag').style.display='none'};
+$('#nahi').onclick=()=>{$('#askyn').hidden=true;const w=$('#askwhich');w.hidden=false;w.classList.add('rise');$('.dt .flag').style.display='none';$('.dt').style.cssText='min-height:56px;padding-top:12px;padding-bottom:4px'};
 const L={c:['cashsave','cash'],p:['upisave','upi'],u:['save','khata']};const ICO={cash:`%s`,upi:`%s`,khata:`%s`};
 document.querySelectorAll('.pay').forEach(b=>{b.setAttribute('role','radio');b.setAttribute('aria-checked','false')});
 document.querySelectorAll('.pay').forEach(b=>b.onclick=()=>{navigator.vibrate?.(10);document.querySelectorAll('.pay').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-checked',x===b)});const p=b.dataset.p;
