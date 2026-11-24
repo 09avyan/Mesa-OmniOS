@@ -1,0 +1,11 @@
+# Decisions, compressed (full: ../DECISIONS.md, ../ONLINE_STORE.md)
+- Build one section at a time, each live+tested+reported. Skills = .claude/skills only.
+- Name "OmniOS Dukaan". Tabs Ghar·Bill·Maal·Udhaar + mic. Languages Hindi (Devanagari)/Hinglish/English, chosen at onboarding, changeable in Settings.
+- Mic speaks answers to questions only; Settings: on/off + slow/normal (not built yet).
+- Price: owner's price, else learned after 3 bills at same price; one discount per bill.
+- Returns: "wapas" + items (+customer) → latest matching bill updated after ✓; Undo after save. No expiry tracking in Phase 1.
+- Vercel: never delete omnios-dukaan; both projects build from main (root app). Admin login admin@omni.in (owner changes password before pilots).
+- Login: HMAC(service key, CODE:PIN) via `login` fn; 5 wrong → 10-min lock; devices list + revoke; reset PIN logs out all phones.
+- Same-name customers: tag "Pehchaan"; phone match auto-selects. After save: only "Ghar" button. Maal: set exact count. Phone keypad after payment (optional).
+- Online store: /s/<public-name> (separate from login code), pickup only, name+phone, Accept→Pack→Ready→Bill, "Mangwao" requests, max 3 open orders per phone, customer can edit/cancel until accepted, link on bills, QR in app.
+- UI process: one design per round, judged by the people who use it; fail → new design, not a patch.

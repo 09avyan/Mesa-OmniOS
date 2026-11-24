@@ -106,9 +106,9 @@ Approved, in this order:
 - ✅ Prototype v6 (Home + bill flow) PASSED panel: 5 merchants (Shyam ji, Aman, Rekha, Pooja, Baldev) 9/9/9 + designer 9/9/9. Live at /proto/ (?lang=hi for Hindi).
 - ⏸ (superseded by REDO #4) Owner approves prototype on phone → then rebuild all merchant, customer, admin screens in this design.
 
-## UI REDO #4 — NEXT SESSION (owner, 23 Nov)
+## UI REDO #4 — 🔄 STARTED 24 Nov (spec: .context/ui-redo-4.md)
 - ⏳ Redo all UI + UX again from ABSOLUTE scratch: new look, new flows. v6 (/proto/) stays only as a reference to beat, not a starting point.
-- Panel: 5–7 members of clearly different personalities (mix of merchants, at least one Hindi-only, one designer judging professional / not hollow / not AI). Every member must review positively and score ≥ 9.
+- Panel (24 Nov): 9 votes = 5 merchants (Shyam ji, Aman, Rekha, Pooja, Baldev) ×1 + 2 premium product designers from different multi-billion software firms ×2. Free hand on looks + tabs/mic layout; size/accessibility rules fixed. No style reference: versions one by one, fail = redo from scratch.
 - Loop: one version at a time → run the panel → pass = continue, fail = next version. Owner approves the prototype on phone before the full rebuild.
 - Order after approval: merchant screens → customer pages (customer panel) → admin (admin panel). Language picked at onboarding, changeable in Settings.
 - Use every design skill that raises quality (impeccable, ui-ux-pro-max, interface-design, emil-design-eng, frontend-ui-engineering, design-taste-frontend).
@@ -138,5 +138,6 @@ Approved, in this order:
 - ⏳ Clear test data from TEST store before demos.
 
 ## Housekeeping
+- ✅ .context/ compressed memory (INDEX + topic files); session start reads INDEX + TASKS + graphify only.
 - ✅ graphify code graph — `graphify-out/` (run `graphify update app/src` after code changes).
 - ✅ README updated.
