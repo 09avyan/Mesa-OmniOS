@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="hi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OmniOS Dukaan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Design 1 · clean modern. Apple calm (grouped lists, large titles, system type), PhonePe familiarity (money first, one big action),
+   Spotify boldness (heavy type, full-screen "now listening" with the words lit up like lyrics). Light + dark. */
+:root{
+  --acc:#0E6B61; --acc-ink:#FFFFFF; --acc-soft:rgba(14,107,97,.10); --pass:#0E5E57;
+  --bg:#FFFFFF; --surf:#F4F4F6; --surf2:#F7F7FA; --tx:#0B0B0F; --tx2:#3C3C43; --tx3:#5E5E66; --sep:rgba(60,60,67,.16);
+  --ud:#9A5B00; --ud-soft:rgba(154,91,0,.10); --ok:#1F8A4C; --ok-soft:rgba(31,138,76,.12);
+  --listen-bg:#0E5E57; --ease:cubic-bezier(.22,1,.36,1);
+}
+[data-theme="dark"]{
+  --bg:#000000; --surf:#1C1C1E; --surf2:#2C2C2E; --tx:#FFFFFF; --tx2:#EBEBF5; --tx3:#AEAEB2; --sep:rgba(84,84,88,.6);
+  --ud:#FFB547; --ud-soft:rgba(255,181,71,.14); --ok:#4CD47F; --ok-soft:rgba(76,212,127,.14); --acc:#3CC2B0; --acc-soft:rgba(60,194,176,.16); --pass:#0F4A45;
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg)}
+body{color:var(--tx);font:500 18px/25px -apple-system,BlinkMacSystemFont,"SF Pro Text",Roboto,"Noto Sans Devanagari",system-ui,sans-serif;max-width:440px;margin:0 auto;min-height:100dvh;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+svg{flex:none}
+.ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:12px}
+.p{transition:transform .12s var(--ease),opacity .12s}.p:active{transform:scale(.96);opacity:.85}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.view{display:none;padding-bottom:120px}.view.on{display:block}
+
+/* header */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:8px 10px 0 20px;min-height:60px}
+.nav .shop{font-size:17px;font-weight:600;color:var(--tx3)}
+.nav .r{display:flex;gap:2px}
+.ib{min-width:56px;min-height:56px;border-radius:28px;display:grid;place-items:center;color:var(--tx)}
+.ib:active{background:var(--surf2)}
+.large{font-size:34px;line-height:41px;font-weight:800;letter-spacing:-.6px;padding:2px 20px 0}
+
+/* hero money */
+.hero{padding:18px 20px 6px}
+.hero small{display:block;font-size:17px;font-weight:600;color:var(--tx3)}
+.hero b{display:block;font-size:60px;line-height:68px;font-weight:800;margin-top:2px}
+.hero span{font-size:17px;color:var(--tx3);font-weight:500}
+.hero span em{font-style:normal;color:var(--ok);font-weight:700}
+.chips{display:flex;gap:8px;padding:12px 16px 0;overflow-x:auto}
+.chip{flex:1;min-width:0;background:var(--surf);border-radius:16px;padding:12px 14px}
+.chip small{display:block;font-size:17px;color:var(--tx3);font-weight:600}
+.chip b{display:block;font-size:23px;line-height:30px;font-weight:800}
+.chip.u b{color:var(--ud)}
+
+/* due strip + order line + timeline */
+.due2{display:flex;align-items:center;gap:12px;margin:14px 16px 0;padding:12px 12px 12px 16px;border-radius:18px;background:var(--ud-soft)}.due2 div{flex:1}.due2 small{display:block;font-size:17px;font-weight:700;color:var(--ud)}.due2 b{font-size:28px;font-weight:800;color:var(--ud)}.due2 span{display:block;font-size:17px;color:var(--tx3)}
+.ord2{display:flex;align-items:center;gap:10px;margin:10px 16px 0;padding:8px 8px 8px 16px;border-radius:18px;background:var(--surf)}.ord2 b{flex:1;font-size:18px}.dot2{width:10px;height:10px;border-radius:5px;background:var(--acc)}
+.tl2{padding:18px 0 0}.tl2 h3{font-size:22px;font-weight:800;padding:0 20px 4px}
+.tx{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--sep)}.tm{width:46px;font-size:17px;color:var(--tx3);font-weight:600}
+.tx .t{flex:1;min-width:0}.tx .t b{display:block;font-size:18px}.tx .t span{display:block;font-size:17px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx .r{text-align:right}.tx .r b{display:block;font-size:19px;font-weight:800}.tx .ud{color:var(--ud)}.okc2{color:var(--ok)}
+.b{display:inline-block;font-size:17px;font-weight:700;padding:0 8px;border-radius:8px}.b.c{color:#1F8A4C;background:rgba(31,138,76,.1)}.b.u2{color:#3A6FF2;background:rgba(58,111,242,.1)}.b.d{color:var(--ud);background:var(--ud-soft)}
+/* wallet pass + quick actions */
+.passc{margin:14px 16px 0;border-radius:22px;background:var(--pass);color:#fff;padding:18px 20px 16px;box-shadow:0 18px 30px -22px rgba(14,94,87,.9)}
+.pt{display:flex;justify-content:space-between;font-size:17px;font-weight:600;color:rgba(255,255,255,.78)}
+.passc>b{display:block;font-size:58px;line-height:66px;font-weight:800;margin-top:6px}
+.pv{font-size:17px;color:#9FF0DD;font-weight:700}
+.pr{display:grid;grid-template-columns:repeat(3,1fr);margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.2)}
+.pr small{display:block;font-size:17px;color:rgba(255,255,255,.72);font-weight:600}.pr b{font-size:22px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:18px 10px 0}
+.ga{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:17px;line-height:20px;font-weight:700;text-align:center;min-height:96px}
+.gi{width:60px;height:60px;border-radius:18px;background:var(--surf);color:var(--acc);display:grid;place-items:center}
+/* grouped list (Apple) */
+.gh{display:flex;justify-content:space-between;align-items:baseline;padding:30px 20px 8px}
+.gh h2{font-size:22px;line-height:28px;font-weight:800;letter-spacing:-.3px}
+.gh span{font-size:17px;color:var(--acc);font-weight:700}
+.group{margin:0 16px;background:var(--surf);border-radius:16px;overflow:hidden}
+.cell{display:flex;align-items:center;gap:14px;padding:12px 14px 12px 16px;min-height:72px;position:relative}
+.cell+.cell::before{content:"";position:absolute;top:0;left:66px;right:0;height:1px;background:var(--sep)}
+.cell.noic+.cell::before,.cell.noic::before{left:16px}
+.av{width:40px;height:40px;border-radius:20px;display:grid;place-items:center;font-weight:800;font-size:17px;flex:none;background:var(--surf2);color:var(--tx2)}
+.av.o{background:var(--acc-soft);color:var(--acc)}
+.cell .t{flex:1;min-width:0}
+.cell .t b{display:block;font-size:18px;line-height:24px;font-weight:700}
+.cell .t span{display:block;font-size:17px;line-height:22px;color:var(--tx3)}
+.cell .amt{font-size:20px;font-weight:800;color:var(--ud)}
+.pill{min-height:56px;padding:0 16px;border-radius:28px;background:var(--surf2);font-weight:700;font-size:17px;display:inline-flex;align-items:center;gap:6px;flex:none}
+.pill.acc{background:var(--acc);color:var(--acc-ink)}
+.chev{color:var(--tx3)}
+
+/* tab bar + center action (PhonePe-style placement) */
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;height:84px;padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--surf) 88%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--sep);display:grid;grid-template-columns:repeat(4,1fr);align-items:center;z-index:40}
+.dock{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);width:calc(100% - 16px);max-width:424px;height:72px;border-radius:16px;background:var(--pass);color:#fff;display:flex;align-items:center;gap:12px;padding:0 10px 0 14px;z-index:41;box-shadow:0 12px 24px -14px rgba(0,0,0,.6);text-align:left}
+.dock .t{flex:1;min-width:0}.dock b{display:block;font-size:19px;font-weight:800}.dock span{display:block;font-size:17px;color:rgba(255,255,255,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dock .m{width:56px;height:56px;border-radius:28px;background:#fff;color:var(--pass);display:grid;place-items:center;flex:none}
+#home{padding-bottom:190px}
+.tab{height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:17px;line-height:20px;font-weight:600;color:var(--tx3)}
+.tab.on{color:var(--acc)}
+.micx{width:78px;height:78px;margin:-30px auto 0;border-radius:39px;background:var(--acc);color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(255,90,31,.6),0 0 0 6px var(--bg)}
+.micl{text-align:center;font-size:17px;font-weight:800;color:var(--acc);margin-top:2px}
+
+/* listening: Spotify-lyrics style */
+#listen{background:var(--listen-bg);color:#fff;min-height:100dvh}
+.lt{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 0 8px}
+.lt .ib{color:#fff}
+.lt span{font-size:17px;font-weight:700;color:rgba(255,255,255,.7);padding-right:14px}
+.lyr{padding:28px 24px 0;font-size:34px;line-height:46px;font-weight:800;letter-spacing:-.6px;min-height:280px}
+.lyr .w{color:rgba(255,255,255,.28);transition:color .2s}
+.lyr .w.on{color:#fff}
+.bars{display:flex;gap:5px;align-items:flex-end;height:36px;padding:0 24px}
+.bars i{width:6px;border-radius:3px;background:#9FF0DD;animation:b .8s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.1s}.bars i:nth-child(3){animation-delay:.2s}.bars i:nth-child(4){animation-delay:.3s}.bars i:nth-child(5){animation-delay:.15s}
+@keyframes b{0%,100%{height:8px}50%{height:34px}}
+.livebill{margin:22px 16px 0;background:rgba(0,0,0,.22);border-radius:16px;overflow:hidden}
+.lrow{display:flex;justify-content:space-between;padding:12px 16px;font-size:18px;font-weight:700;animation:in .35s var(--ease) both}
+.lrow+.lrow{border-top:1px solid rgba(255,255,255,.1)}
+.lrow span{color:rgba(255,255,255,.6);font-weight:500}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.lfoot{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;padding:16px 20px calc(18px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;background:linear-gradient(transparent,var(--listen-bg) 30%);z-index:40}
+.lfoot small{display:block;font-size:17px;color:rgba(255,255,255,.6);font-weight:600}
+.lfoot b{font-size:36px;line-height:42px;font-weight:800}
+.done-btn{min-height:64px;padding:0 26px;border-radius:32px;background:#fff;color:#000;font-weight:800;font-size:19px;display:inline-flex;align-items:center;gap:8px}
+
+/* review */
+.who{display:flex;align-items:center;gap:14px;margin:6px 16px 0;padding:14px 16px;background:var(--surf);border-radius:16px}
+.who .av{display:grid;place-items:center;width:48px;height:48px;border-radius:24px;background:var(--acc-soft);color:var(--acc);font-size:20px}
+.who b{display:block;font-size:19px;font-weight:800}.who span{display:block;font-size:17px;color:var(--ud);font-weight:600}
+.who .t{flex:1}
+.item{padding:12px 14px 12px 16px;position:relative}
+.item+.item::before{content:"";position:absolute;top:0;left:16px;right:0;height:1px;background:var(--sep)}
+.item .a{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.item .a b{font-size:19px;font-weight:700}.item .a .num{font-size:19px;font-weight:800}
+.item .s{font-size:17px;color:var(--tx3);margin-top:2px}
+.item.q{background:var(--acc-soft)}
+.q .ask{margin-top:10px}
+.q .ask p{font-size:17px;font-weight:700}
+.q .ask div{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.q .ask button{min-height:56px;border-radius:28px;font-weight:700;font-size:17px;background:var(--surf);display:flex;align-items:center;justify-content:center;gap:6px}
+.q .ask button.y{background:var(--acc);color:#fff}
+.seg{display:flex;align-items:center;gap:0;margin-top:8px;background:var(--surf2);border-radius:28px;width:max-content}
+.seg button{width:56px;height:56px;display:grid;place-items:center}
+.seg em{min-width:72px;text-align:center;font-style:normal;font-weight:800;font-size:18px}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:16px 20px 0}
+.total span{font-size:20px;font-weight:700;color:var(--tx3)}
+.total b{font-size:40px;line-height:48px;font-weight:800}
+.payrow{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:12px 16px 0;padding:4px;background:var(--surf);border-radius:20px}
+.pay{min-height:80px;border-radius:16px;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:800;font-size:18px;border:2px solid transparent}
+.pay[disabled]{opacity:.4}
+.pay.on{background:var(--bg);color:var(--acc);border-color:var(--acc);box-shadow:0 4px 12px -6px rgba(0,0,0,.3)}
+.pay.u.on{border-color:var(--ud);background:var(--ud-soft);color:var(--ud)}
+.note{margin:10px 20px 0;font-size:17px;color:var(--tx3);font-weight:600}
+.note.ud{color:var(--ud)}
+.cta{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;padding:12px 16px calc(14px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;gap:10px;z-index:40}
+.cta .main{flex:1;min-height:64px;border-radius:32px;background:var(--acc);color:#fff;font-weight:800;font-size:18px;padding:0 16px}
+.cta .main[disabled]{background:var(--surf2);color:var(--tx3)}
+.cta .sm{width:64px;height:64px;border-radius:32px;background:var(--surf);color:var(--acc);display:grid;place-items:center;flex:none}
+
+/* done */
+.ok{display:flex;flex-direction:column;align-items:center;text-align:center;padding:48px 24px 0}
+.okc{width:96px;height:96px;border-radius:48px;background:var(--acc);color:#fff;display:grid;place-items:center;animation:pop .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+.ok h1{font-size:30px;line-height:36px;font-weight:800;margin-top:18px;letter-spacing:-.4px}
+.ok .num{font-size:52px;line-height:60px;font-weight:800;margin-top:4px}
+.ok p{font-size:18px;color:var(--tx3);margin-top:4px}
+.after{margin:22px 16px 0}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 16px 0}
+.acts .pill{width:100%;justify-content:center;min-height:60px;border-radius:30px}
+body.hi .large,body.hi .lyr,body.hi .ok h1{line-height:1.45}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mic" viewBox="0 0 24 24"><rect class="ic" x="9" y="2.5" width="6" height="12" rx="3"/><path class="ic" d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path class="ic" d="M3.5 10.5 12 3.5l8.5 7V20a.5.5 0 0 1-.5.5h-5v-6h-6v6H4a.5.5 0 0 1-.5-.5z"/></symbol>
+  <symbol id="bill" viewBox="0 0 24 24"><path class="ic" d="M6 2.5h12v19l-3-1.6-3 1.6-3-1.6-3 1.6zM9 8h6M9 12h6"/></symbol>
+  <symbol id="box" viewBox="0 0 24 24"><path class="ic" d="M20.5 7.5 12 3 3.5 7.5v9L12 21l8.5-4.5zM3.5 7.5 12 12l8.5-4.5M12 12v9"/></symbol>
+  <symbol id="book" viewBox="0 0 24 24"><path class="ic" d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"/></symbol>
+  <symbol id="qr" viewBox="0 0 24 24"><path class="ic" d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 18h2v2h-2zM14 20h2M20 14v2"/></symbol>
+  <symbol id="moon" viewBox="0 0 24 24"><path class="ic" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><circle class="ic" cx="12" cy="12" r="4"/><path class="ic" d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="gear" viewBox="0 0 24 24"><circle class="ic" cx="12" cy="12" r="3"/><path class="ic" d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3.1 14H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 3.1V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="down" viewBox="0 0 24 24"><path class="ic" d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="right" viewBox="0 0 24 24"><path class="ic" d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path class="ic" d="M5 12.5l4.5 4.5L19 7.5" style="stroke-width:2.8"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path class="ic" d="M12 5v14M5 12h14" style="stroke-width:2.4"/></symbol>
+  <symbol id="minus" viewBox="0 0 24 24"><path class="ic" d="M5 12h14" style="stroke-width:2.4"/></symbol>
+  <symbol id="cash" viewBox="0 0 24 24"><rect class="ic" x="2.5" y="6" width="19" height="12" rx="2.5"/><circle class="ic" cx="12" cy="12" r="2.5"/></symbol>
+  <symbol id="wa" viewBox="0 0 24 24"><path class="ic" d="M7.9 20A9 9 0 1 0 4 16.1L2.5 21.5z"/></symbol>
+  <symbol id="undo" viewBox="0 0 24 24"><path class="ic" d="M9 14 4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
+</svg>
+
+<!-- HOME -->
+<section class="view on" id="home">
+  <div class="nav"><span class="shop" data-t="area"></span><div class="r"><button class="ib p" onclick="toggleTheme()" aria-label="Theme"><svg width="24" height="24" id="thic"><use href="#moon"/></svg></button><button class="ib p" aria-label="QR"><svg width="24" height="24"><use href="#qr"/></svg></button><button class="ib p" aria-label="Settings"><svg width="24" height="24"><use href="#gear"/></svg></button></div></div>
+  <h1 class="large" data-t="shop"></h1>
+  <div class="passc"><div class="pt"><span data-t="today"></span><span data-t="bills"></span></div><b class="num">₹14,218</b><div class="pv" data-t="vs"></div>
+  <div class="pr"><div><small data-t="cash"></small><b class="num">₹9,642</b></div><div><small>UPI</small><b class="num">₹3,456</b></div><div><small data-t="udg"></small><b class="num">₹1,120</b></div></div></div>
+  <div class="due2"><div><small data-t="collect"></small><b class="num">₹32,484</b><span data-t="lenan2"></span></div><button class="pill p" data-t="remind2"></button></div>
+  <div class="ord2"><span class="dot2"></span><b data-t="o1"></b><button class="pill acc p" data-t="see"></button></div>
+  <div class="tl2"><h3 data-t="tlh"></h3>
+   <div class="tx"><span class="tm">6:12</span><div class="t"><b>Rekha ji</b><span data-t="tx1"></span></div><div class="r"><b class="num">₹240</b><span class="b c">Cash</span></div></div>
+   <div class="tx"><span class="tm">6:05</span><div class="t"><b>Verma ji</b><span data-t="tx2"></span></div><div class="r"><b class="num ud">₹415</b><span class="b d" data-t="udhaar"></span></div></div>
+   <div class="tx"><span class="tm">5:58</span><div class="t"><b data-t="walkin"></b><span data-t="tx3"></span></div><div class="r"><b class="num">₹60</b><span class="b u2">UPI</span></div></div>
+   <div class="tx"><span class="tm">5:41</span><div class="t"><b>Gupta ji</b><span data-t="tx4"></span></div><div class="r"><b class="num okc2">+₹500</b><span class="b c" data-t="gotud"></span></div></div>
+  </div>
+</section>
+
+<!-- LISTEN -->
+<section class="view" id="listen">
+  <div class="lt"><button class="ib p" onclick="go('home')" aria-label="Close"><svg width="28" height="28"><use href="#down"/></svg></button><span data-t="newbill"></span></div>
+  <div class="lyr" id="lyr"></div>
+  <div class="bars"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="livebill" id="live"></div>
+  <div class="lfoot"><div><small data-t="sofar"></small><b class="num" id="run">₹0</b></div><button class="done-btn p" onclick="go('review')"><svg width="20" height="20"><use href="#check"/></svg><span data-t="stop"></span></button></div>
+</section>
+
+<!-- REVIEW -->
+<section class="view" id="review">
+  <div class="nav"><button class="ib p" onclick="go('home')" aria-label="Back" style="margin-left:-12px"><svg width="26" height="26" style="transform:rotate(90deg)"><use href="#down"/></svg></button><span class="shop" data-t="billno"></span></div>
+  <h1 class="large" data-t="check"></h1>
+  <div class="who"><span class="av">SJ</span><div class="t"><b data-t="sharma"></b><span data-t="old"></span></div><button class="pill p" data-t="change"></button></div>
+  <div class="gh" style="padding-top:20px"><h2 data-t="items"></h2></div>
+  <div class="group" id="rows"></div>
+  <div class="total"><span data-t="total"></span><b class="num">₹181</b></div>
+  <div class="gh" style="padding-top:18px"><h2 data-t="how"></h2></div>
+  <div class="payrow">
+    <button class="pay p" data-p="c"><svg width="28" height="28"><use href="#cash"/></svg><span data-t="cash"></span></button>
+    <button class="pay p" data-p="p"><svg width="28" height="28"><use href="#qr"/></svg><span>UPI</span></button>
+    <button class="pay u p" data-p="u"><svg width="28" height="28"><use href="#book"/></svg><span data-t="udhaar"></span></button>
+  </div>
+  <p class="note" id="note"></p>
+</section>
+
+<!-- DONE -->
+<section class="view" id="done">
+  <div class="ok"><div class="okc"><svg width="48" height="48"><use href="#check"/></svg></div><h1 data-t="saved"></h1><span class="num">₹181</span><p data-t="meta"></p></div>
+  <div class="group after"><div class="cell noic"><div class="t"><b id="aft1"></b><span data-t="aftsub"></span></div><span class="amt num" id="aft2"></span></div></div>
+  <div class="acts"><button class="pill p"><svg width="22" height="22" style="color:var(--ok)"><use href="#wa"/></svg><span>WhatsApp</span></button><button class="pill p" onclick="go('home')"><svg width="22" height="22"><use href="#undo"/></svg><span data-t="undo"></span></button></div>
+</section>
+
+<button class="dock p" id="voicebar" onclick="go('listen')"><div class="t"><b data-t="bolo2"></b><span data-t="hint"></span></div><span class="m"><svg width="28" height="28"><use href="#mic"/></svg></span></button>
+<nav class="tabbar" id="tabbar">
+  <button class="tab on p" onclick="go('home')"><svg width="26" height="26"><use href="#home"/></svg><span data-t="tHome"></span></button>
+  <button class="tab p"><svg width="26" height="26"><use href="#bill"/></svg><span data-t="tBill"></span></button>
+  <button class="tab p"><svg width="26" height="26"><use href="#box"/></svg><span data-t="tMaal"></span></button>
+  <button class="tab p"><svg width="26" height="26"><use href="#book"/></svg><span data-t="tUd"></span></button>
+</nav>
+<div class="cta" id="cta" style="display:none"><button class="main p" id="cf" onclick="saved()"></button><button class="sm p" onclick="go('listen')" aria-label="Speak more"><svg width="26" height="26"><use href="#mic"/></svg></button></div>
+
+<script>
+const T={
+ hinglish:{lenan2:'15 log se lena hai',remind2:'Yaad dilao',tlh:'Aaj ke bill',tx1:'Atta, tel, sabun · 6 saaman',tx2:'Doodh, bread',walkin:'Grahak',tx3:'Kurkure, Frooti',tx4:'Udhaar wapas mila',gotud:'Mila',g1:'Naya bill',g2:'Maal aaya',g3:'Paisa mila',g4:'Udhaar',bolo2:'Bolo',hint:'“Sharma ji, 2 kilo cheeni…”',shop:'Sharma General Store',area:'Rajwada, Indore',today:'Aaj ki bikri',bills:'68 bill',vs:'kal se ₹1,050 zyada',cash:'Cash',udg:'Udhaar',collect:'Paisa lena hai',u1:'Mishra ji',u1s:'5 din se baaki',u2:'Gupta ji',u2s:'3 din se baaki',all:'Sab 15 log dekho',todo:'Aaj ka kaam',o1:'2 naye online order',o1s:'Pack karke ready karo',see:'Dekho',l1:'Machis, Frooti kam',l1s:'1–2 din ka maal',order:'Mangao',c1:'3 saaman gino',c1s:'1 minute · 23 din se roz',start:'Shuru',bolo:'Bolo',
+  newbill:'Naya bill',said:'Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal',sofar:'Ab tak',stop:'Ho gaya',billno:'Bill 2205',check:'Bill check karo',sharma:'Sharma ji',old:'Pehle ka udhaar ₹2,416',change:'Badlo',items:'3 saaman',total:'Kul',how:'Paisa kaise mila?',udhaar:'Udhaar',
+  names:['Cheeni','Maggi chhota?','Toor dal'],units:['2 kg × ₹46','1 × ₹14','aadha kg × ₹150'],q:['2 kg','1','aadha kg'],ask:'Yahi wali? ₹14 ka chhota packet',yes:'Haan, yahi',no:'Doosri',
+  n0:'Pehle Maggi pakka karo',n1:'Cash, UPI ya Udhaar chuniye',nU:'Sharma ji ka khata ₹2,416 → ₹2,597 ho jayega',c0:'Pehle Maggi pakka karo',c1:'Paisa kaise mila, chuniye',cC:'Cash mila · ₹181 save',cP:'UPI mila · ₹181 save',cU:'Udhaar mein likho · ₹181',
+  saved:'Bill save ho gaya',meta:'Sharma ji · Bill 2205 · 6:15 pm',aftU:'Sharma ji ka khata',aftC:'Cash mila',aftP:'UPI mila',aftsub:'Abhi ka hisaab',undo:'Wapas lo',tHome:'Ghar',tBill:'Bill',tMaal:'Maal',tUd:'Udhaar'},
+ hi:{lenan2:'15 लोगों से लेना है',remind2:'याद दिलाओ',tlh:'आज के बिल',tx1:'आटा, तेल, साबुन · 6 सामान',tx2:'दूध, ब्रेड',walkin:'ग्राहक',tx3:'कुरकुरे, फ्रूटी',tx4:'उधार वापस मिला',gotud:'मिला',g1:'नया बिल',g2:'माल आया',g3:'पैसा मिला',g4:'उधार',bolo2:'बोलो',hint:'“शर्मा जी, 2 किलो चीनी…”',shop:'शर्मा जनरल स्टोर',area:'राजवाड़ा, इंदौर',today:'आज की बिक्री',bills:'68 बिल',vs:'कल से ₹1,050 ज़्यादा',cash:'नकद',udg:'उधार',collect:'पैसा लेना है',u1:'मिश्रा जी',u1s:'5 दिन से बाकी',u2:'गुप्ता जी',u2s:'3 दिन से बाकी',all:'सब 15 लोग देखो',todo:'आज का काम',o1:'2 नए ऑनलाइन ऑर्डर',o1s:'पैक करके तैयार करो',see:'देखो',l1:'माचिस, फ्रूटी कम',l1s:'1–2 दिन का माल',order:'मंगाओ',c1:'3 सामान गिनो',c1s:'1 मिनट · 23 दिन से रोज़',start:'शुरू',bolo:'बोलो',
+  newbill:'नया बिल',said:'शर्मा जी, दो किलो चीनी, एक मैगी, आधा किलो तूर दाल',sofar:'अब तक',stop:'हो गया',billno:'बिल 2205',check:'बिल जाँचो',sharma:'शर्मा जी',old:'पहले का उधार ₹2,416',change:'बदलो',items:'3 सामान',total:'कुल',how:'पैसा कैसे मिला?',udhaar:'उधार',
+  names:['चीनी','मैगी छोटा?','तूर दाल'],units:['2 किलो × ₹46','1 × ₹14','आधा किलो × ₹150'],q:['2 किलो','1','आधा किलो'],ask:'यही वाली? ₹14 का छोटा पैकेट',yes:'हाँ, यही',no:'दूसरी',
+  n0:'पहले मैगी पक्का करो',n1:'नकद, UPI या उधार चुनिए',nU:'शर्मा जी का खाता ₹2,416 → ₹2,597 हो जाएगा',c0:'पहले मैगी पक्का करो',c1:'पैसा कैसे मिला, चुनिए',cC:'₹181 नकद मिला · सेव',cP:'₹181 UPI मिला · सेव',cU:'उधार में लिखो · ₹181',
+  saved:'बिल सेव हो गया',meta:'शर्मा जी · बिल 2205 · शाम 6:15',aftU:'शर्मा जी का खाता',aftC:'नकद मिला',aftP:'UPI मिला',aftsub:'अभी का हिसाब',undo:'वापस लो',tHome:'घर',tBill:'बिल',tMaal:'माल',tUd:'उधार'},
+ en:{lenan2:'to collect from 15 people',remind2:'Remind',tlh:"Today's bills",tx1:'Atta, oil, soap · 6 items',tx2:'Milk, bread',walkin:'Walk-in',tx3:'Kurkure, Frooti',tx4:'Udhaar paid back',gotud:'Paid',g1:'New bill',g2:'Stock in',g3:'Got paid',g4:'Udhaar',bolo2:'Speak',hint:'“Sharma ji, 2 kilo sugar…”',shop:'Sharma General Store',area:'Rajwada, Indore',today:"Today's sales",bills:'68 bills',vs:'₹1,050 more than yesterday',cash:'Cash',udg:'Udhaar',collect:'Money to collect',u1:'Mishra ji',u1s:'Due 5 days',u2:'Gupta ji',u2s:'Due 3 days',all:'See all 15 people',todo:"Today's tasks",o1:'2 new online orders',o1s:'Pack and mark ready',see:'View',l1:'Matchbox, Frooti low',l1s:'1–2 days of stock',order:'Order',c1:'Count 3 items',c1s:'1 minute · 23-day streak',start:'Start',bolo:'Speak',
+  newbill:'New bill',said:'Sharma ji, two kilo sugar, one Maggi, half kilo toor dal',sofar:'So far',stop:'Done',billno:'Bill 2205',check:'Check bill',sharma:'Sharma ji',old:'Old udhaar ₹2,416',change:'Change',items:'3 items',total:'Total',how:'How was it paid?',udhaar:'Udhaar',
+  names:['Sugar','Maggi small?','Toor dal'],units:['2 kg × ₹46','1 × ₹14','half kg × ₹150'],q:['2 kg','1','half kg'],ask:'This one? The small ₹14 pack',yes:'Yes, this',no:'Other',
+  n0:'First confirm Maggi',n1:'Choose Cash, UPI or Udhaar',nU:"Sharma ji's account goes ₹2,416 → ₹2,597",c0:'First confirm Maggi',c1:'Choose how it was paid',cC:'₹181 paid in cash · Save',cP:'₹181 paid by UPI · Save',cU:'Add to udhaar · ₹181',
+  saved:'Bill saved',meta:'Sharma ji · Bill 2205 · 6:15 pm',aftU:"Sharma ji's account",aftC:'Paid in cash',aftP:'Paid by UPI',aftsub:'Now',undo:'Take back',tHome:'Home',tBill:'Bills',tMaal:'Stock',tUd:'Udhaar'}}
+const Q=new URLSearchParams(location.search),L=Q.get('lang')||'hinglish',D=T[L],$=s=>document.querySelector(s),wait=ms=>new Promise(r=>setTimeout(r,ms))
+let view='home',open=true,pay=null,run=0
+document.body.classList.toggle('hi',L==='hi')
+function setTheme(t){document.documentElement.dataset.theme=t;$('#thic').innerHTML=`<use href="#${t==='dark'?'sun':'moon'}"/>`;try{localStorage.setItem('theme',t)}catch(e){}}
+function toggleTheme(){setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark')}
+let t0='light';try{t0=localStorage.getItem('theme')||t0}catch(e){};if(Q.get('theme'))t0=Q.get('theme');setTheme(t0)
+function paint(){document.querySelectorAll('[data-t]').forEach(e=>{const v=D[e.dataset.t];if(typeof v==='string')e.textContent=v})}
+function go(v){view=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id===v));scrollTo(0,0);$('#tabbar').style.display=v==='home'||v==='done'?'grid':'none';$("#voicebar").style.display=v==='home'||v==='done'?'flex':'none';$('#cta').style.display=v==='review'?'flex':'none';paint();if(v==='listen')listen();if(v==='review')review()}
+const AMT=[92,14,75]
+async function listen(){const w=D.said.split(' ');$('#lyr').innerHTML=w.map(x=>`<span class="w">${x}</span>`).join(' ');$('#live').innerHTML='';run=0;$('#run').textContent='₹0'
+ const ws=[...document.querySelectorAll('#lyr .w')];for(let i=0;i<ws.length;i++){await wait(230);if(view!=='listen')return;ws[i].classList.add('on');if(i===4||i===6||i===10){const k=i===4?0:i===6?1:2;$('#live').insertAdjacentHTML('beforeend',`<div class="lrow">${D.names[k].replace('?','')} <span>${D.q[k]}</span><b class="num">₹${AMT[k]}</b></div>`.replace(' <span>','<span style="flex:1;padding-left:8px">'));run+=AMT[k];$('#run').textContent='₹'+run}}
+ await wait(700);if(view==='listen')go('review')}
+function item(i,q){return `<div class="item${q?' q':''}"><div class="a"><b>${D.names[i]}</b><span class="num">₹${AMT[i]}</span></div><div class="s">${D.units[i]}</div>${q?`<div class="seg"><button aria-label="-"><svg width="20" height="20"><use href="#minus"/></svg></button><em>${D.q[i]}</em><button aria-label="+"><svg width="20" height="20"><use href="#plus"/></svg></button></div><div class="ask"><p>${D.ask}</p><div><button class="p">${D.no}</button><button class="y p" onclick="ok()"><svg width="20" height="20"><use href="#check"/></svg>${D.yes}</button></div></div>`:''}</div>`}
+function review(){open=true;pay=null;$('#rows').innerHTML=item(0)+item(1,true)+item(2);document.querySelectorAll('.pay').forEach(x=>{x.classList.remove('on');x.disabled=true});state()}
+function ok(){open=false;$('#rows').innerHTML=item(0)+item(1).replace('?','')+item(2);document.querySelectorAll('.pay').forEach(x=>x.disabled=false);state();setTimeout(()=>$('.total').scrollIntoView({behavior:'smooth',block:'start'}),60)}
+function state(){const n=$('#note');n.className='note'+(pay==='u'?' ud':'');n.textContent=open?D.n0:!pay?D.n1:pay==='u'?D.nU:'';const c=$('#cf');c.disabled=open||!pay;c.textContent=open?D.c0:!pay?D.c1:pay==='u'?D.cU:pay==='p'?D.cP:D.cC}
+document.querySelectorAll('.pay').forEach(b=>b.onclick=()=>{if(open)return;pay=b.dataset.p;document.querySelectorAll('.pay').forEach(x=>x.classList.toggle('on',x===b));state()})
+function saved(){$('#aft1').textContent=pay==='u'?D.aftU:pay==='p'?D.aftP:D.aftC;$('#aft2').textContent=pay==='u'?'₹2,597':'₹181';go('done');navigator.vibrate&&navigator.vibrate(30)}
+paint()
+</script>
+</body>
+</html>
