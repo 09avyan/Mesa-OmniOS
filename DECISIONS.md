@@ -48,3 +48,7 @@
 - v10 "MRP box" passed the panel but owner asked for a full redo from absolute scratch, forgetting all earlier UI/UX.
 - Loop: each design gets the panel, then at most ONE improvement round; still failing → new design from scratch.
 - (later, 24 Nov) Panel adds an AI-detector (score ≥8/10 = looks human-made). If only the AI score fails → up to 3 improvement rounds. Skills: ui-ux-pro-max + impeccable together.
+
+## Universe pricing (24 Nov 2026, owner)
+- The Universe has names only, never prices. Each shop has its own price per item: from stock entry (receipt rate) if entered, or typed by the owner; otherwise learned after 3 bills at the same price and set as default. The owner can always change it.
+- First sale/stock-in of a Universe item creates the shop's own item row (catalog_id = Universe id), so the existing per-shop price rules apply.

@@ -2,6 +2,7 @@ import { supabase } from './supabase'
 import { CATALOG } from '../voice/catalog'
 import { buildIndex, dice, type Matchable, type MatchIndex } from '../voice/match'
 import { fold } from '../voice/normalize'
+import { loadUniverse, universeMatchables } from './universe'
 
 export type ShopItem = { id: string; catalog_id: string | null; name: string; name_hi: string | null; unit: string; loose: boolean; price: number | null; learned_price: number | null; stock: number; stock_known: boolean; hidden_online: boolean }
 export type Customer = { id: string; name: string; tag: string | null; phone: string | null; balance: number }
@@ -37,6 +38,16 @@ export async function loadShop(): Promise<Shop> {
       const shop = byCatalog.get(c.id)
       return { ...c, aliases: [...c.aliases, ...(shop ? aliases.get(shop.id) ?? [] : [])], shop, lastPrice: shop ? last.get(shop.id) : undefined }
     })
+    // Universe: items the catalogue doesn't have. No price comes from the Universe: every shop keeps its OWN price
+    // on its own items row (created on first sale/stock-in): stock-entry rate or manual price, else learned after
+    // 3 bills at the same price; the owner can always change it. (Owner rule, 24 Nov.)
+    const uni = await Promise.race([loadUniverse().then(() => universeMatchables()).catch(() => []), new Promise<[]>((r) => setTimeout(() => r([]), 1500))])
+    const known = new Set(list.flatMap((m) => [m.hinglish, m.en, m.hi, ...m.aliases].map((a) => fold(a.toLowerCase().trim()))))
+    for (const u of uni) {
+      if ([u.hinglish, u.en, u.hi].some((a) => known.has(fold(a.toLowerCase().trim())))) continue
+      const shop = byCatalog.get(u.id)
+      list.push({ ...u, shop, lastPrice: shop ? last.get(shop.id) : undefined })
+    }
     for (const s of items.filter((i) => !i.catalog_id)) {
       list.push({ id: 'shop:' + s.id, hinglish: s.name, hi: s.name_hi ?? s.name, en: s.name, brand: null, unit: s.unit, loose: s.loose, aliases: aliases.get(s.id) ?? [s.name.toLowerCase()], shop: s, lastPrice: last.get(s.id) })
     }
