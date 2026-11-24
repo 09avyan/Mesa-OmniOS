@@ -228,6 +228,33 @@ body{font-family:"Hanken Grotesk","Mukta",sans-serif!important}
 #listen{--listen-bg:#0B2E2A!important;color:#fff!important}#listen .lt .ib,#listen .lt span{color:#fff!important}#listen .lyr{color:#fff!important}#listen .lyr .w{color:rgba(255,255,255,.3)!important}#listen .lyr .w.on{color:#fff!important}#listen .livebill{background:rgba(255,255,255,.08)!important;border:0!important;color:#fff}#listen .lrow span{color:rgba(255,255,255,.65)!important}#listen .lfoot{background:linear-gradient(transparent,#0B2E2A 30%)!important;color:#fff}#listen .lfoot small{color:rgba(255,255,255,.7)!important}#listen .done-btn{background:#fff!important;color:#0B2E2A!important}
 .bars i{background:#7FE0CF!important}
 
+
+/* ===== 60-30-10: 60 white/off-white base · 30 secondary #0E5E57 · 10 accent #E8A33D (actions only) ===== */
+:root{--s30:#0E5E57;--s30b:#E3F0EE;--a10:#E8A33D;--a10ink:#1A1300}
+/* accent only on actions */
+.cta .main:not([disabled]),.nextb,.done-btn,.q .ask button.y,.pill.acc,.btn.ink{background:var(--a10)!important;color:var(--a10ink)!important;border-color:var(--a10)!important}
+.mic,.dock .m,.cta .sm{background:var(--a10)!important;color:var(--a10ink)!important}
+.tab.on{color:var(--s30)!important}
+/* secondary carries structure */
+.passc,.dock,.ok.band2,.bi-h{background:var(--s30)!important}
+.dock{color:#fff}
+/* LISTENING: three-tone, not one colour */
+#listen{background:#F6F7F6!important;color:var(--tx)!important;--listen-bg:#F6F7F6}
+#listen .lt .ib,#listen .lt span{color:var(--tx)!important}
+#listen .lyr{margin:8px 16px 0;padding:18px 18px 20px!important;border-radius:20px;background:var(--s30);color:#fff!important;font-size:28px!important;line-height:38px!important;min-height:0!important}
+#listen .lyr .w{color:rgba(255,255,255,.35)!important}#listen .lyr .w.on{color:#fff!important}
+#listen .bars{padding:14px 20px 0!important;height:56px!important}#listen .bars i{background:var(--a10)!important}
+#listen .livebill{background:#fff!important;border:1px solid #E3E5E3!important;color:var(--tx)!important;margin-top:10px!important}
+#listen .lrow{color:var(--tx)!important}#listen .lrow span{color:var(--tx3)!important}#listen .lrow+.lrow{border-top:1px solid #ECEDEC!important}
+#listen .lfoot{background:#fff!important;border-top:1px solid #E3E5E3;color:var(--tx)!important}#listen .lfoot small{color:var(--tx3)!important}
+#listen .done-btn{background:var(--a10)!important;color:var(--a10ink)!important}
+[data-theme=dark] #listen{background:#0F1110!important}[data-theme=dark] #listen .livebill,[data-theme=dark] #listen .lfoot{background:#1A1D1C!important;border-color:#2A2E2C!important}
+/* PAY: Cash · UPI · Udhaar side by side */
+.payrow{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
+.pay{flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:6px!important;padding:10px 4px!important;min-height:100px!important;text-align:center}
+.pay.on{border-color:var(--s30)!important;background:var(--s30b)!important;color:var(--s30)!important}
+.pay.u.on{border-color:var(--ud)!important;background:var(--ud-soft)!important;color:var(--ud)!important}
+
 </style>
 </head>
 <body>
