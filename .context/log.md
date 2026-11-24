@@ -1,5 +1,6 @@
 # Session log (newest first)
 - 24 Nov: .context/ created (owner: keep context small). Start rule = INDEX + TASKS + graphify. Owner answered redo #4 questions (see ui-redo-4.md). Starting redo #4.
+- 24 Nov: panel on d2/d5/d6/d13 — all fail; best d13 (7.31).
 - 24 Nov: d14 failed; d6b (AI clean-up of d6) sent for owner score; panel next.
 - 24 Nov: designs 1–14 (d2 pass; d5,d6,d13 hold; d14 last waiting). Universe 403 items, fast build, wired into billing; per-shop pricing; receipt price-suggestion moved to forecast work.
 - 24 Nov: owner vetoed design C, asked to delete A/B/C (deleted) and restart from square 0.

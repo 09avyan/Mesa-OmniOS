@@ -140,11 +140,15 @@ Approved, in this order:
 - Owner answers (24 Nov): vetoes were about everything (look, theme idea, layout); references = Apple, PhonePe, Spotify; light+dark toggle; owner sees labelled screenshots (small translucent watermark: screen + stage) before every panel.
 - Design 1 (clean modern, orange accent, centre mic) — owner: "fine, but not up to the mark".
 - ✅ Design 2 (teal wallet card, quick actions, docked voice bar) — PASSED owner look; queued for panel.
+- 📊 PANEL 24 Nov on passed+held (8 members; pass = all 1–7 ≥9 and AI-detector ≥8): ALL FAIL.
+  - d13 7.31 (best; AI 6) · d5 6.97 (AI 6) · d2 6.66 (AI 5) · d6 6.37 (AI 3).
+  - Best base: d13. Top fixes: clear crowded home (Bolo bar hides list), own font + numbers, no initials avatars / stock icons / 'kal se zyada' delta, full saved screen (receipt + next action), pay buttons ≥56px with icons, d5's one-decision-at-a-time check.
+- ⏳ Owner decides: one improvement round on d13 (rule: 1 round, or 3 if only the AI score fails) or other.
 - Owner rule: panel runs only when owner asks, on all owner-passed designs, one after another.
 - ❌ Design 3 (black/gold, shelves) — vetoed by owner.
 - ❌ Design 4 (iOS widget grid) — vetoed by owner.
 - ⏸ Design 5 (chat thread) — owner: neither pass nor fail; ASK OWNER what to do with it just before running the panel.
-- ⏸ Design 6 (bank-style timeline) — HOLD. ✅ AI clean-up done → design/redo5/d6b.html (own font Hanken Grotesk, no initials bubbles, no green delta, no pill chips, no blur, hairline list, square corners, quieter violet). ⏳ Owner scores 6b, then panel.
+- ⏸ Design 6 (bank-style timeline) — HOLD. ✅ AI clean-up done → design/redo5/d6b.html (own font Hanken Grotesk, no initials bubbles, no green delta, no pill chips, no blur, hairline list, square corners, quieter violet). 6b failed by owner (24 Nov).
 - ❌ Design 7 (monochrome + lime) — failed by owner.
 - ❌ Design 8 (colour tiles) — owner: "extra fail, awful".
 - ❌ Design 9 (PhonePe structure, navy) — failed by owner.

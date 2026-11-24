@@ -5,3 +5,4 @@
 - Earlier A/B/C (banknote, block print, handwritten slip) vetoed + deleted on owner request.
 - Files: design/redo5/dN.html + dN-{light,dark,hindi}-{1home..5saved}.png. Screenshot scripts in /tmp/claude-0/s (p9/p10/p12 + label.py) — may be gone after restart.
 - Lessons: owner rejects loud colour, gimmicks, pure monochrome, widgets, giant mic; keeps calm teal, real numbers, familiar patterns (wallet card, chat, timeline).
+- PANEL 24 Nov: d13 7.31 · d5 6.97 · d2 6.66 · d6 6.37 — all fail (AI-detector 6/6/5/3). Best base d13.
