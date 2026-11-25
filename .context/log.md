@@ -32,3 +32,4 @@
 - 24 Nov: Universe v5 = 750 items + 2,484 flavour/size variants (one default each), voice matches variants; gz 12→62 KB. Bills don't save variant yet.
 - 24 Nov: owner PASSED design; df7 = final (e-bill, big QR). Universe → 1000 items + India-only flavours/sizes + flavour engine running (Sonnet helper).
 - 24 Nov: Universe v6 1000 items/3,335 variants, flavour engine, variant on bills+WhatsApp, matcher 17x faster; 82 tests pass. Migration 0012 pending apply.
+- 25 Nov: owner OK'd: applied 0012 + 0013 to live Supabase (verified live save_bill\/public_bill matched base first; 2,208 bills intact). Owner asked: restore all removed flavours, Universe → 1500 (helper running), deploy.

@@ -1,5 +1,4 @@
--- 0012: flavour / pack size on bills + per-store flavour learning. ADDITIVE ONLY (new columns, new table, functions re-created
--- with the same signature and grants). NOT YET APPLIED to production: apply through the Supabase MCP when the owner says go.
+-- 0012: flavour / pack size on bills + per-store flavour learning. ADDITIVE ONLY. APPLIED to production 25 Nov 2026.
 --
 -- 1. bill_lines.variant / variant_hi / family : "Masala 70g" / "मसाला 70 ग्राम" / "u:maggi-70" (family = the product the flavour belongs to).
 --    Old lines stay NULL (they have no variant). bill_lines.name keeps the item name as before; the app shows name + variant.
