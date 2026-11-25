@@ -1,254 +1,516 @@
-<!doctype html><html><head><meta charset="utf-8"><title>OmniOS Dukaan — Product Overview</title>
-<style>
-@page{size:A4;margin:0}
-*{box-sizing:border-box}
-body{margin:0;font-family:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;color:#141517;font-size:10.5pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.pg{width:210mm;height:297mm;overflow:hidden;padding:20mm 18mm 18mm;page-break-after:always;position:relative;background:#fff}
-.pg:last-child{page-break-after:auto}
-.foot{position:absolute;bottom:9mm;left:18mm;right:18mm;display:flex;justify-content:space-between;font-size:8pt;color:#8E9390;border-top:1px solid #E2E2DC;padding-top:5px}
-.eyebrow{font-size:8.5pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0D5C55;margin-bottom:6px}
-h1{font-size:40pt;line-height:1.02;margin:0;letter-spacing:-.035em;font-weight:800}
-h2{font-size:22pt;line-height:1.1;margin:0 0 6px;letter-spacing:-.025em;font-weight:800}
-h3{font-size:12pt;margin:14px 0 4px;font-weight:800}
-.lead{font-size:12.5pt;color:#3F4445;max-width:150mm;margin:8px 0 18px}
-p{margin:6px 0}
-.cover{background:#141517;color:#fff;padding:0;display:flex;flex-direction:column}
-.cover .top{padding:22mm 18mm 0;flex:1}
-.cover .mark{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:12pt}
-.cover .mark i{width:30px;height:30px;border-radius:9px;background:#0D5C55;display:grid;place-items:center}
-.cover h1{font-size:54pt;margin-top:58mm}
-.cover .tagl{font-size:17pt;color:#C9CCCA;margin-top:10px;max-width:150mm;line-height:1.35}
-.cover .band{background:#0D5C55;padding:12mm 18mm;display:grid;grid-template-columns:repeat(4,1fr);gap:8mm}
-.cover .band b{display:block;font-size:22pt;letter-spacing:-.02em}.cover .band span{font-size:9pt;color:#CFE5E2}
-.cover .meta{padding:8mm 18mm;font-size:9pt;color:#8E9390;display:flex;justify-content:space-between}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8mm}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm}
-.card{background:#F7F7F4;border-radius:14px;padding:12px 14px}
-.card b.k{display:block;font-size:20pt;letter-spacing:-.02em;line-height:1.1}
-.card .t{font-weight:800;margin-bottom:3px}
-.ink{background:#141517;color:#fff}.ink .t{color:#fff}
-.teal{color:#0D5C55}.ud{color:#8A5000}
-table{width:100%;border-collapse:collapse;font-size:9.5pt}
-th{font-size:8pt;text-transform:uppercase;letter-spacing:.06em;color:#6F7471;text-align:left;padding:7px 6px;border-bottom:2px solid #141517}
-td{padding:7px 6px;border-bottom:1px solid #E2E2DC;vertical-align:top}
-.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center}
-.cmp tr td:first-child{font-weight:700}
-.y{color:#0D5C55;font-weight:900}.n{color:#B8BCB9}.h{color:#8A5000;font-weight:800}
-.us{background:#EEF5F4}
-.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm;margin-top:6mm}
-.shot{border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.08),0 10px 24px rgba(0,0,0,.08);border:1px solid #E2E2DC}
-.shot img{width:100%;display:block}.cap{font-size:8.5pt;color:#55595A;margin-top:4px;text-align:center}
-.flow{display:flex;align-items:stretch;gap:3mm;margin:6mm 0}
-.flow div{flex:1;background:#F7F7F4;border-radius:14px;padding:10px 12px;position:relative}
-.flow div b{display:block;font-size:9pt;color:#0D5C55;letter-spacing:.08em;text-transform:uppercase}
-.flow div:not(:last-child)::after{content:"→";position:absolute;right:-4mm;top:42%;font-weight:900;color:#141517}
-ul{margin:4px 0;padding-left:16px}li{margin:3px 0}
-.quote{font-size:15pt;line-height:1.35;font-weight:700;letter-spacing:-.01em;border-left:4px solid #0D5C55;padding:4px 0 4px 14px;margin:10px 0}
-.p2{background:#141517;color:#fff;border-radius:18px;padding:16mm 14mm;margin-top:8mm}
-.p2 .grid3 div{background:rgba(255,255,255,.07);border-radius:14px;padding:12px}
-.p2 b{font-size:12pt}.lock{display:inline-block;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;background:#0D5C55;padding:3px 9px;border-radius:8px;font-weight:800}
-.note{font-size:8pt;color:#8E9390;margin-top:6px}
-.toc div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #E2E2DC;font-size:11pt}.toc span{color:#8E9390}
-.shots.sm .shot{height:74mm}.shots.sm img{height:100%;object-fit:cover;object-position:top}</style></head><body>
-
-<!-- COVER -->
-<section class="pg cover">
- <div class="top"><span class="mark"><i>●</i>OmniOS Dukaan</span>
- <h1>Bolo.<br>Bill bano.</h1>
- <div class="tagl">The voice-first operating system for India's kirana stores — billing, udhaar, stock and hisaab, run by speaking.</div></div>
- <div class="band"><div><b>1,500</b><span>products understood</span></div><div><b>5,226</b><span>flavours &amp; pack sizes</span></div><div><b>3</b><span>languages: Hindi · Hinglish · English</span></div><div><b>~4 ms</b><span>to match a spoken word</span></div></div>
- <div class="meta"><span>Product overview · Version 1 · November 2026</span><span>Confidential</span></div>
-</section>
-
-<!-- TOC + SUMMARY -->
-<section class="pg">
- <div class="eyebrow">Contents</div><h2>What's inside</h2>
- <div class="toc" style="margin:8mm 0 12mm">
-  <div>1 · Executive summary<span>2</span></div><div>2 · The problem<span>3</span></div><div>3 · The product<span>3</span></div><div>4 · How a bill happens<span>4</span></div><div>5 · Core features<span>5</span></div><div>6 · The Universe &amp; flavour engine<span>6</span></div><div>7 · Competitive landscape<span>7</span></div><div>8 · Why OmniOS wins<span>8</span></div><div>9 · Design, technology &amp; trust<span>9</span></div><div>10 · Business model &amp; go-to-market<span>10</span></div><div>11 · Phase 2<span>10</span></div>
- </div>
- <div class="eyebrow">1 · Executive summary</div>
- <div class="quote">A shopkeeper says "Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal" — and a correct bill, updated stock and an updated khata exist three seconds later.</div>
- <div class="grid3" style="margin-top:6mm">
-  <div class="card"><div class="t">Who</div>Owners of neighbourhood kirana stores — busy, multilingual, often not comfortable typing.</div>
-  <div class="card"><div class="t">What</div>One app for billing, udhaar (credit), stock, supplier dues, daily hisaab and a customer e-bill — all voice-first.</div>
-  <div class="card"><div class="t">Why now</div>Phone speech recognition for Indian languages is finally good, UPI is universal, and WhatsApp is every shop's channel.</div>
- </div>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>2</span></div>
-</section>
-
-<!-- PROBLEM + PRODUCT -->
-<section class="pg">
- <div class="eyebrow">2 · The problem</div><h2>The counter is the busiest place in India.</h2>
- <p class="lead">Kirana stores sell most of India's groceries, yet most still run on memory, a notebook and a calculator. Existing apps were built for people who type.</p>
- <div class="grid2">
-  <div class="card"><div class="t">Typing doesn't fit the counter</div>One hand gives change, the other holds a phone. Searching menus for "Maggi 70g" while a queue waits doesn't happen.</div>
-  <div class="card"><div class="t">Udhaar is the biggest risk</div>Credit lives in a diary. Balances are forgotten, reminders are awkward, money leaks.</div>
-  <div class="card"><div class="t">Stock is a guess</div>Items run out without warning; supplier dues are tracked on paper slips.</div>
-  <div class="card"><div class="t">Apps speak English</div>Owners think in Hinglish and Hindi; most tools are menus, forms and English labels.</div>
- </div>
- <div class="eyebrow" style="margin-top:12mm">3 · The product</div><h2>Speak. That's the interface.</h2>
- <p class="lead">One teal <b class="teal">Bolo</b> bar sits in the same place on every screen. Everything else is a large, clear tap.</p>
- <table><tr><th style="width:34%">Principle</th><th>What it means in the app</th></tr>
- <tr><td><b>Speak, don't type</b></td><td>Bills, stock arrivals, udhaar payments and questions all start with the voice.</td></tr>
- <tr><td><b>Never block the bill</b></td><td>Doubts are asked inline — "Yahi wali? Haan / Nahi" — and flavours are auto-picked with a quiet "badlo".</td></tr>
- <tr><td><b>Money is the owner's tap</b></td><td>Cash, UPI or Udhaar is never pre-selected.</td></tr>
- <tr><td><b>Readable by everyone</b></td><td>Text 18px+, buttons 56px+ with icon and word, three languages, light and dark.</td></tr>
- <tr><td><b>Nothing is lost</b></td><td>Every change is reversible; no data is deleted without the owner.</td></tr></table>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>3</span></div>
-</section>
-
-<!-- FLOW + SCREENS -->
-<section class="pg">
- <div class="eyebrow">4 · How a bill happens</div><h2>Three seconds, four steps.</h2>
- <div class="flow">
-  <div><b>1 · Speak</b>"Sharma ji, do kilo cheeni, ek Maggi…" — items appear live as words are heard.</div>
-  <div><b>2 · Check</b>Prices fill from the shop's own rates. Unsure items ask "Yahi wali?" right below.</div>
-  <div><b>3 · Pay</b>Cash, UPI (QR with amount inside) or Udhaar with old → new balance.</div>
-  <div><b>4 · Share</b>Stock and khata update; a professional e-bill goes on WhatsApp.</div>
- </div>
- <div class="shots">
-  <div><div class="shot"><img src="app-light-hinglish-1home.png"></div><div class="cap">Home — today's sales, who owes, today's bills</div></div>
-  <div><div class="shot"><img src="app-light-hinglish-3check.png"></div><div class="cap">Check — doubts asked inline</div></div>
-  <div><div class="shot"><img src="app-light-hinglish-4pay.png"></div><div class="cap">Pay — Cash · UPI · Udhaar</div></div>
- </div>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>4</span></div>
-</section>
-
-<!-- FEATURES -->
-<section class="pg">
- <div class="eyebrow">5 · Core features</div><h2>Everything a kirana runs on.</h2>
- <div class="grid2" style="margin-top:6mm">
-  <div><h3>Voice billing</h3><ul><li>Understands Hinglish, Hindi and English, including mis-hearings.</li><li>Quantities like "aadha kilo", "dedh", "do packet".</li><li>Customer recognised from the sentence; walk-ins supported.</li><li>Undo any bill; bill by tapping items when voice isn't possible.</li></ul></div>
-  <div><h3 class="ud">Udhaar khata</h3><ul><li>Every customer's balance and history.</li><li>"Gupta ji ne 500 diye" records a payment by voice.</li><li>One-tap WhatsApp reminder and a public khata link.</li><li>Biggest dues surfaced on the home screen.</li></ul></div>
-  <div><h3>Stock (Maal)</h3><ul><li>"Maal aaya, 10 Aashirvaad atta" adds stock.</li><li>Photo of a supplier bill → stock in + supplier dues.</li><li>"Cheeni kitni bachi?" answered aloud.</li><li>Daily 3-item count with a streak keeps stock honest.</li></ul></div>
-  <div><h3>Hisaab &amp; galla</h3><ul><li>Sales by day, week, month; Cash / UPI / Udhaar split.</li><li>"Galla mein 4,200 hai" checks the cash drawer against bills.</li><li>Morning briefing with what needs attention.</li></ul></div>
-  <div><h3>Customer side</h3><ul><li>Professional e-bill with letterhead, flavour and size per line.</li><li>Shop's own online store and order tracking.</li></ul></div>
-  <div><h3>Admin dashboard</h3><ul><li>Create, pause and manage stores; reset PINs.</li><li>Phones logged in, requests, demand — in one place.</li></ul></div>
- </div>
- <div class="shots sm" style="margin-top:6mm">
-  <div><div class="shot"><img src="app-light-hinglish-4upi.png"></div><div class="cap">UPI — QR only, amount inside</div></div>
-  <div><div class="shot"><img src="app-light-hinglish-5saved.png"></div><div class="cap">Saved — khata ticket, WhatsApp, next bill</div></div>
-  <div><div class="shot"><img src="app-light-hinglish-11ebill.png"></div><div class="cap">Customer's e-bill</div></div>
- </div>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>5</span></div>
-</section>
-
-<!-- UNIVERSE -->
-<section class="pg">
- <div class="eyebrow">6 · The Universe &amp; flavour engine</div><h2>It already knows the shelf.</h2>
- <p class="lead">A shop doesn't set up a catalogue. OmniOS ships with the products Indian kirana stores actually sell — in the words owners actually use.</p>
- <div class="grid3">
-  <div class="card ink"><b class="k">1,500</b>products across staples, snacks, dairy, drinks, personal care, cleaning, pooja, baby, pet and more</div>
-  <div class="card"><b class="k">5,226</b>flavours and pack sizes — Maggi Masala 70g, Coca-Cola 750ml, Aashirvaad 5kg</div>
-  <div class="card"><b class="k">3</b>names per item — Hindi, Hinglish, English — plus spoken mis-hearings</div>
- </div>
- <h3 style="margin-top:10mm">Flavour engine — smart without interrupting</h3>
- <table><tr><th>Situation</th><th>What OmniOS does</th></tr>
- <tr><td>Owner says "Maggi"</td><td>Picks the shop's usual flavour, else the default (Masala 70g). A small "badlo" lets them change it.</td></tr>
- <tr><td>Owner says "Maggi chicken"</td><td>Uses exactly that — no question.</td></tr>
- <tr><td>Shop sells a real mix of flavours</td><td>Shows the top 2–3 as one-tap chips, usual one pre-ticked. Billing never stops.</td></tr></table>
- <h3>Prices belong to the shop</h3>
- <p>Each shop keeps its own price: from stock entry or set by hand, otherwise learned automatically after three bills at the same price. The owner can always change it.</p>
- <h3>Fast and offline-friendly</h3>
- <p>The whole Universe loads once (~114 KB), stays on the phone and matches a spoken word in about 4 milliseconds.</p>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>6</span></div>
-</section>
-
-<!-- COMPETITORS -->
-<section class="pg">
- <div class="eyebrow">7 · Competitive landscape</div><h2>Built for the counter, not the desk.</h2>
- <p class="lead">India's small-business apps are strong at ledgers and invoices. None is built around speaking the bill.</p>
- <table class="cmp">
-  <tr><th style="text-align:left">Capability</th><th class="us">OmniOS Dukaan</th><th>Khatabook</th><th>OkCredit</th><th>Vyapar</th><th>myBillBook</th><th>Paper diary</th></tr>
-  <tr><td>Bill by speaking full order</td><td class="us y">●</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
-  <tr><td>Hinglish / Hindi understanding</td><td class="us y">●</td><td class="h">◐</td><td class="h">◐</td><td class="h">◐</td><td class="h">◐</td><td class="y">●</td></tr>
-  <tr><td>Ready product list with flavours &amp; sizes</td><td class="us y">●</td><td class="n">—</td><td class="n">—</td><td class="h">◐</td><td class="h">◐</td><td class="n">—</td></tr>
-  <tr><td>Udhaar khata + reminders</td><td class="us y">●</td><td class="y">●</td><td class="y">●</td><td class="h">◐</td><td class="h">◐</td><td class="h">◐</td></tr>
-  <tr><td>GST invoicing &amp; accounting depth</td><td class="us h">◐</td><td class="h">◐</td><td class="n">—</td><td class="y">●</td><td class="y">●</td><td class="n">—</td></tr>
-  <tr><td>Stock by voice / bill photo</td><td class="us y">●</td><td class="n">—</td><td class="n">—</td><td class="h">◐</td><td class="h">◐</td><td class="n">—</td></tr>
-  <tr><td>UPI QR with amount in the flow</td><td class="us y">●</td><td class="h">◐</td><td class="h">◐</td><td class="h">◐</td><td class="h">◐</td><td class="n">—</td></tr>
-  <tr><td>Zero setup / no training</td><td class="us y">●</td><td class="y">●</td><td class="y">●</td><td class="n">—</td><td class="h">◐</td><td class="y">●</td></tr>
-  <tr><td>Works one-handed at the counter</td><td class="us y">●</td><td class="h">◐</td><td class="h">◐</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
- </table>
- <p class="note">● strong · ◐ partial · — not offered. Based on publicly available product information as understood in November 2026; competitors change often — verify before external use.</p>
- <div class="grid2" style="margin-top:8mm">
-  <div>
-   <h3>Positioning</h3>
-   <svg viewBox="0 0 320 240" width="100%" style="background:#F7F7F4;border-radius:14px">
-    <line x1="30" y1="210" x2="305" y2="210" stroke="#141517"/><line x1="30" y1="210" x2="30" y2="15" stroke="#141517"/>
-    <text x="168" y="232" font-size="10" text-anchor="middle" fill="#55595A">Ease at the counter →</text>
-    <text x="14" y="112" font-size="10" text-anchor="middle" fill="#55595A" transform="rotate(-90 14 112)">Depth of shop operations →</text>
-    <circle cx="265" cy="45" r="11" fill="#0D5C55"/><text x="265" y="68" font-size="9.5" font-weight="800" text-anchor="middle">OmniOS</text>
-    <circle cx="105" cy="60" r="8" fill="#8E9390"/><text x="105" y="80" font-size="9" text-anchor="middle">Vyapar</text>
-    <circle cx="135" cy="85" r="8" fill="#8E9390"/><text x="135" y="105" font-size="9" text-anchor="middle">myBillBook</text>
-    <circle cx="200" cy="150" r="8" fill="#8E9390"/><text x="200" y="170" font-size="9" text-anchor="middle">Khatabook</text>
-    <circle cx="225" cy="172" r="8" fill="#8E9390"/><text x="245" y="190" font-size="9" text-anchor="middle">OkCredit</text>
-    <circle cx="280" cy="195" r="8" fill="#D3D3CC"/><text x="280" y="187" font-size="9" text-anchor="middle">Diary</text>
-   </svg>
-  </div>
-  <div>
-   <h3>How each competitor wins today</h3>
-   <ul><li><b>Khatabook, OkCredit</b> — simple digital udhaar ledgers with reminders; light on billing and stock.</li><li><b>Vyapar, myBillBook</b> — GST invoicing and accounting depth; built for typing at a desk.</li><li><b>Payment apps' merchant tools</b> — great for collecting UPI; not a shop operating system.</li><li><b>Paper diary</b> — free and instant; no totals, reminders or stock.</li></ul>
-  </div>
- </div>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>7</span></div>
-</section>
-
-<!-- WHY WE WIN -->
-<section class="pg">
- <div class="eyebrow">8 · Why OmniOS wins</div><h2>The paper diary's speed, with a computer's memory.</h2>
- <div class="grid2" style="margin-top:6mm">
-  <div class="card"><div class="t">1 · Voice is the product, not a feature</div>The whole flow — bill, stock, payment, question — is designed around speech, with typing as the fallback.</div>
-  <div class="card"><div class="t">2 · Knows the shelf on day one</div>1,500 products and 5,226 flavours/sizes mean no catalogue setup — the biggest reason owners quit other apps.</div>
-  <div class="card"><div class="t">3 · Never interrupts the queue</div>Inline confirmations and auto-picked flavours keep billing moving at counter speed.</div>
-  <div class="card"><div class="t">4 · Udhaar, stock and bill in one breath</div>One sentence updates the bill, the stock and the customer's khata together.</div>
-  <div class="card"><div class="t">5 · Learns each shop</div>Prices and favourite flavours are learned per shop, so the app gets faster with use.</div>
-  <div class="card"><div class="t">6 · Looks like a bank, feels like a diary</div>A calm, premium design chosen through seven review rounds with merchants and experts.</div>
- </div>
- <div class="quote" style="margin-top:12mm">"Competitors digitised the khata. OmniOS removes the typing."</div>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>8</span></div>
-</section>
-
-<!-- DESIGN + TECH -->
-<section class="pg">
- <div class="eyebrow">9 · Design, technology &amp; trust</div><h2>Calm by design. Safe by default.</h2>
- <div class="grid3" style="margin-top:4mm">
-  <div class="card"><div class="t">Ink</div>Every action button. One clear thing to press.</div>
-  <div class="card" style="background:#0D5C55;color:#fff"><div class="t" style="color:#fff">Teal</div>Voice only — Bolo, mic, listening.</div>
-  <div class="card" style="background:#F8ECD8"><div class="t ud">Amber-brown</div>Udhaar money only. Never red.</div>
- </div>
- <p style="margin-top:6mm">Hanken Grotesk + Mukta (Devanagari), bundled for offline use · light and dark mode · text 18px+ · buttons 56px+ with icon and word.</p>
- <h3 style="margin-top:8mm">Technology</h3>
- <table><tr><th style="width:30%">Layer</th><th>Approach</th></tr>
- <tr><td>App</td><td>Installable web app (PWA) — React, TypeScript, Vite; hosted on Vercel. No app-store install needed.</td></tr>
- <tr><td>Voice</td><td>Phone speech-to-text → fast rule-based Hinglish parser on the phone → AI fallback only when unsure.</td></tr>
- <tr><td>Data</td><td>Supabase (Postgres). Row-level security: every shop can see only its own data.</td></tr>
- <tr><td>Money</td><td>All bills, payments and stock changes run as single server transactions — no half-saved bills.</td></tr>
- <tr><td>Access</td><td>Shop code + PIN; lock after 5 wrong tries; see and remove logged-in phones.</td></tr>
- <tr><td>Quality</td><td>85 automated tests; indexed database; universe matching benchmarked per release.</td></tr></table>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>9</span></div>
-</section>
-
-<!-- BUSINESS + PHASE 2 -->
-<section class="pg">
- <div class="eyebrow">10 · Business model &amp; go-to-market</div><h2>Free to start. Worth paying for.</h2>
- <div class="grid3" style="margin-top:4mm">
-  <div class="card"><div class="t">Free core</div>Voice billing, khata and stock — enough to change the shop's day.</div>
-  <div class="card"><div class="t">Paid plan</div>Advanced insight and growth tools for shops that want more.</div>
-  <div class="card"><div class="t">Distribution</div>Local partners and supplier networks; free carry bags as a door-opener.</div>
- </div>
- <p class="note">Pricing and plan details to be finalised after pilot shops.</p>
- <div class="p2">
-  <span class="lock">Phase 2 · Coming next</span>
-  <h2 style="color:#fff;margin-top:10px">The next chapter is already in motion.</h2>
-  <p style="color:#C9CCCA;max-width:150mm">Phase 2 builds on everything live today. It will be unveiled separately — here is only the direction.</p>
-  <div class="grid3" style="margin-top:6mm">
-   <div><b>Smarter shop</b><p style="color:#C9CCCA">The app starts helping the owner decide, not just record.</p></div>
-   <div><b>Wider reach</b><p style="color:#C9CCCA">More of the shop's customers and partners come on board.</p></div>
-   <div><b>Deeper insight</b><p style="color:#C9CCCA">A richer picture of the business, for the owner and for OmniOS.</p></div>
-  </div>
- </div>
- <h3 style="margin-top:10mm">Status today</h3>
- <table><tr><td>Live app</td><td>omnidukaan.vercel.app</td></tr><tr><td>Design</td><td>Final design live on every page</td></tr><tr><td>Universe</td><td>1,500 items · 5,226 variants</td></tr><tr><td>Next</td><td>Pilot shops → Phase 2</td></tr></table>
- <div class="foot"><span>OmniOS Dukaan · Product overview</span><span>10</span></div>
-</section>
-</body></html>
+<!doctype html><html><head><meta charset="utf-8"><title>OmniOS Dukaan — Product Overview</title><style>@page{size:A4;margin:18mm 18mm 20mm}body{font-family:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;color:#141517;font-size:10.5pt;line-height:1.6}
+h1{font-size:24pt;letter-spacing:-.02em;margin:0 0 6px}h2{font-size:15pt;margin:22px 0 8px;page-break-after:avoid}h3{font-size:11.5pt;margin:14px 0 4px}
+blockquote{margin:8px 0;padding:6px 14px;border-left:3px solid #0D5C55;background:#F5F7F6;color:#33383A}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:9.5pt;page-break-inside:avoid}th{text-align:left;border-bottom:1.5px solid #141517;padding:5px 6px;font-size:9pt}td{border-bottom:1px solid #E2E2DC;padding:5px 6px;vertical-align:top}
+hr{border:0;border-top:1px solid #E2E2DC;margin:16px 0}code{background:#F1F1EC;padding:1px 4px;border-radius:4px;font-size:9pt}ul,ol{padding-left:18px}li{margin:2px 0}</style></head><body><h1>OmniOS Dukaan — Product Overview</h1>
+<blockquote>
+<p>Version 1 · 25 November 2026 · Confidential
+Purpose: a single document that explains the whole product: what it is, who it is for, how it works, how it is built and how it compares to alternatives. Written to be read by a person or loaded into an AI agent as context.</p>
+</blockquote>
+<hr />
+<h2>1. Summary</h2>
+<p><strong>OmniOS Dukaan is a voice-first app that runs an Indian kirana (neighbourhood grocery) store.</strong>
+The shopkeeper speaks an order the way they would say it to a customer, for example:</p>
+<blockquote>
+<p>"Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal"</p>
+</blockquote>
+<p>The app turns that into a correct bill, updates stock and the customer's credit book (khata), takes payment (Cash, UPI or Udhaar) and sends a professional e-bill on WhatsApp.</p>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product type</td>
+<td>Installable web app (PWA) for Android phones; no app store needed</td>
+</tr>
+<tr>
+<td>Primary user</td>
+<td>Kirana shop owner (often 40–65, busy, one hand on the counter)</td>
+</tr>
+<tr>
+<td>Languages</td>
+<td>Hindi, Hinglish (Hindi in Latin letters), English</td>
+</tr>
+<tr>
+<td>Product knowledge</td>
+<td>1,500 products and 5,226 flavours / pack sizes built in</td>
+</tr>
+<tr>
+<td>Live URL</td>
+<td>omnidukaan.vercel.app (admin at <code>/admin</code>)</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Live; final design implemented; preparing pilot shops</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. The problem</h2>
+<ol>
+<li><strong>Kirana stores run on memory, a notebook and a calculator.</strong> Totals, stock and credit are tracked by hand.</li>
+<li><strong>Typing does not fit the counter.</strong> One hand gives change; there is a queue; searching menus for "Maggi 70g" does not happen.</li>
+<li><strong>Udhaar (customer credit) is the biggest money risk.</strong> Balances live in a diary, are forgotten, and reminding customers is awkward.</li>
+<li><strong>Stock is a guess.</strong> Items run out without warning; supplier dues are on paper slips.</li>
+<li><strong>Most business apps are built for typing and English.</strong> Owners think and speak in Hinglish or Hindi.</li>
+</ol>
+<hr />
+<h2>3. The solution and its rules</h2>
+<p>The whole app is designed around speaking. One teal <strong>"Bolo"</strong> (speak) bar sits in the same place on every screen. Everything else is a large, clear tap.</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Speak, don't type</td>
+<td>Bills, stock arrival, udhaar payments and questions all start with the voice. Typing is the fallback.</td>
+</tr>
+<tr>
+<td>Never block the bill</td>
+<td>Doubts are asked inline under the item ("Yahi wali? Haan / Nahi"). Flavours are auto-picked with a quiet "badlo" (change).</td>
+</tr>
+<tr>
+<td>Money is the owner's tap</td>
+<td>Cash / UPI / Udhaar is never pre-selected.</td>
+</tr>
+<tr>
+<td>Readable by everyone</td>
+<td>Text at least 18px; buttons at least 56px with an icon and a word; three languages; light and dark mode.</td>
+</tr>
+<tr>
+<td>Nothing is lost</td>
+<td>Bills can be undone; no shop data is deleted without the owner. Test/mock data lives only in the TEST shop.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Users</h2>
+<table>
+<thead>
+<tr>
+<th>User</th>
+<th>What they do</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shop owner</td>
+<td>Bills, khata, stock, daily accounts — by voice</td>
+<td>Main app (shop code + PIN)</td>
+</tr>
+<tr>
+<td>Customer</td>
+<td>Receives e-bill, sees their khata balance, orders online</td>
+<td>Public links: <code>/b/&lt;token&gt;</code> bill, <code>/k/&lt;token&gt;</code> khata, <code>/s/&lt;slug&gt;</code> store, <code>/o/&lt;token&gt;</code> order</td>
+</tr>
+<tr>
+<td>OmniOS admin</td>
+<td>Creates and manages shops</td>
+<td><code>/admin</code> dashboard</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. How a bill happens (core flow)</h2>
+<ol>
+<li><strong>Speak.</strong> Owner taps Bolo and speaks. Items appear live under the spoken words with a running total ("Ab tak").</li>
+<li><strong>Check.</strong> The app lists items with quantity and the shop's own price. If unsure, it asks right under that item: "Yahi wali? Haan / Nahi". "Nahi" opens a "which one?" list. Bottom bar: total + "Paisa lo" (take payment).</li>
+<li><strong>Pay.</strong> A bill summary, then three equal buttons side by side: <strong>Cash · UPI · Udhaar</strong>. Nothing is pre-selected.</li>
+<li>UPI shows a large QR code with the amount already inside.</li>
+<li>Udhaar shows the customer's old balance → new balance.</li>
+<li><strong>Saved.</strong> Stock and khata update in one server transaction. The owner can send the e-bill on WhatsApp, start the next bill, or undo.</li>
+</ol>
+<p>Other voice commands:</p>
+<table>
+<thead>
+<tr>
+<th>Say</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Maal aaya, 10 Aashirvaad atta"</td>
+<td>Stock added</td>
+</tr>
+<tr>
+<td>"Gupta ji ne 500 diye"</td>
+<td>Udhaar payment recorded</td>
+</tr>
+<tr>
+<td>"Cheeni kitni bachi?"</td>
+<td>Stock answered aloud</td>
+</tr>
+<tr>
+<td>"Galla mein 4,200 hai"</td>
+<td>Cash drawer checked against today's cash bills</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Features (live)</h2>
+<h3>6.1 Billing</h3>
+<ul>
+<li>Understands Hinglish, Hindi and English, including common mis-hearings.</li>
+<li>Quantities like "aadha kilo", "dedh", "do packet"; customer name picked from the sentence; walk-in customers supported.</li>
+<li>Bill by tapping items when voice is not possible; discount; undo.</li>
+</ul>
+<h3>6.2 Udhaar (credit) khata</h3>
+<ul>
+<li>Every customer's balance and history; biggest dues shown on Home.</li>
+<li>One-tap WhatsApp reminder; public khata link for the customer.</li>
+</ul>
+<h3>6.3 Stock (Maal)</h3>
+<ul>
+<li>Stock in by voice or by photo of a supplier bill (also records supplier dues).</li>
+<li>Daily 3-item stock count with a streak; simple sales forecast.</li>
+</ul>
+<h3>6.4 Hisaab (accounts)</h3>
+<ul>
+<li>Sales by day / week / month with Cash / UPI / Udhaar split; galla (cash drawer) check; morning briefing.</li>
+</ul>
+<h3>6.5 Customer side</h3>
+<ul>
+<li>Professional e-bill: shop letterhead, bill number, customer, date and time, each item with flavour and size, quantity × rate, total, payment status.</li>
+<li>Shop's own online store and order tracking.</li>
+</ul>
+<h3>6.6 Admin dashboard</h3>
+<ul>
+<li>Sidebar navigation, search, filters, key figures; create, pause, resume and delete shops; reset PIN; logged-in phones; bag requests; demand.</li>
+</ul>
+<h3>6.7 Settings</h3>
+<ul>
+<li>Language, light / dark / follow-phone, sound, UPI ID, logged-in phones, online store.</li>
+</ul>
+<hr />
+<h2>7. The Universe and the flavour engine</h2>
+<p><strong>The Universe</strong> is the built-in product list, so a shop never has to set up a catalogue.</p>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Products</td>
+<td>1,500 (staples, spices, dairy, snacks, drinks, personal care, cleaning, pooja, baby, pet, stationery, hardware-lite, OTC)</td>
+</tr>
+<tr>
+<td>Flavours and pack sizes</td>
+<td>5,226 (e.g. Maggi Masala 70g, Coca-Cola 750ml, Aashirvaad atta 5kg)</td>
+</tr>
+<tr>
+<td>Names</td>
+<td>Hindi, Hinglish, English, plus spoken aliases and mis-hearings</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Exactly one default flavour/size per product</td>
+</tr>
+<tr>
+<td>Size / speed</td>
+<td>Loads once (~114 KB compressed), cached on the phone; matches a spoken word in ~4 ms</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prices belong to each shop.</strong> The Universe holds names only. A shop's price comes from stock entry or manual entry; otherwise it is learned after 3 bills at the same price. The owner can always change it.</p>
+<p><strong>Flavour engine</strong> (never interrupts billing):</p>
+<table>
+<thead>
+<tr>
+<th>Owner says</th>
+<th>App does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Maggi"</td>
+<td>Picks this shop's usual flavour, else the default (Masala 70g). Shows a small "badlo" option.</td>
+</tr>
+<tr>
+<td>"Maggi chicken"</td>
+<td>Uses exactly that; no question.</td>
+</tr>
+<tr>
+<td>Shop sells a real mix of flavours (at least 10 recent sales, top flavour under 70%)</td>
+<td>Shows the top 2–3 as one-tap choices with the usual one already ticked; the bill never waits.</td>
+</tr>
+</tbody>
+</table>
+<p>The chosen flavour and size are saved on the bill line and shown on the e-bill and WhatsApp message.</p>
+<hr />
+<h2>8. Design</h2>
+<ul>
+<li><strong>Final design: "DF7".</strong> Chosen after 7 rounds of redesign and a 13-member review panel (5 shopkeeper personas, product designers, typographer, accessibility, motion, Hindi-script, front-end and an "AI-look" detector).</li>
+<li><strong>Colour rules:</strong></li>
+<li><strong>Ink (near-black)</strong> for every action button.</li>
+<li><strong>Teal</strong> only for voice (Bolo, mic, listening).</li>
+<li><strong>Amber-brown</strong> only for udhaar money — never red.</li>
+<li><strong>Typography:</strong> Hanken Grotesk (Latin) + Mukta (Devanagari), bundled for offline use. Amounts use aligned figures.</li>
+<li><strong>Layout:</strong> hairline lists instead of boxed cards, one big number per screen, all controls within thumb reach, light and dark mode.</li>
+</ul>
+<hr />
+<h2>9. Technology</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>App</td>
+<td>React 19 + TypeScript + Vite, installable PWA, hosted on Vercel (auto-deploys from <code>main</code>)</td>
+</tr>
+<tr>
+<td>Voice</td>
+<td>Phone speech-to-text → on-phone rule-based Hinglish parser → AI (Gemini) fallback only when unsure</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>Supabase (Postgres) with row-level security: each shop sees only its own data</td>
+</tr>
+<tr>
+<td>Money logic</td>
+<td>Bills, payments and stock changes run as single server functions, so nothing is half-saved</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Shop code + 4-digit PIN; locks for 10 minutes after 5 wrong tries; owner can log out other phones</td>
+</tr>
+<tr>
+<td>Quality</td>
+<td>85 automated tests; database indexes on every link between tables</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Repository map</strong> (GitHub <code>09avyan/Mesa-OmniOS</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>app/</code></td>
+<td>The app (screens in <code>app/src/screens</code>, voice in <code>app/src/voice</code>, styles in <code>app/src/styles</code>)</td>
+</tr>
+<tr>
+<td><code>supabase/migrations/</code></td>
+<td>Database tables and money functions</td>
+</tr>
+<tr>
+<td><code>supabase/functions/</code></td>
+<td>Server functions (login, admin, AI helper)</td>
+</tr>
+<tr>
+<td><code>supabase/seed/universe.json</code></td>
+<td>The Universe product list</td>
+</tr>
+<tr>
+<td><code>design/</code></td>
+<td>Design versions and screenshots</td>
+</tr>
+<tr>
+<td><code>.context/</code>, <code>TASKS.md</code>, <code>DECISIONS.md</code></td>
+<td>Project memory, task list and decisions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>10. Competitive landscape</h2>
+<p>Most small-business apps in India digitised the ledger or the invoice. None is built around speaking the whole bill.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>OmniOS Dukaan</th>
+<th>Khatabook</th>
+<th>OkCredit</th>
+<th>Vyapar</th>
+<th>myBillBook</th>
+<th>Paper diary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bill by speaking the full order</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Hinglish / Hindi understanding</td>
+<td>Yes</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Ready product list with flavours and sizes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Udhaar khata with reminders</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td>GST invoicing and accounting depth</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Stock by voice or bill photo</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>No</td>
+</tr>
+<tr>
+<td>UPI QR with amount inside the bill flow</td>
+<td>Yes</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Zero setup, no training</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Partial</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Usable one-handed at the counter</td>
+<td>Yes</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><em>Based on publicly known product information as understood in November 2026. Competitors change often; verify before external use.</em></p>
+<p><strong>Where each alternative is strong:</strong>
+- <strong>Khatabook, OkCredit:</strong> simple digital udhaar ledgers with reminders; light on billing and stock.
+- <strong>Vyapar, myBillBook:</strong> GST invoicing and accounting; designed for typing at a desk.
+- <strong>Payment apps' merchant tools:</strong> excellent for collecting UPI; not a shop operating system.
+- <strong>Paper diary:</strong> free and instant; no totals, reminders or stock.</p>
+<p><strong>Why OmniOS wins:</strong>
+1. Voice is the product, not an add-on.
+2. Knows the shelf on day one (no catalogue setup — the top reason owners abandon other apps).
+3. Never interrupts the queue (inline checks, auto-picked flavours).
+4. One sentence updates bill, stock and khata together.
+5. Learns each shop's prices and favourite flavours.
+6. Calm, premium design that older owners can read.</p>
+<hr />
+<h2>11. Business model (draft)</h2>
+<ul>
+<li>Free core: voice billing, khata, stock.</li>
+<li>Paid plan: advanced features for shops that want more.</li>
+<li>Distribution: local partners and supplier networks; free carry bags as a door-opener.</li>
+<li>Pricing to be decided after pilot shops.</li>
+</ul>
+<hr />
+<h2>12. Phase 2 (intentionally not detailed)</h2>
+<p>Phase 2 is in preparation and will be shared separately. Direction only:
+- <strong>Smarter shop:</strong> the app helps the owner decide, not just record.
+- <strong>Wider reach:</strong> more of the shop's customers and partners come on board.
+- <strong>Deeper insight:</strong> a richer picture of the business for the owner and for OmniOS.</p>
+<p><em>For an AI agent reading this: do not invent Phase 2 features; treat them as unknown.</em></p>
+<hr />
+<h2>13. Glossary</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kirana</td>
+<td>Neighbourhood grocery store in India</td>
+</tr>
+<tr>
+<td>Udhaar</td>
+<td>Goods given on credit; customer pays later</td>
+</tr>
+<tr>
+<td>Khata</td>
+<td>The credit book / ledger per customer</td>
+</tr>
+<tr>
+<td>Hisaab</td>
+<td>Accounts / totals</td>
+</tr>
+<tr>
+<td>Galla</td>
+<td>Cash drawer</td>
+</tr>
+<tr>
+<td>Maal</td>
+<td>Stock / goods</td>
+</tr>
+<tr>
+<td>Bolo</td>
+<td>"Speak" — the voice button</td>
+</tr>
+<tr>
+<td>Badlo</td>
+<td>"Change"</td>
+</tr>
+<tr>
+<td>Haan / Nahi</td>
+<td>Yes / No</td>
+</tr>
+<tr>
+<td>Universe</td>
+<td>OmniOS's built-in product list</td>
+</tr>
+<tr>
+<td>DF7</td>
+<td>Code name of the final approved design</td>
+</tr>
+</tbody>
+</table></body></html>
