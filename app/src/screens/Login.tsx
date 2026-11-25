@@ -5,7 +5,7 @@ import { errorFx, successFx } from '../lib/feedback'
 import { Tap } from '../components/ui'
 import { Icon } from '../components/Icon'
 
-// Two calm steps: shop code, then a 4-digit PIN on a big keypad.
+// Two calm steps: shop code, then a 6-digit PIN on a big keypad.
 export function Login() {
   const { t } = useT()
   const [code, setCode] = useState(() => { try { return localStorage.getItem('omni-code') ?? '' } catch { return '' } })
@@ -20,9 +20,9 @@ export function Login() {
   async function press(d: string) {
     if (busy) return
     setErr('')
-    const next = (pin + d).slice(0, 4)
+    const next = (pin + d).slice(0, 6)
     setPin(next)
-    if (next.length < 4) return
+    if (next.length < 6) return
     setBusy(true)
     const r = await storeLogin(code, next)
     setBusy(false)
@@ -55,7 +55,7 @@ export function Login() {
       </div>
       <h1 className="h1">{t('pinTitle')}</h1>
       <p className="lg-hint">{t('shopLabel')}: <b>{code.toUpperCase()}</b></p>
-      <div className={`pins ${shake ? 'shake' : ''}`} aria-label={`${pin.length} of 4`}>{[0, 1, 2, 3].map((i) => <i key={i} className={i < pin.length ? 'on' : ''} />)}</div>
+      <div className={`pins ${shake ? 'shake' : ''}`} aria-label={`${pin.length} of 6`}>{[0, 1, 2, 3, 4, 5].map((i) => <i key={i} className={i < pin.length ? 'on' : ''} />)}</div>
       <div className="msgslot" role="alert">{err ? <div className="err">{err === 'removed' ? t('removedHere') : err}</div> : busy ? <p className="lg-hint">{t('loading')}</p> : null}</div>
       <div className="pad">
         {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((d) => <Tap key={d} className="key" onClick={() => press(d)}>{d}</Tap>)}

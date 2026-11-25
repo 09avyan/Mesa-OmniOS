@@ -24,7 +24,7 @@ async function storePassword(code: string, pin: string) {
   return "v2-" + [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 const validCode = (c: unknown): c is string => typeof c === "string" && /^[A-Z0-9]{4,8}$/.test(c);
-const validPin = (p: unknown): p is string => typeof p === "string" && /^\d{4}$/.test(p);
+const validPin = (p: unknown): p is string => typeof p === "string" && /^\d{6}$/.test(p);
 
 async function callerIsAdmin(req: Request): Promise<boolean> {
   const token = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
@@ -67,7 +67,7 @@ Deno.serve(async (req) => {
       const code = String(body.code ?? "").trim().toUpperCase();
       const { pin, name } = body;
       if (!validCode(code)) return fail("Store code: 4-8 letters/numbers");
-      if (!validPin(pin)) return fail("PIN: exactly 4 digits");
+      if (!validPin(pin)) return fail("PIN: exactly 6 digits");
       if (typeof name !== "string" || name.trim().length < 2) return fail("Store name needed");
       const { data: store, error } = await db.from("stores").insert({
         code, name: name.trim(),
@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
     }
     case "reset_pin": {
       const { store_id, pin } = body;
-      if (!validPin(pin)) return fail("PIN: exactly 4 digits");
+      if (!validPin(pin)) return fail("PIN: exactly 6 digits");
       const { data: s } = await db.from("stores").select("code").eq("id", store_id).single();
       const { data: su } = await db.from("store_users").select("user_id").eq("store_id", store_id).maybeSingle();
       if (!s || !su) return fail("Store not found", 404);

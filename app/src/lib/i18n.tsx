@@ -30,7 +30,7 @@ const S = {
   logoutYes: { hinglish: 'Haan, bahar niklo', hi: 'हाँ, बाहर निकलो', en: 'Yes, log out' },
   logoutNo: { hinglish: 'Nahi, wapas jao', hi: 'नहीं, वापस जाओ', en: 'No, go back' },
   next: { hinglish: 'Aage', hi: 'आगे', en: 'Next' },
-  pinTitle: { hinglish: '4 number ka PIN daalo', hi: '4 अंकों का PIN डालें', en: 'Enter your 4-digit PIN' },
+  pinTitle: { hinglish: '6 number ka PIN daalo', hi: '6 अंकों का PIN डालें', en: 'Enter your 6-digit PIN' },
   clear: { hinglish: 'Saaf karo', hi: 'साफ़ करो', en: 'Clear' },
   hisaabTitle: { hinglish: 'Aaj ka hisaab', hi: 'आज का हिसाब', en: "Today's hisaab" },
   rToday: { hinglish: 'Aaj', hi: 'आज', en: 'Today' },

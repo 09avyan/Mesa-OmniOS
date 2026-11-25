@@ -179,8 +179,8 @@ function StoreRow({ s, act }: { s: Store; act: (fn: () => Promise<unknown>, done
       {open === 'pin' && (
         <tr><td colSpan={5}>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-            <input className="input" style={{ maxWidth: 160 }} inputMode="numeric" maxLength={4} placeholder="New PIN" value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))} />
-            <Tap className="btn primary small" disabled={pin.length !== 4} onClick={() => { act(() => call('reset_pin', { store_id: s.id, pin }), `PIN for ${s.code} changed.`); setPin(''); setOpen('') }}>Save PIN</Tap>
+            <input className="input" style={{ maxWidth: 160 }} inputMode="numeric" maxLength={6} placeholder="New PIN" value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))} />
+            <Tap className="btn primary small" disabled={pin.length !== 6} onClick={() => { act(() => call('reset_pin', { store_id: s.id, pin }), `PIN for ${s.code} changed.`); setPin(''); setOpen('') }}>Save PIN</Tap>
           </div>
         </td></tr>
       )}
@@ -200,13 +200,13 @@ function StoreRow({ s, act }: { s: Store; act: (fn: () => Promise<unknown>, done
 function CreateStore({ onCreate }: { onCreate: (b: { code: string; pin: string; name: string; owner_name: string; phone: string; area: string; language: string }) => void }) {
   const [f, setF] = useState({ code: '', pin: '', name: '', owner_name: '', phone: '', area: 'Indore', language: 'hinglish' })
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value })
-  const ok = /^[A-Z0-9]{4,8}$/.test(f.code) && /^\d{4}$/.test(f.pin) && f.name.trim().length >= 2
+  const ok = /^[A-Z0-9]{4,8}$/.test(f.code) && /^\d{6}$/.test(f.pin) && f.name.trim().length >= 2
   return (
     <section className="ad-box">
       <h2 className="h2">Create a store</h2><div className="gap16" />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 16 }}>
         <div className="field"><label>Store code (4-8)</label><input className="input" value={f.code} maxLength={8} onChange={(e) => setF({ ...f, code: e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '') })} /></div>
-        <div className="field"><label>4-digit PIN</label><input className="input" inputMode="numeric" maxLength={4} value={f.pin} onChange={(e) => setF({ ...f, pin: e.target.value.replace(/\D/g, '') })} /></div>
+        <div className="field"><label>6-digit PIN</label><input className="input" inputMode="numeric" maxLength={6} value={f.pin} onChange={(e) => setF({ ...f, pin: e.target.value.replace(/\D/g, '') })} /></div>
         <div className="field"><label>Store name</label><input className="input" value={f.name} onChange={set('name')} /></div>
         <div className="field"><label>Owner name</label><input className="input" value={f.owner_name} onChange={set('owner_name')} /></div>
         <div className="field"><label>Phone</label><input className="input" inputMode="tel" value={f.phone} onChange={set('phone')} /></div>

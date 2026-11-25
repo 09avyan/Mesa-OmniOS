@@ -1,6 +1,8 @@
 // Shop login with PIN lockout. The real password is a server secret (HMAC of code+PIN),
 // so nobody can guess PINs against Supabase directly; every try goes through here.
-// 5 wrong PINs → shop code locked for 10 minutes.
+// PIN is 6 digits (owner, 25 Nov). 5 wrong PINs → shop code locked for 10 minutes.
+// Move from 4-digit PINs: a shop still on its old 4-digit PIN signs in once with "old PIN + 00" (TEST: 000000),
+// which re-keys it to the 6-digit PIN. Only shops created before 25 Nov can be on a 4-digit PIN.
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 const URL = Deno.env.get("SUPABASE_URL")!;
@@ -37,7 +39,7 @@ Deno.serve(async (req) => {
   const code = String(body.code ?? "").trim().toUpperCase();
   const pin = String(body.pin ?? "");
   const label = String(body.label ?? "Phone").slice(0, 60);
-  if (!/^[A-Z0-9]{4,8}$/.test(code) || !/^\d{4}$/.test(pin)) return json({ result: "wrong" });
+  if (!/^[A-Z0-9]{4,8}$/.test(code) || !/^\d{6}$/.test(pin)) return json({ result: "wrong" });
 
   const { data: att } = await db.from("login_attempts").select("*").eq("code", code).maybeSingle();
   const now = Date.now();
@@ -49,9 +51,11 @@ Deno.serve(async (req) => {
   const auth = createClient(URL, ANON, { auth: { persistSession: false } });
   const email = storeEmail(code);
   let { data, error } = await auth.auth.signInWithPassword({ email, password: await storePassword(code, pin) });
-  if (error) {
-    // one-time move from the old guessable password to the secret one
-    const old = await auth.auth.signInWithPassword({ email, password: legacyPassword(code, pin) });
+  if (error && pin.endsWith("00")) {
+    // one-time move from a 4-digit PIN (secret or the older guessable password) to this 6-digit PIN
+    const p4 = pin.slice(0, 4);
+    let old = await auth.auth.signInWithPassword({ email, password: await storePassword(code, p4) });
+    if (old.error) old = await auth.auth.signInWithPassword({ email, password: legacyPassword(code, p4) });
     if (!old.error && old.data.user) {
       await db.auth.admin.updateUserById(old.data.user.id, { password: await storePassword(code, pin) });
       ({ data, error } = await auth.auth.signInWithPassword({ email, password: await storePassword(code, pin) }));

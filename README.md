@@ -3,7 +3,7 @@
 A voice-first app that runs a kirana (neighbourhood grocery) store. The owner speaks or taps; OmniOS makes the bill, updates stock and keeps the udhaar khata.
 
 - **Live:** omnidukaan.vercel.app · admin at `/admin` · customer bills at `/b/<code>`
-- **Try it:** shop code `TEST`, PIN `0000` (Chrome on Android for voice)
+- **Try it:** shop code `TEST`, PIN `000000` (Chrome on Android for voice)
 - **Status:** see [TASKS.md](TASKS.md) · brief: [PROJECT.md](PROJECT.md) · plan: [PLAN.md](PLAN.md) · decisions: [DECISIONS.md](DECISIONS.md) · look: [DESIGN.md](DESIGN.md)
 
 ## What works today
