@@ -1,4 +1,5 @@
 # .context/INDEX — read this first, open a topic file only when the task needs it
+| 🔔 Reminder | Remind owner to switch app to design/v2 UI (polish + extra features first). | TASKS.md top |
 Format: topic → 1–2 line summary → file. Keep each line short. Update the matching line + file at every commit chunk.
 
 | Topic | Summary | Full |

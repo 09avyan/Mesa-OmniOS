@@ -1,5 +1,8 @@
 # TASKS.md — every task, every iteration
 
+> 🔔 **REMIND OWNER (every session until done):** switch the app to the v2 UI in `design/v2/` (owner likes it; needs a little polishing + extra features before building into every page). Ask what extra features they want, then polish → implement.
+
+
 Status: ✅ done · 🔄 in progress · ⏳ pending. One line each. Updated on every commit chunk.
 Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also builds on omnios-dukaan).
 
