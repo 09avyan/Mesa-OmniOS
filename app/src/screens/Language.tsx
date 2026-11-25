@@ -6,18 +6,16 @@ import { Icon } from '../components/Icon'
 export function Language({ onDone, current }: { onDone: (l: Lang) => void; current?: Lang }) {
   const { setLang } = useT()
   return (
-    <main className="screen">
-      <div style={{ height: 40 }} />
-      <div style={{ color: 'var(--ac)' }}><Icon name="globe" size={40} /></div>
-      <div className="gap16" />
-      <h1 className="h1">भाषा चुनें</h1>
-      <div className="h1" style={{ color: 'var(--ink2)' }}>Bhasha chuno</div>
-      <div className="h1" style={{ color: 'var(--ink2)' }}>Choose language</div>
-      <div className="gap24" />
-      <div className="stack" style={{ gap: 16 }}>
+    <main className="screen lg">
+      <div>
+        <h1 className="h1">भाषा चुनें</h1>
+        <div className="lg-alt">Bhasha chuno</div>
+        <div className="lg-alt">Choose language</div>
+      </div>
+      <div className="lg-langs">
         {LANGS.map((l) => (
           <Tap key={l.id} className={`langbtn ${current === l.id ? 'on' : ''}`} onClick={() => { setLang(l.id); onDone(l.id) }}>
-            <span>{l.label}</span><small>{l.sub}</small>
+            <span>{l.label}<small>{l.sub}</small></span>{current === l.id ? <Icon name="tick" size={26} stroke={3} /> : <Icon name="chev" size={22} />}
           </Tap>
         ))}
       </div>

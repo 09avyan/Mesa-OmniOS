@@ -8,7 +8,7 @@ import { navigate } from '../lib/router'
 import { custLabel, invalidateShop } from '../lib/shop'
 import { errorFx, successFx } from '../lib/feedback'
 import { BackBar, Sheet, Tap, toast } from '../components/ui'
-import { NumberSheet } from '../components/Pad'
+import { NumberSheet, ru } from '../components/Pad'
 import { Icon } from '../components/Icon'
 
 type Cust = { id: string; name: string; tag: string | null; phone: string | null; share_token: string; balance: number; last_at: string | null }
@@ -29,32 +29,27 @@ export function UdhaarList() {
   const total = owing.reduce((s, c) => s + c.balance, 0)
   const shown = (list ?? []).filter((c) => (q ? c.name.toLowerCase().includes(q.toLowerCase()) : c.balance !== 0))
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <div className="top" />
       <h1 className="h1">{t('tabUdhaar')}</h1>
-      <div className="card" style={{ marginTop: 16 }}>
+      <div className="pg-sum">
         <div className="lab">{t('udhaarOut')}</div>
-        {list ? <div className="big" style={{ color: 'var(--ud)' }}>{rupees(total)}</div> : <div className="skel" style={{ height: 50, width: '50%' }} />}
-        <div className="lab" style={{ marginTop: 4 }}>{owing.length} {t('peopleOwe')}</div>
+        {list ? <div className="hm-big ud">{ru(total)}</div> : <div className="skel" style={{ height: 56, width: '50%' }} />}
+        <div className="sub">{owing.length} {t('peopleOwe')}</div>
       </div>
-      <div className="gap16" />
-      <Tap className="btn quiet" onClick={() => setAdding(true)}>+ {t('addPerson')}</Tap>
-      <div className="gap16" />
-      <input className="input" placeholder={t('searchName')} value={q} onChange={(e) => setQ(e.target.value)} />
-      <div className="gap16" />
-      {!list ? <div className="stack"><div className="skel" style={{ height: 68 }} /><div className="skel" style={{ height: 68 }} /></div>
-        : shown.length === 0 ? <div className="card center"><p className="lab">{q ? t('noMatch') : t('noUdhaar')}</p></div>
-        : <div className="stack">{shown.map((c) => (
-          <Tap key={c.id} className="rowb" onClick={() => navigate('/udhaar/' + c.id)}>
-            <div className="av" style={{ width: 44, height: 44, fontSize: 20 }}>{c.name.charAt(0).toUpperCase()}</div>
-            <div className="grow" style={{ minWidth: 0 }}>
-              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{custLabel(c)}</div>
-              <div className="lab" style={{ fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{ago(c.last_at)}</div>
-            </div>
-            <div className="num" style={{ color: c.balance > 0 ? 'var(--ud)' : 'var(--ac)' }}>{rupees(Math.abs(c.balance))}</div>
-            <div className="chev"><Icon name="chev" size={20} /></div>
+      <div className="pg-acts" style={{ marginTop: 16 }}>
+        <Tap className="btn outline" onClick={() => setAdding(true)}><Icon name="plus" size={22} stroke={2.6} />{t('addPerson')}</Tap>
+        <input className="input" placeholder={t('searchName')} value={q} onChange={(e) => setQ(e.target.value)} />
+      </div>
+      <div style={{ height: 8 }} />
+      {!list ? <div className="stack"><div className="skel" style={{ height: 72 }} /><div className="skel" style={{ height: 72 }} /></div>
+        : shown.length === 0 ? <p className="pg-empty">{q ? t('noMatch') : t('noUdhaar')}</p>
+        : shown.map((c) => (
+          <Tap key={c.id} className="hrow" onClick={() => navigate('/udhaar/' + c.id)}>
+            <div className="g"><b>{custLabel(c)}</b>{ago(c.last_at) && <span>{ago(c.last_at)}</span>}</div>
+            <div className={`a ${c.balance > 0 ? 'ud' : ''}`}>{rupees(Math.abs(c.balance))}</div>
           </Tap>
-        ))}</div>}
+        ))}
       <AddPerson open={adding} onClose={() => setAdding(false)} />
     </main>
   )
@@ -75,8 +70,8 @@ export function UdhaarCustomer({ id }: { id: string }) {
       .then(({ data }) => setEntries((data ?? []) as Entry[]))
   }
   useEffect(load, [id]) // eslint-disable-line react-hooks/exhaustive-deps
-  if (c === undefined) return <main className="screen has-bar"><BackBar fallback="/udhaar" /><div className="skel" style={{ height: 180 }} /></main>
-  if (!c) return <main className="screen has-bar"><BackBar fallback="/udhaar" /><p>{t('noMatch')}</p></main>
+  if (c === undefined) return <main className="screen has-bar pg"><BackBar fallback="/udhaar" /><div className="skel" style={{ height: 180 }} /></main>
+  if (!c) return <main className="screen has-bar pg"><BackBar fallback="/udhaar" /><p className="pg-empty">{t('noMatch')}</p></main>
 
   const link = `${location.origin}/k/${c.share_token}`
   const msg = lang === 'en'
@@ -98,28 +93,26 @@ export function UdhaarCustomer({ id }: { id: string }) {
   }
   const label: Record<string, string> = { bill: t('udhaarGiven'), payment: t('paySaved'), undo: t('removedWord'), return: t('removedWord') }
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <BackBar fallback="/udhaar" />
-      <div className="who"><div className="av">{c.name.charAt(0).toUpperCase()}</div>
-        <div style={{ flex: 1, minWidth: 0 }}><div className="h1">{c.name}</div>{c.tag && <div className="lab">{c.tag}</div>}
-          <Tap className="ghost" style={{ marginLeft: -12, color: 'var(--ac)', fontWeight: 600 }} onClick={() => setPhoneOpen(true)}>{c.phone ? `📞 ${c.phone}` : `+ ${t('addPhone')}`}</Tap></div></div>
-      <div className="card center" style={{ marginTop: 12 }}>
+      <h1 className="h1">{c.name}</h1>
+      {c.tag && <div className="pg-sub">{c.tag}</div>}
+      <Tap className="pg-link" onClick={() => setPhoneOpen(true)}>{c.phone ? <><Icon name="phone" size={22} />{c.phone}</> : <><Icon name="plus" size={22} stroke={2.6} />{t('addPhone')}</>}</Tap>
+      <div className="pg-sum">
         <div className="lab">{c.balance >= 0 ? t('balanceNow') : t('advance')}</div>
-        <div className="big" style={{ color: c.balance > 0 ? 'var(--ud)' : 'var(--ac)' }}>{rupees(Math.abs(c.balance))}</div>
+        <div className={`hm-big ${c.balance > 0 ? 'ud' : ''}`}>{ru(Math.abs(c.balance))}</div>
       </div>
-      <div className="gap16" />
-      <Tap className="btn primary" onClick={() => setPay(true)}><Icon name="cash" size={24} />{t('collect')}</Tap>
-      {c.balance > 0 && <a className="wa tap" href={wa} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}><Icon name="wa" size={26} />{t('remind')}</a>}
-      <h2 className="h2" style={{ marginTop: 28 }}>{t('history')}</h2>
-      <div className="card" style={{ marginTop: 8, padding: '4px 18px' }}>
-        {entries.length === 0 ? <p className="lab" style={{ padding: '14px 0' }}>{t('noUdhaar')}</p> : entries.map((e, i) => (
-          <Tap key={e.id} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500, borderTop: i ? '1px solid var(--line)' : 'none', minHeight: 56 }}
-            onClick={() => e.bill_id && navigate('/bill/' + e.bill_id)}>
-            <span>{label[e.kind] ?? e.kind}<span className="lab" style={{ display: 'block', fontSize: 17, lineHeight: '20px' }}>{ago(e.created_at)}</span></span>
-            <span className="num" style={{ color: Number(e.amount) > 0 ? 'var(--ud)' : 'var(--ac)' }}>{Number(e.amount) > 0 ? '+' : '−'} {rupees(Math.abs(Number(e.amount)))}</span>
-          </Tap>
-        ))}
+      <div className="pg-acts" style={{ marginTop: 16 }}>
+        <Tap className="btn primary" onClick={() => setPay(true)}><Icon name="cash" size={24} />{t('collect')}</Tap>
+        {c.balance > 0 && <a className="btn outline tap" href={wa} target="_blank" rel="noreferrer"><Icon name="wa" size={24} />{t('remind')}</a>}
       </div>
+      <div className="hm-sec"><h2>{t('history')}</h2></div>
+      {entries.length === 0 ? <p className="pg-empty">{t('noUdhaar')}</p> : entries.map((e) => (
+        <Tap key={e.id} className="hrow" onClick={() => e.bill_id && navigate('/bill/' + e.bill_id)}>
+          <div className="g"><b>{label[e.kind] ?? e.kind}</b><span>{ago(e.created_at)}</span></div>
+          <div className={`a ${Number(e.amount) > 0 ? 'ud' : ''}`}>{Number(e.amount) > 0 ? '+' : '−'} {rupees(Math.abs(Number(e.amount)))}</div>
+        </Tap>
+      ))}
       <NumberSheet open={pay} title={`${c.name} — ${t('amount')}`} initial={c.balance > 0 ? c.balance : null} unit="₹" onClose={() => setPay(false)} onDone={collect} />
       <NumberSheet open={phoneOpen} title={t('addPhone')} initial={c.phone ? Number(c.phone) : null} decimals={false} onClose={() => setPhoneOpen(false)} onDone={savePhone} />
     </main>
@@ -139,9 +132,9 @@ function AddPerson({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <Sheet open={open} onClose={onClose}>
       <h2 className="h2">{t('addPerson')}</h2>
-      <div className="stack" style={{ marginTop: 12 }}>
+      <div className="pgs stack" style={{ marginTop: 12 }}>
         <input className="input" placeholder={t('nameWord')} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} />
-        {needTag && <input className="input" style={{ boxShadow: 'inset 0 0 0 2px var(--unsb)' }} placeholder={t('tagAsk')} value={f.tag} onChange={(e) => setF({ ...f, tag: e.target.value })} />}
+        {needTag && <input className="input" style={{ borderBottomColor: 'var(--ink)' }} placeholder={t('tagAsk')} value={f.tag} onChange={(e) => setF({ ...f, tag: e.target.value })} />}
         <input className="input" inputMode="tel" placeholder={t('phoneOpt')} value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value.replace(/[^\d+]/g, '') })} />
         <input className="input" inputMode="decimal" placeholder={t('oldUdhaar')} value={f.old} onChange={(e) => setF({ ...f, old: e.target.value.replace(/[^\d.]/g, '') })} />
         <Tap className="btn primary" disabled={f.name.trim().length < 2 || (needTag && !f.tag.trim())} onClick={save}><Icon name="tick" size={22} stroke={3} />{t('ok')}</Tap>
@@ -163,8 +156,8 @@ export function BalancePage({ token }: { token: string }) {
   const [bl, setBl] = useState<'hi' | 'hinglish' | 'en'>(() => { try { return (localStorage.getItem('omni-bill-lang') as 'hi') || 'hi' } catch { return 'hi' } })
   const B = BT[bl] ?? BT.hi
   useEffect(() => { pub.rpc('public_balance', { p_token: token }).then(({ data }) => setD((data as Pub) ?? null)) }, [token])
-  if (d === undefined) return <main className="bc-page"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 24 }} /></main>
-  if (!d) return <main className="bc-page"><h1 className="h1">{B.none}</h1></main>
+  if (d === undefined) return <main className="bc-page kh"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 18 }} /></main>
+  if (!d) return <main className="bc-page kh"><h1 className="kh-store">{B.none}</h1></main>
   const bal = Number(d.balance)
   const fmtD = (iso: string) => {
     const d = new Date(iso), h = d.getHours(), m = String(d.getMinutes()).padStart(2, '0')
@@ -176,32 +169,35 @@ export function BalancePage({ token }: { token: string }) {
   let run = bal
   const rows = d.entries.map((e) => { const r = { ...e, after: run }; run -= Number(e.amount); return r })
   return (
-    <main className="bc-page">
+    <main className="bc-page kh">
       <div className="bc-langs">{(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={bl === l ? 'on' : ''} onClick={() => { setBl(l); try { localStorage.setItem('omni-bill-lang', l) } catch { /* ignore */ } }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}</div>
-      <article className="bc">
-        <header className="bc-shop"><div className="bc-av">{d.store.charAt(0).toUpperCase()}</div><div><div className="bc-store">{d.store}</div>{d.area && <div className="bc-area">{d.area}</div>}</div></header>
-        <section className="bc-hero">
-          <div className="bc-meta" style={{ marginTop: 0 }}>{B.hi} {d.customer}</div>
-          <div className="bc-total" style={{ color: bal > 0 ? 'var(--ud)' : 'var(--ac)', marginTop: 6 }}>{rupees(Math.abs(bal))}</div>
-          <div className={`bc-status ${bal > 0 ? 'ud' : 'ok'}`}>{bal > 0 ? B.due : B.clear}</div>
-          {d.updated && <div className="bc-meta">{B.upd}: {fmtD(d.updated)}</div>}
+      <article className="kh-wrap">
+        <header>
+          <h1 className="kh-store">{d.store}</h1>
+          {d.area && <div className="kh-area">{d.area}</div>}
+        </header>
+        <section className="kh-hero">
+          <div className="kh-hi">{B.hi} {d.customer}</div>
+          <div className="kh-bal">
+            <span className={bal > 0 ? 'ud' : ''}>{bal > 0 ? B.due : B.clear}</span>
+            <b className={bal > 0 ? 'ud' : ''}>{ru(Math.abs(bal))}</b>
+          </div>
+          {d.updated && <div className="kh-upd">{B.upd}: {fmtD(d.updated)}</div>}
         </section>
-        <div className="cx-pay">
+        <div className="kh-acts">
           {bal > 0 && d.upi && <a className="tap btn primary" href={`upi://pay?pa=${encodeURIComponent(d.upi)}&pn=${encodeURIComponent(d.store)}&am=${bal.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Udhaar ' + d.customer)}`}>{B.upi} · {rupees(bal)}</a>}
-          {bal > 0 && d.upi && <p className="lab" style={{ fontSize: 17 }}>{B.note}</p>}
-          {bal > 0 && <p className="lab center" style={{ fontSize: 18 }}>{B.shop}</p>}
-          {d.phone && <a className="tap btn quiet" href={'tel:' + d.phone}><Icon name="phone" size={22} />{B.call}</a>}
+          {d.phone && <a className="tap btn outline" href={'tel:' + d.phone}><Icon name="phone" size={22} />{B.call}</a>}
         </div>
-        <section className="bc-items">
-          <div className="bc-ih">{B.hisaab}</div>
+        <section>
+          <h2 className="kh-sec">{B.hisaab}</h2>
           {rows.map((e, i) => {
             const took = Number(e.amount) > 0
-            const inner = <><div style={{ minWidth: 0 }}><div className="bc-name">{took ? B.took : B.paid}</div><div className="bc-sub">{fmtD(e.at)}</div><div className="bc-sub">{B.after} {rupees(e.after)}</div></div>
-              <div className="bc-amt" style={{ color: took ? 'var(--ud)' : 'var(--ac)', display: 'flex', alignItems: 'center', gap: 4 }}>{rupees(Math.abs(Number(e.amount)))}{e.bill && <Icon name="chev" size={20} />}</div></>
-            return e.bill ? <a key={i} className="bc-row tap" href={'/b/' + e.bill} style={{ color: 'inherit', textDecoration: 'none' }} aria-label={B.see}>{inner}</a> : <div key={i} className="bc-row">{inner}</div>
+            const inner = <><div className="g"><b>{took ? B.took : B.paid}</b><small>{fmtD(e.at)}</small><small>{B.after} {rupees(e.after)}</small></div>
+              <div className={`kh-amt ${took ? 'ud' : ''}`}>{took ? '+' : '−'} {rupees(Math.abs(Number(e.amount)))}{e.bill && <Icon name="chev" size={20} />}</div></>
+            return e.bill ? <a key={i} className="kh-row tap" href={'/b/' + e.bill} aria-label={B.see}>{inner}</a> : <div key={i} className="kh-row">{inner}</div>
           })}
         </section>
-        <div className="bc-brand"><span className="bc-logo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.8" strokeLinecap="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></svg></span>OmniOS Dukaan</div>
+        <div className="kh-brand">OmniOS Dukaan</div>
       </article>
     </main>
   )

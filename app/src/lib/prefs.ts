@@ -6,3 +6,13 @@ export const setSpeakOn = (on: boolean) => set('omni-speak', on ? 'on' : 'off')
 export const speakRate = () => (get('omni-rate', 'normal') === 'slow' ? 0.8 : 1)
 export const speakSlow = () => get('omni-rate', 'normal') === 'slow'
 export const setSpeakSlow = (slow: boolean) => set('omni-rate', slow ? 'slow' : 'normal')
+
+// Look of the app: follows the phone unless the owner picks Light or Dark in Settings.
+export type Theme = 'auto' | 'light' | 'dark'
+export const theme = (): Theme => get('omni-theme', 'auto') as Theme
+export const applyTheme = (t: Theme = theme()) => {
+  const dark = t === 'dark' || (t === 'auto' && typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+  document.querySelector('meta[name=theme-color]')?.setAttribute('content', dark ? '#0E0F0F' : '#F7F7F4')
+}
+export const setTheme = (t: Theme) => { set('omni-theme', t); applyTheme(t) }

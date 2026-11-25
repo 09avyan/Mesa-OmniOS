@@ -29,9 +29,10 @@ const SIZE_G = new RegExp(SIZE.source, 'gi')
 /** size words as people say them: "70g" -> "70 gram", "1L" -> "1 litre", "Rs 10" -> "10 rupaye" */
 function sizeForms(tok: string): string[] {
   const m = SIZE.exec(tok); if (!m) return [tok]
-  if (m[3]) return [tok, m[3] + ' rupaye', m[3] + ' rupee', m[3] + ' wala', 'rs ' + m[3]]
+  // one spoken form per unit: the matcher's letter-pair scoring already covers gm/gram, kg/kilo, liter/litre, rupee/rupaye (keeps the index small)
+  if (m[3]) return [tok, m[3] + ' rupaye', m[3] + ' wala']
   const n = m[1], u = m[2].toLowerCase()
-  return [tok, ...(u === 'g' ? [n + ' gram', n + ' gm'] : u === 'kg' ? [n + ' kilo', n + ' kg'] : u === 'l' ? [n + ' litre', n + ' liter'] : [n + ' ml'])]
+  return [tok, ...(u === 'g' ? [n + ' gram'] : u === 'kg' ? [n + ' kilo'] : u === 'l' ? [n + ' litre'] : [])]
 }
 /** Per-variant spoken parts, once per item: the full name, the flavour alone and the size alone (each only on the FIRST variant that has it, so "maggi masala" picks the default masala, not a random size). */
 function variantForms(r: Row): string[][] {
@@ -48,9 +49,10 @@ function variantForms(r: Row): string[][] {
 const parentNames = (r: Row) => [...new Set([r[1], r[3], ...[...r[8]].filter((a) => a.length >= 3).sort((a, b) => a.length - b.length).slice(0, 2)])]
 /** Spoken phrases that name one variant: "<item> <form>" and "<form> <item>" for each of the item's own names. */
 function variantPhrases(parents: string[], forms: string[]): string[] {
-  // "<item> <form>" for every form; "<form> <item>" for the variant name and flavour words ("chicken maggi") - keeps the index small and fast
+  // "<item> <form>" for every form; "<form> <item>" ("chicken maggi") only for the item's main name and only for the full variant name and
+  // flavour words; short aliases ("coke 250ml") get every "<alias> <form>", the longer second name only the full variant name. Keeps the index small and matching fast.
   const out: string[] = []
-  for (const p of parents) for (const f of forms) { out.push(p + ' ' + f); if (f === forms[0] || !/\d/.test(f)) out.push(f + ' ' + p) }
+  parents.forEach((p, k) => { for (const f of k === 0 || p.length <= 8 ? forms : forms.slice(0, 1)) { out.push(p + ' ' + f); if (k === 0 && (f === forms[0] || !/\d/.test(f))) out.push(f + ' ' + p) } })
   return out
 }
 const formsCache = new WeakMap<Row, string[][]>()
@@ -104,7 +106,7 @@ export function universeMatchables(): UMatchable[] {
   let m = mm.get(data); if (!m) mm.set(data, (m = build(data)))
   return m
 }
-const LS = 'omni-universe-v6'
+const LS = 'omni-universe-v7'
 /** Start-up: use the copy saved on this phone instantly (works offline), refresh in the background. */
 export function warmUniverse(onReady: () => void) {
   try { const c = localStorage.getItem(LS); if (c && !data) { data = JSON.parse(c); onReady() } } catch { /* storage blocked */ }

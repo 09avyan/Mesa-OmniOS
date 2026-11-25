@@ -5,6 +5,7 @@
 // carries a content hash so phones download it once and keep it (immutable cache).
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, unlinkSync } from 'node:fs'
 import { createHash } from 'node:crypto'
+import { gzipSync } from 'node:zlib'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -52,4 +53,7 @@ const out = join(here, '../public/universe'); mkdirSync(out, { recursive: true }
 for (const f of readdirSync(out)) if (/^u\.[0-9a-f]{10}\.json$/.test(f)) unlinkSync(join(out, f))
 writeFileSync(join(out, `u.${hash}.json`), body)
 writeFileSync(join(out, 'u.json'), JSON.stringify({ v: src.version, file: `/universe/u.${hash}.json`, items: rows.length, variants: nVariants }))
-console.log(`universe: ${rows.length} items, ${nVariants} variants, ${Object.keys(keys).length} keys, ${(body.length / 1024).toFixed(1)} KB -> u.${hash}.json`)
+const gz = gzipSync(body).length
+console.log(`universe: ${rows.length} items, ${nVariants} variants, ${Object.keys(keys).length} keys, ${(Buffer.byteLength(body) / 1024).toFixed(1)} KB raw, ${(gz / 1024).toFixed(1)} KB gzip -> u.${hash}.json`)
+// phones download this once; keep it under 140 KB gzipped (shrink the row format before letting it grow past that)
+if (gz > 140 * 1024) console.warn(`WARNING: universe is ${(gz / 1024).toFixed(1)} KB gzipped (> 140 KB budget)`)

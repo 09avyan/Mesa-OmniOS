@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase'
 import { useStore } from '../lib/store'
 import { navigate } from '../lib/router'
 import { BackBar, Tap } from '../components/ui'
-import { NumberSheet } from '../components/Pad'
+import { NumberSheet, ru } from '../components/Pad'
 import { itemName } from '../components/BillCard'
 import { successFx } from '../lib/feedback'
 
@@ -39,55 +39,43 @@ export function Hisaab() {
   const [range, setRange] = useState<'today' | 'yday' | 'week' | 'month'>(() => (new URLSearchParams(location.search).get('r') === 'yday' ? 'yday' : 'today'))
   const [from, to] = range === 'today' ? [day(), day()] : range === 'yday' ? [day(1), day(1)] : range === 'week' ? [day(6), day()] : [day(29), day()]
   const s = useSummary(from, to)
-  const pct = (n: number) => (s && s.sales ? (n / s.sales) * 100 : 0)
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <BackBar />
       <h1 className="h1">{t('hisaabTitle')}</h1>
-      <div className="shop-cats segs" style={{ padding: '12px 0 4px' }}>
+      <div className="shop-cats segs">
         {(['today', 'yday', 'week', 'month'] as const).map((k) => <Tap key={k} className={range === k ? 'on' : ''} onClick={() => setRange(k)}>{t(k === 'today' ? 'rToday' : k === 'yday' ? 'rYday' : k === 'week' ? 'rWeek' : 'rMonth')}</Tap>)}
       </div>
-      <div className="card" style={{ marginTop: 12 }}>
+      <div className="pg-sum">
         <div className="lab">{t('totalSales')}</div>
-        {s ? <div className="big">{rupees(s.sales)}</div> : <div className="skel" style={{ height: 50, width: '55%' }} />}
-        <div className="lab" style={{ marginTop: 4 }}>{s ? `${s.bills} ${t('billsWord')}${s.bills ? ` · ${t('avgBill')} ${rupees(s.sales / s.bills)}` : ''}` : ' '}</div>
-        {s && s.sales > 0 && (
-          <div className="hs-bar" aria-hidden>
-            <i style={{ width: `${pct(s.cash)}%`, background: 'var(--ac)' }} /><i style={{ width: `${pct(s.upi)}%`, background: 'var(--c-maal)' }} /><i style={{ width: `${pct(s.udhaar_given)}%`, background: 'var(--c-udh)' }} />
-          </div>
-        )}
-        <div className="gap8" />
-        <Row dot="var(--ac)" label={t('payCash')} v={s?.cash} />
-        <Row dot="var(--c-maal)" label={t('payUpi')} v={s?.upi} />
-        <Row dot="var(--c-udh)" label={t('udhaarGiven')} v={s?.udhaar_given} />
-        <Row dot="transparent" label={t('udhaarBack')} v={s?.udhaar_collected} />
+        {s ? <div className="hm-big">{ru(s.sales)}</div> : <div className="skel" style={{ height: 56, width: '55%' }} />}
+        <div className="sub">{s ? `${s.bills} ${t('billsWord')}${s.bills ? ` · ${t('avgBill')} ${rupees(s.sales / s.bills)}` : ''}` : ' '}</div>
       </div>
+      <Row label={t('payCash')} v={s?.cash} />
+      <Row label={t('payUpi')} v={s?.upi} />
+      <Row label={t('udhaarGiven')} v={s?.udhaar_given} ud />
+      <Row label={t('udhaarBack')} v={s?.udhaar_collected} />
       {s && s.bills > 0 && <>
-        {s.busy_hour != null && <p className="lab" style={{ margin: '16px 4px 0' }}>{t('busyHour')}: <b style={{ color: 'var(--ink)' }}>{hourLabel(s.busy_hour, lang)}</b></p>}
-        <h2 className="h2" style={{ margin: '24px 4px 8px' }}>{t('topItems')}</h2>
-        <div className="card" style={{ padding: '6px 20px' }}>
-          {s.top.map((it, i) => (
-            <div key={i} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600, borderTop: i ? '1px solid var(--line, #E4E7EC)' : 'none' }}>
-              <span style={{ minWidth: 0 }}>{itemName({ ...it, price: 0 }, lang)}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500 }}>{+it.qty} {it.unit}</span></span>
-              <span className="num" style={{ fontSize: 20 }}>{rupees(+it.amount)}</span>
-            </div>
-          ))}
-        </div>
+        {s.busy_hour != null && <p className="pg-sub" style={{ marginTop: 16 }}>{t('busyHour')}: <b>{hourLabel(s.busy_hour, lang)}</b></p>}
+        <div className="hm-sec"><h2>{t('topItems')}</h2></div>
+        {s.top.map((it, i) => (
+          <div key={i} className="hrow cur">
+            <div className="g"><b>{itemName({ ...it, price: 0 }, lang)}</b><span>{+it.qty} {it.unit}</span></div>
+            <div className="a">{rupees(+it.amount)}</div>
+          </div>
+        ))}
       </>}
-      {s && s.bills === 0 && <p className="lab center" style={{ marginTop: 20 }}>{t('noBillsRange')}</p>}
-      {s && s.suppliers > 0
-        ? <div className="stack" style={{ marginTop: 16 }}><Tap className="rowb" onClick={() => navigate('/suppliers')}><span className="grow">{t('supTitle')}</span><span className="num" style={{ color: 'var(--c-udh)' }}>{rupees(+(s.supplier_due ?? 0))}</span><span className="chev"><Icon name="chev" size={20} /></span></Tap></div>
-        : <p className="lab" style={{ margin: '20px 4px 0', fontSize: 17 }}>{t('supplierSoon')}</p>}
-      <div className="gap16" />
-      {range === 'today' && <Tap className="btn primary" onClick={() => navigate('/galla')}>{t('rowGalla')}</Tap>}
+      {s && s.bills === 0 && <p className="pg-empty">{t('noBillsRange')}</p>}
+      {s && s.suppliers > 0 && <Tap className="hrow" style={{ marginTop: 16 }} onClick={() => navigate('/suppliers')}><div className="g"><b>{t('supTitle')}</b></div><div className="a">{rupees(+(s.supplier_due ?? 0))}</div><Icon name="chev" size={20} /></Tap>}
+      {range === 'today' && <div className="pg-acts"><Tap className="btn primary" onClick={() => navigate('/galla')}><Icon name="cash" size={24} />{t('rowGalla')}</Tap></div>}
     </main>
   )
 }
-function Row({ dot, label, v }: { dot: string; label: string; v: number | undefined }) {
+function Row({ label, v, ud }: { label: string; v: number | undefined; ud?: boolean }) {
   return (
-    <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600 }}>
-      <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}><i style={{ width: 4, height: 18, background: dot === 'transparent' ? 'var(--line)' : dot }} />{label}</span>
-      <span className="num" style={{ fontSize: 20 }}>{v == null ? '…' : rupees(v)}</span>
+    <div className="hrow cur" style={{ minHeight: 64 }}>
+      <div className="g"><b>{label}</b></div>
+      <div className={`a ${ud ? 'ud' : ''}`}>{v == null ? '…' : rupees(v)}</div>
     </div>
   )
 }
@@ -101,23 +89,25 @@ export function Galla() {
   const [pad, setPad] = useState(true)
   const gap = said != null && s ? said - s.cash : null
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <BackBar />
       <h1 className="h1">{t('gallaTitle')}</h1>
-      <p className="lab" style={{ marginTop: 4 }}>{t('gallaHow')}</p>
-      <div className="card" style={{ marginTop: 16 }}>
-        <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600 }}><span className="lab">{t('gallaBills')}</span><span className="num">{s ? rupees(s.cash) : '…'}</span></div>
-        <Tap className="linkrow" onClick={() => setPad(true)}><span>{t('gallaSaid')}</span><span className="num">{said != null ? rupees(said) : t('gallaType')}</span></Tap>
-        {s && s.udhaar_collected > 0 && <p className="lab" style={{ fontSize: 17, marginTop: 6 }}>{t('gallaUdhaarNote').replace('{x}', rupees(s.udhaar_collected))}</p>}
+      <div className="pg-sum">
+        <div className="lab">{t('gallaBills')}</div>
+        {s ? <div className="hm-big">{ru(s.cash)}</div> : <div className="skel" style={{ height: 56, width: '55%' }} />}
+        {s && s.udhaar_collected > 0 && <div className="sub">{t('gallaUdhaarNote').replace('{x}', rupees(s.udhaar_collected))}</div>}
+      </div>
+      <div className="pg-acts" style={{ marginTop: 16 }}>
+        <Tap className="btn outline" onClick={() => setPad(true)}><Icon name="cash" size={24} />{t('gallaSaid')}: {said != null ? rupees(said) : t('gallaType')}</Tap>
       </div>
       {gap != null && (
-        <div className={gap === 0 ? 'card' : 'udnote'} style={{ marginTop: 16, ...(gap === 0 ? { background: 'var(--acs)', color: 'var(--ac)' } : {}) }}>
-          <div className="h2">{gap === 0 ? t('gallaMatch') : `${rupees(Math.abs(gap))} ${gap < 0 ? t('gallaLess') : t('gallaMore')}`}</div>
-          {gap !== 0 && <p style={{ marginTop: 4 }}>{t('gallaNote')}</p>}
+        <div className="pg-blk" style={{ borderBottom: 0 }}>
+          {gap === 0 ? <p className="bf2-done"><Icon name="tick" size={22} stroke={3} />{t('gallaMatch')}</p> : <>
+            <div className="pg-gap">{rupees(Math.abs(gap))} {gap < 0 ? t('gallaLess') : t('gallaMore')}</div>
+            <p className="pg-sub">{t('gallaNote')}</p>
+          </>}
         </div>
       )}
-      <div className="gap16" />
-      <p className="center lab">{t('gallaSay')}</p>
       <NumberSheet open={pad} title={t('gallaAsk')} initial={said} decimals={false} onClose={() => setPad(false)} onDone={(n) => {
         setSaid(n); setPad(false)
         if (s && n === s.cash) successFx()

@@ -82,8 +82,8 @@ export function StorePage({ slug }: { slug: string }) {
     successFx(); setAsked((a) => ({ ...a, [i.id]: true })); setAskFor(null)
   }
 
-  if (d === undefined) return <main className="bc-page"><div className="skel" style={{ width: '100%', maxWidth: 480, height: 300, borderRadius: 24 }} /></main>
-  if (!d) return <main className="bc-page"><h1 className="h1" style={{ marginTop: 40 }}>{L.none}</h1></main>
+  if (d === undefined) return <main className="bc-page kh"><div className="skel" style={{ width: '100%', maxWidth: 480, height: 300, borderRadius: 18 }} /></main>
+  if (!d) return <main className="bc-page kh"><h1 className="kh-store">{L.none}</h1></main>
   const info = (
     <div className="stack" style={{ marginTop: 12 }}>
       <input className="input" placeholder={L.name} value={who.name} onChange={(e) => setWho({ ...who, name: e.target.value })} />
@@ -96,7 +96,7 @@ export function StorePage({ slug }: { slug: string }) {
         <div className="cx-langs" role="group" aria-label="language">
           {(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={`tap ${lang === l ? 'on' : ''}`} onClick={() => { setLang(l); put('omni-bill-lang', l) }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}
         </div>
-        <div className="cx-shop"><div className="cx-av">{d.name.charAt(0).toUpperCase()}</div>
+        <div className="cx-shop">
           <div style={{ minWidth: 0 }}><h1 className="cx-name">{d.name}</h1>{d.area && <div className="cx-area"><Icon name="pin" size={18} />{d.area}</div>}</div></div>
         <div className={`cx-open ${d.online_on ? 'on' : ''}`}>{d.online_on ? L.pickup : L.closed}</div>
       </header>
@@ -124,18 +124,18 @@ export function StorePage({ slug }: { slug: string }) {
           </div>
         ))}
       </div>
-      {lines.length > 0 && d.online_on && <div className="shop-bar"><button className="tap cx-cart" onClick={() => setCheckout(true)}><span className="cx-cnt">{lines.reduce((a, [, n]) => a + n, 0)}</span><span>{L.cart}</span><b>{rupees(total)} <Icon name="chev" size={20} /></b></button></div>}
+      {lines.length > 0 && d.online_on && <div className="shop-bar"><button className="tap cx-cart" onClick={() => setCheckout(true)}><span className="cx-cnt">{lines.reduce((a, [, n]) => a + n, 0)}</span><span>{L.cart}</span><b>{rupees(total)}</b><Icon name="chev" size={20} /></button></div>}
       {(checkout || askFor) && <>
         <div className="scrim" onClick={() => { setCheckout(false); setAskFor(null) }} />
         <div className="sheet" role="dialog">
           {askFor ? <>
-            <h2 className="h2">{L.ask}: {nm(askFor)}</h2><p className="lab">{L.askedNote}</p>{info}
+            <h2 className="h2">{L.ask}: {nm(askFor)}</h2>{info}
             {err && <div className="err" style={{ marginTop: 10 }}>{err}</div>}
             <div className="gap16" /><button className="tap btn primary" onClick={() => request(askFor)}>{L.ask}</button>
           </> : <>
             <h2 className="h2">{L.cart}</h2>
-            {lines.map(([id, n]) => { const i = d.items.find((x) => x.id === id)!; return <div key={id} className="bc-row"><span>{nm(i)} × {n}</span><b>{rupees(n * Number(i.price))}</b></div> })}
-            <div className="bc-grand"><span>{L.total}</span><span>{rupees(total)}</span></div>
+            {lines.map(([id, n]) => { const i = d.items.find((x) => x.id === id)!; return <div key={id} className="kh-row"><span>{nm(i)} × {n}</span><b className="kh-amt">{rupees(n * Number(i.price))}</b></div> })}
+            <div className="kh-bal"><span>{L.total}</span><b>{rupees(total)}</b></div>
             <p className="lab">{L.pickup}</p>{info}
             {err && <div className="err" style={{ marginTop: 10 }}>{err}</div>}
             <div className="gap16" /><button className="tap btn primary" disabled={busy} onClick={place}><Icon name="tick" size={22} stroke={3} />{L.order}</button>
@@ -159,8 +159,8 @@ export function OrderPage({ token }: { token: string }) {
   const L = S[lang] ?? S.hi
   const load = () => pub.rpc('order_status', { p_token: token }).then(({ data }) => setO((data as OS) ?? null))
   useEffect(() => { load(); const t = setInterval(load, 15000); return () => clearInterval(t) }, [token]) // eslint-disable-line react-hooks/exhaustive-deps
-  if (o === undefined) return <main className="bc-page"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 24 }} /></main>
-  if (!o) return <main className="bc-page"><h1 className="h1">—</h1></main>
+  if (o === undefined) return <main className="bc-page kh"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 18 }} /></main>
+  if (!o) return <main className="bc-page kh"><h1 className="kh-store">—</h1></main>
   const idx = { new: 0, accepted: 1, packing: 2, ready: 3, billing: 3, done: 4 }[o.status as 'new'] ?? -1
   const closed = o.status === 'rejected' || o.status === 'cancelled'
   const total = o.lines.filter((l) => l.available).reduce((s, l) => s + l.qty * l.price, 0)
@@ -168,31 +168,34 @@ export function OrderPage({ token }: { token: string }) {
   const nmL = (l: OS['lines'][number]) => itemName({ ...l, amount: 0 }, lang)
   const when = new Date(o.at).toLocaleString(lang === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
   return (
-    <main className="bc-page">
+    <main className="bc-page kh">
       <div className="bc-langs">{(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={lang === l ? 'on' : ''} onClick={() => { setLang(l); put('omni-bill-lang', l) }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}</div>
-      <article className="bc">
-        <header className="bc-shop"><div className="bc-av">{o.store.charAt(0)}</div><div><div className="bc-store">{o.store}</div><div className="bc-area">{L.order} · {when}</div></div></header>
-        <section className="bc-hero">
+      <article className="kh-wrap">
+        <header>
+          <h1 className="kh-store">{o.store}</h1>
+          <div className="kh-area">{L.order} · {when}</div>
+        </header>
+        <section className="kh-hero">
           {idx >= 0 && idx < 4 && <div className="ostep">{L.steps.map((st, i) => <div key={st} className={i <= idx ? 'on' : ''}><i />{st}</div>)}</div>}
-          <div className="h2" style={{ marginTop: idx >= 0 && idx < 4 ? 14 : 0, color: closed ? 'var(--ink)' : 'var(--ac)' }}>
+          <div className="kh-state">
             {o.status === 'ready' || o.status === 'billing' ? L.ready : o.status === 'done' ? L.done : o.status === 'cancelled' ? L.cancelled : o.status === 'rejected' ? L.rejected : L.steps[idx]}
           </div>
-          {o.status === 'rejected' && reason && <p className="bc-meta">{L.why}: {reason}</p>}
-          {o.status === 'rejected' && o.lines.every((l) => l.available) && <p className="bc-meta">{L.which}</p>}
-          {closed && <div className="bc-status ok" style={{ marginTop: 12 }}>{L.nothing}</div>}
+          {o.status === 'rejected' && reason && <p className="kh-upd">{L.why}: {reason}</p>}
+          {o.status === 'rejected' && o.lines.every((l) => l.available) && <p className="kh-upd">{L.which}</p>}
+          {closed && <p className="kh-upd"><b>{L.nothing}</b></p>}
         </section>
-        <section className="bc-items" style={closed ? { opacity: 0.75 } : undefined}>
-          {o.lines.map((l) => <div key={l.item_id} className="bc-row">
-            <div><div className="bc-name">{nmL(l)}</div><div className="bc-sub">{+l.qty} {units[l.unit]} × ₹{+l.price}{!l.available && ' · ' + L.na}</div></div>
-            <div className="bc-amt" style={{ textDecoration: l.available && !closed ? 'none' : 'line-through', color: closed ? 'var(--ink2)' : undefined }}>{rupees(l.qty * l.price)}</div></div>)}
-          {!closed && <div className="bc-grand"><span>{L.total}</span><span>{rupees(total)}</span></div>}
+        <section style={closed ? { opacity: 0.75 } : undefined}>
+          {o.lines.map((l) => <div key={l.item_id} className="kh-row">
+            <div className="g"><b>{nmL(l)}</b><small>{+l.qty} {units[l.unit]} × ₹{+l.price}{!l.available && ' · ' + L.na}</small></div>
+            <div className="kh-amt" style={{ textDecoration: l.available && !closed ? 'none' : 'line-through' }}>{rupees(l.qty * l.price)}</div></div>)}
+          {!closed && <div className="kh-bal"><span>{L.total}</span><b>{rupees(total)}</b></div>}
         </section>
-        <div style={{ padding: '4px 20px 18px' }} className="stack">
+        <div className="kh-acts">
           {o.bill && <button className="tap btn primary" onClick={() => navigate('/b/' + o.bill)}>{L.bill}</button>}
-          {closed && <><button className="tap btn primary" onClick={() => navigate('/s/' + o.slug)}>{L.again}</button><p className="bc-meta" style={{ textAlign: 'center' }}>{L.againNote}</p></>}
-          {o.status === 'new' && <><button className="tap btn quiet" onClick={() => navigate('/s/' + o.slug + '?edit=' + token)}>{L.edit}</button><button className="tap btn quiet" onClick={async () => { await pub.rpc('customer_edit_order', { p_token: token, p_lines: [], p_cancel: true }); load() }}>{L.cancel}</button></>}
-          {o.phone && <a className="tap btn quiet" style={{ textDecoration: 'none' }} href={'tel:' + o.phone}><Icon name="phone" size={22} />{L.call}</a>}
-          {!closed && <button className="tap btn quiet" onClick={() => navigate('/s/' + o.slug)}>{L.back}</button>}
+          {closed && <button className="tap btn primary" onClick={() => navigate('/s/' + o.slug)}>{L.again}</button>}
+          {o.status === 'new' && <><button className="tap btn outline" onClick={() => navigate('/s/' + o.slug + '?edit=' + token)}>{L.edit}</button><button className="tap btn outline" onClick={async () => { await pub.rpc('customer_edit_order', { p_token: token, p_lines: [], p_cancel: true }); load() }}>{L.cancel}</button></>}
+          {o.phone && <a className="tap btn outline" href={'tel:' + o.phone}><Icon name="phone" size={22} />{L.call}</a>}
+          {!closed && <button className="tap btn outline" onClick={() => navigate('/s/' + o.slug)}>{L.back}</button>}
         </div>
       </article>
     </main>

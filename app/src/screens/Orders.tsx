@@ -7,6 +7,7 @@ import { navigate } from '../lib/router'
 import { errorFx, successFx } from '../lib/feedback'
 import { askText, BackBar, Tap, toast } from '../components/ui'
 import { Icon } from '../components/Icon'
+import { ru } from '../components/Pad'
 import { itemName } from '../components/BillCard'
 
 type OLine = { id: string; item_id: string | null; name: string; unit: string; qty: number; price: number; available: boolean; items?: { catalog_id: string | null; name_hi: string | null } | null }
@@ -59,32 +60,31 @@ export function Orders() {
   }
   const count = (k: 'new' | 'active' | 'done') => (orders ?? []).filter((o) => groups[k].includes(o.status)).length
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <BackBar />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="pg-top">
         <h1 className="h1">{t('rowOrders')}</h1>
-        <Tap className="ghost" style={{ color: 'var(--ac)', fontWeight: 700 }} onClick={() => navigate('/dukaan')}><Icon name="globe" size={22} />{t('myStore')}</Tap>
+        <Tap className="pg-link" onClick={() => navigate('/dukaan')}><Icon name="globe" size={22} />{t('myStore')}</Tap>
       </div>
-      <div className="shop-cats" style={{ padding: '12px 0' }}>
+      <div className="shop-cats segs">
         {(['new', 'active', 'done', 'req'] as const).map((k) => <Tap key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>
           {t(k === 'new' ? 'ordNew' : k === 'active' ? 'ordActive' : k === 'done' ? 'ordDone' : 'ordReq')}{k === 'req' ? ` · ${byItem.length}` : orders ? ` · ${count(k)}` : ''}</Tap>)}
       </div>
-      {!orders ? <div className="skel" style={{ height: 80 }} /> : tab === 'req' ? (
-        byItem.length === 0 ? <div className="card center"><p className="lab">{t('noReq')}</p></div> : <div className="stack">{byItem.map((g) => (
-          <div key={g.item_id} className="card" style={{ padding: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><b>{g.name}</b><span className="pill" style={{ background: 'var(--uns)', color: '#7A5600' }}>{g.people.length} {t('peopleAsked')}</span></div>
-            <p className="lab" style={{ fontSize: 17 }}>{g.people.map((p) => `${p.customer_name} (${time(p.created_at)})`).join(', ')}</p>
-            <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+      {!orders ? <div className="skel" style={{ height: 80, marginTop: 16 }} /> : tab === 'req' ? (
+        byItem.length === 0 ? <p className="pg-empty">{t('noReq')}</p> : byItem.map((g) => (
+          <div key={g.item_id} className="pg-blk">
+            <div className="pg-split"><b className="pg-nm">{g.name}</b><span className="pg-st">{g.people.length} {t('peopleAsked')}</span></div>
+            <p className="pg-sub">{g.people.map((p) => `${p.customer_name} (${time(p.created_at)})`).join(', ')}</p>
+            <div className="pg-pair">
               {g.status === 'open' && <Tap className="chg" onClick={() => reqStatus(g.item_id, 'ordered', g.people, g.name)}>{t('willOrder')}</Tap>}
               <Tap className="chg yes" onClick={() => reqStatus(g.item_id, 'arrived', g.people, g.name)}>{t('arrivedTell')}</Tap>
             </div>
-          </div>))}</div>
-      ) : shown.length === 0 ? <div className="card center"><p className="lab">{t('noOrders')}</p></div> : <div className="stack">{shown.map((o) => (
-        <Tap key={o.id} className="rowb" onClick={() => navigate('/orders/' + o.id)}>
-          <div className="grow" style={{ minWidth: 0 }}><div>{o.customer_name}</div>
-            <div className="lab" style={{ fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{time(o.created_at)} · {o.order_lines.length} {t('itemsWord')}</div></div>
-          <div style={{ textAlign: 'right' }}><div className="num">{rupees(sum(o))}</div><span className="pill pay-cash">{t(('st_' + o.status) as 'st_new')}</span></div>
-        </Tap>))}</div>}
+          </div>))
+      ) : shown.length === 0 ? <p className="pg-empty">{t('noOrders')}</p> : shown.map((o) => (
+        <Tap key={o.id} className="hrow" onClick={() => navigate('/orders/' + o.id)}>
+          <div className="g"><b>{o.customer_name}</b><span>{time(o.created_at)} · {o.order_lines.length} {t('itemsWord')}</span></div>
+          <div className="a">{rupees(sum(o))}<small>{t(('st_' + o.status) as 'st_new')}</small></div>
+        </Tap>))}
     </main>
   )
 }
@@ -96,8 +96,8 @@ export function OrderDetail({ id }: { id: string }) {
   const load = () => supabase.from('orders').select('id,token,customer_name,phone,status,reason,created_at,order_lines(id,item_id,name,unit,qty,price,available,items(catalog_id,name_hi))').eq('id', id).maybeSingle()
     .then(({ data }) => setO(data as unknown as Order | null))
   useEffect(() => { load() }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
-  if (o === undefined) return <main className="screen has-bar"><BackBar fallback="/orders" /><div className="skel" style={{ height: 200 }} /></main>
-  if (!o) return <main className="screen has-bar"><BackBar fallback="/orders" /><p>{t('noMatch')}</p></main>
+  if (o === undefined) return <main className="screen has-bar pg"><BackBar fallback="/orders" /><div className="skel" style={{ height: 200 }} /></main>
+  if (!o) return <main className="screen has-bar pg"><BackBar fallback="/orders" /><p className="pg-empty">{t('noMatch')}</p></main>
   async function step(status: string, reason?: string) {
     const { error } = await supabase.rpc('order_action', { p_order: o!.id, p_status: status, p_reason: reason ?? null })
     if (error) { errorFx(); toast({ text: t('saveFailed') }); return false }
@@ -107,27 +107,26 @@ export function OrderDetail({ id }: { id: string }) {
   const link = `${location.origin}/o/${o.token}`
   const canEdit = ['new', 'accepted', 'packing'].includes(o.status)
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <BackBar fallback="/orders" />
       <h1 className="h1">{o.customer_name}</h1>
-      <p className="lab"><Icon name="phone" size={18} /> {o.phone} · {time(o.created_at)} · {t(('st_' + o.status) as 'st_new')}</p>
-      <div className="card" style={{ marginTop: 12, padding: '4px 16px' }}>
-        {o.order_lines.map((l, i) => (
-          <div key={l.id} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500, borderTop: i ? '1px solid var(--line)' : 'none', minHeight: 60, opacity: l.available ? 1 : 0.55 }}>
-            <span>{itemName({ ...l, amount: 0, catalog_id: l.items?.catalog_id, name_hi: l.items?.name_hi }, lang)} × {+l.qty}<span className="lab" style={{ display: 'block', fontSize: 17 }}>{rupees(l.qty * l.price)}{!l.available ? ' · ' + t('notAvail') : ''}</span></span>
+      <p className="pg-sub">{o.phone} · {time(o.created_at)} · <b>{t(('st_' + o.status) as 'st_new')}</b></p>
+      <div style={{ marginTop: 16 }}>
+        {o.order_lines.map((l) => (
+          <div key={l.id} className="hrow cur" style={{ opacity: l.available ? 1 : 0.55 }}>
+            <div className="g"><b>{itemName({ ...l, amount: 0, catalog_id: l.items?.catalog_id, name_hi: l.items?.name_hi }, lang)} × {+l.qty}</b><span>{rupees(l.qty * l.price)}{!l.available ? ' · ' + t('notAvail') : ''}</span></div>
             {canEdit && <Tap className={`chg ${l.available ? '' : 'yes'}`} onClick={() => toggle(l)}>{l.available ? t('notAvail') : t('available')}</Tap>}
           </div>))}
-        <div className="bc-grand"><span>{t('total')}</span><span>{rupees(sum(o))}</span></div>
       </div>
-      <div className="gap16" />
-      <div className="stack">
+      <div className="pg-tot"><span>{t('total')}</span><b>{ru(sum(o))}</b></div>
+      <div className="pg-acts">
         {o.status === 'new' && <>
           <Tap className="btn primary" onClick={() => step('accepted')}><Icon name="tick" size={22} stroke={3} />{t('accept')}</Tap>
-          <Tap className="btn quiet" onClick={async () => { const r = await askText({ title: t('rejectWhy') }); if (r !== null) step('rejected', r) }}>{t('reject')}</Tap>
+          <Tap className="btn outline" onClick={async () => { const r = await askText({ title: t('rejectWhy') }); if (r !== null) step('rejected', r) }}><Icon name="x" size={22} />{t('reject')}</Tap>
         </>}
         {(o.status === 'accepted' || o.status === 'packing') && <Tap className="btn primary" onClick={async () => { if (await step('ready')) window.open(wa(o.phone, `${store?.name}: ${o.customer_name} ji, aapka order taiyaar hai. ${link}`), '_blank') }}><Icon name="tick" size={22} stroke={3} />{t('markReady')}</Tap>}
         {['accepted', 'packing', 'ready', 'billing'].includes(o.status) && <Tap className="btn outline" onClick={() => navigate('/bolo?order=' + o.id)}><Icon name="bill" size={24} />{t('makeBill')}</Tap>}
-        <a className="wa tap" href={wa(o.phone, `${store?.name}: ${link}`)} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}><Icon name="wa" size={26} />WhatsApp</a>
+        <a className="btn outline tap" href={wa(o.phone, `${store?.name}: ${link}`)} target="_blank" rel="noreferrer"><Icon name="wa" size={24} />WhatsApp</a>
       </div>
     </main>
   )
@@ -150,23 +149,20 @@ export function MyStore() {
     if (error) { errorFx(); return } successFx(); setOn(!on); reload()
   }
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <BackBar fallback="/orders" />
       <h1 className="h1">{t('myStore')}</h1>
-      {!slug ? <div className="card" style={{ marginTop: 16 }}><p>{t('noSlug')}</p></div> : <>
-        <Tap className="rowb" style={{ marginTop: 16 }} onClick={toggle}><span className="grow">{t('onlineOrders')}</span><span style={{ color: on ? 'var(--ac)' : 'var(--ink2)' }}>{on ? t('on') : t('off')}</span></Tap>
-        <div className="card center print-qr" style={{ marginTop: 16 }}>
+      {!slug ? <p className="pg-empty">{t('noSlug')}</p> : <>
+        <Tap className="hrow" style={{ marginTop: 8 }} onClick={toggle} role="switch" aria-checked={on}><div className="g"><b>{t('onlineOrders')}</b></div><div className="a">{on ? t('on') : t('off')}</div></Tap>
+        <div className="print-qr qrv" style={{ marginTop: 20 }}>
           <div className="h2">{store?.name}</div>
-          <p className="lab">{t('scanToOrder')}</p>
-          {qr && <img src={qr} alt="QR" style={{ width: '100%', maxWidth: 260, margin: '12px auto', display: 'block' }} />}
-          <p style={{ wordBreak: 'break-all', fontWeight: 600 }}>{link}</p>
+          {qr && <div className="qrc" style={{ marginTop: 12 }}><img src={qr} alt="QR" /></div>}
+          <p className="pg-link-url">{link}</p>
         </div>
-        <div className="gap16" />
-        <div className="stack">
-          <a className="wa tap" href={`https://wa.me/?text=${encodeURIComponent(`${store?.name} se ab online order karein, dukaan se le jaayein: ${link}`)}`} target="_blank" rel="noreferrer" style={{ color: '#137A3C', boxShadow: 'inset 0 0 0 2px #1FA855', textDecoration: 'none' }}><Icon name="wa" size={26} />{t('shareStore')}</a>
-          <Tap className="btn quiet" onClick={() => window.print()}>🖨 {t('printQr')}</Tap>
+        <div className="pg-acts">
+          <a className="btn primary tap" href={`https://wa.me/?text=${encodeURIComponent(`${store?.name} se ab online order karein, dukaan se le jaayein: ${link}`)}`} target="_blank" rel="noreferrer"><Icon name="wa" size={24} />{t('shareStore')}</a>
+          <Tap className="btn outline" onClick={() => window.print()}><Icon name="print" size={24} />{t('printQr')}</Tap>
         </div>
-        <p className="lab" style={{ marginTop: 16 }}>{t('deliverySoon')}</p>
       </>}
     </main>
   )

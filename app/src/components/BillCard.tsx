@@ -34,37 +34,37 @@ export function BillCard({ b, lang, brand = true }: { b: BillData; lang: L3; bra
   const L = BILL_T[lang]
   const removed = b.status !== 'saved'
   const ud = b.pay === 'udhaar'
-  const date = new Date(b.at).toLocaleString(lang === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' })
+  const d = new Date(b.at)
+  const loc = lang === 'hi' ? 'hi-IN' : 'en-IN'
+  const date = d.toLocaleDateString(loc, { day: 'numeric', month: 'short', year: 'numeric' })
+  const time = d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' })
+  const rows = b.lines
   return (
-    <article className={`bc ${removed ? 'bc-off' : ''}`}>
-      <header className="bc-shop">
-        <div className="bc-av">{b.store.trim().charAt(0).toUpperCase()}</div>
-        <div style={{ minWidth: 0 }}><div className="bc-store">{b.store}</div>{b.area && <div className="bc-area">{b.area}</div>}</div>
+    <article className={`bc ${removed ? 'eb-off' : ''}`}>
+      <header className="eb-h">
+        <div style={{ minWidth: 0 }}><h3>{b.store}</h3>{b.area && <div className="eb-s">{b.area}</div>}</div>
+        {b.no && <span className="eb-no">#{b.no}</span>}
       </header>
-      <section className="bc-hero">
-        <div className={`bc-badge ${removed ? 'off' : ud ? 'ud' : 'ok'}`} aria-hidden="true">{removed ? '×' : ud ? '₹' : '✓'}</div>
-        <div className="bc-total">{rupees(b.total)}</div>
-        <div className={`bc-status ${removed ? 'off' : ud ? 'ud' : 'ok'}`}>{removed ? L.removed : ud ? L.udhaar : `${L.paid} · ${L.via[b.pay as 'cash' | 'upi']}`}</div>
-        <div className="bc-meta">{b.customer ? `${L.to}: ${b.customer} · ` : ''}{b.no ? `${L.bill} ${lang === 'hi' ? 'नं.' : 'no.'} ${b.no}` : ''}</div>
-        <div className="bc-meta">{date}</div>
+      <section className="eb-meta">
+        <div><span>{L.to}</span><b>{b.customer ?? L.walkIn}</b></div>
+        <div><span>{lang === 'hi' ? 'तारीख़' : 'Date'}</span><b>{date}</b></div>
+        <div><span>{lang === 'hi' ? 'समय' : 'Time'}</span><b>{time}</b></div>
       </section>
-      <section className="bc-items">
-        <div className="bc-ih">{b.lines.length} {L.items}</div>
-        {b.lines.map((l, i) => (
-          <div key={i} className="bc-row">
-            <div style={{ minWidth: 0 }}><div className="bc-name">{itemName(l, lang)}</div>
-              <div className="bc-sub">{+Number(l.qty).toFixed(3)} {units[l.unit] ?? ''} × ₹{+Number(l.price).toFixed(2)}</div></div>
-            <div className="bc-amt">{rupees(l.amount)}</div>
-          </div>
+      <table className="eb-t"><tbody>
+        {rows.map((l, i) => (
+          <tr key={i}><td><b>{itemName(l, lang)}</b><small>{+Number(l.qty).toFixed(3)} {units[l.unit] ?? ''} × ₹{+Number(l.price).toFixed(2)}</small></td><td>{rupees(l.amount)}</td></tr>
         ))}
-        {Number(b.discount) > 0 && <>
-          <div className="bc-row2"><span>{L.sub}</span><span>{rupees(b.subtotal)}</span></div>
-          <div className="bc-row2 bc-save"><span>{L.disc} · {L.saved}</span><span>− {rupees(b.discount)}</span></div>
-        </>}
-        <div className="bc-grand"><span>{L.total}</span><span>{rupees(b.total)}</span></div>
-      </section>
-      <footer className="bc-foot">{L.thanks}</footer>
-      {brand && <div className="bc-brand"><span className="bc-logo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.8" strokeLinecap="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></svg></span>{L.made('OmniOS Dukaan')}</div>}
+      </tbody></table>
+      {Number(b.discount) > 0
+        ? <><div className="eb-sub"><span>{L.sub}</span><span>{rupees(b.subtotal)}</span></div><div className="eb-sub"><span>{L.disc}</span><span>− {rupees(b.discount)}</span></div></>
+        : <div className="eb-sub"><span>{rows.length} {L.items}</span><span>{rupees(b.subtotal)}</span></div>}
+      <div className="eb-tot"><span>{L.total}</span><b><span className="rs">₹</span>{Math.round(Number(b.total)).toLocaleString('en-IN')}</b></div>
+      <div className={`eb-pay ${ud || removed ? '' : 'paid'}`}>
+        <span className="eb-pill">{removed ? L.removed : ud ? L.udhaar : `${L.paid}`}</span>
+        {!removed && !ud && <span>{L.via[b.pay as 'cash' | 'upi']}</span>}
+      </div>
+      <footer className="eb-f"><span>{L.thanks}</span></footer>
+      {brand && <div className="bc-brand">{L.made('OmniOS Dukaan')}</div>}
     </article>
   )
 }

@@ -34,40 +34,34 @@ export function Login() {
   }
 
   if (step === 'code') return (
-    <main className="screen">
-      <div style={{ height: 40 }} />
-      <div style={{ color: 'var(--ac)' }}><Icon name="lock" size={40} /></div>
-      <div className="gap16" />
+    <main className="screen lg">
       <h1 className="h1">{t('loginTitle')}</h1>
-      <div className="gap24" />
       <div className="field">
         <label htmlFor="code">{t('codeLabel')}</label>
-        <input id="code" className="input" value={code} autoCapitalize="characters" autoComplete="off" spellCheck={false}
+        <input id="code" className="input lg-code" value={code} autoCapitalize="characters" autoComplete="off" spellCheck={false}
           maxLength={8} placeholder={t('codeExample')} onChange={(e) => setCode(e.target.value.replace(/\s/g, '').toUpperCase())}
-          onKeyDown={(e) => { if (e.key === 'Enter' && codeOk) setStep('pin') }} style={{ letterSpacing: 2, fontWeight: 700, fontSize: 24, minHeight: 64 }} />
-        <span>{t('codeHint')}</span>
+          onKeyDown={(e) => { if (e.key === 'Enter' && codeOk) setStep('pin') }} />
+        <span className="lg-hint">{t('codeHint')}</span>
       </div>
-      <div className="gap24" />
-      <Tap className="btn primary" disabled={!codeOk} onClick={() => { setStep('pin'); setPin(''); setErr('') }}>{codeOk ? t('next') : t('codeFirst')}</Tap>
-      <div className="gap24" />
-      <p className="lab center">{t('forgotCode')}</p>
+      <Tap className="btn primary" disabled={!codeOk} onClick={() => { setStep('pin'); setPin(''); setErr('') }}>{codeOk ? t('next') : t('codeFirst')}{codeOk && <Icon name="chev" size={22} stroke={2.6} />}</Tap>
+      <p className="lg-hint">{t('forgotCode')}</p>
     </main>
   )
 
   return (
-    <main className="screen">
+    <main className="screen lg lg-pin">
       <div className="top">
         <Tap className="ghost back" onClick={() => { setStep('code'); setPin(''); setErr('') }}><Icon name="back" size={22} stroke={2.4} />{t('changeCode')}</Tap>
       </div>
-      <h1 className="h1 center" style={{ marginTop: 8 }}>{t('pinTitle')}</h1>
-      <p className="lab center">{t('shopLabel')}: <b style={{ color: 'var(--ink)' }}>{code.toUpperCase()}</b></p>
+      <h1 className="h1">{t('pinTitle')}</h1>
+      <p className="lg-hint">{t('shopLabel')}: <b>{code.toUpperCase()}</b></p>
       <div className={`pins ${shake ? 'shake' : ''}`} aria-label={`${pin.length} of 4`}>{[0, 1, 2, 3].map((i) => <i key={i} className={i < pin.length ? 'on' : ''} />)}</div>
-      <div className="msgslot" role="alert">{err ? <div className="err">{err === 'removed' ? t('removedHere') : err}</div> : busy ? <p className="lab center">{t('loading')}</p> : null}</div>
+      <div className="msgslot" role="alert">{err ? <div className="err">{err === 'removed' ? t('removedHere') : err}</div> : busy ? <p className="lg-hint">{t('loading')}</p> : null}</div>
       <div className="pad">
         {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((d) => <Tap key={d} className="key" onClick={() => press(d)}>{d}</Tap>)}
         <Tap className="key word" onClick={() => { setPin(''); setErr('') }}>{t('clear')}</Tap>
         <Tap className="key" onClick={() => press('0')}>0</Tap>
-        <Tap className="key word" aria-label="delete" onClick={() => setPin(pin.slice(0, -1))}>⌫</Tap>
+        <Tap className="key word" aria-label="delete" onClick={() => setPin(pin.slice(0, -1))}><Icon name="back" size={26} /></Tap>
       </div>
     </main>
   )

@@ -7,18 +7,14 @@ import { goBack } from '../lib/router'
 export function Building({ title, tabRoot = false }: { title: string; tabRoot?: boolean }) {
   const { t } = useT()
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       {tabRoot ? <div className="top" /> : <BackBar />}
       <h1 className="h1">{title}</h1>
-      <div style={{ height: 32 }} />
-      <div className="card center" style={{ padding: '36px 24px' }}>
-        <div style={{ color: 'var(--ac)', display: 'flex', justifyContent: 'center' }}><Icon name="tools" size={44} /></div>
-        <div className="gap16" />
+      <div className="pg-blk" style={{ borderBottom: 0, marginTop: 16 }}>
         <div className="h2">{t('buildingTitle')}</div>
-        <div className="gap8" />
-        <p className="lab">{t('buildingBody')}</p>
+        <p className="pg-sub">{t('buildingBody')}</p>
       </div>
-      {!tabRoot && <><div className="gap24" /><Tap className="btn primary" onClick={() => goBack()}>{t('ok')}</Tap></>}
+      {!tabRoot && <div className="pg-acts"><Tap className="btn primary" onClick={() => goBack()}><Icon name="tick" size={22} stroke={3} />{t('ok')}</Tap></div>}
     </main>
   )
 }

@@ -15,10 +15,13 @@ beforeAll(async () => {
 })
 
 describe('universe data', () => {
-  it('has exactly 1000 distinct top-level items; variants are not counted', () => {
-    expect(src.items).toHaveLength(1000)
-    expect(new Set(src.items.map((i) => i.id)).size).toBe(1000)
-    expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(3000)
+  it('has exactly 1500 distinct top-level items; variants are not counted', () => {
+    expect(src.items).toHaveLength(1500)
+    expect(new Set(src.items.map((i) => i.id)).size).toBe(1500)
+    expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(5000)
+  })
+  it('no two variants of one item share a name', () => {
+    for (const it of src.items) { const k = (it.variants ?? []).map((v) => v.hinglish.toLowerCase()); expect(new Set(k).size, it.id).toBe(k.length) }
   })
   it('every item with variants has exactly one default, unique variant ids = slug(hinglish)', () => {
     for (const it of src.items.filter((i) => i.variants)) {
@@ -45,13 +48,25 @@ describe('universe data', () => {
     expect(names('atta-aashirvaad-5kg')).toEqual(expect.arrayContaining(['1kg', '5kg', '10kg']))
     expect(v('atta-aashirvaad-5kg').find((x) => x.default)!.hinglish).toBe('5kg')
   })
-  it('flavours not sold in India are gone; old pack-size items are merged into variants', () => {
-    const all = src.items.flatMap((i) => (i.variants ?? []).map((x) => `${i.id}/${x.hinglish}`)).join('|').toLowerCase()
-    for (const bad of ['tetley', 'oreo/peanut butter', 'oreo-mango', 'cheetos/cheese puffs-']) expect(all).not.toContain(bad)
+  it('keeps every flavour: v5 flavours that v6 had dropped are back, defaults unchanged', () => {
+    // [item id, variant name] sample of the ~600 restored from universe v5
+    const back: [string, string][] = [['sugar', 'Large Grain'], ['toor-dal', 'Mysore'], ['kabuli-chana', 'Desi Kabuli'], ['haldi', 'Lakadong'], ['tea-tata-500g', 'Tetley'], ['paneer', 'Malai Paneer'], ['good-day', 'Fruit & Nut'], ['maggi-70', 'Oats Masala'], ['haldiram-bhujia', 'Moong Dal Bhujia'], ['bisleri-1l', 'Soda'], ['tide', 'Plus Extra Power'], ['harpic', 'Power Plus Lemon'], ['dettol-soap', '3 pack'], ['parachute-100', 'Rs 10 pack'], ['whisper', 'Ultra Soft'], ['good-knight', 'Gold Flash'], ['garlic', 'Paste'], ['kala-chana', 'Dhuli'], ['kasuri-methi', 'Loose'], ['amul-cheese', 'Cheese Slices'], ['glucon-d', 'Rs 10 pack'], ['dabur-red', 'Red Toothpaste 200g'], ['stayfree', 'Secure Regular'], ['coil', 'Maxo'], ['kishmish', 'Yellow'], ['achar-mix', 'Gobhi Gajar Shalgam'], ['oreo', 'Peanut Butter'], ['oreo', 'Mango']]
+    expect(back.length).toBeGreaterThanOrEqual(20)
+    for (const [id, name] of back) expect((src.items.find((i) => i.id === id)?.variants ?? []).map((v) => norm(v.hinglish)), `${id}/${name}`).toContain(norm(name))
+    // restoring never changes which variant is the default
+    expect(src.items.find((i) => i.id === 'maggi-70')!.variants!.find((v) => v.default)!.hinglish).toBe('Masala 70g')
+    expect(src.items.find((i) => i.id === 'sugar')!.variants!.find((v) => v.default)!.hinglish).toBe('Medium Grain')
+    // old pack-size items are still merged into variants (legacy ids kept)
     const ids = new Set(src.items.map((i) => i.id))
     for (const merged of ['maggi-280', 'fortune-soy-5l', 'parle-g-pack-rs5', 'surf-pack-2kg', 'tata-salt-500g', 'amul-ghee-200ml']) expect(ids.has(merged), merged).toBe(false)
     const legacy = src.items.flatMap((i) => (i.variants ?? []).flatMap((x) => x.legacy ?? []))
     expect(legacy).toEqual(expect.arrayContaining(['maggi-280', 'fortune-soy-5l', 'tata-salt-500g']))
+  })
+  it('the 500 new v7 items are real products with full variants', () => {
+    const fresh = src.items.slice(1000)
+    expect(fresh).toHaveLength(500)
+    expect(fresh.filter((i) => i.variants).length).toBeGreaterThan(400)
+    for (const [id, name] of [['rice-daawat-rozana', '10kg'], ['spice-everest-pav-bhaji', '500g'], ['dairy-epigamia-greek', 'Blueberry 90g'], ['biscuit-priyagold', 'Butter Bite 100g']]) expect(src.items.find((i) => i.id === id)!.variants!.map((v) => v.hinglish), id).toContain(name)
   })
 })
 
@@ -72,6 +87,10 @@ describe('universe variants', () => {
     expect(findInUniverse('tata namak 500 gram')[0].variant?.hinglish).toBe('500g')
     expect(findInUniverse('aashirvaad atta 10 kilo')[0].variant?.hinglish).toBe('10kg')
     expect(findInUniverse('parle g 10 rupaye')[0].variant?.hinglish).toBe('Rs 10')
+  })
+  it('new v7 items resolve by voice: brand + flavour + size', () => {
+    expect(findInUniverse('daawat rozana 10 kilo')[0].variant?.hinglish).toBe('10kg')
+    expect(findInUniverse('epigamia yogurt blueberry')[0].id).toBe('dairy-epigamia-greek')
   })
   it('items without variants have none', () => {
     const [s] = findInUniverse('sattu')

@@ -30,26 +30,38 @@ const TABS: { id: TabId; icon: string; key: 'tabHome' | 'tabBill' | 'tabMaal' | 
   { id: 'udhaar', icon: 'book', key: 'tabUdhaar', path: '/udhaar', color: 'var(--c-udh)' },
 ]
 
-// Bottom bar: 4 tabs + the mic, docked in the same spot on every screen.
+// Bottom of every main screen: the one teal Bolo bar (same place everywhere) over four tabs.
 export function BottomBar({ active, flow = false, micLabel, listening = false, onMic }: {
   active?: TabId; flow?: boolean; micLabel?: string; listening?: boolean; onMic: () => void
 }) {
   const { t } = useT()
+  if (flow) return <FlowBar mic={{ listening, micLabel, onMic }} />
   const tab = (x: (typeof TABS)[number]) => (
     <Tap key={x.id} className={`tab ${active === x.id ? 'on' : ''}`} onClick={() => navigate(x.path, true)} aria-current={active === x.id ? 'page' : undefined}>
-      <Icon name={x.icon} size={26} />{t(x.key)}
+      <Icon name={x.icon} size={24} />{t(x.key)}
     </Tap>
   )
   return (
     <>
-      <nav className="band" aria-label="tabs">
-        {!flow && <>{tab(TABS[0])}{tab(TABS[1])}<div />{tab(TABS[2])}{tab(TABS[3])}</>}
-      </nav>
-      <Tap className={`dock ${listening ? 'listening' : ''}`} onClick={onMic} aria-label={micLabel ?? t('mic')}>
-        <div className="c"><Icon name="mic" size={30} /></div>
-        <span>{micLabel ?? t('mic')}</span>
+      <Tap className={`bolo ${listening ? 'listening' : ''}`} onClick={onMic} aria-label={micLabel ?? t('mic')}>
+        <b>{micLabel ?? t('mic')}</b><span>{t('sayExample')}</span><i><Icon name="mic" size={26} /></i>
       </Tap>
+      <nav className="band" aria-label="tabs">{TABS.map(tab)}</nav>
     </>
+  )
+}
+
+export type MicProps = { listening?: boolean; micLabel?: string; onMic: () => void }
+// Bottom bar inside a flow: [mic] then whatever the step needs (total, main action).
+export function FlowBar({ mic, children, className = '' }: { mic?: MicProps; children?: ReactNode; className?: string }) {
+  const { t } = useT()
+  return (
+    <div className={`fbar ${className}`}>
+      {mic && <Tap className={`fmic ${mic.listening ? 'listening' : ''}`} onClick={mic.onMic} aria-label={mic.micLabel ?? t('mic')}>
+        {mic.listening ? <span className="eq"><i /><i /><i /><i /><i /></span> : <Icon name="mic" size={28} />}
+      </Tap>}
+      {children}
+    </div>
   )
 }
 

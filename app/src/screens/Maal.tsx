@@ -39,59 +39,45 @@ export function Maal() {
   }
   const price = (i: ShopItem) => i.price ?? i.learned_price
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <div className="top" />
       <h1 className="h1">{t('tabMaal')}</h1>
-      <div className="gap16" />
-      <Tap className="btn primary" onClick={() => navigate('/bolo?stock=1')}><Icon name="mic" size={26} />{t('stockByVoice')}</Tap>
-      <div className="gap8" />
-      <Tap className="btn quiet" onClick={() => navigate('/receipt')}><Icon name="camera" size={24} />{t('stockByPhoto')}</Tap>
-      <div className="gap8" />
-      <Tap className="btn quiet" onClick={() => navigate('/bolo?manual=stock')}><Icon name="box" size={24} />{t('stockByPick')}</Tap>
-      <div className="gap24" />
+      <div className="pg-acts">
+        <Tap className="btn vo" onClick={() => navigate('/bolo?stock=1')}><Icon name="mic" size={26} />{t('stockByVoice')}</Tap>
+        <Tap className="btn outline" onClick={() => navigate('/receipt')}><Icon name="camera" size={24} />{t('stockByPhoto')}</Tap>
+        <Tap className="btn outline" onClick={() => navigate('/bolo?manual=stock')}><Icon name="box" size={24} />{t('stockByPick')}</Tap>
+      </div>
       <ForecastCard />
       {items && items.length > 0 && <>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-          <h2 className="h2">{items.length} {t('itemsWord')}</h2>
-          {lowCount > 0 && <span className="pill" style={{ background: 'var(--udsoft)', color: 'var(--ud)' }}>{lowCount} {t('lowStock')}</span>}
+        <div className="hm-sec">
+          <h2>{items.length} {t('itemsWord')}</h2>
+          {lowCount > 0 && <span className="n low">{lowCount} {t('lowStock')}</span>}
         </div>
-        <div className="gap8" />
         <input className="input" placeholder={t('searchItem')} value={q} onChange={(e) => setQ(e.target.value)} />
-        <div className="gap16" />
+        <div style={{ height: 8 }} />
       </>}
-      {!items ? <div className="stack"><div className="skel" style={{ height: 68 }} /><div className="skel" style={{ height: 68 }} /></div>
-        : items.length === 0 ? <div className="card center"><p className="lab">{t('noItems')}</p></div>
-        : <div className="stack">{shown.map((i) => (
-          <Tap key={i.id} className="rowb" onClick={() => setOpen(i)}>
-            <div className="grow" style={{ minWidth: 0 }}>
-              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{nameOf(i)}</div>
-              <div className="lab" style={{ fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{price(i) != null ? `₹${fmt(price(i)!)}${units[i.unit] ? '/' + units[i.unit] : ''}` : t('noPrice')}</div>
-            </div>
-            <div style={{ textAlign: 'right' }}>
-              <div className="num" style={{ color: low(i) ? 'var(--ud)' : 'var(--ink)' }}>{i.stock_known ? `${fmt(Math.max(0, i.stock))} ${units[i.unit]}` : '—'}</div>
-              {low(i) ? <span className="pill" style={{ background: 'var(--udsoft)', color: 'var(--ud)' }}>{t('lowOne')}</span>
-                : !i.stock_known && <span className="lab" style={{ fontSize: 17 }}>{t('stockNotKnown')}</span>}
-            </div>
+      {!items ? <div className="stack"><div className="skel" style={{ height: 72 }} /><div className="skel" style={{ height: 72 }} /></div>
+        : items.length === 0 ? <p className="pg-empty">{t('noItems')}</p>
+        : shown.map((i) => (
+          <Tap key={i.id} className="hrow" onClick={() => setOpen(i)}>
+            <div className="g"><b>{nameOf(i)}</b><span>{price(i) != null ? `₹${fmt(price(i)!)}${units[i.unit] ? '/' + units[i.unit] : ''}` : t('noPrice')}</span></div>
+            <div className={`a ${low(i) ? 'lowq' : ''}`}>{i.stock_known ? `${fmt(Math.max(0, i.stock))} ${units[i.unit]}` : '—'}
+              {low(i) ? <small className="low">{t('lowOne')}</small> : !i.stock_known && <small>{t('stockNotKnown')}</small>}</div>
           </Tap>
-        ))}</div>}
+        ))}
 
       <Sheet open={!!open && !priceOpen && !countOpen} onClose={() => setOpen(null)}>
-        {open && <>
-          <h2 className="h2">{nameOf(open)}</h2>
-          <div className="card" style={{ marginTop: 12 }}>
-            <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => setCountOpen(true)}><span className="lab">{t('inStock')}</span><span className="num">{open.stock_known ? `${fmt(Math.max(0, open.stock))} ${units[open.unit]}` : t('stockNotKnown')} <Icon name="chev" size={20} /></span></Tap>
-            <Tap className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }} onClick={() => setPriceOpen(true)}>
-              <span className="lab">{t('sellPrice')}</span><span className="num">{price(open) != null ? rupees(price(open)!) : t('priceAsk')} <Icon name="chev" size={20} /></span>
-            </Tap>
-            {open.price == null && open.learned_price != null && <p className="lab" style={{ fontSize: 17 }}>{t('learnedNote')}</p>}
+        {open && <div className="pgs">
+          <h2 className="h2 padt">{nameOf(open)}</h2>
+          <div className="sl">
+            <Tap onClick={() => setCountOpen(true)}><span>{t('inStock')}</span><span className="num">{open.stock_known ? `${fmt(Math.max(0, open.stock))} ${units[open.unit]}` : t('stockNotKnown')} <Icon name="chev" size={20} /></span></Tap>
+            <Tap onClick={() => setPriceOpen(true)}><span>{t('sellPrice')}</span><span className="num">{price(open) != null ? rupees(price(open)!) : t('priceAsk')} <Icon name="chev" size={20} /></span></Tap>
+            <Tap onClick={() => update({ hidden_online: !open.hidden_online })}><span>{t('showOnline')}</span><span className="num">{open.hidden_online ? t('off') : t('on')}</span></Tap>
           </div>
-          <div className="gap16" />
-          <Tap className="rowb" onClick={() => update({ hidden_online: !open.hidden_online })}>
-            <span className="grow">{t('showOnline')}</span><span style={{ color: open.hidden_online ? 'var(--ink2)' : 'var(--ac)' }}>{open.hidden_online ? t('off') : t('on')}</span>
-          </Tap>
+          {open.price == null && open.learned_price != null && <p className="lab" style={{ marginTop: 12 }}>{t('learnedNote')}</p>}
           <div className="gap16" />
           <Tap className="btn primary" onClick={() => setOpen(null)}>{t('ok')}</Tap>
-        </>}
+        </div>}
       </Sheet>
       <NumberSheet open={countOpen} title={`${open ? nameOf(open) : ''} — ${t('howManyNow')}`} initial={open?.stock_known ? Math.max(0, open.stock) : null} unit={open ? units[open.unit] : ''}
         onClose={() => setCountOpen(false)} onDone={async (n) => { if (!open) return; const { error } = await supabase.rpc('set_stock', { p_item: open.id, p_qty: n }); if (error) { errorFx(); toast({ text: t('saveFailed') }); return } successFx(); invalidateShop(); setOpen({ ...open, stock: n, stock_known: true }); load() }} />

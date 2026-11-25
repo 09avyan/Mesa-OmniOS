@@ -32,13 +32,13 @@ export function BillPage({ token }: { token: string }) {
       <div className="bc-langs" role="group" aria-label="language">
         {LANGS.map((x) => <button key={x.id} className={`tap ${lang === x.id ? 'on' : ''}`} onClick={() => pick(x.id)}>{x.label}</button>)}
       </div>
-      {bill === undefined ? <div className="skel" style={{ width: '100%', maxWidth: 420, height: 420, borderRadius: 24 }} />
+      {bill === undefined ? <div className="skel" style={{ width: '100%', maxWidth: 420, height: 420, borderRadius: 18 }} />
         : !bill ? <h1 className="h1" style={{ marginTop: 40 }}>{NONE[lang]}</h1>
         : <><BillCard lang={lang} b={{ ...bill, no: String(bill.no) }} />
           <div className="cx-actions">
             {bill.pay === 'udhaar' && bill.khata && <a className="tap btn primary" href={'/k/' + bill.khata}>{KHATA[lang]}</a>}
-            {bill.phone && <a className="tap btn quiet" href={'tel:' + bill.phone}><Icon name="phone" size={22} />{CALL[lang]}</a>}
-            {bill.slug && <a className="tap btn quiet" href={'/s/' + bill.slug}><Icon name="cart" size={22} />{ORDER[lang]}</a>}
+            {bill.phone && <a className="tap btn outline" href={'tel:' + bill.phone}><Icon name="phone" size={22} />{CALL[lang]}</a>}
+            {bill.slug && <a className="tap btn outline" href={'/s/' + bill.slug}><Icon name="cart" size={22} />{ORDER[lang]}</a>}
           </div></>}
     </main>
   )

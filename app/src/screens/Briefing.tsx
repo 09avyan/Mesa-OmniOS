@@ -36,28 +36,26 @@ export function BriefingCard() {
   const b = useBrief()
   if (!b) return <div className="skel" style={{ height: 150, marginBottom: 16 }} />
   return (
-    <section className="card bf">
-      <div className="bf-top">
-        <h2 className="h2" style={{ fontSize: 22 }}>{t('bfTitle')}</h2>
-        {b.streak >= 2 && <span className="bf-streak">{t('bfStreak').replace('{n}', String(b.streak))}<Icon name="tick" size={18} stroke={3} /></span>}
+    <section className="bf2">
+      <div className="hm-sec">
+        <h2>{t('bfTitle')}</h2>
+        {b.streak >= 2 && <span className="bf2-streak">{t('bfStreak').replace('{n}', String(b.streak))}<Icon name="tick" size={20} stroke={3} /></span>}
       </div>
-      <Tap className="lab" style={{ display: 'block', textAlign: 'left', minHeight: 44, fontSize: 18 }} onClick={() => navigate('/hisaab?r=yday')}>
-        {b.yday.bills ? t('bfYdayLine').replace('{x}', rupees(+b.yday.sales)).replace('{n}', String(b.yday.bills)) : `${t('bfYday')}: ${t('bfNoBills')}`}
+      <Tap className="hlink bf2-yday" onClick={() => navigate('/hisaab?r=yday')}>
+        <span>{b.yday.bills ? t('bfYdayLine').replace('{x}', rupees(+b.yday.sales)).replace('{n}', String(b.yday.bills)) : `${t('bfYday')}: ${t('bfNoBills')}`}</span><Icon name="chev" size={20} />
       </Tap>
       {b.check.length > 0 && (b.check_done
-        ? <p style={{ color: 'var(--ac)', fontWeight: 700, minHeight: 44 }}><Icon name="tick" size={22} stroke={3} />{t('bfCheckDone')}</p>
-        : <Tap className="btn primary" style={{ marginTop: 4 }} onClick={() => navigate('/check')}><Icon name="box" size={24} />{t('bfCheck')}</Tap>)}
+        ? <p className="bf2-done"><Icon name="tick" size={22} stroke={3} />{t('bfCheckDone')}</p>
+        : <Tap className="btn primary" style={{ marginTop: 8 }} onClick={() => navigate('/check')}><Icon name="box" size={24} />{t('bfCheck')}</Tap>)}
       {b.collect.length > 0 && <>
-        <h3 style={{ fontSize: 20, fontWeight: 700, margin: '18px 0 2px' }}>{t('bfCollect')}</h3>
+        <div className="hm-sec"><h2>{t('bfCollect')}</h2></div>
         {b.collect.map((c) => (
-          <div key={c.id} className="bf-row">
-            <Tap className="bf-who" onClick={() => navigate('/udhaar/' + c.id)}>
-              <b>{custLabel(c)}</b><span className="ud-amt" style={{ fontSize: 21 }}>{rupees(+c.balance)}</span>
+          <div key={c.id} className="hrow">
+            <Tap className="g" style={{ textAlign: 'left' }} onClick={() => navigate('/udhaar/' + c.id)}>
+              <b>{custLabel(c)}</b><span>{c.days != null && c.days >= 1 ? t('bfDays').replace('{n}', String(c.days)) : t('bfDue')}</span>
             </Tap>
-            <div className="bf-sub">
-              <span className="lab">{c.days != null && c.days >= 1 ? t('bfDays').replace('{n}', String(c.days)) : t('bfDue')}</span>
-              <a className="wa-link" href={waLink(c, t('waRemind'))} target="_blank" rel="noreferrer"><Icon name="wa" size={20} />{t('bfRemind')}</a>
-            </div>
+            <span className="a ud">{rupees(+c.balance)}</span>
+            <a className="yaad tap" href={waLink(c, t('waRemind'))} target="_blank" rel="noreferrer"><Icon name="wa" size={20} />{t('bfRemind')}</a>
           </div>
         ))}
       </>}
@@ -84,34 +82,32 @@ export function StockCheck() {
     setResult(r); r.every((x) => x.was === x.counted) ? successFx() : errorFx()
   }
   return (
-    <main className="screen has-bar">
+    <main className="screen has-bar pg">
       <BackBar />
       <h1 className="h1">{t('ckTitle')}</h1>
-      <p className="lab" style={{ marginTop: 4 }}>{t('ckHow')}</p>
-      {!b ? <div className="skel" style={{ height: 200, marginTop: 16 }} /> : !b.check.length ? <p className="lab" style={{ marginTop: 16 }}>{t('ckNone')}</p> : (
-        <div className="stack" style={{ marginTop: 16 }}>
+      {!b ? <div className="skel" style={{ height: 200, marginTop: 16 }} /> : !b.check.length ? <p className="pg-empty">{t('ckNone')}</p> : (
+        <div style={{ marginTop: 8 }}>
           {b.check.map((i) => {
             const r = result?.find((x) => x.item_id === i.id)
             const gap = r ? r.counted - r.was : 0
             return (
-              <div key={i.id} className="card" style={{ padding: '16px 18px' }}>
-                <div className="h2" style={{ fontSize: 20 }}>{nm(i)}</div>
+              <div key={i.id} className="pg-blk">
+                <div className="h2">{nm(i)}</div>
                 {!r ? (
-                  <Tap className={`btn ${counts[i.id] != null ? 'outline' : 'primary'} small`} style={{ width: '100%', marginTop: 10 }} onClick={() => setPad(i)}>
+                  <Tap className={`btn ${counts[i.id] != null ? 'outline' : 'primary'}`} style={{ marginTop: 12 }} onClick={() => setPad(i)}>
                     {counts[i.id] != null ? `${t('ckCounted')}: ${counts[i.id]} ${unit(i)}` : t('ckCount')}
                   </Tap>
-                ) : gap === 0 ? <p style={{ marginTop: 6, color: 'var(--ac)', fontWeight: 700 }}><Icon name="tick" size={22} stroke={3} />{t('ckMatch')} ({r.counted} {unit(i)})</p> : (
-                  <div className="udnote" style={{ marginTop: 8 }}>
-                    {t('ckApp')} {r.was} · {t('ckShelf')} {r.counted} {unit(i)} — {Math.abs(gap)} {gap < 0 ? t('ckLess') : t('ckMore')}
-                    <div style={{ fontWeight: 500, marginTop: 4 }}>{t('ckFixed')}</div>
-                  </div>
+                ) : gap === 0 ? <p className="bf2-done"><Icon name="tick" size={22} stroke={3} />{t('ckMatch')} ({r.counted} {unit(i)})</p> : (
+                  <p className="pg-note"><b>{t('ckApp')} {r.was} · {t('ckShelf')} {r.counted} {unit(i)} — {Math.abs(gap)} {gap < 0 ? t('ckLess') : t('ckMore')}</b><br />{t('ckFixed')}</p>
                 )}
               </div>
             )
           })}
-          {!result
-            ? <Tap className="btn primary" disabled={busy || b.check.some((i) => counts[i.id] == null)} onClick={save}>{busy ? t('loading') : t('ckSave')}</Tap>
-            : <Tap className="btn primary" onClick={() => navigate('/', true)}>{t('goHome')}</Tap>}
+          <div className="pg-acts">
+            {!result
+              ? <Tap className="btn primary" disabled={busy || b.check.some((i) => counts[i.id] == null)} onClick={save}>{busy ? t('loading') : t('ckSave')}</Tap>
+              : <Tap className="btn primary" onClick={() => navigate('/', true)}>{t('goHome')}</Tap>}
+          </div>
         </div>
       )}
       <NumberSheet open={!!pad} title={pad ? `${nm(pad)} — ${t('ckAsk')}` : ''} initial={pad ? counts[pad.id] ?? null : null} decimals={!!pad?.loose} zero

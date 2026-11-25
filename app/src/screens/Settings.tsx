@@ -6,6 +6,7 @@ import { setSound, soundEnabled } from '../lib/feedback'
 import { askText, BackBar, Sheet, Tap, toast } from '../components/ui'
 import { Icon } from '../components/Icon'
 import { navigate } from '../lib/router'
+import { setTheme, theme, type Theme } from '../lib/prefs'
 
 export function Settings() {
   const { t, lang, setLang } = useT()
@@ -14,6 +15,7 @@ export function Settings() {
   const [langOpen, setLangOpen] = useState(false)
   const [askOut, setAskOut] = useState(false)
   const [phonesOpen, setPhonesOpen] = useState(false)
+  const [look, setLook] = useState<Theme>(theme())
 
   function pickLang(l: typeof lang) {
     setLang(l)
@@ -31,6 +33,9 @@ export function Settings() {
         </Tap>
         <Tap className="rowb" onClick={() => setLangOpen(true)}>
           <Icon name="globe" /><span className="grow">{t('language')}</span><span style={{ color: 'var(--ac)' }}>{LANGS.find((l) => l.id === lang)?.label}</span><span className="chev"><Icon name="chev" size={20} /></span>
+        </Tap>
+        <Tap className="rowb" onClick={() => { const n: Theme = look === 'auto' ? 'light' : look === 'light' ? 'dark' : 'auto'; setTheme(n); setLook(n) }}>
+          <Icon name="gear" /><span className="grow">{t('themeTitle')}</span><span style={{ color: 'var(--ink)' }}>{look === 'auto' ? t('themeAuto') : look === 'light' ? t('themeLight') : t('themeDark')}</span>
         </Tap>
         <Tap className="rowb" onClick={() => { setSound(!snd); setSnd(!snd) }}>
           <Icon name="sound" /><span className="grow">{t('sound')}</span><span style={{ color: snd ? 'var(--ac)' : 'var(--ink2)' }}>{snd ? t('on') : t('off')}</span>

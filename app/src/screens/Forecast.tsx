@@ -17,22 +17,21 @@ export function ForecastCard() {
   const learning = f.soon == null
   const list = (learning ? f.low : f.soon!).slice(0, 5)
   return (
-    <div className="card" style={{ padding: '16px 20px', marginBottom: 16 }}>
-      <div className="h2" style={{ fontSize: 20 }}>{learning ? t('fcLearning') : t('fcSoon')}</div>
+    <section className="fc">
+      <div className="hm-sec"><h2>{learning ? t('fcLearning') : t('fcSoon')}</h2></div>
       {learning && <>
-        <p className="lab" style={{ marginTop: 4, fontSize: 17 }}>{t('fcLearnBody').replace('{n}', String(f.days)).replace('{m}', String(f.need))}</p>
-        <div className="hs-bar" style={{ marginTop: 10 }}><i style={{ width: `${Math.min(100, (f.days / f.need) * 100)}%`, background: 'var(--ac)' }} /></div>
+        <p className="lab">{t('fcLearnBody').replace('{n}', String(f.days)).replace('{m}', String(f.need))}</p>
+        <div className="fc-bar" role="progressbar" aria-valuemin={0} aria-valuemax={f.need} aria-valuenow={f.days}><i style={{ width: `${Math.min(100, (f.days / f.need) * 100)}%` }} /></div>
       </>}
-      {list.length === 0 ? <p className="lab" style={{ marginTop: 8 }}>{t('fcAllGood')}</p> : <>
-        {learning && <div className="lab" style={{ marginTop: 10, fontWeight: 500 }}>{t('fcLow')}</div>}
+      {list.length === 0 ? <p className="lab">{t('fcAllGood')}</p> : <>
+        {learning && <div className="fc-sub">{t('fcLow')}</div>}
         {list.map((i) => (
-          <div key={i.id} className="linkrow" style={{ color: 'var(--ink)', fontWeight: 600 }}>
-            <span>{nm(i)}</span>
-            <span style={{ color: 'var(--c-udh)', whiteSpace: 'nowrap' }}>{i.days_left != null ? (+i.stock <= 0 ? t('fcOut') : i.days_left <= 1 ? t('fcToday') : t('fcDays').replace('{n}', String(i.days_left))) : `${+i.stock} ${unit(i)}`}</span>
+          <div key={i.id} className="hrow cur">
+            <div className="g"><b>{nm(i)}</b></div>
+            <div className="a">{i.days_left != null ? (+i.stock <= 0 ? t('fcOut') : i.days_left <= 1 ? t('fcToday') : t('fcDays').replace('{n}', String(i.days_left))) : `${+i.stock} ${unit(i)}`}</div>
           </div>
         ))}
-        {!learning && <p className="lab" style={{ fontSize: 17, marginTop: 6 }}>{t('fcHow')}</p>}
       </>}
-    </div>
+    </section>
   )
 }
