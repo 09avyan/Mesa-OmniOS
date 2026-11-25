@@ -1,0 +1,68 @@
+<!doctype html><html><head><meta charset="utf-8"><title>OmniOS Dukaan — Overview</title>
+<style>
+@page{size:A4;margin:18mm 16mm}
+body{font-family:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;color:#141517;font-size:11pt;line-height:1.5}
+h1{font-size:30pt;margin:0 0 4px;letter-spacing:-.02em}h2{font-size:16pt;margin:26px 0 8px;padding-top:10px;border-top:2px solid #141517}
+h3{font-size:12pt;margin:14px 0 4px}.sub{color:#55595A;font-size:13pt;margin-bottom:22px}
+.cover{height:240mm;display:flex;flex-direction:column;justify-content:center;page-break-after:always}
+.tag{display:inline-block;background:#0D5C55;color:#fff;padding:3px 10px;border-radius:8px;font-weight:700;font-size:10pt}
+table{width:100%;border-collapse:collapse;margin:6px 0}td,th{border-bottom:1px solid #E2E2DC;padding:6px 6px;text-align:left;vertical-align:top}th{font-size:10pt;color:#55595A}
+.box{background:#F7F7F4;border-radius:14px;padding:12px 16px;margin:10px 0}.ud{color:#8A5000;font-weight:700}
+ul{margin:4px 0 4px 18px;padding:0}li{margin:2px 0}.p2{border:2px dashed #0D5C55;border-radius:14px;padding:14px 18px;margin-top:12px}
+.small{color:#55595A;font-size:9.5pt}
+</style></head><body>
+<div class="cover"><span class="tag">Product overview · v1 · 25 Nov 2026</span><h1>OmniOS Dukaan</h1>
+<div class="sub">The voice-first operating system for India's kirana stores.<br>Bolo, bill bano. Speak, and the shop runs itself.</div>
+<div class="box"><b>In one line:</b> the shopkeeper speaks an order in Hinglish; the app understands items, flavours and sizes, makes the bill, takes Cash / UPI / Udhaar, updates stock and the khata, and sends a professional e-bill on WhatsApp.</div>
+<p class="small">Live at omnidukaan.vercel.app · Demo shop code TEST, PIN 0000 · Confidential</p></div>
+
+<h2>1. The problem</h2>
+<ul><li>12M+ kirana stores run on memory, paper diaries and calculators.</li><li>Billing apps expect typing, menus and English; owners are busy, often 50+, one hand on the counter.</li><li>Udhaar (credit) is the shop's biggest risk and is tracked in a notebook.</li><li>Stock-outs and wrong prices cost money every day.</li></ul>
+
+<h2>2. The idea</h2>
+<p><b>Voice first, zero training.</b> One teal "Bolo" button on every screen. The owner talks the way they talk to a customer — "Sharma ji, do kilo cheeni, ek Maggi, aadha kilo toor dal" — and OmniOS does the rest. Everything else is one tap and large text.</p>
+<table><tr><th>Principle</th><th>What it means</th></tr>
+<tr><td>Speak, don't type</td><td>Bills, stock-in, payments and questions all start with the voice.</td></tr>
+<tr><td>Never block billing</td><td>Doubts are asked inline ("Yahi wali? Haan / Nahi"); flavours are auto-picked with a "badlo" option.</td></tr>
+<tr><td>Money is never pre-selected</td><td>Cash / UPI / Udhaar is always the owner's tap.</td></tr>
+<tr><td>Readable by everyone</td><td>Text ≥18px, buttons ≥56px with icon + word, Hindi / Hinglish / English.</td></tr>
+<tr><td>Data stays safe</td><td>Nothing is deleted without the owner; every shop sees only its own data.</td></tr></table>
+
+<h2>3. Who it is for</h2>
+<table><tr><th>User</th><th>What they get</th></tr>
+<tr><td>Shop owner</td><td>Billing, khata, stock, daily hisaab — by voice.</td></tr>
+<tr><td>Customer</td><td>E-bill on WhatsApp, their khata page, the shop's online store.</td></tr>
+<tr><td>OmniOS admin</td><td>Dashboard to create and manage stores.</td></tr></table>
+
+<h2>4. Core features (live today)</h2>
+<h3>Billing by voice</h3><ul><li>Speak the order → items, quantities, flavours and prices appear live.</li><li><b>Check</b> step: unsure items get "Yahi wali? Haan / Nahi"; Nahi shows "which one?" with prices.</li><li><b>Pay</b> step: Cash, UPI (large QR with amount filled in) or <span class="ud">Udhaar</span> with old → new khata balance.</li><li>Saved: one-tap WhatsApp e-bill, next bill, and undo.</li></ul>
+<h3>Udhaar (credit) khata</h3><ul><li>Every customer's balance, history and a public khata link.</li><li>"Gupta ji ne 500 diye" records a payment by voice; WhatsApp reminders in one tap.</li></ul>
+<h3>Stock (Maal)</h3><ul><li>"Maal aaya, 10 Aashirvaad atta" adds stock; supplier bill photo → stock + supplier dues.</li><li>Daily 3-item stock count with streak; "Cheeni kitni bachi?" answered aloud.</li></ul>
+<h3>Hisaab &amp; Home</h3><ul><li>Today's sales (Cash / UPI / Udhaar), who owes most, today's bills, morning briefing.</li><li>Galla check: "Galla mein 4,200 hai" matches the cash drawer to the bills.</li></ul>
+<h3>Customer side</h3><ul><li>Professional e-bill (letterhead, items with flavour + size, total, payment status).</li><li>Online store page with ordering; order status page.</li></ul>
+<h3>Admin dashboard</h3><ul><li>Create stores, reset PIN, pause/resume, phones logged in, bag requests, demand.</li></ul>
+
+<h2>5. The Universe — product knowledge</h2>
+<div class="box"><b>1,500 items · 5,226 flavours and pack sizes</b> sold in Indian kirana and supermarts, in Hindi, Hinglish and English with spoken mis-hearings. One default per item (e.g. Maggi → Masala 70g).</div>
+<ul><li><b>Flavour engine:</b> picks the shop's usual flavour, else the default; asks only when a shop really sells a mix — never stops the bill.</li><li><b>Per-shop prices:</b> from stock entry or manual, else learned after 3 bills at the same price; the owner can always change it.</li><li>Fast: loads once (~114 KB), cached on the phone, matching in ~4 ms per word.</li></ul>
+
+<h2>6. Design</h2>
+<ul><li>Final design "DF7", chosen after 7 rounds and a 13-member review panel (merchants, designers, accessibility, typography, Hindi, AI-detector).</li><li>Colour rules: <b>ink</b> = actions, <span style="color:#0D5C55;font-weight:700">teal</span> = voice only, <span class="ud">amber-brown</span> = udhaar money only. Light and dark modes.</li><li>Fonts: Hanken Grotesk + Mukta (Devanagari), bundled for offline use.</li></ul>
+
+<h2>7. How it is built</h2>
+<table><tr><th>Part</th><th>Technology</th></tr>
+<tr><td>App</td><td>React + TypeScript + Vite, installable web app (PWA), hosted on Vercel</td></tr>
+<tr><td>Voice</td><td>Phone speech-to-text → rule-based Hinglish parser → AI fallback only when needed</td></tr>
+<tr><td>Data</td><td>Supabase (Postgres) with row-level security; all money changes run in server functions</td></tr>
+<tr><td>Security</td><td>Shop code + PIN, lockout after 5 wrong tries, per-phone log-out</td></tr>
+<tr><td>Quality</td><td>85 automated tests; indexed database for speed</td></tr></table>
+
+<h2>8. Business model (outline)</h2>
+<ul><li>Free to start for a shop; paid plan for advanced features.</li><li>Distribution through local partners and supplier networks; free carry bags as a hook.</li></ul>
+
+<h2>9. Phase 2 — coming next</h2>
+<div class="p2"><b>Phase 2 is in preparation and will be unveiled separately.</b><br>It builds on what is live today in three directions:<ul><li><b>Smarter shop</b> — the app starts helping the owner decide, not just record.</li><li><b>Wider reach</b> — more of the shop's customers and partners come on board.</li><li><b>Deeper insight</b> — a richer picture for the owner and for OmniOS.</li></ul><span class="small">Details intentionally withheld in this version.</span></div>
+
+<h2>10. Status</h2>
+<table><tr><td>Live app</td><td>omnidukaan.vercel.app (demo: TEST / 0000)</td></tr><tr><td>Design</td><td>DF7 final, implemented on every page</td></tr><tr><td>Universe</td><td>v7 — 1,500 items, 5,226 variants</td></tr><tr><td>Next</td><td>Pilot shops, then Phase 2</td></tr></table>
+</body></html>
