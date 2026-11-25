@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { I18nProvider, savedLang, useT } from './lib/i18n'
 import { StoreProvider, useStore } from './lib/store'
 import { navigate, usePath } from './lib/router'
@@ -7,14 +7,15 @@ import { Language } from './screens/Language'
 import { Login } from './screens/Login'
 import { Home } from './screens/Home'
 import { Settings } from './screens/Settings'
-import { Admin } from './screens/Admin'
+const Admin = lazy(() => import('./screens/Admin').then((m) => ({ default: m.Admin })))
 import { Voice } from './screens/Voice'
 import { Bills, BillDetail } from './screens/Bills'
 import { UdhaarList, UdhaarCustomer, BalancePage } from './screens/Udhaar'
 import { Maal } from './screens/Maal'
-import { StorePage, OrderPage } from './screens/Store'
+const StorePage = lazy(() => import('./screens/Store').then((m) => ({ default: m.StorePage })))
+const OrderPage = lazy(() => import('./screens/Store').then((m) => ({ default: m.OrderPage })))
 import { Orders, OrderDetail, MyStore } from './screens/Orders'
-import { BillPage } from './screens/BillPage'
+const BillPage = lazy(() => import('./screens/BillPage').then((m) => ({ default: m.BillPage })))
 import { Hisaab, Galla } from './screens/Hisaab'
 import { Bags, Terms, Soon } from './screens/Extras'
 import { Receipt, Suppliers } from './screens/Receipt'
@@ -23,11 +24,12 @@ import { supabase } from './lib/supabase'
 
 export default function App() {
   const path = usePath()
-  if (path.startsWith('/admin')) return <><Admin /><ToastHost /></>
-  if (path.startsWith('/b/')) return <BillPage token={path.slice(3)} />
+  const wait = <main className="screen" />
+  if (path.startsWith('/admin')) return <Suspense fallback={wait}><Admin /><ToastHost /></Suspense>
+  if (path.startsWith('/b/')) return <Suspense fallback={wait}><BillPage token={path.slice(3)} /></Suspense>
   if (path.startsWith('/k/')) return <BalancePage token={path.slice(3)} />
-  if (path.startsWith('/s/')) return <StorePage slug={path.slice(3)} />
-  if (path.startsWith('/o/')) return <OrderPage token={path.slice(3)} />
+  if (path.startsWith('/s/')) return <Suspense fallback={wait}><StorePage slug={path.slice(3)} /></Suspense>
+  if (path.startsWith('/o/')) return <Suspense fallback={wait}><OrderPage token={path.slice(3)} /></Suspense>
   return <I18nProvider><StoreProvider><Owner path={path} /><ToastHost /><AskHost /></StoreProvider></I18nProvider>
 }
 
