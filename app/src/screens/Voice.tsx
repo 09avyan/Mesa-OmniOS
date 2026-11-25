@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useT, rupees, type Key } from '../lib/i18n'
 import { useStore } from '../lib/store'
 import { supabase } from '../lib/supabase'
+import { pickBest } from '../voice/pickBest'
 import { listen, speak, speechSupported, type ListenError } from '../lib/speech'
 import { speakOn, speakRate } from '../lib/prefs'
 import { custLabel, invalidateShop, loadShop, type Customer, type Shop, type ShopMatchable } from '../lib/shop'
@@ -61,7 +62,7 @@ export function Voice() {
       lang: lang === 'en' ? 'en-IN' : 'hi-IN',
       silenceMs: 4000, // shopkeepers pause between items; wait before moving to review
       onWords: setWords,
-      onDone: (text) => { setListening(false); understand(text, append) },
+      onDone: (text, alts) => { setListening(false); understand(text, append, alts) },
       onError: (e) => { setListening(false); setErr(e); if (e === 'no-speech' || e === 'other' || e === 'network') errorFx() },
     })
   }
@@ -90,9 +91,12 @@ export function Voice() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  async function understand(text: string, append: boolean) {
+  async function understand(heard: string, append: boolean, alts?: string[]) {
     const s = shop ?? await loadShop()
     setShop(s)
+    // the phone gives several guesses of what was said: use the one the rules understand best
+    const best = alts && alts.length > 1 ? pickBest(alts, s.index, s.customers.map((c) => c.name)) : null
+    const text = best?.text ?? heard
     const cur = draftRef.current // latest bill, not the one from when listening started
     if (append && cur) {
       // more items or corrections while reviewing: same item again = new quantity, otherwise add

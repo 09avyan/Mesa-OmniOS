@@ -44,8 +44,8 @@ const MULT: Record<string, number> = {
 // Whole-word fractions (quantities): "aadha kilo" = 0.5, "dedh" = 1.5, "dhai" = 2.5, "pav" = 0.25.
 const FRACTION: Record<string, number> = {
   aadha: 0.5, adha: 0.5, half: 0.5, 'आधा': 0.5, 'आधी': 0.5,
-  dedh: 1.5, derh: 1.5, 'डेढ़': 1.5, 'डेढ': 1.5,
-  dhai: 2.5, dhaai: 2.5, 'ढाई': 2.5,
+  dedh: 1.5, derh: 1.5, deodh: 1.5, dedha: 1.5, 'डेढ़': 1.5, 'डेढ': 1.5,
+  dhai: 2.5, dhaai: 2.5, dhayi: 2.5, dhaayi: 2.5, dhaee: 2.5, 'ढाई': 2.5, 'ढ़ाई': 2.5,
   pav: 0.25, paav: 0.25, 'पाव': 0.25,
 }
 // Prefixes that modify the next number: "sawa do" = 2.25, "saade teen" = 3.5, "paune do" = 1.75.
@@ -66,8 +66,22 @@ export function readNumber(tokens: string[], i: number): { value: number; used: 
   let mod: ((n: number) => number) | null = null
   if (tokens[j] in PREFIX) { mod = PREFIX[tokens[j]]; j++ }
   const w = tokens[j]
+  // "sawa kilo" = 1.25, "paune kilo" = 0.75 (the prefix alone means one and a quarter / three quarters)
+  if (mod && (w === undefined || !(/^\d/.test(w) || w in UNITS || w in MULT))) {
+    const first = tokens[i]
+    return first === 'sawa' || first === 'सवा' || first === 'paune' || first === 'पौने' ? { value: mod(1), used: 1 } : null
+  }
   if (w === undefined) return null
-  if (w in FRACTION && !mod) return { value: FRACTION[w], used: j - i + 1 }
+  // fractions before a multiplier are compound numbers: "dhai sau" = 250, "dedh hazaar" = 1500, "sawa sau" = 125
+  if (w in FRACTION && !mod) {
+    const m = MULT[tokens[j + 1]]
+    if (m) return { value: FRACTION[w] * m, used: j - i + 2 }
+    return { value: FRACTION[w], used: j - i + 1 }
+  }
+  if (mod && w in MULT) { // "sawa sau" = 125, "sawa hazaar" = 1250
+    const m = MULT[w], one = mod(1)
+    return { value: one * m, used: j - i + 1 }
+  }
 
   let total = 0, current = 0, any = false
   while (j < tokens.length) {
@@ -80,6 +94,8 @@ export function readNumber(tokens: string[], i: number): { value: number; used: 
       current += UNITS[t]; any = true; j++
     } else if (t in MULT && any) {
       const m = MULT[t]
+      // "saade teen sau" = 350: the prefix belongs to the number before the multiplier
+      if (mod && current < 100) { current = mod(current); mod = null }
       if (m >= 1000) { total += (current || 1) * m; current = 0 } else { current = (current || 1) * m }
       j++
     } else break

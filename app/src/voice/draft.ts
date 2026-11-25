@@ -13,6 +13,7 @@ export type Line = {
   qty: number | null
   price: number | null   // per unit
   priceSure: boolean     // false -> price box highlighted ("Daam sahi?")
+  /** said as money ("50 rupaye ka dhaniya") and the shop has no price yet: the line is that amount (qty 1 x price) */ rupees?: number
   /** flavour engine: the variants of this product + the "Kaunsa?" one-tap choices (only if this shop sells a mix). Never blocks. */
   flavour?: FlavourChoice<ShopMatchable> | null
 }
@@ -52,10 +53,12 @@ export function lineFrom(p: ParsedItem, shop: Shop): Line {
   const flavour = candidates[0] ? chooseFlavour(candidates[0], p.said, shop, shop.flavour) : null
   const match = flavour?.match ?? candidates[0] ?? null
   const { price, sure: priceSure } = match ? priceOf(match) : { price: null, sure: false }
-  const rupeePrice = p.rupees != null && price == null ? null : price
+  // "50 rupaye ka dhaniya": with a shop price the qty follows from it; without one the line IS the amount (1 x Rs 50)
+  const amountLine = p.rupees != null && price == null
   return {
     key: 'l' + ++n, said: p.said, match, candidates, sure: p.sure && !!match,
-    qty: qtyFor(p, match, rupeePrice), price, priceSure, flavour,
+    qty: amountLine ? 1 : qtyFor(p, match, price), price: amountLine ? p.rupees : price, priceSure: amountLine ? true : priceSure, flavour,
+    ...(amountLine ? { rupees: p.rupees! } : {}),
   }
 }
 
@@ -77,7 +80,7 @@ export function buildDraft(parsed: Parsed, shop: Shop): Draft {
     customerOthers: found.others,
     lines: parsed.items.map((p) => lineFrom(p, shop)),
     amount: parsed.amount,
-    pay: null,
+    pay: parsed.pay ?? null,
   }
 }
 

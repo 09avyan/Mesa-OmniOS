@@ -1,6 +1,6 @@
 import { readNumber, isNumberWord } from './numbers'
-import { FILLER, SEPARATORS, tokenize, unitOf, type Unit } from './normalize'
-import { dice, isSure, matchName, type Candidate, type MatchIndex } from './match'
+import { FILLER, SEPARATORS, tokenize, unitOf, extractPay, type Unit, type PayWord } from './normalize'
+import { dice, isSure, matchName, type Candidate, type Matchable, type MatchIndex } from './match'
 import { fold } from './normalize'
 
 export type Intent = 'bill' | 'stock_in' | 'payment' | 'query' | 'galla' | 'unknown'
@@ -19,6 +19,7 @@ export type Parsed = {
   customerSure: boolean    // false -> yellow "Yahi naam?" (could also be an item)
   items: ParsedItem[]
   amount: number | null   // payment / galla amount
+  pay?: PayWord | null    // said how it is paid: "udhaar mein", "cash", "upi se"
   sure: boolean           // whole result confident (else Gemini may help)
 }
 
@@ -29,7 +30,9 @@ const PAY_VERBS = ['diye', 'diya', 'de diye', 'jama', 'jamaa', 'chukaye', 'chuka
 const QUERY = ['kitna', 'kitni', 'kitne', 'bacha', 'bachi', 'bache', 'bachaa', 'how much', 'left', 'कितना', 'कितनी', 'कितने', 'बचा', 'बची', 'बचे']
 const GALLA = ['galla', 'galle', 'gala', 'gale', 'gulla', 'drawer', 'cash count', 'गल्ला', 'गल्ले', 'गल्ले में']
 const HONORIFIC = new Set(['ji', 'jee', 'bhai', 'bhaiya', 'bhaiyya', 'didi', 'aunty', 'uncle', 'sahab', 'saheb', 'sir', 'madam', 'seth', 'जी', 'भाई', 'भैया', 'दीदी', 'साहब', 'आंटी', 'अंकल'])
-const CUSTOMER_TAIL = ['ka bill', 'ke liye', 'ko', 'का बिल', 'के लिए', 'को']
+const CUSTOMER_TAIL = ['ka bill', 'ke liye', 'ke', 'ka', 'ki', 'ko', 'का बिल', 'के लिए', 'का', 'के', 'की', 'को']
+// "bhaiya, 2 kilo cheeni": a form of address, not the customer's name
+const ADDRESS = new Set(['bhaiya', 'bhaiyya', 'bhai', 'bhaiyaji', 'uncle', 'aunty', 'didi', 'sir', 'madam', 'भैया', 'भाई', 'दीदी', 'अंकल', 'आंटी'])
 
 function firstNumberIndex(toks: string[]) { return toks.findIndex((t, i) => isNumberWord(t) && readNumber(toks, i) !== null) }
 function firstAmount(toks: string[]): number | null {
@@ -62,6 +65,7 @@ type Split = { customer: string | null; customerSure: boolean; rest: string[] }
  * word that is not an item is a guess the owner confirms ("Yahi naam?").
  */
 function splitCustomer(toks: string[], idx: MatchIndex, known: string[]): Split {
+  while (toks.length > 1 && ADDRESS.has(toks[0]) && (toks[1] === ',' || isNumberWord(toks[1]))) toks = toks.slice(toks[1] === ',' ? 2 : 1)
   const comma = toks.indexOf(',')
   const num = firstNumberIndex(toks)
   const end = comma >= 0 && (num < 0 || comma < num) ? comma : num
@@ -91,12 +95,65 @@ function splitCustomer(toks: string[], idx: MatchIndex, known: string[]): Split 
   return { customer: null, customerSure: true, rest: toks }
 }
 
+const SIZE_UNITS = new Set<Unit>(['kg', 'g', 'l', 'ml'])
+type Size = { value: number; unit: Unit }
+const dimOf = (u: Unit) => (u === 'kg' || u === 'g' ? 'w' : 'v')
+const baseAmt = (z: Size) => (z.unit === 'kg' || z.unit === 'l' ? z.value * 1000 : z.value)
+
+/** Pack size of a catalogue entry: "750ml", "Original 200g", "Coca-Cola 600ml" -> 750 ml / 200 g / 600 ml. */
+function packSize(m: Matchable): { dim: 'w' | 'v'; amt: number } | null {
+  const r = /(\d+(?:\.\d+)?)\s?(kg|g|ml|l)\b/i.exec(m.variant ?? '') ?? /(\d+(?:\.\d+)?)\s?(kg|g|ml|l)\b/i.exec(m.en)
+  if (!r) return null
+  const u = r[2].toLowerCase() as Unit
+  return { dim: dimOf(u), amt: baseAmt({ value: parseFloat(r[1]), unit: u }) }
+}
+const famCache = new WeakMap<object, { n: number; map: Map<string, Matchable[]> }>()
+function familyOf(idx: MatchIndex, m: Matchable): Matchable[] {
+  let c = famCache.get(idx.byId)
+  if (!c || c.n !== idx.byId.size) {
+    const map = new Map<string, Matchable[]>()
+    for (const x of idx.byId.values()) if (x.family) { const l = map.get(x.family); if (l) l.push(x); else map.set(x.family, [x]) }
+    famCache.set(idx.byId, (c = { n: idx.byId.size, map }))
+  }
+  const l = m.family ? c.map.get(m.family) ?? [] : []
+  return [m, ...l.filter((x) => x.id !== m.id)]
+}
+
+/** "750 ml coke", "1 litre amul doodh": choose the pack of that size (or N packs of a smaller one, liquids only). */
+function pickPack(cands: Candidate[], want: Size, idx: MatchIndex): { cands: Candidate[]; packs: number; exact: boolean } | null {
+  const top = cands[0]
+  const pool = cands.filter((c) => !c.item.loose && c.score >= top.score - 0.05)
+  const dim = dimOf(want.unit), amt = baseAmt(want)
+  const options: { m: Matchable; amt: number }[] = []
+  for (const c of pool) for (const m of familyOf(idx, c.item)) { const z = packSize(m); if (z && z.dim === dim && !options.some((o) => o.m.id === m.id)) options.push({ m, amt: z.amt }) }
+  let hit = options.find((o) => Math.abs(o.amt - amt) < 0.5), packs = 1, exact = true
+  if (!hit && dim === 'v') {
+    const fits = options.filter((o) => amt % o.amt === 0 && amt / o.amt <= 12).sort((a, b) => b.amt - a.amt)
+    if (fits.length) { hit = fits[0]; packs = amt / hit.amt; exact = false }
+  }
+  if (!hit) return null
+  const picked: Candidate = { id: hit.m.id, score: Math.max(top.score, 0.95), item: hit.m }
+  return { cands: [picked, ...cands.filter((c) => c.id !== hit!.m.id)], packs, exact }
+}
+
+/** Weight/volume said ("1.5 kilo aloo"): the loose item beats a packet that merely sounds alike (Haldiram Aloo Bhujia), unless a brand was named. */
+function preferLoose(cands: Candidate[], said: string): Candidate[] {
+  const top = cands[0]
+  if (!top || top.item.loose) return cands
+  const brand = top.item.brand?.toLowerCase()
+  if (brand && said.toLowerCase().split(' ').some((w) => dice(fold(w), fold(brand)) >= 0.8)) return cands
+  const loose = cands.find((c) => c.item.loose && c.score >= top.score - 0.25 && c.score >= 0.7)
+  return loose ? [loose, ...cands.filter((c) => c !== loose)] : cands
+}
+
 /** Items: "2 kilo cheeni 1 maggi", "cheeni 2 kilo, maggi ek", "50 rupaye ka dhaniya". */
 export function parseItems(toks: string[], idx: MatchIndex): ParsedItem[] {
-  type Draft = { words: string[]; qty: number | null; unit: Unit | null; rupees: number | null }
+  type Draft = { words: string[]; qty: number | null; unit: Unit | null; rupees: number | null; size: Size | null }
+  const fresh = (): Draft => ({ words: [], qty: null, unit: null, rupees: null, size: null })
   const drafts: Draft[] = []
-  let cur: Draft = { words: [], qty: null, unit: null, rupees: null }
-  const push = () => { if (cleanName(cur.words) || cur.qty !== null) drafts.push(cur); cur = { words: [], qty: null, unit: null, rupees: null } }
+  let cur: Draft = fresh()
+  const push = () => { if (cleanName(cur.words) || cur.qty !== null) drafts.push(cur); cur = fresh() }
+  const nextReal = (k: number) => { while (k < toks.length && FILLER.has(toks[k]) && !SEPARATORS.has(toks[k])) k++; return toks[k] }
 
   for (let i = 0; i < toks.length; i++) {
     const t = toks[i]
@@ -104,6 +161,11 @@ export function parseItems(toks: string[], idx: MatchIndex): ParsedItem[] {
     const n = isNumberWord(t) ? readNumber(toks, i) : null
     if (n) {
       const nextUnit = unitOf(toks[i + n.used] ?? '')
+      // "ek coke 750 ml": a size after the name, not a new item
+      if (nextUnit && SIZE_UNITS.has(nextUnit) && cur.qty !== null && cur.size === null && cleanName(cur.words)) {
+        const after = nextReal(i + n.used + 1)
+        if (after === undefined || SEPARATORS.has(after) || isNumberWord(after)) { cur.size = { value: n.value, unit: nextUnit }; i += n.used; continue }
+      }
       const hasQty = cur.qty !== null || cur.rupees !== null
       if (hasQty || (cur.words.length && cleanName(cur.words) === '')) push()
       else if (cur.words.length && !hasQty) {
@@ -117,24 +179,45 @@ export function parseItems(toks: string[], idx: MatchIndex): ParsedItem[] {
       continue
     }
     const u = unitOf(t)
-    if (u && cur.qty !== null && !cur.unit) { cur.unit = u; continue }
+    if (u && cur.qty !== null && !cur.unit) {
+      // "teen parle g": the g belongs to the product name (Parle-G), not a unit
+      const base = cleanName(cur.words)
+      if ((t === 'g' || t === 'l') && base && (matchName(base + ' ' + t, idx, 1)[0]?.score ?? 0) >= 0.99) { cur.words.push(t); continue }
+      cur.unit = u; continue
+    }
     cur.words.push(t)
   }
   push()
 
   return drafts.map((d) => {
-    const said = cleanName(d.words)
-    const candidates = said ? matchName(said, idx) : []
-    return { said, qty: d.qty, unit: d.unit, rupees: d.rupees, candidates, sure: !!said && isSure(said, candidates, idx) }
+    let said = cleanName(d.words)
+    let candidates = said ? matchName(said, idx) : []
+    let qty = d.qty, unit = d.unit
+    const spoken: Size | null = d.size ?? (qty !== null && unit && SIZE_UNITS.has(unit) ? { value: qty, unit } : null)
+    if (spoken) candidates = preferLoose(candidates, said)
+    let sure = !!said && isSure(said, candidates, idx)
+    if (spoken && candidates.length && !candidates[0].item.loose) {
+      const r = pickPack(candidates, spoken, idx)
+      if (r) {
+        candidates = r.cands
+        qty = d.size ? (qty ?? 1) * r.packs : r.packs; unit = 'pc'
+        if (r.exact) sure = true
+        said = `${said} ${spoken.value}${spoken.unit}`   // the size is now part of what was asked for: the flavour engine keeps exactly this pack
+      }
+    }
+    return { said, qty, unit, rupees: d.rupees, candidates, sure }
   }).filter((d) => d.said)
 }
 
 export function parse(text: string, idx: MatchIndex, knownCustomers: string[] = []): Parsed {
-  const toks = tokenize(text)
-  const base = { text, customer: null, customerSure: true, items: [], amount: null }
+  const all = tokenize(text)
 
   // "Galla mein 4,200 hai"
-  if (has(toks, GALLA)) { const amount = firstAmount(toks); return { ...base, intent: 'galla', amount, sure: amount !== null } }
+  if (has(all, GALLA)) { const amount = firstAmount(all); return { text, customer: null, customerSure: true, items: [], amount, pay: null, intent: 'galla', sure: amount !== null } }
+
+  // "udhaar mein", "cash", "upi se": how it is paid, taken out before the rest is read
+  const { pay, toks } = extractPay(all)
+  const base = { text, customer: null, customerSure: true, items: [], amount: null, pay }
 
   // "Gupta ji ne 500 diye" / "Gupta ji se 500 mile"
   const neIdx = toks.findIndex((t) => t === 'ne' || t === 'ने' || t === 'se' || t === 'से')

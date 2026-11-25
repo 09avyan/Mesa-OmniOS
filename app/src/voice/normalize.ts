@@ -4,9 +4,9 @@ export type Unit = 'kg' | 'g' | 'l' | 'ml' | 'pc' | 'pack' | 'rs'
 
 // Spoken unit words -> unit. "pav" (250 g) is handled as a fraction in numbers.ts.
 const UNIT_WORDS: Record<string, Unit> = {
-  kilo: 'kg', kg: 'kg', kgs: 'kg', kilogram: 'kg', kilograms: 'kg', kelo: 'kg', 'किलो': 'kg', 'केजी': 'kg',
+  kilo: 'kg', killo: 'kg', keelo: 'kg', kilu: 'kg', kg: 'kg', kgs: 'kg', kilogram: 'kg', kilograms: 'kg', kelo: 'kg', 'किलो': 'kg', 'केजी': 'kg', 'किल्लो': 'kg', 'कीलो': 'kg',
   gram: 'g', grams: 'g', gm: 'g', gms: 'g', g: 'g', 'ग्राम': 'g',
-  litre: 'l', liter: 'l', litres: 'l', liters: 'l', ltr: 'l', lt: 'l', l: 'l', 'लीटर': 'l', 'लिटर': 'l',
+  litre: 'l', leter: 'l', lite: 'l', liter: 'l', litres: 'l', liters: 'l', ltr: 'l', lt: 'l', l: 'l', 'लीटर': 'l', 'लिटर': 'l',
   ml: 'ml', millilitre: 'ml', 'एमएल': 'ml',
   piece: 'pc', pieces: 'pc', pc: 'pc', pcs: 'pc', nag: 'pc', 'नग': 'pc', 'पीस': 'pc',
   packet: 'pack', packets: 'pack', pack: 'pack', packs: 'pack', pkt: 'pack', paket: 'pack', 'पैकेट': 'pack', 'पाकेट': 'pack',
@@ -22,7 +22,49 @@ export const FILLER = new Set([
 ])
 export const SEPARATORS = new Set([',', 'aur', 'and', 'और', 'phir', 'fir', 'then', 'फिर'])
 
-/** Lowercase, Devanagari digits -> ASCII, split numbers from units ("2kg" -> "2 kg"), keep commas as tokens. */
+// ---- domain post-correction of what the phone heard (hi-IN / en-IN) ------------------------------------------------
+// Hindi-script brand names -> the Latin name the catalogue indexes ("मैगी" -> maggi). Longest first.
+const BRANDS: [string, string][] = [
+  ['पार्ले जी', 'parle g'], ['पारले जी', 'parle g'], ['पारलेजी', 'parle g'], ['पार्लेजी', 'parle g'], ['पारले', 'parle'], ['पार्ले', 'parle'],
+  ['मैगी', 'maggi'], ['मेगी', 'maggi'], ['सर्फ', 'surf'], ['सरफ', 'surf'], ['कोका कोला', 'coca cola'], ['कोकाकोला', 'coca cola'], ['कोक', 'coke'],
+  ['अमूल', 'amul'], ['आशीर्वाद', 'aashirvaad'], ['टाटा', 'tata'], ['सनफीस्ट', 'sunfeast'], ['ब्रिटानिया', 'britannia'], ['कुरकुरे', 'kurkure'],
+  ['लेज़', 'lays'], ['लेज', 'lays'], ['डेटॉल', 'dettol'], ['लक्स', 'lux'], ['लाइफबॉय', 'lifebuoy'], ['वैसलीन', 'vaseline'], ['कोलगेट', 'colgate'],
+  ['पतंजलि', 'patanjali'], ['फॉर्च्यून', 'fortune'], ['सफोला', 'saffola'], ['हल्दीराम', 'haldiram'], ['बिसलेरी', 'bisleri'], ['थम्स अप', 'thums up'],
+  ['पेप्सी', 'pepsi'], ['स्प्राइट', 'sprite'], ['फैंटा', 'fanta'], ['निरमा', 'nirma'], ['विम', 'vim'], ['हार्पिक', 'harpic'], ['ओरियो', 'oreo'],
+  ['गुड डे', 'good day'], ['हॉर्लिक्स', 'horlicks'], ['बोर्नविटा', 'bournvita'], ['नेस्ले', 'nestle'], ['कैडबरी', 'cadbury'], ['पैराशूट', 'parachute'],
+  ['क्लिनिक प्लस', 'clinic plus'], ['ईवरेडी', 'eveready'], ['एवरेडी', 'eveready'], ['रिन', 'rin'], ['व्हील', 'wheel'], ['टाइड', 'tide'], ['एरियल', 'ariel'],
+]
+// STT splits or respells brand words: "mag gi", "parley g", "coca-cola", "sun feast".
+const PHRASES: [RegExp, string][] = [
+  [/\bparle?y?\s*-?\s*(g|ji|jee|gee|ge)\b/g, 'parle g'], [/\bparlej\b/g, 'parle g'], [/\bparley\b/g, 'parle'],
+  [/\bmag\s?gi(e|y)?\b/g, 'maggi'], [/\bsur\s+f\b/g, 'surf'], [/\bcoca\s*-?\s*cola\b/g, 'coca cola'], [/\bcocacola\b/g, 'coca cola'],
+  [/\bthumbs?\s?-?up\b/g, 'thums up'], [/\bsun\s+feast\b/g, 'sunfeast'], [/\bever\s+ready\b/g, 'eveready'], [/\bkur\s+kure\b/g, 'kurkure'],
+  [/\bhaldi\s+ram\b/g, 'haldiram'], [/\blife\s+buoy\b/g, 'lifebuoy'], [/\bcol\s+gate\b/g, 'colgate'], [/\bbis\s+leri\b/g, 'bisleri'],
+  [/\bdairy\s+milk\b/g, 'dairy milk'], [/\bpata\s+njali\b/g, 'patanjali'], [/\ba\s+mool\b/g, 'amul'], [/\bgood\s?-?\s?day\b/g, 'good day'],
+  [/\b(chini|chinni|cheeni|chinee)\b/g, 'cheeni'], [/\b(aata|ata)\b/g, 'atta'],
+  // spoken units split or respelt
+  [/के\s*जी/g, 'केजी'], [/एम\s*एल/g, 'एमएल'], [/किलो\s*ग्राम/g, 'किलो'], [/\bkilo\s*gram(s)?\b/g, 'kilo'], [/\bk\.?\s?g\.?\b(?=\s|$|,)/g, 'kg'],
+  // pleasantries glued to a bill ("ji haan", "theek hai") carry no meaning
+  [/\bji\s+(haan|han|ha)\b/g, ' '], [/\b(theek|thik)\s+hai\b/g, ' '], [/ठीक\s+है/g, ' '], [/जी\s+हाँ|जी\s+हां/g, ' '],
+  [/\b(likh|daal|dal|rakh|kar)\s+(do|de)\b/g, 'dedo'], [/(लिख|डाल|रख|कर)\s+(दो|दे)/g, 'दे'],
+]
+// Words that carry no meaning for a bill: dropped before parsing (never numbers, units, names, "ke/ka/ko", "aur").
+const NOISE = new Set([
+  'dena', 'dedo', 'de', 'dijiye', 'dijiyega', 'deejiye', 'chahiye', 'chaiye', 'chahie', 'chahiyen', 'likho', 'likhna', 'likh', 'karo', 'please', 'plz', 'pls',
+  'haan', 'han', 'hanji', 'achha', 'accha', 'acha', 'bas', 'suno', 'suniye', 'dekho', 'arre', 'arey', 'are', 'bhi', 'na', 'ok', 'okay',
+  'देना', 'दे', 'दीजिए', 'दीजिये', 'चाहिए', 'चाहिये', 'लिखो', 'करो', 'हाँ', 'हां', 'अच्छा', 'बस', 'सुनो', 'सुनिए', 'देखो', 'अरे', 'भी', 'ना',
+])
+// Homophones STT writes for number words, only when a unit follows ("to kilo" = "do kilo").
+const HOMO: Record<string, string> = { to: 'do', too: 'do', tu: 'do', doo: 'do', for: 'char', fore: 'char', won: 'ek', ate: 'aath', tin: 'teen', ik: 'ek', tree: 'teen' }
+
+const BRAND_RE: [RegExp, string][] = BRANDS.map(([from, to]) => [new RegExp('(?<![\\p{L}\\p{M}])' + from + '(?![\\p{L}\\p{M}])', 'gu'), to])
+function correct(s: string): string {
+  for (const [re, to] of BRAND_RE) s = s.replace(re, ' ' + to + ' ')
+  for (const [re, to] of PHRASES) s = s.replace(re, ' ' + to + ' ')
+  return s
+}
+
+/** Lowercase, Devanagari digits -> ASCII, brand/unit spellings fixed, filler dropped, numbers split from units, commas kept as tokens. */
 export function tokenize(text: string): string[] {
   let s = devToAscii(text.toLowerCase())
   s = s.replace(/(\d),(\d{2,3})\b/g, '$1$2').replace(/(\d),(\d{2,3})\b/g, '$1$2') // 4,200 / 1,00,000
@@ -30,7 +72,35 @@ export function tokenize(text: string): string[] {
   s = s.replace(/(\d)([a-zऀ-ॿ])/g, '$1 $2').replace(/([a-zऀ-ॿ])(\d)/g, '$1 $2')
   s = s.replace(/[।|.!?;:]/g, ' , ').replace(/,/g, ' , ').replace(/["'“”‘’()]/g, ' ')
   s = s.replace(/\b(de)\s+(do)\b/g, 'dedo').replace(/दे\s+दो/g, 'दे') // "de do" is "give", not the number 2
-  return s.split(/\s+/).filter(Boolean)
+  s = correct(s)
+  let toks = s.split(/\s+/).filter(Boolean)
+  toks = toks.map((t, i) => (HOMO[t] && unitOf(toks[i + 1] ?? '') ? HOMO[t] : t)).filter((t) => !NOISE.has(t))
+  while (toks.length && SEPARATORS.has(toks[0]) && toks[0] !== ',') toks.shift()   // leading "aur"
+  while (toks.length && SEPARATORS.has(toks[toks.length - 1])) toks.pop()         // trailing "aur" / ","
+  return toks
+}
+
+export type PayWord = 'cash' | 'upi' | 'udhaar'
+const PAY_WORDS: Record<string, PayWord> = {
+  udhaar: 'udhaar', udhar: 'udhaar', udhari: 'udhaar', udhaari: 'udhaar', khata: 'udhaar', khate: 'udhaar', 'उधार': 'udhaar', 'उधारी': 'udhaar', 'खाता': 'udhaar', 'खाते': 'udhaar',
+  cash: 'cash', nakad: 'cash', nagad: 'cash', 'कैश': 'cash', 'नकद': 'cash',
+  upi: 'upi', online: 'upi', paytm: 'upi', phonepe: 'upi', gpay: 'upi', googlepay: 'upi', qr: 'upi', scan: 'upi', 'यूपीआई': 'upi', 'ऑनलाइन': 'upi',
+}
+const PAY_POST = new Set(['mein', 'me', 'pe', 'par', 'se', 'ka', 'ki', 'में', 'पर', 'से', 'पे'])
+/** "... udhaar mein", "cash", "upi se": how it is paid. Returns the tokens without those words. ("cash count" is the galla, left alone.) */
+export function extractPay(toks: string[]): { pay: PayWord | null; toks: string[] } {
+  let pay: PayWord | null = null
+  const out: string[] = []
+  for (let i = 0; i < toks.length; i++) {
+    const w = PAY_WORDS[toks[i]]
+    if (w && !(w === 'cash' && toks[i + 1] === 'count')) {
+      pay = w
+      if (PAY_POST.has(toks[i + 1] ?? '')) i++
+      continue
+    }
+    out.push(toks[i])
+  }
+  return { pay, toks: out }
 }
 
 /**
