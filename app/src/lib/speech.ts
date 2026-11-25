@@ -60,6 +60,31 @@ export function combineAlternatives(segs: Segment[], cap = 8): string[] {
 const OPEN_END = /(\b(aur|and|phir|fir|ka|ki|ke|ek|teen|char|paanch|kilo|kg|gram|litre|ml|packet|rupaye|dhai|dedh|aadha|sawa|sau)|और|फिर|का|की|के|एक|दो|तीन|चार|पांच|किलो|ग्राम|लीटर|रुपये|\d|,)\s*$/i
 export const silenceFor = (text: string, base: number) => (OPEN_END.test(text.trim()) ? Math.round(base * 1.5) : base)
 
+/**
+ * Live words that do not flicker. Chrome re-guesses the whole sentence on every update ("to kilo" -> "2 kilo", a word
+ * disappearing and coming back). Rule: only the LAST word may change freely (it is still being spoken); words before it
+ * stay as shown. If the phone revises an earlier word, the revision is shown only once the next update repeats it
+ * (or on `final`). A shorter update never removes words that were already shown.
+ */
+export function makeStabiliser() {
+  let shown: string[] = [], pending: string[] | null = null
+  const lcp = (a: string[], b: string[]) => { let i = 0; while (i < a.length && i < b.length && key(a[i]) === key(b[i])) i++; return i }
+  return {
+    push(text: string, final = false): string {
+      const nw = text.split(/\s+/).filter(Boolean)
+      if (final || !shown.length) { shown = nw; pending = null; return shown.join(' ') }
+      const c = lcp(shown, nw)
+      if (nw.length < shown.length && c === nw.length) return shown.join(' ')          // fewer words than before: keep what was shown
+      const frozen = Math.max(0, shown.length - 1)
+      if (c >= frozen) { shown = nw; pending = null }                                   // only the tail grew / changed
+      else if (pending && pending.length <= nw.length && lcp(pending, nw) === pending.length) { shown = nw; pending = null }   // the revision repeated: accept it
+      else pending = nw.slice(0, c + 1)                                                 // an early word changed: wait for it to repeat
+      return shown.join(' ')
+    },
+    reset() { shown = []; pending = null },
+  }
+}
+
 export function listen(opts: {
   lang: 'hi-IN' | 'en-IN'
   onWords: (text: string) => void                                  // live words (final + interim)
@@ -76,6 +101,7 @@ export function listen(opts: {
   let session: Segment[] = []         // phrases of the running session, by result index (best + n-best)
   let lastWords = 0, finished = false, userStop = false, fails = 0
   let rec: Rec | null = null
+  const stab = makeStabiliser()
   let timer: ReturnType<typeof setInterval> | undefined
 
   const all = () => session.filter((x) => x?.[0]).reduce(addSegment, committed)
@@ -104,7 +130,7 @@ export function listen(opts: {
       }
       session = segs
       lastWords = Date.now(); fails = 0
-      opts.onWords(text())
+      opts.onWords(stab.push(text()))   // steady words on screen; the sentence handed to onDone is always the full, final reading
     }
     r.onerror = (e) => {
       if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { finish('denied'); return }

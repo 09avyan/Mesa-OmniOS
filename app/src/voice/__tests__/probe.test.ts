@@ -1,4 +1,4 @@
-// 30 realistic shop sentences (Hinglish + Hindi script) -> what the owner should see. Runs on the full index (catalogue + Universe) like the app.
+// 60 realistic shop sentences (Hinglish + Hindi script + messy speech-to-text) -> what the owner should see. Runs on the full index (catalogue + Universe) like the app.
 import { beforeAll, describe, expect, it } from 'vitest'
 import { parse } from '../parse'
 import { fullShop, type TestShop } from './fullIndex'
@@ -39,9 +39,40 @@ const CASES: [string, Want][] = [
   ['galla mein char hazaar do sau hai', { intent: 'galla', amount: 4200 }],
   ['cheeni kitni bachi', { intent: 'query', items: [{ id: /sugar/ }] }],
   ['haan ji haan 1 kilo namak dena', { items: [{ qty: 1, unit: 'kg' }] }],
+  // ---- 31-60: Devanagari, mixed number words, fractions, glued units, names with honorifics, messy STT
+  ['ढाई किलो आलू', { items: [{ qty: 2.5, unit: 'kg', id: /potato|aloo/ }] }],
+  ['साढ़े तीन किलो आटा', { items: [{ qty: 3.5, unit: 'kg', id: /atta/ }] }],
+  ['एक किलो नमक', { items: [{ qty: 1, unit: 'kg', id: /namak|salt/ }] }],
+  ['आधा किलो पनीर', { items: [{ qty: 0.5, unit: 'kg', id: /paneer/ }] }],
+  ['दो पैकेट मैगी', { items: [{ qty: 2, unit: 'pack', id: /maggi/ }] }],
+  ['शर्मा जी के लिए 2 किलो चीनी', { customer: 'Sharma ji', items: [{ qty: 2, unit: 'kg', id: /sugar/ }] }],
+  ['चीनी दो किलो और चाय पत्ती आधा किलो', { items: [{ qty: 2, unit: 'kg', id: /sugar/ }, { qty: 0.5, unit: 'kg', id: /chai|tea/ }] }],
+  ['2 kilo cheeni sharma ji wala', { customer: 'Sharma ji', items: [{ qty: 2, unit: 'kg', id: /sugar/ }] }],
+  ['2 kilo cheeni ramesh ke liye', { customer: 'Ramesh', items: [{ qty: 2, unit: 'kg', id: /sugar/ }] }],
+  ['sarma ji ke liye 1 kilo atta', { customer: 'Sharma ji', items: [{ qty: 1, unit: 'kg', id: /atta/ }] }],
+  ['to kilo chini aur ek maggie', { items: [{ qty: 2, unit: 'kg', id: /sugar/ }, { qty: 1, id: /maggi/ }] }],
+  ['tin kilo aloo do kilo pyaz', { items: [{ qty: 3, unit: 'kg', id: /potato|aloo/ }, { qty: 2, unit: 'kg', id: /onion|pyaz/ }] }],
+  ['1.5 kilo aloo', { items: [{ qty: 1.5, unit: 'kg', id: /potato|aloo/ }] }],
+  ['1/2 kilo cheeni', { items: [{ qty: 0.5, unit: 'kg', id: /sugar/ }] }],
+  ['half kilo chawal aur quarter kilo jeera', { items: [{ qty: 0.5, unit: 'kg', id: /chawal|rice/ }, { qty: 0.25, unit: 'kg', id: /jeera/ }] }],
+  ['do kilo paanch sau gram aloo', { items: [{ qty: 2.5, unit: 'kg', id: /potato|aloo/ }] }],
+  ['500gm jeera', { items: [{ qty: 500, unit: 'g', id: /jeera/ }] }],
+  ['2kg cheeni 1ltr amul doodh', { items: [{ qty: 2, unit: 'kg', id: /sugar/ }, { id: /milk|amul|doodh/ }] }],
+  ['paune do kilo cheeni', { items: [{ qty: 1.75, unit: 'kg', id: /sugar/ }] }],
+  ['teen sau gram haldi', { items: [{ qty: 300, unit: 'g', id: /haldi/ }] }],
+  ['ek do kilo cheeni', { items: [{ qty: 2, unit: 'kg', id: /sugar/ }] }],
+  ['ek maggi do parle g', { items: [{ qty: 1, id: /maggi/ }, { qty: 2, id: /parle-g/ }] }],
+  ['gupta ji ne dedh sau diye', { intent: 'payment', customer: 'Gupta ji', amount: 150 }],
+  ['verma ji ne paanch sau jama kiye', { intent: 'payment', customer: 'Verma ji', amount: 500 }],
+  ['galla mein teen hazaar paanch sau hai', { intent: 'galla', amount: 3500 }],
+  ['cheeni kitni bachi hai', { intent: 'query', items: [{ id: /sugar/ }] }],
+  ['maal aaya 20 kilo atta', { intent: 'stock_in', items: [{ qty: 20 }] }],
+  ['दो डेटोल साबुन', { items: [{ qty: 2, id: /dettol/ }] }],
+  ['bhaiya do kilo cheeni upi se', { customer: null, pay: 'upi', items: [{ qty: 2, unit: 'kg', id: /sugar/ }] }],
+  ['ramesh bhai 1 kilo aata 2 maggi udhaar mein', { customer: 'Ramesh', pay: 'udhaar', items: [{ qty: 1, unit: 'kg', id: /atta/ }, { qty: 2, id: /maggi/ }] }],
 ]
 
-describe('30 shop sentences', () => {
+describe('60 shop sentences', () => {
   it.each(CASES)('%s', (text, w) => {
     const p = parse(text, shop.index, known)
     if (w.intent) expect(p.intent).toBe(w.intent)

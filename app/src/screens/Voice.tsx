@@ -95,7 +95,7 @@ export function Voice() {
     const s = shop ?? await loadShop()
     setShop(s)
     // the phone gives several guesses of what was said: use the one the rules understand best
-    const best = alts && alts.length > 1 ? pickBest(alts, s.index, s.customers.map((c) => c.name)) : null
+    const best = alts && alts.length > 1 ? pickBest(alts, s.index, s.customers.map((c) => c.name), { recent: new Set([...Object.keys(s.flavour), ...Object.values(s.flavour).flat()]) }) : null
     const text = best?.text ?? heard
     const cur = draftRef.current // latest bill, not the one from when listening started
     if (append && cur) {

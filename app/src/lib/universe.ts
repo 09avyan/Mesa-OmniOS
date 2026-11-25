@@ -136,7 +136,7 @@ export function universeMatchables(): UMatchable[] {
   let m = mm.get(data); if (!m) mm.set(data, (m = build(data)))
   return m
 }
-const LS = 'omni-universe-v8'
+const LS = 'omni-universe-v9'
 /** Start-up: use the copy saved on this phone instantly (works offline), refresh in the background. */
 export function warmUniverse(onReady: () => void) {
   try { const c = localStorage.getItem(LS); if (c && !data) { data = JSON.parse(c); onReady() } } catch { /* storage blocked */ }

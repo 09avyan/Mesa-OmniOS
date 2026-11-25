@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { addSegment, combineAlternatives, silenceFor, type Segment } from '../../lib/speech'
+import { addSegment, combineAlternatives, makeStabiliser, silenceFor, type Segment } from '../../lib/speech'
 import { tokenize, extractPay } from '../normalize'
 
 const join = (segs: Segment[]) => segs.map((s) => s[0]).join(' ')
@@ -66,4 +66,30 @@ describe('transcript correction (normalize)', () => {
     expect(extractPay(['2', 'kilo', 'cheeni', 'udhaar', 'mein'])).toEqual({ pay: 'udhaar', toks: ['2', 'kilo', 'cheeni'] })
     expect(extractPay(['cash', 'count', '500']).pay).toBeNull()
   })
+})
+
+describe('steady live words (interim stabiliser)', () => {
+  const run = (...texts: string[]) => { const st = makeStabiliser(); return texts.map((t) => st.push(t)) }
+  it('growing speech passes straight through, the last word may still change', () => {
+    expect(run('2', '2 ki', '2 kilo', '2 kilo chee', '2 kilo cheeni')).toEqual(['2', '2 ki', '2 kilo', '2 kilo chee', '2 kilo cheeni'])
+    expect(run('2 kilo sheen', '2 kilo cheeni')).toEqual(['2 kilo sheen', '2 kilo cheeni'])
+  })
+  it('an earlier word the phone changes its mind about does not flicker: it waits until the next update repeats it', () => {
+    const out = run('to kilo cheeni', '2 kilo cheeni', '2 kilo cheeni 1')
+    expect(out[0]).toBe('to kilo cheeni')
+    expect(out[1]).toBe('to kilo cheeni')       // revision held back
+    expect(out[2]).toBe('2 kilo cheeni 1')      // repeated -> accepted
+  })
+  it('a one-off wobble that is not repeated never shows', () => {
+    expect(run('2 kilo cheeni 1', '2 kilo chini 1 maggi', '2 kilo cheeni 1 maggi')).toEqual(['2 kilo cheeni 1', '2 kilo cheeni 1', '2 kilo cheeni 1 maggi'])
+  })
+  it('a shorter update never makes shown words disappear', () => {
+    expect(run('2 kilo cheeni 1 maggi', '2 kilo cheeni', '2 kilo cheeni 1 maggi 3')).toEqual(['2 kilo cheeni 1 maggi', '2 kilo cheeni 1 maggi', '2 kilo cheeni 1 maggi 3'])
+  })
+  it('the final reading always wins, and reset starts clean', () => {
+    const st = makeStabiliser()
+    st.push('to kilo cheeni'); expect(st.push('2 kilo cheeni', true)).toBe('2 kilo cheeni')
+    st.reset(); expect(st.push('1 maggi')).toBe('1 maggi')
+  })
+  it('case and punctuation are not revisions', () => { expect(run('2 kilo Cheeni', '2 Kilo cheeni,', '2 kilo cheeni 1')).toEqual(['2 kilo Cheeni', '2 Kilo cheeni,', '2 kilo cheeni 1']) })
 })

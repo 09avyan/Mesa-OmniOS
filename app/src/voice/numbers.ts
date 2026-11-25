@@ -7,11 +7,11 @@ export const devToAscii = (s: string) => s.replace(/[०-९]/g, (d) => DEV_DIGI
 
 const UNITS: Record<string, number> = {
   zero: 0, shunya: 0, 'शून्य': 0,
-  ek: 1, ik: 1, one: 1, 'एक': 1,
-  do: 2, two: 2, 'दो': 2,
-  teen: 3, tin: 3, three: 3, 'तीन': 3,
+  ek: 1, ik: 1, aik: 1, one: 1, 'एक': 1,
+  do: 2, doo: 2, two: 2, 'दो': 2,
+  teen: 3, tin: 3, tinn: 3, three: 3, 'तीन': 3,
   char: 4, chaar: 4, four: 4, 'चार': 4,
-  paanch: 5, panch: 5, five: 5, 'पांच': 5, 'पाँच': 5,
+  paanch: 5, panch: 5, paach: 5, pach: 5, five: 5, 'पांच': 5, 'पाँच': 5,
   chhe: 6, che: 6, chah: 6, chheh: 6, six: 6, 'छह': 6, 'छः': 6, 'छे': 6,
   saat: 7, sat: 7, seven: 7, 'सात': 7,
   aath: 8, ath: 8, eight: 8, 'आठ': 8,
@@ -46,15 +46,19 @@ const FRACTION: Record<string, number> = {
   aadha: 0.5, adha: 0.5, half: 0.5, 'आधा': 0.5, 'आधी': 0.5,
   dedh: 1.5, derh: 1.5, deodh: 1.5, dedha: 1.5, 'डेढ़': 1.5, 'डेढ': 1.5,
   dhai: 2.5, dhaai: 2.5, dhayi: 2.5, dhaayi: 2.5, dhaee: 2.5, 'ढाई': 2.5, 'ढ़ाई': 2.5,
-  pav: 0.25, paav: 0.25, 'पाव': 0.25,
+  pav: 0.25, paav: 0.25, pao: 0.25, pau: 0.25, paw: 0.25, quarter: 0.25, 'पाव': 0.25, 'पाओ': 0.25, 'क्वार्टर': 0.25,
+  adhaa: 0.5, aadhaa: 0.5, adhi: 0.5, aadhi: 0.5, 'आधे': 0.5,
+  dhedh: 1.5, 'डेड': 1.5, dhaii: 2.5,
 }
 // Prefixes that modify the next number: "sawa do" = 2.25, "saade teen" = 3.5, "paune do" = 1.75.
 const PREFIX: Record<string, (n: number) => number> = {
-  sawa: (n) => n + 0.25, 'सवा': (n) => n + 0.25,
-  saade: (n) => n + 0.5, sade: (n) => n + 0.5, 'साढ़े': (n) => n + 0.5, 'साढे': (n) => n + 0.5,
-  paune: (n) => n - 0.25, 'पौने': (n) => n - 0.25,
+  sawa: (n) => n + 0.25, sava: (n) => n + 0.25, savaa: (n) => n + 0.25, 'सवा': (n) => n + 0.25, 'सावा': (n) => n + 0.25,
+  saade: (n) => n + 0.5, sade: (n) => n + 0.5, saadhe: (n) => n + 0.5, sadhe: (n) => n + 0.5, 'साढ़े': (n) => n + 0.5, 'साढे': (n) => n + 0.5, 'साड़े': (n) => n + 0.5, 'सादे': (n) => n + 0.5,
+  paune: (n) => n - 0.25, pone: (n) => n - 0.25, poune: (n) => n - 0.25, 'पौने': (n) => n - 0.25, 'पोने': (n) => n - 0.25,
 }
 
+const ENG_TENS = new Set(['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'])
+const ENG_ONES = new Set(['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'])
 export const isNumberWord = (w: string) => w in UNITS || w in MULT || w in FRACTION || w in PREFIX || /^\d+(\.\d+)?$/.test(w)
 
 /**
@@ -69,7 +73,7 @@ export function readNumber(tokens: string[], i: number): { value: number; used: 
   // "sawa kilo" = 1.25, "paune kilo" = 0.75 (the prefix alone means one and a quarter / three quarters)
   if (mod && (w === undefined || !(/^\d/.test(w) || w in UNITS || w in MULT))) {
     const first = tokens[i]
-    return first === 'sawa' || first === 'सवा' || first === 'paune' || first === 'पौने' ? { value: mod(1), used: 1 } : null
+    return first === 'sawa' || first === 'sava' || first === 'सवा' || first === 'paune' || first === 'pone' || first === 'पौने' ? { value: mod(1), used: 1 } : null
   }
   if (w === undefined) return null
   // fractions before a multiplier are compound numbers: "dhai sau" = 250, "dedh hazaar" = 1500, "sawa sau" = 125
@@ -90,7 +94,7 @@ export function readNumber(tokens: string[], i: number): { value: number; used: 
       if (any && current !== 0) break // "2 3" are two numbers
       current += parseFloat(t); any = true; j++
     } else if (t in UNITS) {
-      if (any && current % 100 !== 0 && current !== 0) break
+      if (any && current % 100 !== 0 && current !== 0 && !(ENG_TENS.has(tokens[j - 1]) && ENG_ONES.has(t))) break   // "twenty five" is one number, "do teen" is two
       current += UNITS[t]; any = true; j++
     } else if (t in MULT && any) {
       const m = MULT[t]

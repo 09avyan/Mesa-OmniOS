@@ -1,4 +1,4 @@
-import { fold, soundKey } from './normalize'
+import { fold, phonKey, skelKey, soundKey } from './normalize'
 
 // Anything that can be matched by name: catalogue items now, the shop's own items/learned names later.
 export type Matchable = { id: string; hinglish: string; hi: string; en: string; brand: string | null; unit: string; loose: boolean; aliases: string[]
@@ -8,10 +8,11 @@ export type Matchable = { id: string; hinglish: string; hi: string; en: string; 
   /** only on a family's default entry: what the parent alone is called ("maggi", "मैगी") */ generic?: string[] }
 export type Candidate = { id: string; score: number; item: Matchable }
 
-type Entry = { key: string; sound: string; words: string[]; item: Matchable; exact: string }
+type Entry = { key: string; sound: string; phon: string; words: string[]; item: Matchable; exact: string }
 // Speed: exact names resolve through a Map (O(1)); fuzzy scoring only runs on entries that share
 // at least one letter-pair or sound-pair with what was said (inverted index), not on every entry.
-export type MatchIndex = { entries: Entry[]; byId: Map<string, Matchable>; exact: Map<string, number[]>; grams: Map<string, number[]> }
+// phon / skel: Hinglish phonetic keys (see phonKey in normalize.ts): unseen spellings that sound like a known name land here.
+export type MatchIndex = { entries: Entry[]; byId: Map<string, Matchable>; exact: Map<string, number[]>; grams: Map<string, number[]>; phon: Map<string, number[]>; skel: Map<string, number[]> }
 
 const push = (m: Map<string, number[]>, k: string, v: number) => { const a = m.get(k); if (a) { if (a[a.length - 1] !== v) a.push(v) } else m.set(k, [v]) }
 function gramsOf(key: string, sound: string): string[] { const g: string[] = []; for (let i = 0; i < key.length - 1; i++) g.push(key.slice(i, i + 2)); for (let i = 0; i < sound.length - 1; i++) g.push('~' + sound.slice(i, i + 2)); return g }
@@ -24,9 +25,10 @@ export function extendIndex(idx: MatchIndex, items: Matchable[]): number {
     idx.byId.set(item.id, item); added++
     const names = new Set([...item.aliases, item.hinglish, item.en, item.hi].map((a) => a.toLowerCase().trim()).filter(Boolean))
     for (const a of names) {
-      const e: Entry = { key: fold(a), sound: soundKey(a), words: a.split(/\s+/), item, exact: a }
+      const e: Entry = { key: fold(a), sound: soundKey(a), phon: phonKey(a), words: a.split(/\s+/), item, exact: a }
       const n = idx.entries.push(e) - 1
       push(idx.exact, e.key, n); push(idx.exact, e.exact, n)
+      if (e.phon.length >= 3) { push(idx.phon, e.phon, n); const sk = skelKey(e.phon); if (sk.length >= 3) push(idx.skel, sk, n) }
       for (const g of gramsOf(e.key, e.sound)) push(idx.grams, g, n)
     }
   }
@@ -34,7 +36,7 @@ export function extendIndex(idx: MatchIndex, items: Matchable[]): number {
 }
 
 export function buildIndex(items: Matchable[]): MatchIndex {
-  const idx: MatchIndex = { entries: [], byId: new Map(), exact: new Map(), grams: new Map() }
+  const idx: MatchIndex = { entries: [], byId: new Map(), exact: new Map(), grams: new Map(), phon: new Map(), skel: new Map() }
   extendIndex(idx, items)
   return idx
 }
@@ -51,6 +53,9 @@ export function dice(a: string, b: string): number {
   return (2 * hit) / (A.length + B.length)
 }
 
+const counts = new WeakMap<MatchIndex, Uint8Array>()
+const POSTINGS = 5000
+const SKEL = 0.62   // consonant-skeleton guess: below the 0.7 "this is a known word" line, so unknown names still read as unknown
 /** Best candidates for a spoken item name, best first (one per item). */
 export function matchName(phrase: string, idx: MatchIndex, limit = 6): Candidate[] {
   const p = phrase.toLowerCase().trim()
@@ -64,13 +69,30 @@ export function matchName(phrase: string, idx: MatchIndex, limit = 6): Candidate
   // Speed: count how many letter/sound pairs each entry shares with what was said and only score the best-overlapping ones
   // (with 3,000+ variants a bare gram hit would drag thousands of entries through the similarity test on every word).
   const grams = [...new Set(gramsOf(pf, ps))]
-  const shared = new Map<number, number>()
-  for (const g of grams) for (const n of idx.grams.get(g) ?? []) shared.set(n, (shared.get(n) ?? 0) + 1)
-  const need = Math.max(1, Math.floor(grams.length * 0.3))
-  const strong = [...shared].filter(([, c]) => c >= need).sort((a, b) => b[1] - a[1]).slice(0, 250)
-  for (const [n] of strong) seen.add(n)
+  // rarest letter-pairs first; very common pairs ("ma", "~ka" sit in thousands of names) are skipped once enough rare ones have been read
+  const lists: number[][] = []
+  for (const g of grams) { const l = idx.grams.get(g); if (l) lists.push(l) }
+  lists.sort((a, b) => a.length - b.length)
+  let cnt = counts.get(idx); if (!cnt || cnt.length < idx.entries.length) counts.set(idx, (cnt = new Uint8Array(idx.entries.length + 8192)))
+  const touched: number[] = []
+  let read = 0, used = 0
+  for (const l of lists) {
+    if (used >= 3 && read + l.length > POSTINGS) break
+    used++; read += l.length
+    for (let i = 0; i < l.length; i++) { const n = l[i]; if (cnt[n]++ === 0) touched.push(n) }
+  }
+  const need = Math.max(1, Math.floor(used * 0.3))
+  const strong: number[] = []
+  for (const n of touched) { if (cnt[n] >= need) strong.push(n) }
+  if (strong.length > 250) strong.sort((a, b) => cnt![b] - cnt![a])
+  for (let i = 0; i < Math.min(250, strong.length); i++) seen.add(strong[i])
+  for (const n of touched) cnt[n] = 0
   for (const n of idx.exact.get(pf) ?? []) seen.add(n)
   for (const n of idx.exact.get(p) ?? []) seen.add(n)
+  // phonetic layer: names that SOUND the same whatever the spelling (kolgate = colgate, ashirbad = aashirvaad)
+  const pk = phonKey(p)
+  const phonHit = pk.length >= 3 ? idx.phon.get(pk) : undefined
+  if (phonHit) for (const n of phonHit) seen.add(n)
   for (const n of seen) {
     const e = idx.entries[n]
     let s: number
@@ -84,9 +106,16 @@ export function matchName(phrase: string, idx: MatchIndex, limit = 6): Candidate
       if (e.exact.startsWith(p + ' ')) s = Math.max(s, 0.8)
       // same sound, different spelling/accent (maida ~ meda, eveready ~ everyday)
       if (ps.length >= 3 && e.sound.length >= 3) { const d = dice(ps, e.sound); if (ps === e.sound) s = Math.max(s, 0.9); else if (d >= 0.75) s = Math.max(s, d * 0.92) }
+      // phonetic key: coarser than the sound key (c=k, v=b, o=u, silent trailing a/h), so STT spellings never seen before still land
+      if (pk.length >= 3 && e.phon.length >= 3) { if (pk === e.phon) s = Math.max(s, 0.88); else { const d = dice(pk, e.phon); if (d >= 0.82) s = Math.max(s, d * 0.9) } }
     }
     const prev = best.get(e.item.id)
     if (!prev || s > prev.score) best.set(e.item.id, { id: e.item.id, score: s, item: e.item })
+  }
+  // last resort: nothing close, so try the consonant skeleton (maida/meda/mayda = "md"): shown as a guess, never "sure"
+  if (pk.length >= 3 && ![...best.values()].some((c) => c.score >= 0.7)) {
+    const sk = skelKey(pk)
+    if (sk.length >= 3) for (const n of idx.skel.get(sk) ?? []) { const e = idx.entries[n]; const prev = best.get(e.item.id); if (!prev || prev.score < SKEL) best.set(e.item.id, { id: e.item.id, score: SKEL, item: e.item }) }
   }
   return [...best.values()].filter((c) => c.score >= 0.55).sort((a, b) => b.score - a.score).slice(0, limit)
 }

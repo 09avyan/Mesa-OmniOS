@@ -1,7 +1,7 @@
 import { readNumber, isNumberWord } from './numbers'
 import { FILLER, SEPARATORS, tokenize, unitOf, extractPay, type Unit, type PayWord } from './normalize'
 import { dice, isSure, matchName, type Candidate, type Matchable, type MatchIndex } from './match'
-import { fold } from './normalize'
+import { fold, phonKey } from './normalize'
 
 export type Intent = 'bill' | 'stock_in' | 'payment' | 'query' | 'galla' | 'unknown'
 export type ParsedItem = {
@@ -29,10 +29,11 @@ const STOCK_IN = ['maal aaya', 'maal aya', 'maal aa gaya', 'maal aagaya', 'stock
 const PAY_VERBS = ['diye', 'diya', 'de diye', 'jama', 'jamaa', 'chukaye', 'chukaya', 'lautaye', 'paid', 'pay', 'दिए', 'दिया', 'दिये', 'जमा', 'चुकाए']
 const QUERY = ['kitna', 'kitni', 'kitne', 'bacha', 'bachi', 'bache', 'bachaa', 'how much', 'left', 'कितना', 'कितनी', 'कितने', 'बचा', 'बची', 'बचे']
 const GALLA = ['galla', 'galle', 'gala', 'gale', 'gulla', 'drawer', 'cash count', 'गल्ला', 'गल्ले', 'गल्ले में']
-const HONORIFIC = new Set(['ji', 'jee', 'bhai', 'bhaiya', 'bhaiyya', 'didi', 'aunty', 'uncle', 'sahab', 'saheb', 'sir', 'madam', 'seth', 'जी', 'भाई', 'भैया', 'दीदी', 'साहब', 'आंटी', 'अंकल'])
-const CUSTOMER_TAIL = ['ka bill', 'ke liye', 'ke', 'ka', 'ki', 'ko', 'का बिल', 'के लिए', 'का', 'के', 'की', 'को']
+const HONORIFIC = new Set(['ji', 'jee', 'bhai', 'bhaiya', 'bhaiyya', 'bhaiyaa', 'didi', 'aunty', 'auntie', 'uncle', 'sahab', 'saheb', 'sahib', 'saab', 'sir', 'madam', 'mam', 'maam', 'seth', 'bhabhi', 'chacha', 'chachi', 'babu', 'pandit', 'mr', 'mrs', 'shri', 'shree',
+  'जी', 'भाई', 'भैया', 'दीदी', 'साहब', 'साहिब', 'आंटी', 'अंकल', 'सर', 'मैडम', 'मैम', 'सेठ', 'भाभी', 'चाचा', 'चाची', 'बाबू', 'पंडित', 'श्री'])
+const CUSTOMER_TAIL = ['ke naam se', 'ke naam', 'ka bill', 'ke liye', 'wala', 'wale', 'wali', 'ke', 'ka', 'ki', 'ko', 'का बिल', 'के नाम से', 'के नाम', 'के लिए', 'वाला', 'वाले', 'वाली', 'का', 'के', 'की', 'को']
 // "bhaiya, 2 kilo cheeni": a form of address, not the customer's name
-const ADDRESS = new Set(['bhaiya', 'bhaiyya', 'bhai', 'bhaiyaji', 'uncle', 'aunty', 'didi', 'sir', 'madam', 'भैया', 'भाई', 'दीदी', 'अंकल', 'आंटी'])
+const ADDRESS = new Set(['bhaiya', 'bhaiyya', 'bhaiyaa', 'bhai', 'bhaiyaji', 'uncle', 'aunty', 'auntie', 'didi', 'sir', 'madam', 'mam', 'maam', 'bhabhi', 'भैया', 'भाई', 'दीदी', 'अंकल', 'आंटी', 'सर', 'मैडम', 'मैम', 'भाभी'])
 
 function firstNumberIndex(toks: string[]) { return toks.findIndex((t, i) => isNumberWord(t) && readNumber(toks, i) !== null) }
 function firstAmount(toks: string[]): number | null {
@@ -41,14 +42,24 @@ function firstAmount(toks: string[]): number | null {
 }
 function cleanName(words: string[]) { return words.filter((w) => !FILLER.has(w) && !SEPARATORS.has(w)).join(' ').trim() }
 
-const stripHon = (s: string) => fold(s.split(' ').filter((w) => !HONORIFIC.has(w)).join(' '))
+// "sharmaji" is "sharma" + "ji"; "शर्माजी" too
+const HON_SUFFIX = ['ji', 'jee', 'bhaiya', 'bhai', 'didi', 'sahab', 'saheb', 'sahib', 'जी', 'भैया', 'भाई', 'दीदी', 'साहब']
+const stripGlued = (w: string) => { for (const h of HON_SUFFIX) if (w.length - h.length >= 3 && w.endsWith(h)) return w.slice(0, -h.length); return w }
+const nameKey = (s: string) => s.toLowerCase().split(/\s+/).filter((w) => w && !HONORIFIC.has(w)).map(stripGlued).join(' ')
+/** How alike two names sound (0..1): honorifics ignored, spelling AND phonetics compared, so "sarma ji" / "शर्मा जी" / "sharmaji" all meet "Sharma ji". */
+export function nameScore(a: string, b: string): number {
+  const x = nameKey(a), y = nameKey(b)
+  if (x.length < 2 || y.length < 2) return 0
+  if (x === y) return 1
+  const px = phonKey(x), py = phonKey(y)
+  if (px.length >= 2 && px === py) return 0.95
+  return Math.max(dice(fold(x), fold(y)), dice(px, py) * 0.97)
+}
 /** Does this phrase sound like a customer we already know? */
-function knownCustomer(name: string, known: string[]): string | null {
-  const k = stripHon(name)
-  if (k.length < 2) return null
+function knownCustomer(name: string, known: string[], min = 0.8): string | null {
   let best: string | null = null, score = 0
-  for (const c of known) { const d = dice(k, stripHon(c.toLowerCase())); if (d > score) { score = d; best = c } }
-  return score >= 0.8 ? best : null
+  for (const c of known) { const d = nameScore(name, c); if (d > score) { score = d; best = c } }
+  return score >= min ? best : null
 }
 function trimTail(head: string[]) {
   for (const tail of CUSTOMER_TAIL) {
@@ -59,9 +70,38 @@ function trimTail(head: string[]) {
 }
 
 type Split = { customer: string | null; customerSure: boolean; rest: string[] }
+// words that glue a name to the sentence: "Sharma ji KE LIYE", "Gupta ji WALA", "Ramesh KA BILL"
+const TAILW = new Set(['ke', 'liye', 'naam', 'se', 'ka', 'ki', 'ko', 'wala', 'wale', 'wali', 'bill', 'के', 'लिए', 'नाम', 'से', 'का', 'की', 'को', 'वाला', 'वाले', 'वाली', 'बिल'])
+const STRONG_TAIL = new Set(['liye', 'naam', 'wala', 'wale', 'wali', 'bill', 'लिए', 'नाम', 'वाला', 'वाले', 'वाली', 'बिल'])
+const dropTailStart = (w: string[]) => { let i = 0; while (i < w.length && TAILW.has(w[i])) i++; return w.slice(i) }
+const dropTailEnd = (w: string[]) => { let e = w.length; while (e > 1 && TAILW.has(w[e - 1])) e--; return w.slice(0, e) }
+
+/** The name in front of the items ("Sharma ji ke liye ...", "Ramesh cheeni 2 kilo ..."): honorific ends it; else a known customer's name; else a bare unknown word (a guess). */
+function headName(head: string[], idx: MatchIndex, known: string[]): (Split & { carry: string[] }) | null {
+  const h = head.findIndex((w, i) => i > 0 && HONORIFIC.has(w))
+  if (h > 0) {
+    const nm = head.slice(0, h + 1).join(' ')
+    return { customer: knownCustomer(nm, known) ?? titleName(nm), customerSure: true, rest: [], carry: dropTailStart(head.slice(h + 1)) }
+  }
+  let bestLen = 0, bestName: string | null = null, bestScore = 0
+  for (let len = Math.min(3, head.length); len >= 1; len--) {
+    const cand = dropTailEnd(head.slice(0, len)).join(' ')
+    const k = knownCustomer(cand, known)
+    const sc = k ? nameScore(cand, k) : 0
+    if (k && sc > bestScore + 0.001) { bestLen = len; bestName = k; bestScore = sc }
+  }
+  if (bestName) return { customer: bestName, customerSure: true, rest: [], carry: dropTailStart(head.slice(bestLen)) }
+  const trimmed = trimTail(head), name = trimmed.join(' ').trim()
+  if (name && head.some((w) => HONORIFIC.has(w))) return { customer: titleName(name), customerSure: true, rest: [], carry: [] }
+  const itemScore = matchName(cleanName(trimmed), idx, 1)[0]?.score ?? 0
+  if (name && itemScore < 0.7 && trimmed.length <= 3 && cleanName(trimmed)) return { customer: titleName(name), customerSure: false, rest: [], carry: [] }
+  return null
+}
+
 /**
  * Who is the bill for? Name before the items ("Sharma ji, ..." / "Ramesh 2 kilo cheeni") or after them
- * ("2 kilo cheeni Sharma ji ke liye"). Known customers and honorifics (ji, bhai...) are sure; a bare unknown
+ * ("2 kilo cheeni Sharma ji ke liye" / "... Ramesh bhai" / "... Gupta wala"). Known customers (matched by sound, so
+ * "sarma ji" / "शर्मा जी" / "sharmaji" all find "Sharma ji") and honorifics (ji, bhai...) are sure; a bare unknown
  * word that is not an item is a guess the owner confirms ("Yahi naam?").
  */
 function splitCustomer(toks: string[], idx: MatchIndex, known: string[]): Split {
@@ -70,17 +110,10 @@ function splitCustomer(toks: string[], idx: MatchIndex, known: string[]): Split 
   const num = firstNumberIndex(toks)
   const end = comma >= 0 && (num < 0 || comma < num) ? comma : num
   if (end > 0) {
-    const head = trimTail(toks.slice(0, end))
-    const name = head.join(' ').trim()
+    const head = toks.slice(0, end)
     const rest = toks.slice(end + (toks[end] === ',' ? 1 : 0))
-    if (name) {
-      const person = head.some((w) => HONORIFIC.has(w))
-      const knownName = knownCustomer(name, known)
-      const itemScore = matchName(cleanName(head), idx, 1)[0]?.score ?? 0
-      if (knownName) return { customer: knownName, customerSure: true, rest }
-      if (person) return { customer: titleName(name), customerSure: true, rest }
-      if (itemScore < 0.7 && head.length <= 3 && cleanName(head)) return { customer: titleName(name), customerSure: false, rest }
-    }
+    const r = headName(head, idx, known)
+    if (r) return { customer: r.customer, customerSure: r.customerSure, rest: [...r.carry, ...(r.carry.length && rest[0] !== undefined && toks[end] === ',' ? [','] : []), ...rest] }
   }
   // name at the end: "... Sharma ji ke liye" / "... Gupta ji ka"
   const hon = toks.map((w, i) => (HONORIFIC.has(w) ? i : -1)).filter((i) => i > 0).pop()
@@ -91,6 +124,17 @@ function splitCustomer(toks: string[], idx: MatchIndex, known: string[]): Split 
     if ((matchName(toks[from], idx, 1)[0]?.score ?? 0) < 0.85) {
       return { customer: knownCustomer(name, known) ?? titleName(name), customerSure: true, rest: toks.slice(0, from) }
     }
+  }
+  // name at the end without an honorific: a known customer ("... ramesh", "... ramesh ke liye"), or a word followed by "ke liye"/"wala"
+  let e = toks.length; while (e > 1 && TAILW.has(toks[e - 1])) e--
+  const strong = toks.slice(e).some((w) => STRONG_TAIL.has(w))
+  for (let n = Math.min(2, e - 1); n >= 1; n--) {
+    const w = toks.slice(e - n, e)
+    if (w.some((x) => isNumberWord(x) || unitOf(x) || SEPARATORS.has(x) || x === ',' || FILLER.has(x))) continue
+    const phrase = w.join(' '), itemScore = matchName(phrase, idx, 1)[0]?.score ?? 0
+    const kn = knownCustomer(phrase, known, 0.85)
+    if (kn && itemScore < 0.9) return { customer: kn, customerSure: true, rest: toks.slice(0, e - n) }
+    if (strong && itemScore < 0.7 && w.every((x) => (matchName(x, idx, 1)[0]?.score ?? 0) < 0.7)) return { customer: titleName(phrase), customerSure: false, rest: toks.slice(0, e - n) }
   }
   return { customer: null, customerSure: true, rest: toks }
 }
@@ -164,7 +208,11 @@ export function parseItems(toks: string[], idx: MatchIndex): ParsedItem[] {
       // "ek coke 750 ml": a size after the name, not a new item
       if (nextUnit && SIZE_UNITS.has(nextUnit) && cur.qty !== null && cur.size === null && cleanName(cur.words)) {
         const after = nextReal(i + n.used + 1)
-        if (after === undefined || SEPARATORS.has(after) || isNumberWord(after)) { cur.size = { value: n.value, unit: nextUnit }; i += n.used; continue }
+        // "2 kilo 500 gram" is one weight, not a pack size followed by a new number
+        const m3 = after !== undefined && isNumberWord(after) ? readNumber(toks, toks.indexOf(after, i + n.used + 1)) : null
+        const u3 = m3 ? unitOf(toks[toks.indexOf(after!, i + n.used + 1) + m3.used] ?? '') : null
+        const weightTail = (nextUnit === 'kg' && u3 === 'g') || (nextUnit === 'l' && u3 === 'ml')
+        if (!weightTail && (after === undefined || SEPARATORS.has(after) || isNumberWord(after))) { cur.size = { value: n.value, unit: nextUnit }; i += n.used; continue }
       }
       const hasQty = cur.qty !== null || cur.rupees !== null
       if (hasQty || (cur.words.length && cleanName(cur.words) === '')) push()
@@ -176,6 +224,13 @@ export function parseItems(toks: string[], idx: MatchIndex): ParsedItem[] {
       }
       if (nextUnit === 'rs') cur.rupees = n.value; else { cur.qty = n.value; cur.unit = nextUnit }
       i += n.used - 1 + (nextUnit ? 1 : 0)
+      if (nextUnit === 'kg' || nextUnit === 'l') {
+        // "2 kilo 500 gram" / "ek kilo aur paanch sau gram" = 2.5 kg / 1.5 kg, one quantity
+        let j = i + 1; if (toks[j] === 'aur' || toks[j] === 'and') j++
+        const m2 = j < toks.length && isNumberWord(toks[j]) ? readNumber(toks, j) : null
+        const u2 = m2 ? unitOf(toks[j + m2.used] ?? '') : null
+        if (m2 && u2 === (nextUnit === 'kg' ? 'g' : 'ml') && m2.value < 1000) { cur.qty = n.value + m2.value / 1000; i = j + m2.used }
+      }
       continue
     }
     const u = unitOf(t)
