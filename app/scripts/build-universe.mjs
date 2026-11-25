@@ -16,6 +16,20 @@ export const norm = (s) => s.toLowerCase().normalize('NFC').replace(/[^\p{L}\p{N
 const tab = { c: [], u: [], b: [] }
 const ix = (t, v) => { if (v == null) return -1; let i = tab[t].indexOf(v); if (i < 0) { i = tab[t].length; tab[t].push(v) } return i }
 const rows = [], keys = {}
+// Derivable fields are not shipped (the phone refills them): id when it is the slug of the hinglish name, en when it equals hinglish,
+// and a variant's Hindi name when it is just a size ("500g" -> "500 ग्राम", "Rs 10" -> "₹10"). Keep autoHi identical to src/lib/universe.ts.
+const SZ = { g: 'ग्राम', kg: 'किलो', ml: 'मिली', l: 'लीटर', pcs: 'पीस', pc: 'पीस' }
+export const autoHi = (name) => {
+  const out = [], t = name.split(' ')
+  for (let i = 0; i < t.length; i++) {
+    let m
+    if (t[i].toLowerCase() === 'rs' && /^\d+$/.test(t[i + 1] ?? '')) { out.push('₹' + t[++i]); continue }
+    if ((m = /^(\d+(?:\.\d+)?)(g|kg|ml|l)$/i.exec(t[i]))) { out.push(m[1] + ' ' + SZ[m[2].toLowerCase()]); continue }
+    if (/^\d+$/.test(t[i]) && /^(pcs|pc)$/i.test(t[i + 1] ?? '')) { out.push(t[i] + ' ' + SZ.pcs); i++; continue }
+    return null
+  }
+  return out.join(' ')
+}
 // drop aliases that read the same as the item's own names (after lower-casing/folding): smaller file, fewer index entries
 const dedupe = (it) => { const seen = new Set([it.hinglish, it.hi, it.en].map(norm)); return (it.aliases || []).filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true }) }
 // Variants (flavour + pack size) ride inside the parent row: r[9] = index of the default variant, r[10] = [[hinglish, hi, aliases?, legacyIds?], ...].
@@ -27,13 +41,13 @@ const vRow = (v) => {
   if (v.en && v.en !== v.hinglish) throw new Error(`variant ${v.id}: en must equal hinglish`)
   const seen = new Set([norm(v.hinglish), norm(v.hi)])
   const al = (v.aliases || []).filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true })
-  const r = [v.hinglish, v.hi, al, v.legacy || []]
+  const r = [v.hinglish, v.hi === autoHi(v.hinglish) ? '' : v.hi, al, v.legacy || []]
   while (r.length > 2 && Array.isArray(r[r.length - 1]) && r[r.length - 1].length === 0) r.pop()
   return r
 }
 let nVariants = 0
 src.items.forEach((it, n) => {
-  const row = [it.id, it.hinglish, it.hi, it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand), dedupe(it)]
+  const row = [it.id === slug(it.hinglish) ? '' : it.id, it.hinglish, it.hi, it.en === it.hinglish ? '' : it.en, ix('c', it.category), ix('u', it.unit), it.loose ? 1 : 0, ix('b', it.brand), dedupe(it)]
   if (it.variants?.length) {
     const d = it.variants.filter((v) => v.default)
     if (d.length !== 1) throw new Error(`${it.id}: needs exactly one default variant (has ${d.length})`)
@@ -55,5 +69,5 @@ writeFileSync(join(out, `u.${hash}.json`), body)
 writeFileSync(join(out, 'u.json'), JSON.stringify({ v: src.version, file: `/universe/u.${hash}.json`, items: rows.length, variants: nVariants }))
 const gz = gzipSync(body).length
 console.log(`universe: ${rows.length} items, ${nVariants} variants, ${Object.keys(keys).length} keys, ${(Buffer.byteLength(body) / 1024).toFixed(1)} KB raw, ${(gz / 1024).toFixed(1)} KB gzip -> u.${hash}.json`)
-// phones download this once; keep it under 140 KB gzipped (shrink the row format before letting it grow past that)
-if (gz > 140 * 1024) console.warn(`WARNING: universe is ${(gz / 1024).toFixed(1)} KB gzipped (> 140 KB budget)`)
+// phones download this once; keep it under 180 KB gzipped (shrink the row format before letting it grow past that)
+if (gz > 180 * 1024) console.warn(`WARNING: universe is ${(gz / 1024).toFixed(1)} KB gzipped (> 180 KB budget)`)

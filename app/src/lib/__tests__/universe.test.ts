@@ -15,10 +15,10 @@ beforeAll(async () => {
 })
 
 describe('universe data', () => {
-  it('has exactly 1500 distinct top-level items; variants are not counted', () => {
-    expect(src.items).toHaveLength(1500)
-    expect(new Set(src.items.map((i) => i.id)).size).toBe(1500)
-    expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(5000)
+  it('has exactly 2500 distinct top-level items; variants are not counted', () => {
+    expect(src.items).toHaveLength(2500)
+    expect(new Set(src.items.map((i) => i.id)).size).toBe(2500)
+    expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(6000)
   })
   it('no two variants of one item share a name', () => {
     for (const it of src.items) { const k = (it.variants ?? []).map((v) => v.hinglish.toLowerCase()); expect(new Set(k).size, it.id).toBe(k.length) }
@@ -62,11 +62,41 @@ describe('universe data', () => {
     const legacy = src.items.flatMap((i) => (i.variants ?? []).flatMap((x) => x.legacy ?? []))
     expect(legacy).toEqual(expect.arrayContaining(['maggi-280', 'fortune-soy-5l', 'tata-salt-500g']))
   })
-  it('the 500 new v7 items are real products with full variants', () => {
-    const fresh = src.items.slice(1000)
-    expect(fresh).toHaveLength(500)
-    expect(fresh.filter((i) => i.variants).length).toBeGreaterThan(400)
-    for (const [id, name] of [['rice-daawat-rozana', '10kg'], ['spice-everest-pav-bhaji', '500g'], ['dairy-epigamia-greek', 'Blueberry 90g'], ['biscuit-priyagold', 'Butter Bite 100g']]) expect(src.items.find((i) => i.id === id)!.variants!.map((v) => v.hinglish), id).toContain(name)
+  it('the 1000 new v8 items are real products with full variants', () => {
+    const fresh = src.items.slice(1500)
+    expect(fresh).toHaveLength(1000)
+    expect(fresh.filter((i) => i.variants).length).toBeGreaterThan(550)
+    for (const [id, name] of [['aashirvaad-select-atta', '10kg'], ['sprite-lemon', '2.25L'], ['tata-tea-agni', '1kg'], ['pedigree-chicken-vegetables', '10kg'], ['cycle-pure-agarbatti', 'Rs 50']]) expect(src.items.find((i) => i.id === id)!.variants!.map((v) => v.hinglish), id).toContain(name)
+    // v7 items are all still there, first, in the same order (nothing deleted)
+    expect(src.items.slice(0, 3).map((i) => i.id)).toEqual(['sugar', 'salt-tata-1kg', 'atta-aashirvaad-5kg'])
+    for (const id of ['maida', 'jeera', 'parle-g', 'colgate-100', 'horlicks', 'maggi-70']) expect(src.items.findIndex((i) => i.id === id), id).toBeGreaterThanOrEqual(0)
+    expect(src.items.findIndex((i) => i.id === 'maida')).toBeLessThan(1500)
+    expect(src.items.slice(1000, 1500).filter((i) => i.variants).length).toBeGreaterThan(400)
+  })
+  it('keeps the shopkeeper-spelling index unambiguous: new spellings never reuse another item\'s name or alias', () => {
+    // keys that already pointed at several items in v7 (generic words like "chai", "chawal" on purpose); v8 may not add to them
+    const owners = new Map<string, Set<string>>(), names = new Map<string, Set<string>>()
+    for (const it of src.items) {
+      for (const a of [it.hinglish, it.en, it.id.replace(/-/g, ' ')]) { const k = norm(a); (names.get(k) ?? names.set(k, new Set()).get(k)!).add(it.id) }
+      for (const a of [it.hinglish, it.hi, it.en, it.id.replace(/-/g, ' '), ...it.aliases]) { const k = norm(a); (owners.get(k) ?? owners.set(k, new Set()).get(k)!).add(it.id) }
+    }
+    expect([...owners.values()].filter((v) => v.size > 1).length).toBeLessThanOrEqual(170)
+    let aliasOnName = 0
+    for (const it of src.items) for (const a of it.aliases) { const o = names.get(norm(a)); if (o && [...o].some((x) => x !== it.id)) aliasOnName++ }
+    expect(aliasOnName).toBeLessThanOrEqual(94)
+    // every item added in v8 is fully clean: no alias of a new item equals another item's name, and none of its names equals an older alias
+    for (const it of src.items.slice(1500)) for (const a of it.aliases) { const o = names.get(norm(a)); expect(o && [...o].some((x) => x !== it.id), `${it.id}: ${a}`).toBeFalsy() }
+  })
+  it('every item has spoken / mis-heard spellings, with no repeats inside one item', () => {
+    let total = 0
+    for (const it of src.items) {
+      total += it.aliases.length
+      const keys = it.aliases.map(norm)
+      expect(keys.every(Boolean), it.id).toBe(true)
+      if (src.items.indexOf(it) >= 1500) expect(new Set(keys).size, it.id).toBe(keys.length)
+    }
+    expect(total).toBeGreaterThan(10000)
+    expect(src.items.filter((i) => i.aliases.length >= 2).length).toBeGreaterThan(2450)
   })
 })
 
@@ -91,6 +121,23 @@ describe('universe variants', () => {
   it('new v7 items resolve by voice: brand + flavour + size', () => {
     expect(findInUniverse('daawat rozana 10 kilo')[0].variant?.hinglish).toBe('10kg')
     expect(findInUniverse('epigamia yogurt blueberry')[0].id).toBe('dairy-epigamia-greek')
+  })
+  it('mis-heard / mispronounced names still find the item (shopkeeper and speech-to-text spellings)', () => {
+    const first = (w: string) => findInUniverse(w).map((x) => x.id)
+    const cases: [string, string][] = [
+      ['meda', 'maida'], ['mayda', 'maida'], ['besun', 'besan'], ['beson', 'besan'], ['zeera', 'jeera'], ['jira', 'jeera'], ['haldee', 'haldi'],
+      ['sarf excel', 'surf-excel-1kg'], ['colget', 'colgate-100'], ['kolgate', 'colgate-100'], ['lifeboy', 'lifebuoy'], ['detol', 'dettol-soap'],
+      ['horlix', 'horlicks'], ['bornvita', 'bournvita'], ['parle ji', 'parle-g'], ['parley', 'parle-g'], ['sooji', 'suji'], ['rawa', 'suji'],
+      ['ashirwad select atta', 'aashirvaad-select-atta'], ['spright lemon', 'sprite-lemon'], ['pedigri chicken vegetables', 'pedigree-chicken-vegetables'],
+    ]
+    expect(cases.length).toBeGreaterThanOrEqual(15)
+    for (const [said, id] of cases) expect(first(said), said).toContain(id)
+    // a mis-heard name plus a size still lands on the right variant
+    expect(findInUniverse('ashirwad select atta')[0].variant?.hinglish).toBe('1kg')
+  })
+  it('the voice matcher also resolves the spoken forms to the right entry', () => {
+    const idx = buildIndex(universeMatchables())
+    for (const [said, id] of [['meda', 'u:maida'], ['zeera', 'u:jeera'], ['colget', 'u:colgate-100'], ['horlix', 'u:horlicks'], ['bornvita', 'u:bournvita'], ['parle ji', 'u:parle-g'], ['sarf excel', 'u:surf-excel-1kg']]) expect(matchName(said, idx)[0].id, said).toBe(id)
   })
   it('items without variants have none', () => {
     const [s] = findInUniverse('sattu')
