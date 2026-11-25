@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Mukta:wght@500;600;700&display=swap");
+:root{--bg:#F6F6F3;--s:#fff;--s2:#EEEEE9;--line:#E4E4DE;--line2:#D2D2CB;--ink:#141517;--ink2:#55595A;--ink3:#767B78;
+--ac:#141517;--on-ac:#fff;--vf:#0D5C55;--vt:#0D5C55;--vsoft:#E3EFEC;--ud:#8A5000;--udsoft:#F7EBD6;--ok:#1F6B3A;--oksoft:#E3F0E6;--danger:#B3261E;
+--font:"Hanken Grotesk","Mukta",system-ui,sans-serif;color-scheme:light}
+:root[data-theme=dark]{--bg:#0E0F0F;--s:#171818;--s2:#222424;--line:#262828;--line2:#363939;--ink:#F2F2EF;--ink2:#ABB0AD;--ink3:#8E9390;
+--ac:#F2F2EF;--on-ac:#0E0F0F;--vf:#1F6B62;--vt:#7CCABF;--vsoft:#13302C;--ud:#E9AC55;--udsoft:#2B2114;--ok:#8FD19F;--oksoft:#16291B;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink)}
+body{font:500 18px/26px var(--font);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+::selection{background:var(--vt);color:#fff}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+svg.i{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mute{color:var(--ink2)}.ud{color:var(--ud)}.vt{color:var(--vt)}

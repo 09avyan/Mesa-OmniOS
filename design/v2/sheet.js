@@ -1,0 +1,6 @@
+const {chromium}=require('/opt/node22/lib/node_modules/playwright');const fs=require('fs'),path=require('path');
+const [,,pre,out,cols,w,title]=process.argv;
+const f=fs.readdirSync('shots').filter(x=>x.startsWith(pre)&&x.endsWith('.png')).sort();
+const html=`<html><head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;800&display=swap"></head><body style="margin:0;background:#E9E9E4;font-family:'Hanken Grotesk';padding:48px"><h1 style="font:800 40px/1 'Hanken Grotesk';margin:0 0 32px;color:#141517">${title}</h1><div style="display:grid;grid-template-columns:repeat(${cols},${w}px);gap:36px 28px">${f.map(x=>`<figure style="margin:0"><img src="file://${path.resolve('shots/'+x)}" style="width:${w}px;display:block;border-radius:${w<500?22:10}px;box-shadow:0 1px 2px rgba(0,0,0,.08),0 12px 32px -12px rgba(0,0,0,.18)"><figcaption style="font:600 20px/1 'Hanken Grotesk';color:#55595A;margin-top:12px">${x.replace('.png','')}</figcaption></figure>`).join('')}</div></body></html>`;
+fs.writeFileSync('/tmp/_sheet.html',html);
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:96+cols*w+(cols-1)*28,height:600}});await p.goto('file:///tmp/_sheet.html');await p.waitForTimeout(800);await p.screenshot({path:out,fullPage:true});await b.close()})();
