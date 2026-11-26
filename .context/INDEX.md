@@ -1,5 +1,5 @@
 # .context/INDEX — read this first, open a topic file only when the task needs it
-| 🔔 Reminder | Remind owner to switch app to design/v2 UI (polish + extra features first). | TASKS.md top |
+| 🔔 Reminders | Remind owner each session: (1) switch app to design/v2 after approval, (2) pick fixes from docs/fix-proposals.md, (3) build assistant, (4) Supabase leaked-password switch. Logo = A. | TASKS.md top |
 Format: topic → 1–2 line summary → file. Keep each line short. Update the matching line + file at every commit chunk.
 
 | Topic | Summary | Full |

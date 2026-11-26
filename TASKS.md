@@ -1,6 +1,12 @@
 # TASKS.md — every task, every iteration
 
-> 🔔 **REMIND OWNER (every session until done):** switch the app to the v2 UI in `design/v2/` (owner likes it; needs a little polishing + extra features before building into every page). Ask what extra features they want, then polish → implement.
+> 🔔 **REMIND OWNER (every session, until each is done — owner asked 26 Nov):**
+> 1. **Switch the app to the v2 UI** (`design/v2/`). Owner likes it; being polished now; owner reviews screenshots and approves, then I build it into every page (merchant, customer, admin). Ask which extra features they want.
+> 2. **Fixes list** (`docs/fix-proposals.md`): owner said "ask me for fixes later". Remind them, let them pick: offline billing queue, double-save guard, PIN-lockout per phone, retry on load errors, 30-min undo window, flavour-learning on undo, stock-below-zero note, running-total fix.
+> 3. **Ask-anything assistant** plan (`docs/assistant-plan.md`) — build after UI approval.
+> 4. **Supabase switch to turn on:** Authentication → Password security → leaked-password protection (owner only).
+> 5. **Sarvam STT:** only a one-off comparison with the free credits; keep browser STT as default.
+> Owner decisions: logo = **A (Voice "O")**; PIN = 6 digits (TEST = 000000); keep Gemini; Q&A brain = rules first, Gemini when needed.
 
 
 Status: ✅ done · 🔄 in progress · ⏳ pending. One line each. Updated on every commit chunk.
