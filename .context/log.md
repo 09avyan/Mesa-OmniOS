@@ -37,3 +37,4 @@
 - 25 Nov: full audit listed to owner (offline, double-save, PIN lockout DoS, voice parse bugs: 'parle g'=grams, 'dhai sau gram', aloo→bhujia, 'ji ka', coke 750ml, litre milk). Perf: lazy routes + vendor chunks + immutable assets. Universe v8 2500 items. Awaiting owner pick of fixes.
 - 25 Nov: 6-digit PIN live (login v2, admin v6). STT upgrade: n-best x5 + pickBest, transcript cleanup, restart dedupe, 7 voice bugs fixed; 169 tests. Refs/logo/fix-proposals/assistant-plan sent, awaiting approval.
 - 25 Nov: Universe v9 3000 items; STT round 2 (phonetic layer, numbers, names, shop bias, interim stabiliser); 296 tests. design/v2 sent; owner: remind to switch to v2 after polish+features.
+- 26 Nov: Universe v10 = 4,500 items (+1,500 regional/supermart/loose/home). Reminders kept: switch to design/v2 UI; owner picks logo + fixes.

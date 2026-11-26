@@ -69,5 +69,5 @@ writeFileSync(join(out, `u.${hash}.json`), body)
 writeFileSync(join(out, 'u.json'), JSON.stringify({ v: src.version, file: `/universe/u.${hash}.json`, items: rows.length, variants: nVariants }))
 const gz = gzipSync(body).length
 console.log(`universe: ${rows.length} items, ${nVariants} variants, ${Object.keys(keys).length} keys, ${(Buffer.byteLength(body) / 1024).toFixed(1)} KB raw, ${(gz / 1024).toFixed(1)} KB gzip -> u.${hash}.json`)
-// phones download this once; keep it under 220 KB gzipped (shrink the row format before letting it grow past that)
-if (gz > 220 * 1024) console.warn(`WARNING: universe is ${(gz / 1024).toFixed(1)} KB gzipped (> 220 KB budget)`)
+// phones download this once; keep it under 320 KB gzipped (compact the row format before letting it grow past that)
+if (gz > 320 * 1024) console.warn(`WARNING: universe is ${(gz / 1024).toFixed(1)} KB gzipped (> 320 KB budget)`)

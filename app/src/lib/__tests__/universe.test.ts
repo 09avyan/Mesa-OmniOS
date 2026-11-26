@@ -3,9 +3,10 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { findInUniverse, loadUniverse, norm, slug, universeMatchables } from '../universe'
 import { buildIndex, isSure, matchName } from '../../voice/match'
+import { phonKey } from '../../voice/normalize'
 
 const pub = join(__dirname, '../../../public')
-type SItem = { id: string; hinglish: string; hi: string; en: string; category: string; aliases: string[]; variants?: { id: string; hinglish: string; hi: string; en: string; default?: boolean; legacy?: string[] }[] }
+type SItem = { id: string; hinglish: string; hi: string; en: string; category: string; loose?: boolean; aliases: string[]; variants?: { id: string; hinglish: string; hi: string; en: string; default?: boolean; legacy?: string[] }[] }
 const src = JSON.parse(readFileSync(join(__dirname, '../../../../supabase/seed/universe.json'), 'utf8')) as { items: SItem[] }
 
 beforeAll(async () => {
@@ -15,10 +16,10 @@ beforeAll(async () => {
 })
 
 describe('universe data', () => {
-  it('has exactly 3000 distinct top-level items; variants are not counted', () => {
-    expect(src.items).toHaveLength(3000)
-    expect(new Set(src.items.map((i) => i.id)).size).toBe(3000)
-    expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(6800)
+  it('has exactly 4500 distinct top-level items; variants are not counted', () => {
+    expect(src.items).toHaveLength(4500)
+    expect(new Set(src.items.map((i) => i.id)).size).toBe(4500)
+    expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(9400)
   })
   it('no two variants of one item share a name', () => {
     for (const it of src.items) { const k = (it.variants ?? []).map((v) => v.hinglish.toLowerCase()); expect(new Set(k).size, it.id).toBe(k.length) }
@@ -74,7 +75,7 @@ describe('universe data', () => {
     expect(src.items.slice(1000, 1500).filter((i) => i.variants).length).toBeGreaterThan(400)
   })
   it('the 500 new v9 items (2501-3000) are clean: real products, one default, Devanagari, 2-6 mis-heard spellings, no duplicates', () => {
-    const fresh = src.items.slice(2500)
+    const fresh = src.items.slice(2500, 3000)
     expect(fresh).toHaveLength(500)
     expect(fresh.filter((i) => i.variants).length).toBeGreaterThan(400)
     expect(new Set(fresh.map((i) => i.category)).size).toBeGreaterThanOrEqual(25)
@@ -93,6 +94,61 @@ describe('universe data', () => {
     expect(names('aashirvaad-multigrain-atta')).toEqual(expect.arrayContaining(['1kg', '5kg', '10kg']))
     expect(names('amul-gold-full-cream-milk')).toEqual(expect.arrayContaining(['500ml', '1L']))
     expect(names('everest-chaat-masala')).toEqual(expect.arrayContaining(['50g', '100g']))
+  })
+  it('the 1500 new v10 items (3001-4500) are clean: real products, one default, Devanagari, 2-6 mis-heard spellings, no duplicates, no clashes', () => {
+    const fresh = src.items.slice(3000)
+    expect(fresh).toHaveLength(1500)
+    expect(new Set(fresh.map((i) => i.id)).size).toBe(1500)
+    expect(fresh.filter((i) => i.variants).length).toBeGreaterThan(1000)
+    expect(fresh.filter((i) => i.loose).length).toBeGreaterThan(300)
+    expect(new Set(fresh.map((i) => i.category)).size).toBeGreaterThanOrEqual(25)
+    const old = src.items.slice(0, 3000)
+    const oldNames = new Set(old.flatMap((i) => [i.hinglish, i.en, i.id.replace(/-/g, ' ')].map(norm)))
+    const oldAlias = new Set(old.flatMap((i) => i.aliases.map(norm)))
+    const oldVariant = new Set(old.flatMap((i) => (i.variants ?? []).map((v) => norm(v.hinglish))))
+    // names (and sound keys of names) of every item, to catch an alias that is really another item's name
+    const nameOwner = new Map<string, Set<string>>(), phonOwner = new Map<string, Set<string>>()
+    for (const it of src.items) for (const n of [it.hinglish, it.en]) { for (const [m, k] of [[nameOwner, norm(n)], [phonOwner, phonKey(n)]] as const) { if (!k) continue; (m.get(k) ?? m.set(k, new Set()).get(k)!).add(it.id) } }
+    const seenName = new Map<string, string>()
+    for (const it of fresh) {
+      expect(it.hi, it.id).toMatch(/[\u0900-\u097F]/); expect(it.hi, it.id).not.toMatch(/[A-Za-z]/)
+      expect(it.aliases.length, it.id).toBeGreaterThanOrEqual(2); expect(it.aliases.length, it.id).toBeLessThanOrEqual(6)
+      const nk = norm(it.hinglish)
+      expect(oldNames.has(nk) || oldNames.has(norm(it.en)), `${it.id} duplicates an older item`).toBe(false)
+      expect(oldVariant.has(nk) || oldAlias.has(nk), `${it.id} clashes with an older variant name or alias`).toBe(false)
+      expect(seenName.get(nk) ?? it.id, `${it.id} duplicates ${seenName.get(nk)}`).toBe(it.id); seenName.set(nk, it.id)
+      const keys = it.aliases.map(norm)
+      expect(new Set(keys).size, it.id).toBe(keys.length)
+      for (const a of it.aliases) {
+        const k = norm(a)
+        expect(oldAlias.has(k) || oldNames.has(k), `${it.id}: ${a} reuses an older name/alias`).toBe(false)
+        const o = nameOwner.get(k); expect(o && [...o].some((x) => x !== it.id), `${it.id}: ${a} is another item's name`).toBeFalsy()
+        const p = phonOwner.get(phonKey(a)); expect(p && [...p].some((x) => x !== it.id), `${it.id}: ${a} sounds like another item's name`).toBeFalsy()
+      }
+      for (const v of it.variants ?? []) { expect(v.hi.replace(/\b[A-Z]\d{1,3}\b|W\d+|XL\+?|XXL|NB|A4|N95|3D|B22|E27|\d+W|\d+V/g, ''), `${it.id}/${v.id}`).not.toMatch(/[A-Za-z]/); expect(v.hinglish.length).toBeGreaterThan(0) }
+      if (it.variants) expect(it.variants.filter((v) => v.default), it.id).toHaveLength(1)
+    }
+    const names = (id: string) => (src.items.find((i) => i.id === id)?.variants ?? []).map((v) => v.hinglish)
+    expect(names('bikaji-lasoon-sev')).toEqual(expect.arrayContaining(['100g', '200g', '400g']))
+    expect(names('pampers-premium-care-pants-m')).toEqual(expect.arrayContaining(['20 pcs', '42 pcs', '70 pcs']))
+    expect(src.items.find((i) => i.id === 'bikaji-lasoon-sev')!.variants!.find((v) => v.default)!.hinglish).toBe('100g')
+  })
+  it('v10: 20 mis-heard / mispronounced names of the 1500 new items find the right product', () => {
+    const idx = buildIndex(universeMatchables())
+    const cases: [string, string][] = [
+      ['bikanji lasoon sev', 'bikaji-lasoon-sev'], ['kelloggs chokos moons and stars', 'kelloggs-chocos-moons-and-stars'], ['girner instant chai premix ginger', 'girnar-instant-chai-premix-ginger'],
+      ['bross aarti', 'brass-aarti'], ['vicko vajradanti powder', 'vicco-vajradanti-powder'], ['mtr instant vada mex', 'mtr-instant-vada-mix'],
+      ['prestige mup spin', 'prestige-mop-spin'], ['sheba fish pooch', 'sheba-fish-pouch'], ['pampers premiyam care pants m', 'pampers-premium-care-pants-m'],
+      ['godrage yummiez chicken popcorn', 'godrej-yummiez-chicken-popcorn'], ['bingu mad angles achaari masti', 'bingo-mad-angles-achaari-masti'], ['lakmay kajal smudge proof', 'lakme-kajal-smudge-proof'],
+      ['mangaldeep agarbathi sandal', 'mangaldeep-agarbatti-sandal'], ['camlin kolour pencils 12 shades', 'camlin-colour-pencils-12-shades'], ['kurkuray solid masti mast masala', 'kurkure-solid-masti-mast-masala'],
+      ['aem langra banarasi', 'aam-langra-banarasi'], ['gode masala maharashtrian', 'goda-masala-maharashtrian'], ['bengali pench phoron', 'bengali-panch-phoron'],
+      ['haukins classic pressure cooker 3l', 'hawkins-classic-pressure-cooker-3l'], ['harpic power plas original', 'harpic-power-plus-original'],
+    ]
+    expect(cases.length).toBe(20)
+    for (const [said, id] of cases) {
+      expect(findInUniverse(said).map((x) => x.id), said).toContain(id)
+      expect(matchName(said, idx)[0].id, said).toBe('u:' + id)
+    }
   })
   it('keeps the shopkeeper-spelling index unambiguous: new spellings never reuse another item\'s name or alias', () => {
     // keys that already pointed at several items in v7 (generic words like "chai", "chawal" on purpose); v8 may not add to them
