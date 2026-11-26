@@ -39,3 +39,4 @@
 - 25 Nov: Universe v9 3000 items; STT round 2 (phonetic layer, numbers, names, shop bias, interim stabiliser); 296 tests. design/v2 sent; owner: remind to switch to v2 after polish+features.
 - 26 Nov: Universe v10 = 4,500 items (+1,500 regional/supermart/loose/home). Reminders kept: switch to design/v2 UI; owner picks logo + fixes.
 - 26 Nov: owner: logo A chosen; fixes list deferred (remind later); v2 UI being polished, screenshots then WAIT for approval; Universe +500 and optimise (→5,000, v11) running.
+- 26 Nov: Universe v11 = 5,000 items, optimised (174 KB gz). v2 UI polished + screenshots sent; AWAITING owner approval. Reminders in TASKS.md top.

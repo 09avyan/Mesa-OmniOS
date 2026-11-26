@@ -6,7 +6,11 @@ export type UVariant = { id: string; hinglish: string; hi: string; en: string; a
 export type UItem = { id: string; hinglish: string; hi: string; en: string; category: string; unit: string; loose: boolean; brand: string | null; variants: UVariant[]; /** variant that was asked for; the default one when only the item name was said; null if the item has no variants */ variant: UVariant | null }
 type PVariant = [string, string, string[]?, string[]?]
 type Row = [string, string, string, string, number, number, number, number, string[], number?, PVariant[]?]
-type Packed = { v: number; c: string[]; u: string[]; b: string[]; i: Row[] }
+/** Unpacked, ready to use: one Row per item (see the file header of scripts/build-universe.mjs for what the file stores). */
+export type Packed = { v: number; c: string[]; u: string[]; b: string[]; i: Row[] }
+type PName = number[] | [string, string]
+/** The file as downloaded (format p2): names are numbers into the word lists e (English) / h (Hindi). */
+export type PackedFile = { v: number; p: 2; c: string[]; u: string[]; b: string[]; e: string; h: string; I: string; X: string; t: unknown[][]; i: unknown[][] }
 export const norm = (s: string) => s.toLowerCase().normalize('NFC').replace(/[^\p{L}\p{N}]+/gu, '').replace(/(.)\1+/g, '$1')
 /** variant id = slug of its hinglish name (not shipped in the file) */
 export const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '')
@@ -25,16 +29,75 @@ export function autoHi(name: string): string | null {
   return out.join(' ')
 }
 const vhi = (v: PVariant) => v[1] || autoHi(v[0]) || v[0]
-const fill = (d: Packed): Packed => { for (const r of d.i) { if (!r[0]) r[0] = slug(r[1]); if (!r[3]) r[3] = r[1] } return d }
-let data: Packed | null = null
+/** Aliases of one item: an alias is the name with up to 3 words edited ("2" "4" "1" "e" = word 2 keeps its first 4 and last 1 letters, the middle becomes "e"),
+ *  "^" = the name turned one word round, "=text" = written out (keep in step with scripts/build-universe.mjs). */
+function aliasesOf(name: string, s: string): string[] {
+  if (!s) return []
+  const nt = name.toLowerCase().split(' ')
+  return s.split('|').map((a) => {
+    if (a === '^') return [...nt.slice(1), nt[0]].join(' ')
+    if (a[0] === '=') return a.slice(1)
+    const t = nt.slice()
+    for (const e of a.split(' ')) { const i = e.charCodeAt(0) - 48, p = e.charCodeAt(1) - 48, q = e.charCodeAt(2) - 48; t[i] = nt[i].slice(0, p) + e.slice(3) + (q ? nt[i].slice(nt[i].length - q) : '') }
+    return t.join(' ')
+  })
+}
+/** Turns the downloaded file into rows, a slice at a time (so the phone stays smooth); `next()` gives the next row. */
+function unpacker(p: PackedFile): () => Row {
+  const E = p.e.split('|'), H = p.h.split('|'), I = p.I.split('|'), X = p.X.split('|'), shared: (PVariant[] | undefined)[] = []
+  let n = 0, ii = 0, xi = 0
+  const words = (x: number[], L: string[]) => { let s = L[x[0]]; for (let k = 1; k < x.length; k++) s += ' ' + L[x[k]]; return s }
+  const nm = (x: PName): [string, string] => (typeof x[0] === 'number' ? [words(x as number[], E), words(x as number[], H)] : (x as [string, string]))
+  const auto = new Map<string, string | null>()
+  const vrow = (x: PName, a = '', leg: string[] = []): PVariant => {
+    const [h, hi] = nm(x), al = aliasesOf(h, a)
+    let au = auto.get(h); if (au === undefined) auto.set(h, (au = autoHi(h)))
+    const v: PVariant = [h, hi === au ? '' : hi]
+    if (al.length || leg.length) v.push(al); if (leg.length) v.push(leg)
+    return v
+  }
+  return () => {
+    const r = p.i[n++] as [PName, number, number, string, (number | unknown[])?], [h, hi] = nm(r[0]), f = r[1]
+    const row: Row = [f & 256 ? I[ii++] : slug(h), h, hi, f & 512 ? X[xi++] : h, f & 31, (f >> 5) & 3, (f >> 7) & 1, r[2] - 1, r[3] ? aliasesOf(h, r[3]) : []]
+    const vl = r[4]
+    if (!vl) return row
+    if (typeof vl === 'number') {
+      // lists of variants that many items share (250g / 500g ...) are unpacked once; rows only read them
+      const t = p.t[vl - 1] as unknown[]
+      row.push(t[0] as number, (shared[vl] ??= t.slice(1).map((e) => vrow(e as PName))))
+    } else row.push(vl[0] as number, vl.slice(1).map((e) => vrow((e as unknown[])[0] as PName, (e as unknown[])[1] as string | undefined, (e as unknown[])[2] as string[] | undefined)))
+    return row
+  }
+}
+/** Unpack everything at once (tests, scripts). The app uses unpackUniverseAsync. */
+export function unpackUniverse(p: PackedFile): Packed {
+  const next = unpacker(p), i: Row[] = []
+  while (i.length < p.i.length) i.push(next())
+  return { v: p.v, c: p.c, u: p.u, b: p.b, i }
+}
+const yieldNow = (): Promise<void> => { const s = (globalThis as { scheduler?: { yield?: () => Promise<void> } }).scheduler; return s?.yield ? s.yield() : new Promise((r) => setTimeout(r, 0)) }
+/** Same, in slices of about 6 ms with a break in between, so opening the app never freezes a cheap phone for one long stretch. */
+export async function unpackUniverseAsync(p: PackedFile): Promise<Packed> {
+  const next = unpacker(p), i: Row[] = []
+  while (i.length < p.i.length) {
+    const t0 = performance.now()
+    do { for (let k = 0; k < 32 && i.length < p.i.length; k++) i.push(next()) } while (i.length < p.i.length && performance.now() - t0 < 6)
+    if (i.length < p.i.length) await yieldNow()
+  }
+  return { v: p.v, c: p.c, u: p.u, b: p.b, i }
+}
+let data: Packed | null = null, dataFile: string | null = null
 let loading: Promise<Packed> | null = null
 let keyMap: Map<string, [number, number][]> | null = null, keyFor: Packed | null = null
+const fetchPointer = (): Promise<{ v: number; file: string }> => fetch('/universe/u.json', { cache: 'no-cache' }).then((r) => r.json())
+const fetchFile = (file: string): Promise<PackedFile> => fetch(file, { cache: 'force-cache' }).then((r) => r.json())
 export function loadUniverse(): Promise<Packed> {
   if (data) return Promise.resolve(data)
-  return (loading ??= fetch('/universe/u.json', { cache: 'no-cache' }).then((r) => r.json()).then((m) => fetch(m.file, { cache: 'force-cache' })).then((r) => r.json()).then((d: Packed) => (data = fill(d))))
+  return (loading ??= fetchPointer().then(async (m) => { const d = await unpackUniverseAsync(await fetchFile(m.file)); data = d; dataFile = m.file; return d }))
 }
 const variantsOf = (r: Row): UVariant[] => (r[10] ?? []).map((v, k) => ({ id: slug(v[0]), hinglish: v[0], hi: vhi(v), en: v[0], aliases: v[2] ?? [], default: k === r[9], legacy: v[3] ?? [] }))
-const unpack = (d: Packed, n: number, vi = -1): UItem => {
+/** One Universe item (with the variant that was asked for, default when vi is -1). */
+export const universeItem = (d: Packed, n: number, vi = -1): UItem => {
   const r = d.i[n], variants = variantsOf(r)
   const variant = variants.length ? variants[vi >= 0 ? vi : (r[9] ?? 0)] : null
   return { id: r[0], hinglish: r[1], hi: r[2], en: r[3], category: d.c[r[4]], unit: d.u[r[5]], loose: r[6] === 1, brand: r[7] < 0 ? null : d.b[r[7]], variants, variant }
@@ -105,7 +168,7 @@ export function findInUniverse(word: string): UItem[] {
   const hit = keyMap.get(norm(word))
   if (!hit) return []
   const seen = new Set<number>(), out: UItem[] = []
-  for (const [n, vi] of hit) { if (seen.has(n)) continue; seen.add(n); out.push(unpack(data, n, vi)) }
+  for (const [n, vi] of hit) { if (seen.has(n)) continue; seen.add(n); out.push(universeItem(data, n, vi)) }
   return out
 }
 
@@ -136,15 +199,24 @@ export function universeMatchables(): UMatchable[] {
   let m = mm.get(data); if (!m) mm.set(data, (m = build(data)))
   return m
 }
-const LS = 'omni-universe-v10'
-/** Start-up: use the copy saved on this phone instantly (works offline), refresh in the background. */
+const LS = 'omni-universe-v11'
+/** Start-up: use the copy saved on this phone instantly (works offline), refresh in the background. The saved copy is the downloaded file itself
+ *  (about a third the size of the unpacked rows), and when its name (= content hash) matches the server's nothing is downloaded or unpacked again. */
 export function warmUniverse(onReady: () => void) {
-  try { const c = localStorage.getItem(LS); if (c && !data) { data = JSON.parse(c); onReady() } } catch { /* storage blocked */ }
-  loadUniverseFresh().then((d) => { if (d) { try { localStorage.setItem(LS, JSON.stringify(d)) } catch { /* full */ } onReady() } }).catch(() => {})
-}
-async function loadUniverseFresh(): Promise<Packed | null> {
-  const m = await (await fetch('/universe/u.json', { cache: 'no-cache' })).json()
-  if (data && data.v === m.v && (data as Packed & { h?: string }).h === m.file) return null
-  const d = await (await fetch(m.file, { cache: 'force-cache' })).json() as Packed & { h?: string }
-  d.h = m.file; data = fill(d); return d
+  let cachedFile: string | null = null
+  try {
+    for (let i = localStorage.length - 1; i >= 0; i--) { const k = localStorage.key(i); if (k?.startsWith('omni-universe-') && k !== LS) localStorage.removeItem(k) } // older versions took 1-2 MB each
+    const c = localStorage.getItem(LS)
+    if (c && !data) {
+      const o = JSON.parse(c) as { f: string; p: PackedFile }
+      if (o.p?.p === 2) { cachedFile = o.f; unpackUniverseAsync(o.p).then((d) => { if (!data) { data = d; dataFile = o.f; onReady() } }).catch(() => {}) }
+    }
+  } catch { /* storage blocked */ }
+  fetchPointer().then(async (m) => {
+    if (m.file === (dataFile ?? cachedFile)) return
+    const p = await fetchFile(m.file), d = await unpackUniverseAsync(p)
+    data = d; dataFile = m.file
+    try { localStorage.setItem(LS, JSON.stringify({ f: m.file, p })) } catch { /* full */ }
+    onReady()
+  }).catch(() => {})
 }

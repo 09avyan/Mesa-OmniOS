@@ -23,12 +23,22 @@ export function extendIndex(idx: MatchIndex, items: Matchable[]): number {
   for (const item of items) {
     if (idx.byId.has(item.id)) continue
     idx.byId.set(item.id, item); added++
-    const names = new Set([...item.aliases, item.hinglish, item.en, item.hi].map((a) => a.toLowerCase().trim()).filter(Boolean))
-    for (const a of names) {
-      const e: Entry = { key: fold(a), sound: soundKey(a), phon: phonKey(a), words: a.split(/\s+/), item, exact: a }
+    const lower = (a: string) => a.toLowerCase().trim()
+    const names = new Set([...item.aliases, item.hinglish, item.en, item.hi].map(lower).filter(Boolean))
+    const main = new Set([item.hinglish, item.en, item.hi].map(lower))
+    // Index size: a spelling whose phonetic key an own name / earlier spelling already has finds the same item through that entry,
+    // so it keeps its exact-match slot but adds no letter-pair / phonetic postings (the bulk of the index memory and build time).
+    const es: Entry[] = [...names].map((a) => ({ key: fold(a), sound: soundKey(a), phon: phonKey(a), words: a.split(/\s+/), item, exact: a }))
+    const seenPhon = new Set<string>()
+    for (const e of es) if (main.has(e.exact) && e.phon.length >= 3) seenPhon.add(e.phon)
+    for (const e of es) {
       const n = idx.entries.push(e) - 1
       push(idx.exact, e.key, n); push(idx.exact, e.exact, n)
-      if (e.phon.length >= 3) { push(idx.phon, e.phon, n); const sk = skelKey(e.phon); if (sk.length >= 3) push(idx.skel, sk, n) }
+      if (e.phon.length >= 3) {
+        if (seenPhon.has(e.phon) && !main.has(e.exact)) continue
+        seenPhon.add(e.phon)
+        push(idx.phon, e.phon, n); const sk = skelKey(e.phon); if (sk.length >= 3) push(idx.skel, sk, n)
+      }
       for (const g of gramsOf(e.key, e.sound)) push(idx.grams, g, n)
     }
   }
