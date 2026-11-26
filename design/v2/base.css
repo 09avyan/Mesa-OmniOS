@@ -1,13 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Mukta:wght@500;600;700&display=swap");
-:root{--bg:#F6F6F3;--s:#fff;--s2:#EEEEE9;--line:#E4E4DE;--line2:#D2D2CB;--ink:#141517;--ink2:#55595A;--ink3:#767B78;
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Mukta:wght@500;600;700;800&display=swap");
+/* Tokens. Radii: 8 small / 14 controls / 18 cards. Spacing: 4px grid. */
+:root{--bg:#F6F6F3;--s:#fff;--s2:#EEEEE9;--line:#E4E4DE;--line2:#D2D2CB;--ink:#141517;--ink2:#55595A;--ink3:#646966;
 --ac:#141517;--on-ac:#fff;--vf:#0D5C55;--vt:#0D5C55;--vsoft:#E3EFEC;--ud:#8A5000;--udsoft:#F7EBD6;--ok:#1F6B3A;--oksoft:#E3F0E6;--danger:#B3261E;
+--wa:#1F6B3A;--logo-tile:#141517;--logo-rim:transparent;--press:rgba(20,21,23,.06);--sk:#E9E9E3;--sk2:#F3F3EF;
+--r1:8px;--r2:14px;--r3:18px;
 --font:"Hanken Grotesk","Mukta",system-ui,sans-serif;color-scheme:light}
 :root[data-theme=dark]{--bg:#0E0F0F;--s:#171818;--s2:#222424;--line:#262828;--line2:#363939;--ink:#F2F2EF;--ink2:#ABB0AD;--ink3:#8E9390;
---ac:#F2F2EF;--on-ac:#0E0F0F;--vf:#1F6B62;--vt:#7CCABF;--vsoft:#13302C;--ud:#E9AC55;--udsoft:#2B2114;--ok:#8FD19F;--oksoft:#16291B;color-scheme:dark}
+--ac:#F2F2EF;--on-ac:#0E0F0F;--vf:#1F6B62;--vt:#7CCABF;--vsoft:#13302C;--ud:#E9AC55;--udsoft:#2B2114;--ok:#8FD19F;--oksoft:#16291B;
+--wa:#22744A;--logo-tile:#262828;--logo-rim:rgba(255,255,255,.10);--press:rgba(255,255,255,.06);--sk:#1D1F1F;--sk2:#262828;color-scheme:dark}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--ink)}
-body{font:500 18px/26px var(--font);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-::selection{background:var(--vt);color:#fff}
+body{font:500 18px/26px var(--font);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;-webkit-tap-highlight-color:transparent}
+::selection{background:var(--vt);color:var(--bg)}
+:focus-visible{outline:2px solid var(--vt);outline-offset:2px}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:var(--line2);border-radius:8px;border:3px solid var(--s)}::-webkit-scrollbar-track{background:transparent}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 svg.i{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .mute{color:var(--ink2)}.ud{color:var(--ud)}.vt{color:var(--vt)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

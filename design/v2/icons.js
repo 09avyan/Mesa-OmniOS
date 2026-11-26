@@ -13,10 +13,17 @@ vol:"M4 9h4l5-4v14l-5-4H4z M17 9a4 4 0 0 1 0 6 M19.5 6.5a8 8 0 0 1 0 11",edit:"M
 globe:"M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M3 12h18 M12 3c3 3 3 15 0 18 M12 3c-3 3-3 15 0 18",up:"M7 17L17 7 M9 7h8v8",reset:"M4 4v6h6 M4 10a8 8 0 1 1 2 7",
 grid:"M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",bell:"M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z M10 21h4",moon:"M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z",
 logout:"M15 4h4v16h-4 M10 8l-4 4 4 4 M6 12h10",filter:"M4 5h16l-6 8v6l-4-2v-4z",print:"M6 9V3h12v6 M6 17H4v-7h16v7h-2 M7 14h10v7H7z",alert:"M12 3l10 18H2z M12 10v4 M12 17h.01",
-spark:"M3 12h3l3-8 6 16 3-8h3"};
+spark:"M3 12h3l3-8 6 16 3-8h3",
+cloudOff:"M3 3l18 18 M9.5 5.4A6 6 0 0 1 17.7 9.2 4.5 4.5 0 0 1 20.5 17 M16 19H7a5 5 0 0 1-2.9-9.1",undo:"M9 14L4 9l5-5 M4 9h11a5 5 0 0 1 0 10h-3",
+cal:"M4 6h16v15H4z M4 10h16 M8 3v4 M16 3v4",rows:"M4 6h16 M4 12h16 M4 18h16",rowsC:"M4 5h16 M4 9.5h16 M4 14h16 M4 18.5h16",csv:"M6 3h9l4 4v14H6z M14 3v5h5 M9 13h6 M9 17h6"};
 function I(n,c=''){return `<svg class="i ${c}" viewBox="0 0 24 24"><path d="${P[n]}"/></svg>`}
-function LOGO(s=36){return `<svg width="${s}" height="${s}" viewBox="0 0 96 96" style="flex:none"><rect width="96" height="96" rx="24" fill="#141517"/><circle cx="48" cy="48" r="24" fill="none" stroke="#fff" stroke-width="7"/><g fill="#5FC3B6"><rect x="38" y="40" width="5" height="16" rx="2.5"/><rect x="46" y="34" width="5" height="28" rx="2.5"/><rect x="54" y="42" width="5" height="12" rx="2.5"/></g></svg>`}
+// Logo A (Voice "O"): ink tile, white ring, teal wave bars. <=24px uses the simplified one-bar mark.
+function LOGO(s=36){if(s<=24)return `<svg width="${s}" height="${s}" viewBox="0 0 96 96" style="flex:none" aria-hidden="true"><rect width="96" height="96" rx="22" fill="var(--logo-tile,#141517)"/><circle cx="48" cy="48" r="25" fill="none" stroke="#fff" stroke-width="11"/><rect x="42" y="35" width="12" height="26" rx="6" fill="#5FC3B6"/></svg>`;
+return `<svg width="${s}" height="${s}" viewBox="0 0 96 96" style="flex:none" aria-hidden="true"><rect x=".5" y=".5" width="95" height="95" rx="23.5" fill="var(--logo-tile,#141517)" stroke="var(--logo-rim,transparent)"/><circle cx="48" cy="48" r="24" fill="none" stroke="#fff" stroke-width="7"/><g fill="#5FC3B6"><rect x="38" y="40" width="5" height="16" rx="2.5"/><rect x="46" y="34" width="5" height="28" rx="2.5"/><rect x="54" y="42" width="5" height="12" rx="2.5"/></g></svg>`}
 const Q=new URLSearchParams(location.search);if(Q.get('t')==='dark')document.documentElement.dataset.theme='dark';
+// Hindi (Devanagari) mode: ?l=hi. Cash / UPI / WhatsApp / Bill stay in English.
+const HI=Q.get('l')==='hi';if(HI){document.documentElement.lang='hi';document.documentElement.dataset.script='deva'}
+const t=(en,hi)=>HI&&hi!=null?hi:en;
 function QR(n=25,seed=7){let r=seed,o='';const rnd=()=>(r=(r*9301+49297)%233280)/233280;const f=(x,y)=>(x<7&&y<7)||(x>=n-7&&y<7)||(x<7&&y>=n-7);
 for(let y=0;y<n;y++)for(let x=0;x<n;x++){if(f(x,y))continue;if(rnd()>.52)o+=`<rect x="${x}" y="${y}" width="1" height="1"/>`}
 const fd=(x,y)=>`<path d="M${x} ${y}h7v7h-7z M${x+1} ${y+1}v5h5v-5z" fill-rule="evenodd"/><rect x="${x+2}" y="${y+2}" width="3" height="3"/>`;
