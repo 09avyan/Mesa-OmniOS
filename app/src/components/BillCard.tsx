@@ -1,4 +1,5 @@
 import { rupees } from '../lib/i18n'
+import { Icon } from './Icon'
 import { CATALOG } from '../voice/catalog'
 import { norm } from '../lib/universe'
 
@@ -30,41 +31,33 @@ export const BILL_T: Record<L3, { bill: string; to: string; walkIn: string; item
   en: { bill: 'Bill', to: 'Customer', walkIn: 'Customer', items: 'items', sub: 'Subtotal', disc: 'Discount', total: 'Total', saved: 'You saved', paid: 'Paid', via: { cash: 'by cash', upi: 'by UPI', udhaar: 'on udhaar' }, udhaar: 'Added to udhaar', removed: 'This bill was removed', thanks: 'Thank you! Visit again', made: (b) => `Bill made with ${b}` },
 }
 
-export function BillCard({ b, lang, brand = true }: { b: BillData; lang: L3; brand?: boolean }) {
+export function BillCard({ b, lang, brand = true, letterhead = true }: { b: BillData; lang: L3; brand?: boolean; letterhead?: boolean }) {
   const L = BILL_T[lang]
   const removed = b.status !== 'saved'
   const ud = b.pay === 'udhaar'
   const d = new Date(b.at)
   const loc = lang === 'hi' ? 'hi-IN' : 'en-IN'
-  const date = d.toLocaleDateString(loc, { day: 'numeric', month: 'short', year: 'numeric' })
-  const time = d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' })
+  const date = d.toLocaleDateString(loc, { day: 'numeric', month: 'short' })
+  const time = d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: false })
   const rows = b.lines
+  const chip = removed ? { c: '', t: L.removed } : ud ? { c: 'ud', t: L.udhaar } : { c: 'ok', t: `${L.paid} · ${b.pay === 'upi' ? 'UPI' : 'Cash'}` }
   return (
-    <article className={`bc ${removed ? 'eb-off' : ''}`}>
-      <header className="eb-h">
-        <div style={{ minWidth: 0 }}><h3>{b.store}</h3>{b.area && <div className="eb-s">{b.area}</div>}</div>
-        {b.no && <span className="eb-no">#{b.no}</span>}
-      </header>
-      <section className="eb-meta">
-        <div><span>{L.to}</span><b>{b.customer ?? L.walkIn}</b></div>
-        <div><span>{lang === 'hi' ? 'तारीख़' : 'Date'}</span><b>{date}</b></div>
-        <div><span>{lang === 'hi' ? 'समय' : 'Time'}</span><b>{time}</b></div>
-      </section>
-      <table className="eb-t"><tbody>
+    <article className={`cx-card cx-bill ${removed ? 'cx-off' : ''}`}>
+      {letterhead && <div className="cx-lh" style={{ padding: '0 0 12px', textAlign: 'left' }}><div className="t"><h1>{b.store}</h1>{b.area && <span>{b.area}</span>}</div></div>}
+      <span className={`cx-chip ${chip.c}`}>{!removed && !ud && <Icon name="tick" size={20} stroke={3} />}{chip.t}</span>
+      <div className="cx-total"><span className="rs">₹</span>{Math.round(Number(b.total)).toLocaleString('en-IN')}</div>
+      <div className="cx-sub">{L.bill}{b.no ? ` #${b.no}` : ''} · {date}, {time}</div>
+      <hr className="cx-dash" />
+      <div className="cx-lines">
         {rows.map((l, i) => (
-          <tr key={i}><td><b>{itemName(l, lang)}</b><small>{+Number(l.qty).toFixed(3)} {units[l.unit] ?? ''} × ₹{+Number(l.price).toFixed(2)}</small></td><td>{rupees(l.amount)}</td></tr>
+          <div className="cx-line" key={i}><div><b>{itemName(l, lang)}</b><small>{+Number(l.qty).toFixed(3)}{units[l.unit] ? ' ' + units[l.unit] : ''} × ₹{+Number(l.price).toFixed(2)}</small></div><span className="a">{rupees(l.amount)}</span></div>
         ))}
-      </tbody></table>
-      {Number(b.discount) > 0
-        ? <><div className="eb-sub"><span>{L.sub}</span><span>{rupees(b.subtotal)}</span></div><div className="eb-sub"><span>{L.disc}</span><span>− {rupees(b.discount)}</span></div></>
-        : <div className="eb-sub"><span>{rows.length} {L.items}</span><span>{rupees(b.subtotal)}</span></div>}
-      <div className="eb-tot"><span>{L.total}</span><b><span className="rs">₹</span>{Math.round(Number(b.total)).toLocaleString('en-IN')}</b></div>
-      <div className={`eb-pay ${ud || removed ? '' : 'paid'}`}>
-        <span className="eb-pill">{removed ? L.removed : ud ? L.udhaar : `${L.paid}`}</span>
-        {!removed && !ud && <span>{L.via[b.pay as 'cash' | 'upi']}</span>}
       </div>
-      <footer className="eb-f"><span>{L.thanks}</span></footer>
-      {brand && <div className="bc-brand">{L.made('OmniOS Dukaan')}</div>}
+      <hr className="cx-dash" />
+      <div className="cx-kv"><span>{L.to}</span><b>{b.customer ?? L.walkIn}</b></div>
+      {Number(b.discount) > 0 && <><div className="cx-kv"><span>{L.sub}</span><b>{rupees(b.subtotal)}</b></div><div className="cx-kv"><span>{L.disc}</span><b>− {rupees(b.discount)}</b></div></>}
+      <div className="cx-kv tot"><span>{L.total}</span><b>{rupees(b.total)}</b></div>
+      {brand && <div className="cx-brand"><Icon name="store" size={20} />{L.made('OmniOS Dukaan')}</div>}
     </article>
   )
 }

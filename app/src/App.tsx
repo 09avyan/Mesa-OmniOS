@@ -10,7 +10,8 @@ import { Settings } from './screens/Settings'
 const Admin = lazy(() => import('./screens/Admin').then((m) => ({ default: m.Admin })))
 import { Voice } from './screens/Voice'
 import { Bills, BillDetail } from './screens/Bills'
-import { UdhaarList, UdhaarCustomer, BalancePage } from './screens/Udhaar'
+import { UdhaarList, UdhaarCustomer } from './screens/Udhaar'
+import { BalancePage } from './screens/Balance'
 import { Maal } from './screens/Maal'
 const StorePage = lazy(() => import('./screens/Store').then((m) => ({ default: m.StorePage })))
 const OrderPage = lazy(() => import('./screens/Store').then((m) => ({ default: m.OrderPage })))
