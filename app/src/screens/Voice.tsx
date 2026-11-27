@@ -11,6 +11,8 @@ import { tokenize } from '../voice/normalize'
 import { askAi, needsAi } from '../voice/ai'
 import { billLinePayload, buildDraft, draftTotal, lineFrom, lineTotal, linesReady, searchItems, withVariant, type Draft, type Line } from '../voice/draft'
 import { chooseFlavour, recordSales } from '../voice/flavour'
+import { correctionRest, isConfirm } from '../voice/correction'
+import { parse as parseQuestion } from '../lib/assistant'
 import { goBack, navigate } from '../lib/router'
 import { errorFx, successFx } from '../lib/feedback'
 import { askText, FlowBar, HomeBtn, LoadError, Sheet, Tap, toast, TopBar, type MicProps } from '../components/ui'
@@ -63,7 +65,7 @@ export function Voice() {
     if (!append) setStage('listen')
     stopRef.current = listen({
       lang: lang === 'en' ? 'en-IN' : 'hi-IN',
-      silenceMs: 4000, // shopkeepers pause between items; wait before moving to review
+      silenceMs: 2600, // short pauses between items are fine; the Ho gaya button ends it at once
       onWords: setWords,
       onDone: (text, alts) => { setListening(false); understand(text, append, alts) },
       onError: (e) => { setListening(false); setErr(e); if (e === 'no-speech' || e === 'other' || e === 'network') errorFx() },
@@ -105,6 +107,21 @@ export function Voice() {
     if (append && cur) {
       // more items or corrections while reviewing: same item again = new quantity, otherwise add
       // a name said now (e.g. "Sharma ji ka hai") fills the customer; the rest are items
+      if (isConfirm(text)) { setDraft({ ...cur, lines: cur.lines.map((l) => (l.match ? { ...l, sure: true, locked: true } : l)) }); setStage('review'); return }
+      const rest = correctionRest(text)
+      if (rest !== null) {
+        // "nahi, cheeni": swap the item just rejected (the last "Yahi wali?" row, else the last line); never add a second line
+        const p = rest ? parseItems(tokenize(rest), s.index).find((x) => x.candidates.length) : null
+        const lines = [...cur.lines]
+        if (p && lines.length) {
+          let t = -1
+          for (let i = lines.length - 1; i >= 0; i--) if (!lines[i].sure && !lines[i].locked) { t = i; break }
+          if (t < 0) t = lines.length - 1
+          const nl = lineFrom(p, s)
+          if (nl.match) lines[t] = { ...nl, key: lines[t].key, qty: p.qty != null ? nl.qty : lines[t].qty, sure: true, locked: true }
+        }
+        setDraft({ ...cur, lines }); setStage('review'); return
+      }
       const full = parse(text, s.index, s.customers.map((c) => c.name))
       const items = full.intent === 'bill' || full.intent === 'stock_in' ? full.items : parseItems(tokenize(text), s.index)
       const lines = [...cur.lines]
@@ -112,13 +129,17 @@ export function Voice() {
       for (const p of items) {
         const nl = lineFrom(p, s)
         const i = lines.findIndex((l) => l.match && nl.match && l.match.id === nl.match.id)
-        if (i >= 0) lines[i] = { ...lines[i], qty: nl.qty ?? lines[i].qty }; else lines.push(nl)
+        if (i >= 0) lines[i] = { ...lines[i], qty: nl.qty ?? lines[i].qty }; else if (nl.match || nl.qty != null) lines.push(nl)
       }
       setDraft({ ...cur, lines }); setStage('review'); return
     }
     let p = parse(text, s.index, s.customers.map((c) => c.name))
     // opened from the Maal tab: whatever is said is stock coming in
     if (new URLSearchParams(location.search).get('stock') && (p.intent === 'bill' || p.intent === 'unknown') && p.items.length) p = { ...p, intent: 'stock_in', customer: null, customerSure: true }
+    // a question ("aaj kitna bika", "Sharma ji ka udhaar") has no quantities: hand it to Poochho, the rules-based answerer
+    if (!new URLSearchParams(location.search).get('stock') && (p.intent === 'bill' || p.intent === 'unknown' || p.intent === 'query') && p.items.every((i) => i.qty == null && i.rupees == null) && parseQuestion(text)) {
+      navigate('/poochho?q=' + encodeURIComponent(text), true); return
+    }
     if (needsAi(p)) {
       setWords(t('understanding'))
       const ai = await askAi(text, s.index, s.customers.map((c) => c.name))
@@ -132,7 +153,7 @@ export function Voice() {
     if (d.intent === 'query' && speakOn()) speak(queryAnswer(d, t, lang), lang, speakRate())
   }
 
-  const fix = (line: Line) => (patch: Partial<Line>) => draft && setDraft({ ...draft, lines: draft.lines.map((l) => l.key === line.key ? { ...l, ...patch } : l) })
+  const fix = (line: Line) => (patch: Partial<Line>) => draft && setDraft({ ...draft, lines: draft.lines.map((l) => l.key === line.key ? { ...l, ...patch, locked: true } : l) })
 
   if (shopErr && !shop) return <div className="app"><main className="screen v2"><TopBar back="/" /><LoadError onRetry={fetchShop} /></main></div>
 

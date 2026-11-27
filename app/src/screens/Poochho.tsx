@@ -126,6 +126,7 @@ export function Poochho() {
     const say = a.empty ?? [a.big, a.sub].filter(Boolean).join(', ') ?? ''
     if (say && speakOn()) speak(say, lang, speakRate())
   }
+  useEffect(() => { const q = new URLSearchParams(location.search).get('q'); if (q) ask(q) }, [])   // arrives here from the Bolo mic
   function mic() {
     if (live) { stop.current?.stop(); return }
     if (!speechSupported()) { setMiss(true); return }

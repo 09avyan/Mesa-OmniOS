@@ -16,6 +16,7 @@ export type Line = {
   /** said as money ("50 rupaye ka dhaniya") and the shop has no price yet: the line is that amount (qty 1 x price) */ rupees?: number
   /** flavour engine: the variants of this product + the "Kaunsa?" one-tap choices (only if this shop sells a mix). Never blocks. */
   flavour?: FlavourChoice<ShopMatchable> | null
+  /** the owner chose / confirmed / edited this line: later speech never swaps its item */ locked?: boolean
 }
 export type Draft = {
   intent: Parsed['intent']

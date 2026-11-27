@@ -91,11 +91,6 @@ export function Home() {
               <div><div className="vlab">{t('rowOrders')}</div><div className="vfig">{t('newOrdersN').replace('{n}', String(newOrders))}</div></div>
             </Tap>
           </div>
-          <Tap className="vc vask" style={{ textAlign: 'left' }} onClick={() => navigate('/poochho')}>
-            <span className="m"><Icon name="spark" size={24} /></span>
-            <span className="t"><b>{t('poochho')}</b><span>{t('poochhoEg')}</span></span>
-            <Icon name="chev" size={22} />
-          </Tap>
           {rows && rows.length > 0 && (
             <div className="vc">
               <div className="vrow" style={{ minHeight: 56, padding: '8px 16px' }}>
@@ -130,7 +125,6 @@ function HomeSkeleton() {
         <div className="vsplit">{[0, 1, 2].map((k) => <div key={k}><i className="vsk" style={{ width: 48, height: 20 }} /><i className="vsk" style={{ width: 72, height: 24, marginTop: 8 }} /></div>)}</div>
       </div>
       <div className="vgrid2">{[0, 1].map((k) => <div key={k} className="vc" style={{ padding: 16, height: 120 }}><i className="vsk" style={{ width: 24, height: 24 }} /><i className="vsk" style={{ width: 104, height: 20, marginTop: 16 }} /><i className="vsk" style={{ width: 88, height: 24, marginTop: 8 }} /></div>)}</div>
-      <div className="vc vask"><i className="vsk" style={{ width: 48, height: 48, borderRadius: 14 }} /><span style={{ flex: 1 }}><i className="vsk" style={{ width: 96, height: 20 }} /><i className="vsk" style={{ width: 160, height: 20, marginTop: 8 }} /></span></div>
       <p className="vlab" style={{ textAlign: 'center', marginTop: 4 }}>{t('loadingHisaab')}</p>
     </div>
   )
