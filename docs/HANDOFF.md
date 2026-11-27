@@ -9,14 +9,14 @@
 - Repo cleaned: old design versions removed (history keeps them); kept `design/v2`, `design/app-v2`, `design/logo`, `design/refs`.
 
 ## Known gaps / next (priority order)
-1. **Owner-only:** Supabase → Authentication → Password security → leaked-password protection (cannot be set from code).
+1. ~~Leaked-password protection~~ — owner: not needed (PIN-only shop logins).
 2. Real-phone test of everything (nothing was run on a device; only Playwright mocks + build + 331 tests). Test voice billing, bag order → Admin → Bags status, login lockout.
 3. Delete `src/styles/df7-pages.css` after confirming which legacy classes remain used (`.pad/.key` in NumberSheet, `.btn.quiet`, `.lg*`). Move `NumberSheet`/`Sheet` to v2 styles first.
 4. Receipt save goes straight to Maal (no Ghar button) — add a done state.
 5. Admin shows no login alerts yet: table `login_alerts` + RPC `recent_login_alerts()` exist; add an `admin` action and an Overview card.
 6. Profit question in Poochho says "needs buying prices" (no cost data on items). Build once stock-in records cost.
 7. Verify flavour learning decrement on undo; `store_public` may need a `phone` field for the customer store call button.
-8. Git remote moved to `https://github.com/09avyan/OmniOS.git` (old URL redirects): `git remote set-url origin https://github.com/09avyan/OmniOS.git`.
+8. Repo renamed to `09avyan/OmniOS` (owner authorised it in the session).
 9. Sarvam STT: optional one-off comparison only; free browser STT stays default.
 
 ## Rules to keep (CLAUDE.md)

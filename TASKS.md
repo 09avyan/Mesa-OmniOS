@@ -4,7 +4,7 @@
 > 1. ✅ v2 UI + logo A built into every page (27 Nov) — owner to review on a real phone.
 > 2. **Fixes list** (`docs/fix-proposals.md`): owner said "ask me for fixes later". Remind them, let them pick: offline billing queue, double-save guard, PIN-lockout per phone, retry on load errors, 30-min undo window, flavour-learning on undo, stock-below-zero note, running-total fix.
 > 3. ✅ Poochho assistant built (rules, no Gemini) — owner to try on phone.
-> 4. **Supabase switch to turn on:** Authentication → Password security → leaked-password protection (owner only).
+> 4. ~~Leaked-password switch~~ — owner decided not needed (shops sign in with a 6-digit PIN only).
 > 5. **Sarvam STT:** only a one-off comparison with the free credits; keep browser STT as default.
 > Owner decisions: logo = **A (Voice "O")**; PIN = 6 digits (TEST = 000000); keep Gemini; Q&A brain = rules first, Gemini when needed.
 
