@@ -9,6 +9,13 @@
 > Owner decisions: logo = **A (Voice "O")**; PIN = 6 digits (TEST = 000000); keep Gemini; Q&A brain = rules first, Gemini when needed.
 
 
+## BUILD PLAN — owner deadline Sunday 29 Nov (limit-saving mode: owner has ~70% of one 5h window left until Monday; be careful, efficient)
+Owner asks (27 Nov): apply v2 UI + logo A everywhere (incl. customer online store, same style, minimal, not AI-looking); +500 items (→5,500); repo clean-up/organise (non-critical deletes OK, ask for critical); all pending features; own branded carry bags (3 types: compostable, cloth, paper; priced slightly below market; admin sees everything); ask-anything assistant WITHOUT Gemini; all fixes; admin dark mode; Home button at end of every flow; optimise; final: Codex handoff + model/effort advice.
+- 🔄 Wave 1 (running): A = v2 core merchant flow + logo + fixes (home btn, offline queue, double-save key, retry, 30-min undo, stock<0 note, running total) · F = Universe 5,500 · E = backend files DONE (migrations 0014–0018 + login/admin functions, NOT applied).
+- ⏳ **DECISION PENDING (ask owner once, one question):** apply backend 0014–0018 + deploy login/admin functions to LIVE Supabase? (owner said "be very careful"; classifier blocked delegating it, so lead applies it himself step by step after verifying live tables). Until applied, app features that call new RPCs (bags, assistant lookups, admin reports) must degrade gracefully.
+- ⏳ Wave 2: other merchant pages in v2 (Udhaar, Maal, Hisaab, Orders, Extras/Bags shop, Receipt, Briefing…) · customer pages (e-bill, khata, online store, order) · admin dashboard + dark mode + bag admin · assistant "Poochho" (rules engine, no Gemini) · repo clean-up/organise.
+- ⏳ Last: update context/docs, docs/HANDOFF.md for Codex (model/effort advice), final deploy check.
+
 Status: ✅ done · 🔄 in progress · ⏳ pending. One line each. Updated on every commit chunk.
 Deadline: live by **Thu 3 Dec 2026**. Live app: omnidukaan.vercel.app (also builds on omnios-dukaan).
 

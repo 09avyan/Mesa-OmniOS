@@ -35,6 +35,17 @@ async function callerIsAdmin(req: Request): Promise<boolean> {
   return !!row;
 }
 
+const BAG_STATUS = ["new", "confirmed", "packed", "dispatched", "delivered", "cancelled"];
+async function rpc(fn: string, args: Record<string, unknown> = {}) {
+  const { data, error } = await db.rpc(fn, args);
+  return error ? fail(error.message) : json(data);
+}
+// CSV with quotes escaped; cells starting with = + - @ are prefixed so spreadsheets do not run them as formulas.
+function toCsv(rows: Record<string, unknown>[], cols: string[]) {
+  const cell = (v: unknown) => { let s = v == null ? "" : String(v); if (/^[=+\-@]/.test(s) && isNaN(Number(s))) s = "'" + s; return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+  return [cols.join(","), ...rows.map((r) => cols.map((c) => cell(r[c])).join(","))].join("\n");
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return fail("POST only", 405);
@@ -92,6 +103,7 @@ Deno.serve(async (req) => {
       if (error) return fail(error.message);
       // new PIN: clear any lockout and log out every phone
       await db.from("login_attempts").delete().eq("code", s.code);
+      await db.from("login_fails").delete().eq("code", s.code); // per-device lockout (migration 0016)
       await db.from("store_devices").update({ revoked: true }).eq("store_id", store_id);
       return json({ ok: true });
     }
@@ -105,6 +117,74 @@ Deno.serve(async (req) => {
       for (const r of su ?? []) await db.auth.admin.deleteUser(r.user_id);
       const { error } = await db.from("stores").delete().eq("id", body.store_id);
       return error ? fail(error.message) : json({ ok: true });
+    }
+    // ---------- reports (SQL functions from migration 0018, service role only) ----------
+    case "overview": return rpc("admin_overview");
+    case "shops_list": return rpc("admin_shops_list");
+    case "shop_detail": return rpc("admin_shop_detail", { p_store: body.store_id });
+    case "usage_events": return rpc("admin_usage_summary");
+    case "bag_margin_report": return rpc("admin_bag_margin");
+
+    // ---------- branded bags (migration 0014) ----------
+    case "bag_products_list": {
+      const { data, error } = await db.from("bag_products").select("*").order("sort");
+      return error ? fail(error.message) : json({ products: data });
+    }
+    case "bag_products_update": {
+      const patch: Record<string, unknown> = {};
+      for (const k of ["price", "cost"]) if (body[k] !== undefined) { const n = Number(body[k]); if (!Number.isFinite(n) || n < 0) return fail(`Bad ${k}`); patch[k] = n; }
+      if (body.active !== undefined) patch.active = !!body.active;
+      if (!body.id || !Object.keys(patch).length) return fail("id and a change needed");
+      const { error } = await db.from("bag_products").update(patch).eq("id", body.id);
+      return error ? fail(error.message) : json({ ok: true });
+    }
+    case "bag_orders_list": {
+      let q = db.from("bag_orders").select("*, stores(code,name,phone), bag_order_lines(*)").order("created_at", { ascending: false }).limit(200);
+      if (typeof body.status === "string" && BAG_STATUS.includes(body.status)) q = q.eq("status", body.status);
+      const { data, error } = await q;
+      return error ? fail(error.message) : json({ orders: data });
+    }
+    case "bag_order_set_status": {
+      if (typeof body.status !== "string" || !BAG_STATUS.includes(body.status)) return fail("Bad status");
+      const { error } = await db.from("bag_orders").update({ status: body.status, updated_at: new Date().toISOString() }).eq("id", body.id);
+      return error ? fail(error.message) : json({ ok: true });
+    }
+
+    // ---------- demand: bag requests + item requests + feature interest ----------
+    case "requests": {
+      const [bags, items, feats] = await Promise.all([
+        db.from("bag_requests").select("*").order("created_at", { ascending: false }).limit(100),
+        db.from("item_requests").select("*").order("created_at", { ascending: false }).limit(100),
+        db.from("feature_interest").select("feature"),
+      ]);
+      const interest: Record<string, number> = {};
+      for (const r of feats.data ?? []) interest[r.feature as string] = (interest[r.feature as string] ?? 0) + 1;
+      return json({ bag_requests: bags.data ?? [], item_requests: items.data ?? [], feature_interest: interest });
+    }
+
+    case "export_csv": {
+      const kind = String(body.kind);
+      const from = typeof body.from === "string" ? body.from : "1970-01-01";
+      const to = typeof body.to === "string" ? body.to : "2999-12-31";
+      const lo = `${from}T00:00:00+05:30`, hi = `${to}T23:59:59.999+05:30`;
+      if (kind === "shops") {
+        const { data, error } = await db.rpc("admin_shops_list");
+        return error ? fail(error.message) : json({ csv: toCsv(data ?? [], ["code", "name", "status", "area", "created_at", "last_active", "bills_30d", "sales_30d", "udhaar_outstanding", "phones"]) });
+      }
+      if (kind === "bills") {
+        const { data, error } = await db.from("bills").select("created_at,total,pay,status,stores(code,name),customers(name)").gte("created_at", lo).lte("created_at", hi).order("created_at").limit(50000);
+        if (error) return fail(error.message);
+        const rows = (data ?? []).map((r: any) => ({ at: r.created_at, shop_code: r.stores?.code, shop: r.stores?.name, customer: r.customers?.name, pay: r.pay, total: r.total, status: r.status }));
+        return json({ csv: toCsv(rows, ["at", "shop_code", "shop", "customer", "pay", "total", "status"]) });
+      }
+      if (kind === "bag_orders") {
+        const { data, error } = await db.from("bag_orders").select("id,created_at,status,total,note,address,stores(code,name,phone),bag_order_lines(name,qty,price,cost)").gte("created_at", lo).lte("created_at", hi).order("created_at").limit(20000);
+        if (error) return fail(error.message);
+        const rows = (data ?? []).map((r: any) => ({ id: r.id, at: r.created_at, shop_code: r.stores?.code, shop: r.stores?.name, phone: r.stores?.phone, status: r.status, total: r.total,
+          cost: (r.bag_order_lines ?? []).reduce((a: number, l: any) => a + l.qty * l.cost, 0), items: (r.bag_order_lines ?? []).map((l: any) => `${l.qty}x ${l.name}`).join("; "), address: r.address, note: r.note }));
+        return json({ csv: toCsv(rows, ["id", "at", "shop_code", "shop", "phone", "status", "total", "cost", "items", "address", "note"]) });
+      }
+      return fail("kind must be shops, bills or bag_orders");
     }
     default:
       return fail("Unknown action");
