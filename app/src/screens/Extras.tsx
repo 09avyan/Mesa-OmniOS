@@ -94,7 +94,7 @@ export function Bags() {
 }
 
 // ---------- Niyam aur shartein ----------
-const TERMS: Key[][] = [['tUseH', 'tUseB'], ['tDataH', 'tDataB'], ['tShareH', 'tShareB'], ['tMoneyH', 'tMoneyB'], ['tSafeH', 'tSafeB'], ['tEndH', 'tEndB']]
+const TERMS: Key[][] = [['tUseH', 'tUseB'], ['tDataH', 'tDataB'], ['tShareH', 'tShareB'], ['tMoneyH', 'tMoneyB'], ['tSafeH', 'tSafeB'], ['tEndH', 'tEndB'], ['tOrdersH', 'tOrdersB'], ['tVoiceH', 'tVoiceB'], ['tBillsH', 'tBillsB'], ['tCustomersH', 'tCustomersB'], ['tOfflineH', 'tOfflineB'], ['tFairH', 'tFairB'], ['tLiabH', 'tLiabB'], ['tLawH', 'tLawB']]
 export function Terms() {
   const { t } = useT()
   return (

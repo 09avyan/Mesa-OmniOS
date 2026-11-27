@@ -57,9 +57,9 @@ const NOISE = new Set([
 // Homophones STT writes for number words, only when a unit follows ("to kilo" = "do kilo").
 const HOMO: Record<string, string> = { to: 'do', too: 'do', tu: 'do', doo: 'do', for: 'char', fore: 'char', won: 'ek', ate: 'aath', tin: 'teen', ik: 'ek', tree: 'teen' }
 
-const BRAND_RE: [RegExp, string][] = BRANDS.map(([from, to]) => [new RegExp('(?<![\\p{L}\\p{M}])' + from + '(?![\\p{L}\\p{M}])', 'gu'), to])
+const BRAND_RE: [RegExp, string][] = BRANDS.map(([from, to]) => [new RegExp('(^|[^\\p{L}\\p{M}])' + from + '(?![\\p{L}\\p{M}])', 'gu'), to])
 function correct(s: string): string {
-  for (const [re, to] of BRAND_RE) s = s.replace(re, ' ' + to + ' ')
+  for (const [re, to] of BRAND_RE) s = s.replace(re, (_m, p: string) => p + ' ' + to + ' ')
   for (const [re, to] of PHRASES) s = s.replace(re, ' ' + to + ' ')
   return s
 }
@@ -78,9 +78,9 @@ function numbersAndFractions(s: string): string {
   s = s.replace(/(\d+)\s+(\d+)\s*\/\s*(\d+)/g, (m, a, b, c) => (+c > 1 && +b < +c ? ' ' + dec(+a + +b / +c) + ' ' : m))
   s = s.replace(/(\d+)\s*\/\s*(\d+)/g, (m, a, b) => (+b > 1 && +a < +b ? ' ' + dec(+a / +b) + ' ' : m))
   s = s.replace(/(\d)\.(\d)/g, '$1\u00a7$2')
-  s = s.replace(new RegExp('(?<![\\p{L}\\p{M}\\d])(?:' + ONE + ')\\s+(?:and|aur|और)\\s+' + HALF + '(?![\\p{L}\\p{M}])', 'gu'), ' dedh ')
-  s = s.replace(new RegExp('(?<![\\p{L}\\p{M}\\d])(?:' + TWO + ')\\s+(?:and|aur|और)\\s+' + HALF + '(?![\\p{L}\\p{M}])', 'gu'), ' dhai ')
-  s = s.replace(new RegExp('(?<![\\p{L}\\p{M}\\d])(' + MORE + ')\\s+(?:and|aur|और)\\s+' + HALF + '(?![\\p{L}\\p{M}])', 'gu'), ' saade $1 ')
+  s = s.replace(new RegExp('(^|[^\\p{L}\\p{M}\\d])(?:' + ONE + ')\\s+(?:and|aur|और)\\s+' + HALF + '(?![\\p{L}\\p{M}])', 'gu'), '$1 dedh ')
+  s = s.replace(new RegExp('(^|[^\\p{L}\\p{M}\\d])(?:' + TWO + ')\\s+(?:and|aur|और)\\s+' + HALF + '(?![\\p{L}\\p{M}])', 'gu'), '$1 dhai ')
+  s = s.replace(new RegExp('(^|[^\\p{L}\\p{M}\\d])(' + MORE + ')\\s+(?:and|aur|और)\\s+' + HALF + '(?![\\p{L}\\p{M}])', 'gu'), '$1 saade $2 ')
   return s
 }
 

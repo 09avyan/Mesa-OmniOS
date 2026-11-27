@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from './supabase'
-import { deviceLabel } from './auth'
+import { deviceKey, deviceLabel } from './auth'
 
 export type Store = { id: string; code: string; name: string; upi_id: string | null; owner_name: string | null; language: 'hi' | 'hinglish' | 'en'; status: string }
 type State = { session: Session | null; store: Store | null; ready: boolean; storeMissing: boolean; reload: () => void }
@@ -30,7 +30,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       if (data) logUsage(data.id, 'open')
     })
     // removed from "Phones logged in" (or PIN reset) → log this phone out
-    supabase.rpc('device_ping', { p_label: deviceLabel() }).then(({ data, error }) => {
+    supabase.rpc('device_ping', { p_label: deviceLabel(), p_key: deviceKey() }).then(({ data, error }) => {
       if (live && !error && data === false) { try { sessionStorage.setItem('omni-removed', '1') } catch { /* ignore */ } supabase.auth.signOut({ scope: 'local' }) }
     })
     return () => { live = false }

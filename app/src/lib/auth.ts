@@ -4,6 +4,15 @@ import { supabase } from './supabase'
 // for 10 minutes after 5 wrong PINs, and registers this phone in the logged-in phones list.
 export type LoginResult = { kind: 'ok' } | { kind: 'wrong'; left?: number } | { kind: 'locked'; until: string } | { kind: 'offline' }
 
+/** Stable id for this browser, so a refresh or re-login is the same phone, not a new one. */
+export function deviceKey() {
+  try {
+    let k = localStorage.getItem('omni-dev')
+    if (!k) { k = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('omni-dev', k) }
+    return k
+  } catch { return null }
+}
+
 export function deviceLabel() {
   const ua = navigator.userAgent
   const os = /Android/i.test(ua) ? 'Android' : /iPhone|iPad/i.test(ua) ? 'iPhone' : /Windows/i.test(ua) ? 'Windows' : /Mac/i.test(ua) ? 'Mac' : 'Phone'

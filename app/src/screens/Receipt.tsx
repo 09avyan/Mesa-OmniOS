@@ -204,13 +204,15 @@ export function Suppliers() {
   )
 }
 
-type Rcpt = { id: number; amount: number; lines: number | null; note: string | null; created_at: string; suppliers: { name: string } | null }
+type RItem = { name: string; name_hi?: string | null; unit?: string | null; qty?: number | null }
+type Rcpt = { id: number; items: RItem[] | null; amount: number; lines: number | null; note: string | null; created_at: string; suppliers: { name: string } | null }
 /** Every scanned / saved supplier receipt, newest first. */
 export function AllReceipts() {
-  const { t } = useT()
+  const { t, lang } = useT()
   const [list, setList] = useState<Rcpt[] | null>(null)
   const [failed, setFailed] = useState(false)
-  const load = () => { setFailed(false); supabase.from('supplier_entries').select('id,amount,lines,note,created_at,suppliers(name)').eq('kind', 'receipt').order('created_at', { ascending: false }).limit(200)
+  const [open, setOpen] = useState<number | null>(null)
+  const load = () => { setFailed(false); supabase.from('supplier_entries').select('id,amount,lines,note,items,created_at,suppliers(name)').eq('kind', 'receipt').order('created_at', { ascending: false }).limit(200)
     .then(({ data, error }) => { if (error) setFailed(true); else setList(((data ?? []) as unknown as Rcpt[]).map((r) => ({ ...r, amount: +r.amount }))) }, () => setFailed(true)) }
   useEffect(() => { load() }, [])
   return (
@@ -219,9 +221,18 @@ export function AllReceipts() {
       {failed ? <LoadError onRetry={() => { setList(null); load() }} /> : !list ? <div className="vc">{[0, 1, 2].map((k) => <div key={k} className="vrow"><i className="vsk" style={{ width: 150, height: 22 }} /></div>)}</div>
         : !list.length ? <div className="vempty"><h2>{t('rcNone')}</h2></div> : (
         <div className="vc">{list.map((r) => (
-          <div key={r.id} className="vrow">
-            <span className="t"><b>{r.suppliers?.name ?? t('rcNoSup')}</b><span>{new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}{r.lines ? ` · ${r.lines} ${t('rcItems')}` : ''}</span></span>
-            <span className="a">{rupees(r.amount)}</span>
+          <div key={r.id}>
+            <button className="vrow" style={{ width: '100%' }} aria-expanded={open === r.id} onClick={() => setOpen(open === r.id ? null : r.id)}>
+              <span className="t"><b>{r.suppliers?.name ?? t('rcNoSup')}</b><span>{new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}{r.lines ? ` · ${r.lines} ${t('rcItems')}` : ''}</span></span>
+              <span className="a">{rupees(r.amount)}</span>
+            </button>
+            {open === r.id && (
+              <div className="vblock" style={{ paddingTop: 0 }}>
+                {r.items?.length ? r.items.map((it, i) => <div key={i} className="vrow"><span className="t"><b>{lang === 'hi' && it.name_hi ? it.name_hi : it.name}</b></span><span className="a">{it.qty ?? ''} {it.unit ?? ''}</span></div>)
+                  : <p className="vlab">{t('rcNoDetail')}</p>}
+                {r.note && <p className="vlab">{r.note}</p>}
+              </div>
+            )}
           </div>
         ))}</div>
       )}

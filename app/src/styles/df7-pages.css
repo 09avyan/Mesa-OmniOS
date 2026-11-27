@@ -202,8 +202,8 @@ a.btn{text-decoration:none}
 
 /* admin dashboard shell */
 .admin .screen.ad-login{max-width:480px}
-.ad-shell{display:grid;grid-template-columns:240px 1fr;min-height:100dvh;max-width:1280px;margin:0 auto}
-.ad-side{position:sticky;top:0;align-self:start;height:100dvh;display:flex;flex-direction:column;gap:4px;padding:16px 12px;border-right:1px solid var(--line)}
+.ad-shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;min-height:100vh;height:100dvh;max-width:1280px;margin:0 auto}
+.ad-side{position:sticky;top:0;align-self:start;height:100vh;height:100dvh;display:flex;flex-direction:column;gap:4px;padding:16px 12px;border-right:1px solid var(--line)}
 .ad-brand{font:800 20px/26px var(--font);padding:12px;letter-spacing:-.01em}
 .ad-nav{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 12px;border-radius:14px;color:var(--ink2);font-weight:700;text-align:left;width:100%}
 .ad-nav.on{background:var(--s2);color:var(--ink)}
