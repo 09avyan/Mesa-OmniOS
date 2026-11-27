@@ -8,7 +8,7 @@ type AiOut = { intent: Parsed['intent'] | 'return'; customer: string | null; amo
 /** Rules weren't sure: ask Gemini (server side) for structure, then match items locally. Null if unavailable. */
 export async function askAi(text: string, idx: MatchIndex, customers: string[]): Promise<Parsed | null> {
   try {
-    const { data, error } = await supabase.functions.invoke('understand', { body: { text, customers } })
+    const { data, error } = await Promise.race([supabase.functions.invoke('understand', { body: { text, customers } }), new Promise<{ data: null; error: Error }>((r) => setTimeout(() => r({ data: null, error: new Error('slow') }), 2500))])
     if (error || !data || (data as { error?: string }).error) return null
     const a = data as AiOut
     const items = (a.items ?? []).map((i) => {
@@ -24,6 +24,6 @@ export async function askAi(text: string, idx: MatchIndex, customers: string[]):
   } catch { return null }
 }
 
-/** Should we ask the AI? Only when the rules clearly struggled. */
+/** Should we ask the AI (a slow network call)? Only when the rules found nothing at all; unsure rows are cheaper to fix with one tap. */
 export const needsAi = (p: Parsed) =>
-  p.intent === 'unknown' || (p.intent === 'bill' && p.items.length === 0 && !p.customer) || p.items.some((i) => i.candidates.length === 0) || (p.intent === 'bill' && !p.customerSure)
+  p.items.length === 0 && !p.customer && p.text.trim().split(/\s+/).length >= 2 && (p.intent === 'unknown' || p.intent === 'bill')
