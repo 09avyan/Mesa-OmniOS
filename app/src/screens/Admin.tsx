@@ -4,7 +4,8 @@ import { Icon } from '../components/Icon'
 import { successFx, errorFx } from '../lib/feedback'
 import { adb, call } from './admin/core'
 import { Overview, Shops, ShopDrawer } from './admin/Parts'
-import { Bags, Demand, Usage, Export, CreateStore } from './admin/More'
+import { Analytics } from './admin/Analytics'
+import { Bags, Demand, Export, CreateStore } from './admin/More'
 
 const KEY = 'omni-admin-theme'
 type Mode = 'light' | 'dark'
@@ -76,10 +77,10 @@ function AdminLogin({ mode, toggle }: { mode: Mode; toggle: () => void }) {
   )
 }
 
-type View = 'overview' | 'shops' | 'bags' | 'demand' | 'usage' | 'export' | 'create'
+type View = 'overview' | 'shops' | 'bags' | 'demand' | 'analytics' | 'export' | 'create'
 const NAV: { id: View; icon: string; label: string }[] = [
   { id: 'overview', icon: 'chart', label: 'Overview' }, { id: 'shops', icon: 'home', label: 'Shops' }, { id: 'bags', icon: 'bag', label: 'Bags' },
-  { id: 'demand', icon: 'cart', label: 'Demand' }, { id: 'usage', icon: 'box', label: 'Usage' }, { id: 'export', icon: 'doc', label: 'Export' },
+  { id: 'demand', icon: 'cart', label: 'Demand' }, { id: 'analytics', icon: 'box', label: 'Analytics' }, { id: 'export', icon: 'doc', label: 'Export' },
 ]
 
 function Dashboard({ mode, toggle }: { mode: Mode; toggle: () => void }) {
@@ -114,7 +115,7 @@ function Dashboard({ mode, toggle }: { mode: Mode; toggle: () => void }) {
           {view === 'create' && <CreateStore act={act} onDone={() => go('shops')} />}
           {view === 'bags' && <Bags act={act} />}
           {view === 'demand' && <Demand act={act} />}
-          {view === 'usage' && <Usage />}
+          {view === 'analytics' && <Analytics />}
           {view === 'export' && <Export act={act} />}
         </div>
       </main>

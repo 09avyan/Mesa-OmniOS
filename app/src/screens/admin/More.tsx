@@ -77,20 +77,6 @@ export function Demand({ act }: { act: Act }) {
   </>}</Load>
 }
 
-export function Usage() {
-  const u = useLoad<{ by_kind_7d: Record<string, number>; by_kind_30d: Record<string, number>; daily_30d: { day: string; events: number; shops: number }[] }>(() => call('usage_events'))
-  return <Load s={u} rows={5}>{(d) => {
-    const kinds = [...new Set([...Object.keys(d.by_kind_30d), ...Object.keys(d.by_kind_7d)])].sort((a, b) => (d.by_kind_30d[b] ?? 0) - (d.by_kind_30d[a] ?? 0))
-    const max = Math.max(1, ...d.daily_30d.map((x) => Number(x.events)))
-    return <>
-      <section className="ad-card ad-flush"><div className="ad-th"><span>Event</span><span className="n">7 days</span><span className="n">30 days</span></div>
-        {kinds.length === 0 ? <p className="ad-empty">No events recorded.</p> : kinds.map((k) => <div key={k} className="ad-row"><span className="g">{k}</span><span className="n">{d.by_kind_7d[k] ?? 0}</span><b className="n">{d.by_kind_30d[k] ?? 0}</b></div>)}</section>
-      <section className="ad-card"><h2>Events per day <small>shops active that day</small></h2>
-        <div className="ad-bars">{d.daily_30d.map((x) => <i key={x.day} title={`${dd(x.day)}: ${x.events} events, ${x.shops} shops`} style={{ height: `${Math.max(3, (Number(x.events) / max) * 100)}%` }} />)}</div></section>
-    </>
-  }}</Load>
-}
-
 export function Export({ act }: { act: Act }) {
   const [from, setFrom] = useState(''), [to, setTo] = useState(''), [busy, setBusy] = useState('')
   const get = (kind: string) => { setBusy(kind); return act(async () => {
