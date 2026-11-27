@@ -17,3 +17,6 @@ Format: topic → 1–2 line summary → file. Keep each line short. Update the 
 | Code map | graphify 0.9.118. `graphify query "<q>"` before grepping; rebuild: `graphify update app/src --force` then copy app/src/graphify-out/* to graphify-out/. | ../graphify-out/GRAPH_REPORT.md |
 | Memory dump | Owner quotes (quality bar), request history, panel method, full screen list for redesign, errors/lessons, open items. | memory.md |
 | Session log | What happened each session, newest first. | log.md |
+
+| Handoff | 27 Nov state, gaps, verify cmd, Codex model/effort advice. Read first when resuming. | ../docs/HANDOFF.md |
+| Assistant | Poochho rules engine: lib/assistant.ts → ask_* RPCs; no Gemini. | ../docs/assistant-plan.md |

@@ -1,13 +1,15 @@
 # TASKS.md — every task, every iteration
 
 > 🔔 **REMIND OWNER (every session, until each is done — owner asked 26 Nov):**
-> 1. **Switch the app to the v2 UI** (`design/v2/`). Owner likes it; being polished now; owner reviews screenshots and approves, then I build it into every page (merchant, customer, admin). Ask which extra features they want.
+> 1. ✅ v2 UI + logo A built into every page (27 Nov) — owner to review on a real phone.
 > 2. **Fixes list** (`docs/fix-proposals.md`): owner said "ask me for fixes later". Remind them, let them pick: offline billing queue, double-save guard, PIN-lockout per phone, retry on load errors, 30-min undo window, flavour-learning on undo, stock-below-zero note, running-total fix.
-> 3. **Ask-anything assistant** plan (`docs/assistant-plan.md`) — build after UI approval.
+> 3. ✅ Poochho assistant built (rules, no Gemini) — owner to try on phone.
 > 4. **Supabase switch to turn on:** Authentication → Password security → leaked-password protection (owner only).
 > 5. **Sarvam STT:** only a one-off comparison with the free credits; keep browser STT as default.
 > Owner decisions: logo = **A (Voice "O")**; PIN = 6 digits (TEST = 000000); keep Gemini; Q&A brain = rules first, Gemini when needed.
 
+
+## STATUS 27 Nov (end of day): backend live, v2 everywhere, Poochho, bags (shop+admin), admin dark mode, Universe 5,500, repo cleaned. Remaining list + Codex advice: `docs/HANDOFF.md`.
 
 ## BUILD PLAN — owner deadline Sunday 29 Nov (limit-saving mode: owner has ~70% of one 5h window left until Monday; be careful, efficient)
 Owner asks (27 Nov): apply v2 UI + logo A everywhere (incl. customer online store, same style, minimal, not AI-looking); +500 items (→5,500); repo clean-up/organise (non-critical deletes OK, ask for critical); all pending features; own branded carry bags (3 types: compostable, cloth, paper; priced slightly below market; admin sees everything); ask-anything assistant WITHOUT Gemini; all fixes; admin dark mode; Home button at end of every flow; optimise; final: Codex handoff + model/effort advice.

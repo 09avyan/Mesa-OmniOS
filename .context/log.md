@@ -46,3 +46,4 @@
 - Applied 0014–0018 + pg_trgm; deployed login v3 (6-digit PIN, lockout) and admin v7 (reports, bags, CSV). Advisors: no new anon-executable RPCs.
 - App v2 core (Login/Home/Voice/Bills/Settings), Universe v12 (5,500 items), offline queue, 30-min undo.
 - Next: Wave 2 (other merchant pages, customer store, admin dashboard + dark, /poochho, repo cleanup, HANDOFF).
+- 27 Nov (later): Wave 2 done by helpers — merchant pages, customer pages (Cx.tsx, Balance.tsx), admin (screens/admin/*, dark mode); Poochho built; old design versions removed; HANDOFF.md written.
