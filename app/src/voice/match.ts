@@ -136,9 +136,13 @@ export function matchName(phrase: string, idx: MatchIndex, limit = 6): Candidate
  */
 export function isSure(phrase: string, cands: Candidate[], idx: MatchIndex): boolean {
   if (cands.length === 0) return false
-  const a = cands[0], fam = (c: Candidate) => c.item.family ?? c.item.id
+  // the same product line in other sizes ("Tata Salt 1kg" / "Tata Salt 500g", "Pepsi 750ml" / "Pepsi Rs 10") is no competition: the pack is picked by the flavour engine, "badlo" is one tap away
+  const lineOf = (m: Matchable) => m.hinglish.toLowerCase().split(/\s+/).filter((w) => !/^\d|^rs$|^\(/.test(w)).slice(0, 2).join(' ')
+  const line = (c: Candidate) => lineOf(c.item)
+  const a = cands[0]
   // a runner-up that is just another flavour/size of the same product is no competition
-  const b = cands.find((c) => fam(c) !== fam(a))
+  const same = (c: Candidate) => (c.item.family ?? c.item.id) === (a.item.family ?? a.item.id) || line(c) === line(a)
+  const b = cands.find((c) => !same(c))
   if (a.score < 0.85) return false
   if (b && b.score >= a.score - 0.12) return false
   const p = phrase.toLowerCase().trim()
@@ -146,7 +150,7 @@ export function isSure(phrase: string, cands: Candidate[], idx: MatchIndex): boo
   // only different products sharing the word ("maggi" = noodles + ketchup + masala) are.
   const family = new Set(idx.entries.filter((e) => e.exact === p || e.exact.startsWith(p + ' ')).map((e) => e.item.family ?? e.item.id))
   // ...unless the word IS the product's own name ("maggi" for Maggi Noodles, whose variants the flavour engine handles)
-  const ownName = !!a.item.generic?.some((g) => g.toLowerCase().trim() === p)
+  const ownName = !!a.item.generic?.some((g) => g.toLowerCase().trim() === p) || (lineOf(a.item) === p && p.includes(' '))   // "tata salt" / "pepsi" = the product's own name
   if (family.size > 1 && !a.item.loose && !ownName) return false
   return true
 }
