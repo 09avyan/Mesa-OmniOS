@@ -30,13 +30,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       if (!live) return
       setStore(data as Store | null); setMissing(!data); setReady(true)
       try { if (data) localStorage.setItem('omni-store', JSON.stringify(data)); else localStorage.removeItem('omni-store') } catch { /* ignore */ }
-      if (data) logUsage(data.id, 'open')
+      if (data) setTimeout(() => logUsage(data.id, 'open'), 3000)   // bookkeeping waits: Home's own data goes first
     })
     // removed from "Phones logged in" (or PIN reset) → log this phone out
-    supabase.rpc('device_ping', { p_label: deviceLabel(), p_key: deviceKey() }).then(({ data, error }) => {
-      if (live && !error && data === false) { try { sessionStorage.setItem('omni-removed', '1') } catch { /* ignore */ } supabase.auth.signOut({ scope: 'local' }) }
-    })
-    return () => { live = false }
+    const ping = setTimeout(() => {
+      supabase.rpc('device_ping', { p_label: deviceLabel(), p_key: deviceKey() }).then(({ data, error }) => {
+        if (live && !error && data === false) { try { sessionStorage.setItem('omni-removed', '1') } catch { /* ignore */ } supabase.auth.signOut({ scope: 'local' }) }
+      })
+    }, 2000)
+    return () => { live = false; clearTimeout(ping) }
   }, [session, tick])
 
   return <Ctx.Provider value={{ session, store, ready, storeMissing, reload: () => setTick((n) => n + 1) }}>{children}</Ctx.Provider>

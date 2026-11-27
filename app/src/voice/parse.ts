@@ -191,6 +191,7 @@ function preferLoose(cands: Candidate[], said: string): Candidate[] {
 }
 
 /** Items: "2 kilo cheeni 1 maggi", "cheeni 2 kilo, maggi ek", "50 rupaye ka dhaniya". */
+const WEAK = 0.8
 export function parseItems(toks: string[], idx: MatchIndex): ParsedItem[] {
   type Draft = { words: string[]; qty: number | null; unit: Unit | null; rupees: number | null; size: Size | null }
   const fresh = (): Draft => ({ words: [], qty: null, unit: null, rupees: null, size: null })
@@ -261,7 +262,7 @@ export function parseItems(toks: string[], idx: MatchIndex): ParsedItem[] {
       }
     }
     return { said, qty, unit, rupees: d.rupees, candidates, sure }
-  }).filter((d) => d.said)
+  }).filter((d) => d.said && !(d.qty === null && d.rupees === null && !d.sure && (d.candidates[0]?.score ?? 0) < WEAK))   // chatter / mishears with no quantity and no real match are dropped, not shown as bill lines
 }
 
 export function parse(text: string, idx: MatchIndex, knownCustomers: string[] = []): Parsed {

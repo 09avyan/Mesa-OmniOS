@@ -18,6 +18,11 @@ export const unitOf = (w: string): Unit | null => UNIT_WORDS[w] ?? null
 export const FILLER = new Set([
   'ka', 'ki', 'ke', 'wala', 'wali', 'wale', 'vala', 'vali', 'bhi', 'please', 'plz', 'dena', 'dedo', 'de', 'dijiye', 'chahiye', 'chaiye',
   'hai', 'hain', 'the', 'a', 'an', 'of', 'ko', 'to', 'lo', 'le', 'lena', 'liya', 'dalo', 'likho', 'aur', 'and', 'also',
+  // chatter that is never part of an order (otherwise it becomes junk bill lines)
+  'haan', 'han', 'ji', 'bhai', 'bhaiya', 'bhaisaab', 'sir', 'madam', 'yaar', 'arre', 'arey', 'are', 'ruko', 'minute', 'minit', 'hello', 'hi', 'hey', 'ok', 'okay', 'thanks', 'thank', 'you',
+  'bolo', 'kya', 'kyun', 'kaise', 'kitna', 'kitne', 'kitni', 'hua', 'hue', 'total', 'bata', 'batao', 'bas', 'itna', 'itni', 'theek', 'thik', 'achha', 'accha', 'chalo', 'jaldi', 'karo', 'kar',
+  'paisa', 'aaj', 'bahut', 'mera', 'meri', 'mere', 'mujhe', 'aap', 'aapko', 'hum', 'tum', 'woh', 'wo', 'ye', 'yeh', 'ab', 'abhi', 'mummy', 'phone', 'kahan', 'bola', 'ne',
+  'हाँ', 'हां', 'जी', 'भाई', 'यार', 'अरे', 'रुको', 'मिनट', 'क्या', 'कितना', 'कितने', 'बताओ', 'बस', 'ठीक', 'चलो', 'जल्दी', 'करो', 'पैसा', 'आज', 'बहुत', 'मेरा', 'मुझे', 'आप', 'सब', 'हाल', 'ने',
   'का', 'की', 'के', 'वाला', 'वाली', 'भी', 'देना', 'दे', 'दीजिए', 'चाहिए', 'है', 'हैं', 'को', 'लो', 'और',
 ])
 export const SEPARATORS = new Set([',', 'aur', 'and', 'और', 'phir', 'fir', 'then', 'फिर'])

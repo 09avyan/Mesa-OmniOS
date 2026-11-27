@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 import { CATALOG } from '../voice/catalog'
-import { buildIndex, dice, type Matchable, type MatchIndex } from '../voice/match'
+import { buildIndex, dice, extendIndex, type Matchable, type MatchIndex } from '../voice/match'
 import { fold } from '../voice/normalize'
 import { loadUniverse, universeMatchables } from './universe'
 import { loadHistory, mergeHistory, seedFromCounts, type FlavourHistory } from '../voice/flavour'
@@ -13,7 +13,7 @@ export const custLabel = (c: { name: string; tag?: string | null }) => c.tag ? `
 // One matchable per thing the shop can sell: catalogue items merged with the shop's own items + learned names.
 export type ShopMatchable = Matchable & { shop?: ShopItem; lastPrice?: number }
 export type Shop = { items: ShopItem[]; customers: Customer[]; index: MatchIndex; byMatchId: Map<string, ShopMatchable>
-  /** what this shop sold per product family (flavour engine); `shopKey` names it on this phone */ flavour: FlavourHistory; shopKey: string }
+  /** what this shop sold per product family (flavour engine); `shopKey` names it on this phone */ flavour: FlavourHistory; shopKey: string; /** resolves when the whole Universe is in the matching index */ uniReady: Promise<void> }
 
 let cache: Shop | null = null
 let loading: Promise<Shop> | null = null
@@ -42,24 +42,34 @@ export async function loadShop(): Promise<Shop> {
       const shop = byCatalog.get(c.id)
       return { ...c, aliases: [...c.aliases, ...(shop ? aliases.get(shop.id) ?? [] : [])], shop, lastPrice: shop ? last.get(shop.id) : undefined }
     })
-    // Universe: items the catalogue doesn't have. No price comes from the Universe: every shop keeps its OWN price
-    // on its own items row (created on first sale/stock-in): stock-entry rate or manual price, else learned after
-    // 3 bills at the same price; the owner can always change it. (Owner rule, 24 Nov.)
-    const uni = await Promise.race([loadUniverse().then(() => universeMatchables()).catch(() => []), new Promise<[]>((r) => setTimeout(() => r([]), 1500))])
-    const known = new Set(list.flatMap((m) => [m.hinglish, m.en, m.hi, ...m.aliases].map((a) => fold(a.toLowerCase().trim()))))
-    for (const u of uni) {
-      if ([u.hinglish, u.en, u.hi].some((a) => known.has(fold(a.toLowerCase().trim())))) continue
-      // a variant that replaced an old stand-alone item (Maggi 280g, Tata Salt 500g) keeps that item's stock row and price
-      const shop = byCatalog.get(u.id) ?? u.aka?.map((a) => byCatalog.get(a)).find(Boolean)
-      list.push({ ...u, shop, lastPrice: shop ? last.get(shop.id) : undefined })
-    }
     for (const s of items.filter((i) => !i.catalog_id)) {
       list.push({ id: 'shop:' + s.id, hinglish: s.name, hi: s.name_hi ?? s.name, en: s.name, brand: null, unit: s.unit, loose: s.loose, aliases: aliases.get(s.id) ?? [s.name.toLowerCase()], shop: s, lastPrice: last.get(s.id) })
     }
     const customers = ((cu.data ?? []) as Customer[]).map((c) => ({ ...c, balance: Number(c.balance) }))
     const shopKey = ses.data.session?.user.id ?? 'local'
     const flavour = mergeHistory(loadHistory(shopKey), seedFromCounts(fs.error ? [] : ((fs.data ?? []) as { family: string; match_id: string; n: number }[])))
-    cache = { items, customers, index: buildIndex(list), byMatchId: new Map(list.map((m) => [m.id, m])), flavour, shopKey }
+    const index = buildIndex(list), byMatchId = new Map(list.map((m) => [m.id, m]))
+    // The shop opens at once on the catalogue + own items. The Universe (5,000+ items) joins the index in small slices in the
+    // background (never freezes an old phone, never abandoned because it was slow); `uniReady` resolves when it is all in.
+    const known = new Set(list.flatMap((m) => [m.hinglish, m.en, m.hi, ...m.aliases].map((a) => fold(a.toLowerCase().trim()))))
+    const uniReady = (async () => {
+      let uni: ShopMatchable[] = []
+      try { await loadUniverse(); uni = universeMatchables() as ShopMatchable[] } catch { return }
+      const fresh: ShopMatchable[] = []
+      for (const u of uni) {
+        if ([u.hinglish, u.en, u.hi].some((a) => known.has(fold(a.toLowerCase().trim())))) continue
+        // a variant that replaced an old stand-alone item (Maggi 280g, Tata Salt 500g) keeps that item's stock row and price
+        const shop = byCatalog.get(u.id) ?? u.aka?.map((a) => byCatalog.get(a)).find(Boolean)
+        fresh.push({ ...u, shop, lastPrice: shop ? last.get(shop.id) : undefined })
+      }
+      for (let i = 0; i < fresh.length; i += 250) {
+        const part = fresh.slice(i, i + 250)
+        extendIndex(index, part)
+        for (const m of part) byMatchId.set(m.id, m)
+        await new Promise<void>((r) => setTimeout(r, 0))   // let the screen breathe between slices
+      }
+    })()
+    cache = { items, customers, index, byMatchId, flavour, shopKey, uniReady }
     loading = null
     return cache
   })()

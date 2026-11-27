@@ -20,7 +20,7 @@ beforeAll(async () => {
   ;(globalThis as { localStorage?: unknown }).localStorage = { getItem: (k: string) => mem.get(k) ?? null, setItem: (k: string, v: string) => void mem.set(k, v) }
   await loadUniverse()
   const list = universeMatchables() as ShopMatchable[]
-  shop = { items: [], customers: [], index: buildIndex(list), byMatchId: new Map(list.map((m) => [m.id, m])), flavour: {}, shopKey: 'test' }
+  shop = { items: [], customers: [], index: buildIndex(list), byMatchId: new Map(list.map((m) => [m.id, m])), flavour: {}, shopKey: 'test', uniReady: Promise.resolve() }
 })
 const top = (said: string) => matchName(said, shop.index)[0].item as ShopMatchable
 

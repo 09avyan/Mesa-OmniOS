@@ -97,6 +97,7 @@ export function Voice() {
   async function understand(heard: string, append: boolean, alts?: string[]) {
     const s = shop ?? await loadShop()
     setShop(s)
+    await Promise.race([s.uniReady, new Promise((r) => setTimeout(r, 4000))])   // the full product list must be in before we guess what was said
     // the phone gives several guesses of what was said: use the one the rules understand best
     const best = alts && alts.length > 1 ? pickBest(alts, s.index, s.customers.map((c) => c.name), { recent: new Set([...Object.keys(s.flavour), ...Object.values(s.flavour).flat()]) }) : null
     const text = best?.text ?? heard
