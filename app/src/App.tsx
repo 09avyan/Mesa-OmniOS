@@ -18,6 +18,7 @@ import { Orders, OrderDetail, MyStore } from './screens/Orders'
 const BillPage = lazy(() => import('./screens/BillPage').then((m) => ({ default: m.BillPage })))
 import { Hisaab, Galla } from './screens/Hisaab'
 import { Bags, Terms, Soon } from './screens/Extras'
+import { Poochho } from './screens/Poochho'
 import { Receipt, Suppliers } from './screens/Receipt'
 import { StockCheck } from './screens/Briefing'
 import { supabase } from './lib/supabase'
@@ -48,6 +49,7 @@ function Owner({ path }: { path: string }) {
 
   if (path === '/bolo') return <Voice key={location.search} />
   if (path === '/receipt') return <Receipt />
+  if (path === '/poochho') return <Poochho />
   const tab = path === '/' ? 'home' : path.startsWith('/bill') ? 'bill' : path.startsWith('/maal') ? 'maal' : path.startsWith('/udhaar') ? 'udhaar' : undefined
   let screen
   switch (path) {
