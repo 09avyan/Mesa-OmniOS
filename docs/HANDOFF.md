@@ -27,6 +27,7 @@
 
 - **28 Nov chunk:** `isSure` now treats other sizes of the same product line ("Tata Salt 1kg/500g", "Pepsi 750ml/Rs 10") as no competition, and a multi-word product-line name is its own name: obvious items stop asking "Yahi wali?" (probe of 40 phrases: 7 → 13 auto-confirmed; 339 tests pass). Remaining unsure ones are real ambiguities (ghee: loose vs Amul; lux soap vs sabun naming) — next: unify Universe naming (sabun/soap) and let the shop's own sales history break ties.
 - **28 Nov chunk 2:** shop-history tie-break in `lineFrom` (`soldBefore`): top guess with score ≥0.8 that this shop has sold before, runner-up not → no "Yahi wali?".
+- **28 Nov chunk 3 (speed priority):** `listen({isComplete})` — when the words so far are a whole order (items, all with qty, all auto-confirmed) listening ends after 1.0 s of silence instead of 2.0 s (`lib/speech.ts`, `Voice.tsx`); matcher index memory 157 → 126 MB (letter-pair postings only for real names, not spelling variants). Still to do: measure real STT latency on device; consider `continuous=true` + interim-final detection; precompute the index into the packed file instead of building at start.
 
 ## Rules to keep (CLAUDE.md)
 Owner cannot read code → plain-words reports. Never delete data. Mock data only in TEST store (code TEST, PIN 000000). Push to `main` (auto-deploys Vercel). Text ≥18px, buttons ≥56px, udhaar never red, nothing pre-selected for money, ink = actions / teal = voice / amber-brown = udhaar.

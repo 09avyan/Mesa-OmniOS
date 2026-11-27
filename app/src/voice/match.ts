@@ -39,6 +39,7 @@ export function extendIndex(idx: MatchIndex, items: Matchable[]): number {
         seenPhon.add(e.phon)
         push(idx.phon, e.phon, n); const sk = skelKey(e.phon); if (sk.length >= 3) push(idx.skel, sk, n)
       }
+      if (!main.has(e.exact) && e.phon.length >= 3) continue   // a spelling variant is found through its phonetic key; letter-pair postings only for the real names (index memory)
       for (const g of gramsOf(e.key, e.sound)) push(idx.grams, g, n)
     }
   }

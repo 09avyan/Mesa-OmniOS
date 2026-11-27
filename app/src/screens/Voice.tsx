@@ -46,6 +46,7 @@ export function Voice() {
   const [err, setErr] = useState<ListenError | null>(null)
   const [typed, setTyped] = useState('')
   const [shop, setShop] = useState<Shop | null>(null)
+  const shopRef = useRef<Shop | null>(null); shopRef.current = shop
   const [draft, setDraft] = useState<Draft | null>(null)
   const [saved, setSaved] = useState<Saved | null>(null)
   const [appendMode, setAppendMode] = useState(false)
@@ -65,6 +66,7 @@ export function Voice() {
     if (!append) setStage('listen')
     stopRef.current = listen({
       lang: lang === 'en' ? 'en-IN' : 'hi-IN',
+      isComplete: (txt) => { const sh = shopRef.current; if (!sh) return false; const r = parse(txt, sh.index, sh.customers.map((c) => c.name)); return (r.intent === 'bill' || r.intent === 'stock_in') && r.items.length > 0 && r.items.every((x) => x.qty != null && x.candidates.length > 0 && x.sure) },
       silenceMs: 2000, // short pauses between items are fine; the Ho gaya button ends it at once
       onWords: setWords,
       onDone: (text, alts) => { setListening(false); understand(text, append, alts) },

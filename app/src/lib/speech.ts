@@ -91,6 +91,8 @@ export function listen(opts: {
   onDone: (finalText: string, alternatives: string[]) => void      // owner finished (pause after speaking); alternatives[0] === finalText
   onError: (e: ListenError) => void
   silenceMs?: number
+  /** the words so far already make a whole order (items with quantities, all understood): stop after a short pause instead of the long one */
+  isComplete?: (text: string) => boolean
 }) {
   if (!RecCtor) { opts.onError('unsupported'); return { stop() {} } }
   // Android Chrome ends a recognition session after every short pause and sometimes reports "network"
@@ -148,7 +150,8 @@ export function listen(opts: {
   }
   timer = setInterval(() => {
     const now = Date.now(), t = text()
-    if (t && now - lastWords > silenceFor(t, silence)) { userStop = true; finish() }   // spoke, then paused (longer if the sentence sounds unfinished)
+    const need = opts.isComplete?.(t) ? Math.min(silenceFor(t, silence), 1000) : silenceFor(t, silence)
+    if (t && now - lastWords > need) { userStop = true; finish() }   // spoke, then paused (longer if the sentence sounds unfinished)
     else if (!t && now - started > 9000) finish('no-speech')                          // nothing heard
     else if (now - started > 40000) finish()                                           // safety cap
   }, 250)
