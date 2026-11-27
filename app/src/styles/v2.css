@@ -512,3 +512,4 @@ button.vrow:active{background:var(--press)}
 .vpick+.vpick{box-shadow:inset 0 1px 0 var(--line)}
 .vpick .n{font:700 20px/28px var(--font)}
 .vpick .p{grid-column:1/-1;color:var(--ink2)}
+.vqty button:disabled{opacity:.4}

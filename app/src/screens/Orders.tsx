@@ -161,10 +161,10 @@ export function MyStore() {
       {failed ? <LoadError onRetry={() => { setSlug(undefined); load() }} /> : slug === undefined ? <i className="vsk" style={{ height: 300, borderRadius: 18 }} />
         : !slug ? <div className="vempty"><h2>{t('noSlug')}</h2></div> : <div className="vstack">
         <Tap className="vrow vc" style={{ minHeight: 72 }} onClick={toggle} role="switch" aria-checked={on}><span className="t"><b>{t('onlineOrders')}</b></span><span className={`vchip ${on ? 'ok' : ''}`}>{on ? t('on') : t('off')}</span></Tap>
-        <div className="print-qr vqr">
+        <div className="print-qr vc vblock vcenter">
           <div className="vfig">{store?.name}</div>
-          {qr && <img src={qr} alt="QR" />}
-          <p className="vlab" style={{ wordBreak: 'break-all' }}>{link}</p>
+          {qr && <div className="vqr"><img src={qr} alt="QR" /></div>}
+          <p className="vlab" style={{ wordBreak: 'break-all', marginTop: 16 }}>{link}</p>
         </div>
         <a className="btn wa tap" style={{ textDecoration: 'none' }} href={`https://wa.me/?text=${encodeURIComponent(`${store?.name} se ab online order karein, dukaan se le jaayein: ${link}`)}`} target="_blank" rel="noreferrer"><Icon name="wa" size={24} />{t('shareStore')}</a>
         <Tap className="btn outline" onClick={() => window.print()}><Icon name="print" size={24} />{t('printQr')}</Tap>
