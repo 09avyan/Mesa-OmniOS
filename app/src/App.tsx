@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { I18nProvider, savedLang, useT } from './lib/i18n'
 import { StoreProvider, useStore } from './lib/store'
 import { navigate, usePath } from './lib/router'
@@ -8,21 +8,31 @@ import { Login } from './screens/Login'
 import { Home } from './screens/Home'
 import { Settings } from './screens/Settings'
 const Admin = lazy(() => import('./screens/Admin').then((m) => ({ default: m.Admin })))
-import { Voice } from './screens/Voice'
-import { Bills, BillDetail } from './screens/Bills'
-import { UdhaarList, UdhaarCustomer } from './screens/Udhaar'
 import { BalancePage } from './screens/Balance'
-import { Maal } from './screens/Maal'
 const StorePage = lazy(() => import('./screens/Store').then((m) => ({ default: m.StorePage })))
 const OrderPage = lazy(() => import('./screens/Store').then((m) => ({ default: m.OrderPage })))
-import { Orders, OrderDetail, MyStore } from './screens/Orders'
 const BillPage = lazy(() => import('./screens/BillPage').then((m) => ({ default: m.BillPage })))
-import { Hisaab, Galla } from './screens/Hisaab'
-import { Bags, Terms, Soon } from './screens/Extras'
-import { Poochho } from './screens/Poochho'
-import { Receipt, Suppliers, AllReceipts } from './screens/Receipt'
-import { StockCheck } from './screens/Briefing'
 import { supabase } from './lib/supabase'
+
+const Voice = lazy(() => import('./screens/Voice').then((m) => ({ default: m.Voice })))
+const Bills = lazy(() => import('./screens/Bills').then((m) => ({ default: m.Bills })))
+const BillDetail = lazy(() => import('./screens/Bills').then((m) => ({ default: m.BillDetail })))
+const UdhaarList = lazy(() => import('./screens/Udhaar').then((m) => ({ default: m.UdhaarList })))
+const UdhaarCustomer = lazy(() => import('./screens/Udhaar').then((m) => ({ default: m.UdhaarCustomer })))
+const Maal = lazy(() => import('./screens/Maal').then((m) => ({ default: m.Maal })))
+const Orders = lazy(() => import('./screens/Orders').then((m) => ({ default: m.Orders })))
+const OrderDetail = lazy(() => import('./screens/Orders').then((m) => ({ default: m.OrderDetail })))
+const MyStore = lazy(() => import('./screens/Orders').then((m) => ({ default: m.MyStore })))
+const Hisaab = lazy(() => import('./screens/Hisaab').then((m) => ({ default: m.Hisaab })))
+const Galla = lazy(() => import('./screens/Hisaab').then((m) => ({ default: m.Galla })))
+const Bags = lazy(() => import('./screens/Extras').then((m) => ({ default: m.Bags })))
+const Terms = lazy(() => import('./screens/Extras').then((m) => ({ default: m.Terms })))
+const Soon = lazy(() => import('./screens/Extras').then((m) => ({ default: m.Soon })))
+const Poochho = lazy(() => import('./screens/Poochho').then((m) => ({ default: m.Poochho })))
+const Receipt = lazy(() => import('./screens/Receipt').then((m) => ({ default: m.Receipt })))
+const Suppliers = lazy(() => import('./screens/Receipt').then((m) => ({ default: m.Suppliers })))
+const AllReceipts = lazy(() => import('./screens/Receipt').then((m) => ({ default: m.AllReceipts })))
+const StockCheck = lazy(() => import('./screens/Briefing').then((m) => ({ default: m.StockCheck })))
 
 export default function App() {
   const path = usePath()
@@ -36,9 +46,12 @@ export default function App() {
 }
 
 function Owner({ path }: { path: string }) {
+  const wait = <main className="screen v2" />
   const { t } = useT()
   const { session, store, ready, storeMissing } = useStore()
   const [langChosen, setLangChosen] = useState(!!savedLang())
+  // warm the billing screen while the owner looks at Home, so the Bolo tap opens instantly
+  useEffect(() => { if (session) { const f = () => { import('./screens/Voice') }; const id = setTimeout(f, 1500); return () => clearTimeout(id) } }, [!!session])
 
   if (!langChosen) return <Language onDone={() => setLangChosen(true)} />
   if (!ready) return <main className="screen"><div style={{ height: 80 }} /><div className="skel" style={{ width: '60%' }} /><div className="gap16" /><div className="skel" style={{ height: 160 }} /></main>
@@ -48,9 +61,9 @@ function Owner({ path }: { path: string }) {
       <Tap className="btn quiet" onClick={() => supabase.auth.signOut()}>{t('logout')}</Tap></main>
   )
 
-  if (path === '/bolo') return <Voice key={location.search} />
-  if (path === '/receipt') return <Receipt />
-  if (path === '/poochho') return <Poochho />
+  if (path === '/bolo') return <Suspense fallback={wait}><Voice key={location.search} /></Suspense>
+  if (path === '/receipt') return <Suspense fallback={wait}><Receipt /></Suspense>
+  if (path === '/poochho') return <Suspense fallback={wait}><Poochho /></Suspense>
   const tab = path === '/' ? 'home' : path.startsWith('/bill') ? 'bill' : path.startsWith('/maal') ? 'maal' : path.startsWith('/udhaar') ? 'udhaar' : undefined
   let screen
   switch (path) {
@@ -77,7 +90,7 @@ function Owner({ path }: { path: string }) {
   }
   return (
     <div className="app" key={path}>
-      {screen}
+      <Suspense fallback={<main className="screen v2" />}>{screen}</Suspense>
       <BottomBar active={tab} onMic={() => navigate('/bolo')} />
     </div>
   )

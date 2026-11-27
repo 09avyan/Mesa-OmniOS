@@ -123,6 +123,7 @@ Deno.serve(async (req) => {
     case "shops_list": return rpc("admin_shops_list");
     case "shop_detail": return rpc("admin_shop_detail", { p_store: body.store_id });
     case "usage_events": return rpc("admin_usage_summary");
+    case "analytics": return rpc("admin_analytics");
     case "bag_margin_report": return rpc("admin_bag_margin");
 
     // ---------- branded bags (migration 0014) ----------
