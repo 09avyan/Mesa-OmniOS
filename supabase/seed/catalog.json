@@ -1,152 +1,5980 @@
 [
-{"name_en":"Sugar","name_hi":"चीनी","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["चीनी","शक्कर","cheeni","chini","shakkar","shakar","sugar"],"typical_mrp":45},
-{"name_en":"Madhur Sugar 1kg","name_hi":"मधुर चीनी 1 किलो","category":"Staples","unit":"packet","pack_size":1,"brand":"Madhur","synonyms":["चीनी","शक्कर","cheeni","chini","madhur","madhur sugar","madhur cheeni"],"typical_mrp":56},
-{"name_en":"Atta (Wheat Flour)","name_hi":"आटा","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["आटा","गेहूं का आटा","atta","aata","gehu atta","gehun atta","wheat flour"],"typical_mrp":45},
-{"name_en":"Aashirvaad Atta 5kg","name_hi":"आशीर्वाद आटा 5 किलो","category":"Staples","unit":"packet","pack_size":5,"brand":"Aashirvaad","synonyms":["आशीर्वाद आटा","आटा","atta","aashirvaad","aashirvaad atta","ashirvad atta","aashirwad atta"],"typical_mrp":310},
-{"name_en":"Basmati Rice","name_hi":"बासमती चावल","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["बासमती चावल","बासमती","चावल","basmati","basmati chawal","basmati rice","chawal"],"typical_mrp":150},
-{"name_en":"Rice (Regular)","name_hi":"चावल","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["चावल","चाँवल","chawal","chaval","rice","regular rice","rice loose"],"typical_mrp":50},
-{"name_en":"Poha (Flattened Rice)","name_hi":"पोहा","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["पोहा","पोहे","poha","pohe","poha flakes","flattened rice"],"typical_mrp":60},
-{"name_en":"Sooji (Semolina)","name_hi":"सूजी","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["सूजी","रवा","sooji","suji","rava","semolina","rawa"],"typical_mrp":50},
-{"name_en":"Maida (Refined Flour)","name_hi":"मैदा","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["मैदा","maida","maida atta","refined flour","all purpose flour","maida loose"],"typical_mrp":45},
-{"name_en":"Besan (Gram Flour)","name_hi":"बेसन","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["बेसन","besan","chana atta","chickpea flour","gram flour","besan atta"],"typical_mrp":110},
-{"name_en":"Tata Salt 1kg","name_hi":"टाटा नमक 1 किलो","category":"Staples","unit":"packet","pack_size":1,"brand":"Tata","synonyms":["नमक","टाटा नमक","namak","tata namak","tata salt","salt","nimak"],"typical_mrp":28},
-{"name_en":"Salt (Loose)","name_hi":"नमक (खुला)","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["नमक","namak","salt","loose salt","khula namak","namak loose"],"typical_mrp":20},
-{"name_en":"Jaggery (Gur)","name_hi":"गुड़","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["गुड़","गुड","gud","gur","jaggery","gud loose","gur loose"],"typical_mrp":60},
-{"name_en":"Daliya (Broken Wheat)","name_hi":"दलिया","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["दलिया","daliya","dalia","broken wheat","dalia loose","porridge wheat"],"typical_mrp":60},
-{"name_en":"Sabudana (Sago)","name_hi":"साबूदाना","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["साबूदाना","sabudana","sabu dana","sago","sabudana loose","saboodana"],"typical_mrp":110},
-{"name_en":"Makki Atta (Corn Flour)","name_hi":"मक्के का आटा","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["मक्के का आटा","मक्का आटा","makki atta","makka atta","makai atta","corn flour","makki ka atta"],"typical_mrp":70},
-{"name_en":"Bajra Atta","name_hi":"बाजरा आटा","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["बाजरा","बाजरा आटा","bajra","bajra atta","bajre ka atta","pearl millet flour","bajra flour"],"typical_mrp":55},
-{"name_en":"Ragi Atta","name_hi":"रागी आटा","category":"Staples","unit":"kg","pack_size":null,"brand":null,"synonyms":["रागी","रागी आटा","ragi","ragi atta","finger millet","ragi flour"],"typical_mrp":80},
-{"name_en":"Toor Dal (Arhar)","name_hi":"तूर दाल","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["तूर दाल","अरहर दाल","toor dal","tur dal","arhar dal","arhar","toor"],"typical_mrp":160},
-{"name_en":"Moong Dal","name_hi":"मूंग दाल","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["मूंग दाल","मूँग दाल","moong dal","mung dal","moong","mung","green gram dal"],"typical_mrp":130},
-{"name_en":"Chana Dal","name_hi":"चना दाल","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["चना दाल","चने की दाल","chana dal","chana","bengal gram dal","chane ki dal"],"typical_mrp":90},
-{"name_en":"Masoor Dal","name_hi":"मसूर दाल","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["मसूर दाल","masoor dal","masur dal","masoor","red lentil","masoor loose"],"typical_mrp":100},
-{"name_en":"Urad Dal","name_hi":"उड़द दाल","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["उड़द दाल","urad dal","urd dal","udad dal","black gram dal","urad"],"typical_mrp":140},
-{"name_en":"Rajma","name_hi":"राजमा","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["राजमा","rajma","rajmah","kidney beans","rajma chawal"],"typical_mrp":150},
-{"name_en":"Kabuli Chana (Chhole)","name_hi":"काबुली चना","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["काबुली चना","छोले","kabuli chana","chole","chhole","white chana"],"typical_mrp":120},
-{"name_en":"Kala Chana","name_hi":"काला चना","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["काला चना","kala chana","black chana","desi chana","kala chane"],"typical_mrp":90},
-{"name_en":"Whole Moong","name_hi":"साबुत मूंग","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["साबुत मूंग","sabut moong","whole moong","green moong","moong sabut"],"typical_mrp":110},
-{"name_en":"Matar Dal (Split Peas)","name_hi":"मटर दाल","category":"Pulses","unit":"kg","pack_size":null,"brand":null,"synonyms":["मटर दाल","matar dal","split peas","dry peas","matar"],"typical_mrp":90},
-{"name_en":"Fortune Mustard Oil 1L","name_hi":"फोर्च्यून सरसों तेल 1 लीटर","category":"Oil & Ghee","unit":"pc","pack_size":1,"brand":"Fortune","synonyms":["सरसों तेल","सरसों का तेल","mustard oil","sarson tel","sarso tel","fortune mustard oil","fortune sarson tel"],"typical_mrp":170},
-{"name_en":"Fortune Soyabean Oil 1L","name_hi":"फोर्च्यून सोयाबीन तेल 1 लीटर","category":"Oil & Ghee","unit":"pc","pack_size":1,"brand":"Fortune","synonyms":["सोयाबीन तेल","soyabean oil","soybean oil","soya oil","fortune soya tel","soyabin tel"],"typical_mrp":150},
-{"name_en":"Groundnut Oil (Loose)","name_hi":"मूंगफली तेल","category":"Oil & Ghee","unit":"kg","pack_size":null,"brand":null,"synonyms":["मूंगफली तेल","मूँगफली का तेल","groundnut oil","moongphali tel","peanut oil","mungfali tel"],"typical_mrp":200},
-{"name_en":"Fortune Sunflower Oil 1L","name_hi":"फोर्च्यून सूरजमुखी तेल 1 लीटर","category":"Oil & Ghee","unit":"pc","pack_size":1,"brand":"Fortune","synonyms":["सूरजमुखी तेल","सूर्यमुखी तेल","sunflower oil","suraj mukhi tel","surajmukhi tel"],"typical_mrp":165},
-{"name_en":"Amul Ghee 1L","name_hi":"अमूल घी 1 लीटर","category":"Oil & Ghee","unit":"pc","pack_size":1,"brand":"Amul","synonyms":["घी","देसी घी","amul ghee","amul ghee 1l","ghee","ghi","amul ghi"],"typical_mrp":660},
-{"name_en":"Ghee (Loose)","name_hi":"घी (खुला)","category":"Oil & Ghee","unit":"kg","pack_size":null,"brand":null,"synonyms":["घी","देसी घी","ghee","ghi","desi ghee","asli ghee"],"typical_mrp":600},
-{"name_en":"Dalda Vanaspati 1kg","name_hi":"डालडा वनस्पति 1 किलो","category":"Oil & Ghee","unit":"packet","pack_size":1,"brand":"Dalda","synonyms":["वनस्पति","डालडा","dalda","vanaspati","vanaspathi","dalda ghee"],"typical_mrp":190},
-{"name_en":"Haldi (Turmeric) Powder","name_hi":"हल्दी","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["हल्दी","हल्दी पाउडर","haldi","haldi powder","turmeric","halad"],"typical_mrp":180},
-{"name_en":"Red Chilli Powder (Mirchi)","name_hi":"लाल मिर्च पाउडर","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["लाल मिर्च","मिर्च पाउडर","mirchi","mirch","lal mirch","mirchi powder","red chilli powder"],"typical_mrp":240},
-{"name_en":"Dhaniya Powder","name_hi":"धनिया पाउडर","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["धनिया","धनिया पाउडर","dhaniya","dhania","dhaniya powder","coriander powder","dhania powder"],"typical_mrp":160},
-{"name_en":"Jeera (Cumin Seeds)","name_hi":"जीरा","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["जीरा","जीरा साबुत","jeera","zeera","jira","cumin seeds","cumin"],"typical_mrp":600},
-{"name_en":"Rai (Mustard Seeds)","name_hi":"राई","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["राई","राई दाना","rai","rai seeds","mustard seeds","sarso ke dane"],"typical_mrp":160},
-{"name_en":"MDH Garam Masala 100g","name_hi":"एमडीएच गरम मसाला 100 ग्राम","category":"Spices","unit":"packet","pack_size":0.1,"brand":"MDH","synonyms":["गरम मसाला","गरम मसाला पाउडर","garam masala","mdh garam masala","mdh masala","garam masala powder"],"typical_mrp":115},
-{"name_en":"Elaichi (Cardamom)","name_hi":"इलायची","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["इलायची","छोटी इलायची","elaichi","ilaichi","cardamom","choti elaichi"],"typical_mrp":2400},
-{"name_en":"Laung (Clove)","name_hi":"लौंग","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["लौंग","laung","loung","lavang","clove","cloves"],"typical_mrp":1000},
-{"name_en":"Kali Mirch (Black Pepper)","name_hi":"काली मिर्च","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["काली मिर्च","kali mirch","kaali mirch","black pepper","peppercorn","kali mirchi"],"typical_mrp":800},
-{"name_en":"Methi Dana (Fenugreek Seeds)","name_hi":"मेथी दाना","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["मेथी दाना","मेथी","methi","methi dana","methi seeds","fenugreek"],"typical_mrp":150},
-{"name_en":"Hing (Asafoetida)","name_hi":"हींग","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["हींग","hing","heeng","asafoetida","asafetida","hing powder"],"typical_mrp":2800},
-{"name_en":"Ajwain (Carom Seeds)","name_hi":"अजवाइन","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["अजवाइन","अजवायन","ajwain","ajwan","carom seeds","ajwaayan"],"typical_mrp":300},
-{"name_en":"Saunf (Fennel Seeds)","name_hi":"सौंफ","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["सौंफ","saunf","sauf","fennel seeds","saunph","saunf loose"],"typical_mrp":280},
-{"name_en":"MDH Chana Masala 100g","name_hi":"एमडीएच चना मसाला 100 ग्राम","category":"Spices","unit":"packet","pack_size":0.1,"brand":"MDH","synonyms":["चना मसाला","छोले मसाला","chana masala","mdh chana masala","chole masala","chhole masala"],"typical_mrp":110},
-{"name_en":"Everest Kitchen King Masala 100g","name_hi":"एवरेस्ट किचन किंग मसाला 100 ग्राम","category":"Spices","unit":"packet","pack_size":0.1,"brand":"Everest","synonyms":["किचन किंग मसाला","सब्ज़ी मसाला","kitchen king","everest kitchen king","kitchen king masala","sabzi masala"],"typical_mrp":110},
-{"name_en":"Sabut Dhaniya (Whole Coriander)","name_hi":"साबुत धनिया","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["साबुत धनिया","धनिया दाना","sabut dhaniya","dhaniya seeds","whole coriander","coriander seeds"],"typical_mrp":150},
-{"name_en":"Amchur (Dry Mango Powder)","name_hi":"अमचूर","category":"Spices","unit":"kg","pack_size":null,"brand":null,"synonyms":["अमचूर","आमचूर","amchur","amchoor","aamchur","dry mango powder"],"typical_mrp":220},
-{"name_en":"Haldiram Bhujia 200g","name_hi":"हल्दीराम भुजिया 200 ग्राम","category":"Snacks","unit":"packet","pack_size":0.2,"brand":"Haldiram","synonyms":["भुजिया","हल्दीराम भुजिया","bhujia","haldiram bhujia","haldirams bhujia","haldiram namkeen","sev bhujia"],"typical_mrp":90},
-{"name_en":"Lays Classic Salted 52g","name_hi":"लेज़ क्लासिक चिप्स","category":"Snacks","unit":"packet","pack_size":0.052,"brand":"Lays","synonyms":["लेज़","लेज चिप्स","चिप्स","lays","lays chips","lays classic","potato chips"],"typical_mrp":20},
-{"name_en":"Kurkure Masala Munch 90g","name_hi":"कुरकुरे मसाला","category":"Snacks","unit":"packet","pack_size":0.09,"brand":"Kurkure","synonyms":["कुरकुरे","कुरकुरे मसाला","kurkure","kurkure masala","kurkura","kurkure masala munch"],"typical_mrp":40},
-{"name_en":"Ratlami Sev (Loose)","name_hi":"रतलामी सेव","category":"Snacks","unit":"kg","pack_size":null,"brand":null,"synonyms":["रतलामी सेव","सेव","इंदौरी सेव","ratlami sev","sev","indori sev","sev namkeen"],"typical_mrp":320},
-{"name_en":"Indori Namkeen (Loose)","name_hi":"इंदौरी नमकीन","category":"Snacks","unit":"kg","pack_size":null,"brand":null,"synonyms":["इंदौरी नमकीन","नमकीन","indori namkeen","indori namkin","indore namkeen","namkeen","namkin"],"typical_mrp":300},
-{"name_en":"Khatta Meetha (Loose)","name_hi":"खट्टा मीठा","category":"Snacks","unit":"kg","pack_size":null,"brand":null,"synonyms":["खट्टा मीठा","खट्टा मीठा नमकीन","khatta meetha","khatta mitha","khatta meetha namkeen","indori khatta meetha"],"typical_mrp":280},
-{"name_en":"Moong Dal Namkeen (Loose)","name_hi":"मूंग दाल नमकीन","category":"Snacks","unit":"kg","pack_size":null,"brand":null,"synonyms":["मूंग दाल नमकीन","मूंग नमकीन","moong dal namkeen","moong namkeen","moong dal namkin","namkeen"],"typical_mrp":260},
-{"name_en":"Bikaji Aloo Bhujia 200g","name_hi":"बीकाजी आलू भुजिया 200 ग्राम","category":"Snacks","unit":"packet","pack_size":0.2,"brand":"Bikaji","synonyms":["आलू भुजिया","भुजिया","bikaji bhujia","bikaji aloo bhujia","aloo bhujia","bhujia","bikaji"],"typical_mrp":85},
-{"name_en":"Bingo Mad Angles 90g","name_hi":"बिंगो मैड एंगल्स","category":"Snacks","unit":"packet","pack_size":0.09,"brand":"Bingo","synonyms":["बिंगो","बिंगो मैड एंगल्स","bingo","bingo mad angles","mad angles","bingo chips"],"typical_mrp":40},
-{"name_en":"Balaji Wafers Masala 100g","name_hi":"बालाजी वेफर्स मसाला","category":"Snacks","unit":"packet","pack_size":0.1,"brand":"Balaji","synonyms":["वेफर्स","बालाजी वेफर्स","चिप्स","balaji wafers","balaji","wafers","masala wafers"],"typical_mrp":30},
-{"name_en":"Act II Butter Popcorn 30g","name_hi":"एक्ट II बटर पॉपकॉर्न","category":"Snacks","unit":"packet","pack_size":0.03,"brand":"Act II","synonyms":["पॉपकॉर्न","पॉप कॉर्न","popcorn","act ii","act 2","butter popcorn"],"typical_mrp":40},
-{"name_en":"Peanuts (Moongfali, Loose)","name_hi":"मूंगफली","category":"Snacks","unit":"kg","pack_size":null,"brand":null,"synonyms":["मूंगफली","मूँगफली","moongfali","mungfali","peanuts","groundnut","peanut"],"typical_mrp":140},
-{"name_en":"Chana Chur (Loose)","name_hi":"चना चूर","category":"Snacks","unit":"kg","pack_size":null,"brand":null,"synonyms":["चना चूर","चना चूर गरम","chana chur","chana chor garam","bhuna chana","chana chur loose"],"typical_mrp":200},
-{"name_en":"Parle-G Original 80g","name_hi":"पारले-जी","category":"Biscuits","unit":"packet","pack_size":0.08,"brand":"Parle","synonyms":["पारले जी","पारले-जी","parle g","parle-g","parle biscuit","parle g biscuit","parle"],"typical_mrp":10},
-{"name_en":"Good Day Butter 100g","name_hi":"गुड डे बटर","category":"Biscuits","unit":"packet","pack_size":0.1,"brand":"Britannia","synonyms":["गुड डे","गुड डे बटर","good day","good day butter","britannia good day","good day biscuit"],"typical_mrp":30},
-{"name_en":"Marie Gold 250g","name_hi":"मारी गोल्ड","category":"Biscuits","unit":"packet","pack_size":0.25,"brand":"Britannia","synonyms":["मारी गोल्ड","मारी","marie gold","marie","britannia marie gold","marie biscuit"],"typical_mrp":40},
-{"name_en":"Bourbon 150g","name_hi":"बोर्बन","category":"Biscuits","unit":"packet","pack_size":0.15,"brand":"Britannia","synonyms":["बोर्बन","बॉर्बन","bourbon","britannia bourbon","bourbon biscuit","chocolate biscuit"],"typical_mrp":40},
-{"name_en":"Krackjack 100g","name_hi":"क्रैकजैक","category":"Biscuits","unit":"packet","pack_size":0.1,"brand":"Parle","synonyms":["क्रैकजैक","krackjack","krackjacks","parle krackjack","krack jack","namkeen biscuit"],"typical_mrp":30},
-{"name_en":"Oreo Vanilla Creme 120g","name_hi":"ओरियो","category":"Biscuits","unit":"packet","pack_size":0.12,"brand":"Oreo","synonyms":["ओरियो","ओरियो बिस्किट","oreo","oreo biscuit","oreo vanilla","oreo creme"],"typical_mrp":40},
-{"name_en":"Sunfeast Dark Fantasy Choco Fills 75g","name_hi":"सनफीस्ट डार्क फैंटेसी","category":"Biscuits","unit":"packet","pack_size":0.075,"brand":"Sunfeast","synonyms":["सनफीस्ट","डार्क फैंटेसी","sunfeast","sunfeast dark fantasy","dark fantasy","sunfeast biscuit"],"typical_mrp":40},
-{"name_en":"Britannia Milk Bikis 150g","name_hi":"मिल्क बिकिस","category":"Biscuits","unit":"packet","pack_size":0.15,"brand":"Britannia","synonyms":["मिल्क बिकिस","बिकिस","milk bikis","bikis","britannia bikis","milk biscuit"],"typical_mrp":45},
-{"name_en":"Khari Biscuit (Loose)","name_hi":"खारी","category":"Biscuits","unit":"kg","pack_size":null,"brand":null,"synonyms":["खारी","खारी बिस्किट","khari","khari biscuit","puff biscuit","khari loose"],"typical_mrp":180},
-{"name_en":"Tata Tea Premium 250g","name_hi":"टाटा टी प्रीमियम 250 ग्राम","category":"Beverages","unit":"packet","pack_size":0.25,"brand":"Tata Tea","synonyms":["चाय पत्ती","चायपत्ती","चाय","tata tea","tata tea premium","tea","chai patti"],"typical_mrp":155},
-{"name_en":"Red Label Tea 250g","name_hi":"रेड लेबल चाय 250 ग्राम","category":"Beverages","unit":"packet","pack_size":0.25,"brand":"Red Label","synonyms":["रेड लेबल","रेड लेबल चाय","red label","red label tea","lal label","red label chai"],"typical_mrp":165},
-{"name_en":"Bru Instant Coffee 50g","name_hi":"ब्रू इंस्टेंट कॉफी","category":"Beverages","unit":"packet","pack_size":0.05,"brand":"Bru","synonyms":["कॉफी","ब्रू कॉफी","bru","bru coffee","bru instant coffee","instant coffee"],"typical_mrp":190},
-{"name_en":"Nescafe Classic 50g","name_hi":"नेस्कैफे क्लासिक","category":"Beverages","unit":"packet","pack_size":0.05,"brand":"Nescafe","synonyms":["नेस्कैफे","नेसकैफे","कॉफी","nescafe","nescafe classic","nes cafe","coffee powder"],"typical_mrp":240},
-{"name_en":"Frooti Mango Drink 200ml","name_hi":"फ्रूटी","category":"Beverages","unit":"pc","pack_size":0.2,"brand":"Frooti","synonyms":["फ्रूटी","आम फ्रूटी","frooti","mango frooti","aam frooti","mango drink"],"typical_mrp":20},
-{"name_en":"Coca-Cola 750ml","name_hi":"कोका कोला 750 मिली","category":"Beverages","unit":"pc","pack_size":0.75,"brand":"Coca-Cola","synonyms":["कोका कोला","कोक","coca cola","coca-cola","coke","cola 750ml"],"typical_mrp":45},
-{"name_en":"Thums Up 750ml","name_hi":"थम्स अप 750 मिली","category":"Beverages","unit":"pc","pack_size":0.75,"brand":"Thums Up","synonyms":["थम्स अप","थम्सअप","thums up","thumbs up","thumsup","cola"],"typical_mrp":45},
-{"name_en":"Bisleri 1L","name_hi":"बिसलेरी पानी 1 लीटर","category":"Beverages","unit":"pc","pack_size":1,"brand":"Bisleri","synonyms":["बिसलेरी","बिसलेरी पानी","पानी की बोतल","bisleri","bisleri water","mineral water","packaged water"],"typical_mrp":20},
-{"name_en":"Sprite 750ml","name_hi":"स्प्राइट 750 मिली","category":"Beverages","unit":"pc","pack_size":0.75,"brand":"Sprite","synonyms":["स्प्राइट","sprite","lemon soda","sprite 750ml","lime soda"],"typical_mrp":45},
-{"name_en":"Maaza Mango 600ml","name_hi":"माज़ा","category":"Beverages","unit":"pc","pack_size":0.6,"brand":"Maaza","synonyms":["माज़ा","माजा","आम माज़ा","maaza","maza","aam maaza","mango drink"],"typical_mrp":40},
-{"name_en":"Rooh Afza 750ml","name_hi":"रूह अफज़ा","category":"Beverages","unit":"pc","pack_size":0.75,"brand":"Hamdard","synonyms":["रूह अफज़ा","रूह अफ्ज़ा","sharbat","rooh afza","rooafza","roohafza","hamdard"],"typical_mrp":230},
-{"name_en":"Bournvita 500g","name_hi":"बोर्नविटा","category":"Beverages","unit":"pc","pack_size":0.5,"brand":"Bournvita","synonyms":["बोर्नविटा","बोर्नवीटा","bournvita","bournvita 500g","cadbury bournvita","health drink","chocolate drink"],"typical_mrp":280},
-{"name_en":"Horlicks 500g","name_hi":"हॉर्लिक्स 500 ग्राम","category":"Beverages","unit":"pc","pack_size":0.5,"brand":"Horlicks","synonyms":["हॉर्लिक्स","horlicks","horlicks 500g","health drink","malt drink"],"typical_mrp":290},
-{"name_en":"Amul Taaza Milk 500ml","name_hi":"अमूल दूध ताज़ा 500 मिली","category":"Dairy","unit":"packet","pack_size":0.5,"brand":"Amul","synonyms":["दूध","अमूल दूध","doodh","amul milk","amul doodh","toned milk","amul taaza"],"typical_mrp":30},
-{"name_en":"Amul Butter 100g","name_hi":"अमूल मक्खन 100 ग्राम","category":"Dairy","unit":"packet","pack_size":0.1,"brand":"Amul","synonyms":["मक्खन","अमूल मक्खन","अमूल बटर","makhan","amul butter","amul makhan","butter"],"typical_mrp":62},
-{"name_en":"Paneer (Loose)","name_hi":"पनीर","category":"Dairy","unit":"kg","pack_size":null,"brand":null,"synonyms":["पनीर","paneer","panir","cottage cheese","chena","paneer loose"],"typical_mrp":400},
-{"name_en":"Curd (Dahi, Loose)","name_hi":"दही","category":"Dairy","unit":"kg","pack_size":null,"brand":null,"synonyms":["दही","दहि","dahi","dahee","curd","yogurt","dahi loose"],"typical_mrp":80},
-{"name_en":"Amul Masti Dahi 400g","name_hi":"अमूल मस्ती दही 400 ग्राम","category":"Dairy","unit":"packet","pack_size":0.4,"brand":"Amul","synonyms":["दही","अमूल दही","मस्ती दही","amul dahi","amul masti dahi","masti dahi","curd"],"typical_mrp":45},
-{"name_en":"Amul Cheese Slices 200g","name_hi":"अमूल चीज़ स्लाइस","category":"Dairy","unit":"packet","pack_size":0.2,"brand":"Amul","synonyms":["चीज़","चीज़ स्लाइस","amul cheese","cheese slice","cheese slices","processed cheese"],"typical_mrp":175},
-{"name_en":"Mother Dairy Dahi 400g","name_hi":"मदर डेयरी दही 400 ग्राम","category":"Dairy","unit":"packet","pack_size":0.4,"brand":"Mother Dairy","synonyms":["दही","मदर डेयरी दही","mother dairy dahi","mother dairy curd","dahi","curd"],"typical_mrp":40},
-{"name_en":"Khoya (Loose)","name_hi":"खोया","category":"Dairy","unit":"kg","pack_size":null,"brand":null,"synonyms":["खोया","खोवा","khoya","khoa","mawa","mava"],"typical_mrp":380},
-{"name_en":"Eggs (Anda)","name_hi":"अंडा","category":"Dairy","unit":"pc","pack_size":null,"brand":null,"synonyms":["अंडा","अंडे","anda","ande","egg","eggs","desi anda"],"typical_mrp":7},
-{"name_en":"Bread (Sliced)","name_hi":"ब्रेड","category":"Bakery","unit":"pc","pack_size":null,"brand":null,"synonyms":["ब्रेड","ब्रेड स्लाइस","bread","bread loaf","sliced bread","white bread","double roti"],"typical_mrp":45},
-{"name_en":"Modern Bread 400g","name_hi":"मॉडर्न ब्रेड 400 ग्राम","category":"Bakery","unit":"packet","pack_size":0.4,"brand":"Modern","synonyms":["मॉडर्न ब्रेड","ब्रेड","modern bread","modern","bread","white bread"],"typical_mrp":45},
-{"name_en":"Pav (Bun)","name_hi":"पाव","category":"Bakery","unit":"pc","pack_size":null,"brand":null,"synonyms":["पाव","पाव रोटी","pav","pao","pav bun","ladi pav","bun"],"typical_mrp":5},
-{"name_en":"Maska Bun","name_hi":"मस्का बन","category":"Bakery","unit":"pc","pack_size":null,"brand":null,"synonyms":["मस्का बन","बन","bun","maska bun","bun maska","buns"],"typical_mrp":15},
-{"name_en":"Toast Rusk (Loose)","name_hi":"टोस्ट","category":"Bakery","unit":"kg","pack_size":null,"brand":null,"synonyms":["टोस्ट","टोस्ट रस्क","rusk","toast","tose","tost","rusk loose"],"typical_mrp":220},
-{"name_en":"Lux Soap","name_hi":"लक्स साबुन","category":"Personal Care","unit":"pc","pack_size":null,"brand":"Lux","synonyms":["साबुन","लक्स साबुन","लक्स","lux","lux soap","soap","sabun"],"typical_mrp":40},
-{"name_en":"Lifebuoy Soap 100g","name_hi":"लाइफबॉय साबुन","category":"Personal Care","unit":"pc","pack_size":null,"brand":"Lifebuoy","synonyms":["लाइफबॉय","लाइफबॉय साबुन","साबुन","lifebuoy","lifebuoy soap","life buoy","sabun"],"typical_mrp":40},
-{"name_en":"Dettol Soap 75g","name_hi":"डेटॉल साबुन","category":"Personal Care","unit":"pc","pack_size":null,"brand":"Dettol","synonyms":["डेटॉल","डेटॉल साबुन","dettol","dettol soap","dettol sabun","antiseptic soap"],"typical_mrp":55},
-{"name_en":"Colgate Strong Teeth 100g","name_hi":"कोलगेट टूथपेस्ट 100 ग्राम","category":"Personal Care","unit":"pc","pack_size":0.1,"brand":"Colgate","synonyms":["कोलगेट","कोलगेट टूथपेस्ट","टूथपेस्ट","colgate","colgate toothpaste","tooth paste","toothpaste"],"typical_mrp":95},
-{"name_en":"Pepsodent 100g","name_hi":"पेपसोडेंट टूथपेस्ट 100 ग्राम","category":"Personal Care","unit":"pc","pack_size":0.1,"brand":"Pepsodent","synonyms":["पेपसोडेंट","पेप्सोडेंट","टूथपेस्ट","pepsodent","pepsodent toothpaste","toothpaste","tooth paste"],"typical_mrp":85},
-{"name_en":"Clinic Plus Shampoo Sachet","name_hi":"क्लिनिक प्लस शैम्पू सैशे","category":"Personal Care","unit":"pc","pack_size":null,"brand":"Clinic Plus","synonyms":["शैम्पू","शैंपू","क्लिनिक प्लस","clinic plus","clinic plus shampoo","shampoo","shampu","sachet shampoo"],"typical_mrp":2},
-{"name_en":"Parachute Coconut Oil 500ml","name_hi":"पैराशूट नारियल तेल 500 मिली","category":"Personal Care","unit":"pc","pack_size":0.5,"brand":"Parachute","synonyms":["नारियल तेल","पैराशूट","पैराशूट तेल","parachute","parachute coconut oil","nariyal tel","coconut oil","hair oil"],"typical_mrp":195},
-{"name_en":"Gillette Blue II Razor","name_hi":"जिलेट रेज़र","category":"Personal Care","unit":"pc","pack_size":null,"brand":"Gillette","synonyms":["रेज़र","जिलेट","gillette","gillette razor","razor","blade","shaving blade"],"typical_mrp":25},
-{"name_en":"Whisper Ultra Sanitary Pads","name_hi":"व्हिस्पर सैनिटरी पैड","category":"Personal Care","unit":"packet","pack_size":null,"brand":"Whisper","synonyms":["व्हिस्पर","सैनिटरी पैड","whisper","whisper pads","sanitary pad","sanitary napkin","pad"],"typical_mrp":75},
-{"name_en":"Bajaj Almond Drops Oil 100ml","name_hi":"बजाज बादाम तेल 100 मिली","category":"Personal Care","unit":"pc","pack_size":0.1,"brand":"Bajaj","synonyms":["बादाम तेल","बजाज","sar tel","bajaj almond oil","almond drops","bajaj almond drops","hair oil"],"typical_mrp":120},
-{"name_en":"Dove Beauty Bar","name_hi":"डव साबुन","category":"Personal Care","unit":"pc","pack_size":null,"brand":"Dove","synonyms":["डव","डव साबुन","साबुन","dove","dove soap","beauty bar","soap"],"typical_mrp":65},
-{"name_en":"Vaseline Petroleum Jelly 100g","name_hi":"वैसलीन 100 ग्राम","category":"Personal Care","unit":"pc","pack_size":0.1,"brand":"Vaseline","synonyms":["वैसलीन","वैसलीन जेली","vaseline","petroleum jelly","jelly","vaseline jelly"],"typical_mrp":90},
-{"name_en":"Cotton Buds (Ear Buds)","name_hi":"ईयर बड्स","category":"Personal Care","unit":"packet","pack_size":null,"brand":null,"synonyms":["ईयर बड्स","कॉटन बड्स","ear buds","cotton buds","cotton bud","earbuds","buds"],"typical_mrp":30},
-{"name_en":"Surf Excel 1kg","name_hi":"सर्फ़ एक्सेल 1 किलो","category":"Cleaning","unit":"packet","pack_size":1,"brand":"Surf Excel","synonyms":["सर्फ एक्सेल","सर्फ़ एक्सेल","surf excel","surf","washing powder","detergent powder","detergent"],"typical_mrp":190},
-{"name_en":"Vim Dishwash Bar","name_hi":"विम डिशवॉश बार","category":"Cleaning","unit":"pc","pack_size":null,"brand":"Vim","synonyms":["विम बार","विम","vim","vim bar","dish wash bar","dishwash bar","बर्तन साबुन"],"typical_mrp":30},
-{"name_en":"Rin Detergent Bar 200g","name_hi":"रिन बार","category":"Cleaning","unit":"pc","pack_size":null,"brand":"Rin","synonyms":["रिन","रिन बार","rin","rin bar","detergent bar","washing bar","कपड़े का साबुन"],"typical_mrp":25},
-{"name_en":"Harpic Toilet Cleaner 500ml","name_hi":"हार्पिक 500 मिली","category":"Cleaning","unit":"pc","pack_size":0.5,"brand":"Harpic","synonyms":["हार्पिक","harpic","toilet cleaner","toilet cleaning liquid","bathroom cleaner","toilet cleaner harpic","शौचालय क्लीनर"],"typical_mrp":110},
-{"name_en":"Lizol Floor Cleaner 500ml","name_hi":"लाइज़ोल फ्लोर क्लीनर","category":"Cleaning","unit":"pc","pack_size":0.5,"brand":"Lizol","synonyms":["लाइज़ोल","लाइजोल","फिनाइल","lizol","floor cleaner","phenyl","lizol floor"],"typical_mrp":120},
-{"name_en":"Scotch-Brite Scrub Pad","name_hi":"स्क्रबर","category":"Cleaning","unit":"pc","pack_size":null,"brand":"Scotch-Brite","synonyms":["स्क्रबर","जाली","scrubber","scrub pad","scotch brite","scotch-brite","scrub"],"typical_mrp":30},
-{"name_en":"Broom (Jhadu)","name_hi":"झाड़ू","category":"Cleaning","unit":"pc","pack_size":null,"brand":null,"synonyms":["झाड़ू","झाडू","jhadu","jhaadu","broom","jharu"],"typical_mrp":80},
-{"name_en":"Garbage Bags (Roll)","name_hi":"कूड़ेदान थैली","category":"Cleaning","unit":"packet","pack_size":null,"brand":null,"synonyms":["कचरा थैली","कूड़ा थैली","garbage bag","garbage bags","dustbin bag","trash bag","kachra thaili"],"typical_mrp":50},
-{"name_en":"Dettol Antiseptic Liquid 250ml","name_hi":"डेटॉल लिक्विड 250 मिली","category":"Cleaning","unit":"pc","pack_size":0.25,"brand":"Dettol","synonyms":["डेटॉल","डेटॉल लिक्विड","dettol","dettol liquid","antiseptic","dettol antiseptic"],"typical_mrp":155},
-{"name_en":"Ariel Matic 1kg","name_hi":"एरियल मैटिक 1 किलो","category":"Cleaning","unit":"packet","pack_size":1,"brand":"Ariel","synonyms":["एरियल","एरियल मैटिक","ariel","ariel matic","washing powder","detergent powder"],"typical_mrp":210},
-{"name_en":"Wheel Detergent Powder 1kg","name_hi":"व्हील डिटर्जेंट पाउडर 1 किलो","category":"Cleaning","unit":"packet","pack_size":1,"brand":"Wheel","synonyms":["व्हील","wheel","wheel detergent","detergent powder","washing powder","वॉशिंग पाउडर"],"typical_mrp":100},
-{"name_en":"Vim Dishwash Liquid 500ml","name_hi":"विम लिक्विड 500 मिली","category":"Cleaning","unit":"pc","pack_size":0.5,"brand":"Vim","synonyms":["विम लिक्विड","बर्तन साबुन लिक्विड","vim liquid","vim gel","dishwash liquid","dish wash","vim"],"typical_mrp":105},
-{"name_en":"Odonil Air Freshener","name_hi":"ओडोनिल","category":"Cleaning","unit":"pc","pack_size":null,"brand":"Odonil","synonyms":["ओडोनिल","air freshener","room freshener","odonil","odonil block","रूम फ्रेशनर"],"typical_mrp":50},
-{"name_en":"Mop (Pocha)","name_hi":"पोछा","category":"Cleaning","unit":"pc","pack_size":null,"brand":null,"synonyms":["पोछा","पोंछा","पोचा","pocha","mop","wiper","floor mop"],"typical_mrp":150},
-{"name_en":"Duster (Cleaning Cloth)","name_hi":"डस्टर","category":"Cleaning","unit":"pc","pack_size":null,"brand":null,"synonyms":["डस्टर","कपड़ा","duster","cleaning cloth","dust cloth","kapda"],"typical_mrp":30},
-{"name_en":"Maggi Masala Noodles 70g","name_hi":"मैगी मसाला नूडल्स 70 ग्राम","category":"Instant Food","unit":"packet","pack_size":0.07,"brand":"Maggi","synonyms":["मैगी","मैगी नूडल्स","मैगी मसाला","maggi","maggi noodles","maggi masala","nestle maggi","maggi 2 minute noodles"],"typical_mrp":16},
-{"name_en":"Yippee Noodles 70g","name_hi":"यिप्पी नूडल्स 70 ग्राम","category":"Instant Food","unit":"packet","pack_size":0.07,"brand":"Yippee","synonyms":["यिप्पी","यिप्पी नूडल्स","नूडल्स","yippee","yippee noodles","noodles","tasty noodles"],"typical_mrp":14},
-{"name_en":"Kellogg's Corn Flakes 250g","name_hi":"कॉर्न फ्लेक्स 250 ग्राम","category":"Instant Food","unit":"packet","pack_size":0.25,"brand":"Kellogg's","synonyms":["कॉर्न फ्लेक्स","कॉर्नफ्लेक्स","corn flakes","cornflakes","kellogg's corn flakes","kelloggs","kellogg"],"typical_mrp":175},
-{"name_en":"Quaker Oats 500g","name_hi":"क्वेकर ओट्स 500 ग्राम","category":"Instant Food","unit":"packet","pack_size":0.5,"brand":"Quaker","synonyms":["ओट्स","क्वेकर ओट्स","oats","quaker oats","quaker","oatmeal"],"typical_mrp":180},
-{"name_en":"MTR Rava Upma Mix 200g","name_hi":"एमटीआर उपमा मिक्स 200 ग्राम","category":"Instant Food","unit":"packet","pack_size":0.2,"brand":"MTR","synonyms":["उपमा मिक्स","उपमा","upma mix","mtr upma","rava upma","instant upma","mtr"],"typical_mrp":85},
-{"name_en":"MTR Idli Dosa Batter 500g","name_hi":"इडली डोसा बैटर","category":"Instant Food","unit":"packet","pack_size":0.5,"brand":"MTR","synonyms":["इडली बैटर","डोसा बैटर","idli batter","dosa batter","mtr batter","idli dosa batter"],"typical_mrp":70},
-{"name_en":"Kissan Mixed Fruit Jam 500g","name_hi":"किसान जैम 500 ग्राम","category":"Instant Food","unit":"pc","pack_size":0.5,"brand":"Kissan","synonyms":["जैम","किसान जैम","jam","kissan jam","mixed fruit jam","kissan"],"typical_mrp":150},
-{"name_en":"Kissan Tomato Ketchup 500g","name_hi":"किसान केचप 500 ग्राम","category":"Instant Food","unit":"pc","pack_size":0.5,"brand":"Kissan","synonyms":["केचप","किसान केचप","ketchup","tomato ketchup","kissan ketchup","kisan ketchup"],"typical_mrp":110},
-{"name_en":"Ching's Schezwan Chutney 250g","name_hi":"चिंग्स शेज़वान चटनी 250 ग्राम","category":"Instant Food","unit":"packet","pack_size":0.25,"brand":"Ching's","synonyms":["शेज़वान चटनी","schezwan chutney","chings schezwan","ching's","schezwan sauce","ching's schezwan"],"typical_mrp":90},
-{"name_en":"Matchbox","name_hi":"माचिस","category":"Other","unit":"pc","pack_size":null,"brand":null,"synonyms":["माचिस","दियासलाई","machis","matchbox","match","diyasalai","match stick"],"typical_mrp":2},
-{"name_en":"Agarbatti (Incense Sticks)","name_hi":"अगरबत्ती","category":"Other","unit":"packet","pack_size":null,"brand":null,"synonyms":["अगरबत्ती","अगरबत्ती पैकेट","agarbatti","agarbati","incense sticks","agarbatti packet"],"typical_mrp":30},
-{"name_en":"Candles","name_hi":"मोमबत्ती","category":"Other","unit":"packet","pack_size":null,"brand":null,"synonyms":["मोमबत्ती","मोमबत्ती पैकेट","candle","candles","mombatti","momabatti","moom batti"],"typical_mrp":30},
-{"name_en":"Eveready AA Battery","name_hi":"एवरेडी AA बैटरी","category":"Other","unit":"pc","pack_size":null,"brand":"Eveready","synonyms":["बैटरी","बैटरी AA","battery","batteries","eveready","eveready battery","aa battery","cell"],"typical_mrp":25},
-{"name_en":"Fevikwik Adhesive 5g","name_hi":"फेविक्विक","category":"Other","unit":"pc","pack_size":0.005,"brand":"Fevikwik","synonyms":["फेविक्विक","फेविकोल","fevikwik","fevi kwik","fevicol","adhesive","glue"],"typical_mrp":20},
-{"name_en":"Kapoor (Camphor) 50g","name_hi":"कपूर","category":"Other","unit":"packet","pack_size":0.05,"brand":null,"synonyms":["कपूर","कपूर पैकेट","kapoor","kapur","camphor","pooja kapoor"],"typical_mrp":40},
-{"name_en":"Good Knight Mosquito Coil","name_hi":"गुड नाइट मच्छर कॉइल","category":"Other","unit":"packet","pack_size":null,"brand":"Good Knight","synonyms":["गुड नाइट","मच्छर कॉइल","मच्छर अगरबत्ती","good knight","mosquito coil","machhar agarbatti","coil"],"typical_mrp":35},
-{"name_en":"Tissue Paper Packet","name_hi":"टिश्यू पेपर","category":"Other","unit":"packet","pack_size":null,"brand":null,"synonyms":["टिश्यू","टिश्यू पेपर","tissue","tissue paper","napkin tissue","paper tissue"],"typical_mrp":30},
-{"name_en":"Sindoor (Vermilion)","name_hi":"सिंदूर","category":"Other","unit":"packet","pack_size":null,"brand":null,"synonyms":["सिंदूर","सिन्दूर","sindoor","vermilion","kumkum"],"typical_mrp":15},
-{"name_en":"Dhoop Batti","name_hi":"धूपबत्ती","category":"Other","unit":"packet","pack_size":null,"brand":null,"synonyms":["धूपबत्ती","धूप","dhoop batti","dhoop","dhup batti","incense cone"],"typical_mrp":40},
-{"name_en":"Rubber Bands (Packet)","name_hi":"रबर बैंड","category":"Other","unit":"packet","pack_size":null,"brand":null,"synonyms":["रबर बैंड","रबर बैंड्स","rubber band","rubber bands","band"],"typical_mrp":20},
-{"name_en":"Amul Lassi Sweet 200ml","name_hi":"अमूल लस्सी 200 मिली","category":"Dairy","unit":"pc","pack_size":0.2,"brand":"Amul","synonyms":["लस्सी","अमूल लस्सी","lassi","amul lassi","sweet lassi","chaas"],"typical_mrp":25}
+  {
+    "id": "sugar-loose",
+    "hinglish": "Cheeni",
+    "hi": "चीनी",
+    "en": "Sugar",
+    "category": "sugar-salt",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "cheeni",
+      "chini",
+      "chinni",
+      "shakkar",
+      "shakar",
+      "sugar",
+      "sugur",
+      "madhur sugar",
+      "चीनी",
+      "शक्कर",
+      "शुगर"
+    ]
+  },
+  {
+    "id": "maggi-masala-70g",
+    "hinglish": "Maggi chhota",
+    "hi": "मैगी छोटा",
+    "en": "Maggi Masala 70g",
+    "category": "noodles-pasta",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Maggi",
+    "aliases": [
+      "maggi",
+      "maggie",
+      "magi",
+      "megi",
+      "maggi masala",
+      "maggi chhota",
+      "maggi small",
+      "मैगी",
+      "मेगी",
+      "मैगी मसाला"
+    ]
+  },
+  {
+    "id": "atta-loose",
+    "hinglish": "Atta (loose)",
+    "hi": "आटा",
+    "en": "Wheat Flour (loose)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "atta",
+      "aata",
+      "gehun ka atta",
+      "chakki atta",
+      "आटा",
+      "गेहूं का आटा",
+      "गेहुं का आटा"
+    ]
+  },
+  {
+    "id": "aashirvaad-atta-5kg",
+    "hinglish": "Aashirvaad Atta 5kg",
+    "hi": "आशीर्वाद आटा 5 किलो",
+    "en": "Aashirvaad Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Aashirvaad",
+    "aliases": [
+      "aashirvaad atta 5kg",
+      "aashirvaad 5kg",
+      "ashirwad atta",
+      "ashirvad atta",
+      "aashirwad",
+      "आशीर्वाद आटा",
+      "आशीर्वाद आटा 5 किलो",
+      "आशिर्वाद आटा"
+    ]
+  },
+  {
+    "id": "aashirvaad-atta-10kg",
+    "hinglish": "Aashirvaad Atta 10kg",
+    "hi": "आशीर्वाद आटा 10 किलो",
+    "en": "Aashirvaad Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Aashirvaad",
+    "aliases": [
+      "aashirvaad 10kg",
+      "ashirwad 10 kilo",
+      "ashirvad 10kg",
+      "आशीर्वाद आटा 10 किलो",
+      "aashirvaad bada atta",
+      "aashirvaad 10 kg atta"
+    ]
+  },
+  {
+    "id": "pillsbury-atta-5kg",
+    "hinglish": "Pillsbury Atta 5kg",
+    "hi": "पिल्सबरी आटा 5 किलो",
+    "en": "Pillsbury Chakki Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Pillsbury",
+    "aliases": [
+      "pillsbury atta",
+      "pillsbury 5kg",
+      "pilsbury atta",
+      "पिल्सबरी आटा",
+      "पिल्सबरी",
+      "pillsberry atta"
+    ]
+  },
+  {
+    "id": "fortune-chakki-atta-5kg",
+    "hinglish": "Fortune Chakki Atta 5kg",
+    "hi": "फॉर्च्यून चक्की आटा 5 किलो",
+    "en": "Fortune Chakki Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Fortune",
+    "aliases": [
+      "fortune chakki atta",
+      "fortune chakki",
+      "fortune atta 5kg",
+      "फॉर्च्यून आटा",
+      "फोर्च्यून आटा",
+      "chakki atta fortune"
+    ]
+  },
+  {
+    "id": "multigrain-atta-1kg",
+    "hinglish": "Multigrain Atta 1kg",
+    "hi": "मल्टीग्रेन आटा 1 किलो",
+    "en": "Multigrain Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Aashirvaad",
+    "aliases": [
+      "multigrain atta",
+      "multigrain aata",
+      "मल्टीग्रेन आटा",
+      "7 grain atta",
+      "saat anaaj atta",
+      "सात अनाज आटा"
+    ]
+  },
+  {
+    "id": "basmati-loose",
+    "hinglish": "Basmati Chawal (loose)",
+    "hi": "बासमती चावल",
+    "en": "Basmati Rice (loose)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "basmati",
+      "basmati chawal",
+      "basmati rice",
+      "basmti",
+      "बासमती",
+      "बासमती चावल"
+    ]
+  },
+  {
+    "id": "kolam-loose",
+    "hinglish": "Kolam Chawal",
+    "hi": "कोलम चावल",
+    "en": "Kolam Rice",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "kolam",
+      "kolam chawal",
+      "kolam rice",
+      "colam chawal",
+      "कोलम",
+      "कोलम चावल"
+    ]
+  },
+  {
+    "id": "dubraj-loose",
+    "hinglish": "Dubraj Chawal",
+    "hi": "दुबराज चावल",
+    "en": "Dubraj Rice",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "dubraj",
+      "dubraj chawal",
+      "dubaraj",
+      "dubraj rice",
+      "दुबराज",
+      "दुबराज चावल"
+    ]
+  },
+  {
+    "id": "sona-masuri-loose",
+    "hinglish": "Sona Masoori Chawal",
+    "hi": "सोना मसूरी चावल",
+    "en": "Sona Masoori Rice",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "sona masoori",
+      "sona masuri",
+      "masoori chawal",
+      "सोना मसूरी",
+      "सोना मसूरी चावल",
+      "sonamasuri"
+    ]
+  },
+  {
+    "id": "chawal-loose",
+    "hinglish": "Chawal (saada)",
+    "hi": "चावल",
+    "en": "Rice (regular, loose)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "chawal",
+      "chaval",
+      "rice",
+      "चावल",
+      "साधा चावल",
+      "saada chawal"
+    ]
+  },
+  {
+    "id": "toor-dal-loose",
+    "hinglish": "Toor Dal",
+    "hi": "तूर दाल",
+    "en": "Toor Dal (Arhar)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "toor dal",
+      "arhar dal",
+      "tur dal",
+      "dal",
+      "तूर दाल",
+      "अरहर दाल",
+      "toor"
+    ]
+  },
+  {
+    "id": "moong-dal-loose",
+    "hinglish": "Moong Dal",
+    "hi": "मूंग दाल",
+    "en": "Moong Dal (split)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "moong dal",
+      "mung dal",
+      "moong",
+      "मूंग दाल",
+      "मूंग",
+      "moongdal",
+      "moong dhuli"
+    ]
+  },
+  {
+    "id": "chana-dal-loose",
+    "hinglish": "Chana Dal",
+    "hi": "चना दाल",
+    "en": "Chana Dal (split)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "chana dal",
+      "chana daal",
+      "channa dal",
+      "split chana",
+      "चना दाल",
+      "चना दाल खुली"
+    ]
+  },
+  {
+    "id": "kala-chana-loose",
+    "hinglish": "Kala Chana",
+    "hi": "काला चना",
+    "en": "Black Chana (desi)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "kala chana",
+      "desi chana",
+      "kaala chana",
+      "black chana",
+      "काला चना",
+      "देसी चना"
+    ]
+  },
+  {
+    "id": "kabuli-chana-loose",
+    "hinglish": "Kabuli Chana",
+    "hi": "काबुली चना",
+    "en": "Kabuli Chickpeas",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "kabuli chana",
+      "kabli chana",
+      "chole chana",
+      "safed chana",
+      "काबुली चना",
+      "सफ़ेद चना"
+    ]
+  },
+  {
+    "id": "masoor-dal-loose",
+    "hinglish": "Masoor Dal",
+    "hi": "मसूर दाल",
+    "en": "Masoor Dal (red lentil)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "masoor dal",
+      "masur dal",
+      "masoor",
+      "मसूर दाल",
+      "मसूर",
+      "red lentil dal"
+    ]
+  },
+  {
+    "id": "urad-dal-loose",
+    "hinglish": "Urad Dal",
+    "hi": "उड़द दाल",
+    "en": "Urad Dal (black gram)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "urad dal",
+      "udad dal",
+      "urad",
+      "उड़द दाल",
+      "उड़द",
+      "black gram dal"
+    ]
+  },
+  {
+    "id": "rajma-loose",
+    "hinglish": "Rajma",
+    "hi": "राजमा",
+    "en": "Rajma (kidney beans)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "rajma",
+      "rajma loose",
+      "rajmah",
+      "राजमा",
+      "kidney beans",
+      "rajma chawal"
+    ]
+  },
+  {
+    "id": "besan-loose",
+    "hinglish": "Besan",
+    "hi": "बेसन",
+    "en": "Gram Flour (Besan)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "besan",
+      "besam",
+      "chana atta",
+      "gram flour",
+      "बेसन",
+      "बेसम"
+    ]
+  },
+  {
+    "id": "poha-loose",
+    "hinglish": "Poha (Indori)",
+    "hi": "पोहा",
+    "en": "Flattened Rice (Poha)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "poha",
+      "pohe",
+      "pohaa",
+      "indori poha",
+      "पोहा",
+      "पोहे"
+    ]
+  },
+  {
+    "id": "sabudana-loose",
+    "hinglish": "Sabudana",
+    "hi": "साबूदाना",
+    "en": "Sabudana (Sago)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "sabudana",
+      "sabudhana",
+      "sabudaana",
+      "sago",
+      "साबूदाना",
+      "साबुदाना"
+    ]
+  },
+  {
+    "id": "rava-loose",
+    "hinglish": "Rava (Suji)",
+    "hi": "रवा",
+    "en": "Semolina (Rava)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "rava",
+      "suji",
+      "sooji",
+      "sujji",
+      "रवा",
+      "सूजी",
+      "रवा सूजी"
+    ]
+  },
+  {
+    "id": "maida-loose",
+    "hinglish": "Maida",
+    "hi": "मैदा",
+    "en": "Refined Flour (Maida)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "maida",
+      "maida atta",
+      "all purpose flour",
+      "मैदा",
+      "मैदा आटा"
+    ]
+  },
+  {
+    "id": "jowar-atta-loose",
+    "hinglish": "Jowar Atta",
+    "hi": "ज्वार आटा",
+    "en": "Jowar (Sorghum) Flour",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "jowar atta",
+      "jowar",
+      "jwar",
+      "ज्वार",
+      "ज्वार का आटा",
+      "sorghum flour"
+    ]
+  },
+  {
+    "id": "bajra-atta-loose",
+    "hinglish": "Bajra Atta",
+    "hi": "बाजरा आटा",
+    "en": "Bajra (Pearl Millet) Flour",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "bajra atta",
+      "bajra",
+      "bajri",
+      "बाजरा",
+      "बाजरा आटा",
+      "pearl millet flour"
+    ]
+  },
+  {
+    "id": "makki-atta-loose",
+    "hinglish": "Makki Atta",
+    "hi": "मक्का आटा",
+    "en": "Maize Flour (Makki)",
+    "category": "atta-rice-dal",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "makki atta",
+      "makka atta",
+      "makki ka atta",
+      "मक्का आटा",
+      "मक्की आटा",
+      "makai atta"
+    ]
+  },
+  {
+    "id": "cornflour-100g",
+    "hinglish": "Cornflour 100g",
+    "hi": "कॉर्नफ्लोर 100 ग्राम",
+    "en": "Cornflour 100g",
+    "category": "atta-rice-dal",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "cornflour",
+      "corn flour",
+      "कॉर्नफ्लोर",
+      "कॉर्न फ्लोर",
+      "cornflour packet"
+    ]
+  },
+  {
+    "id": "india-gate-basmati-1kg",
+    "hinglish": "India Gate Basmati 1kg",
+    "hi": "इंडिया गेट बासमती चावल 1 किलो",
+    "en": "India Gate Basmati Rice 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "India Gate",
+    "aliases": [
+      "india gate basmati",
+      "india gate",
+      "इंडिया गेट",
+      "इंडिया गेट बासमती",
+      "indiagate basmati",
+      "india gate 1kg"
+    ]
+  },
+  {
+    "id": "daawat-basmati-5kg",
+    "hinglish": "Daawat Basmati 5kg",
+    "hi": "दावत बासमती चावल 5 किलो",
+    "en": "Daawat Basmati Rice 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Daawat",
+    "aliases": [
+      "daawat basmati",
+      "daawat",
+      "dawat basmati 5kg",
+      "दावत",
+      "दावत बासमती",
+      "daawat rice 5kg"
+    ]
+  },
+  {
+    "id": "quaker-oats-400g",
+    "hinglish": "Quaker Oats 400g",
+    "hi": "क्वेकर ओट्स 400 ग्राम",
+    "en": "Quaker Oats 400g",
+    "category": "atta-rice-dal",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Quaker",
+    "aliases": [
+      "quaker oats",
+      "oats",
+      "ओट्स",
+      "क्वेकर ओट्स",
+      "oatmeal",
+      "quaker oat"
+    ]
+  },
+  {
+    "id": "fortune-soyabean-1l",
+    "hinglish": "Fortune Soyabean Oil 1L",
+    "hi": "फॉर्च्यून सोयाबीन तेल 1 लीटर",
+    "en": "Fortune Soyabean Oil 1L",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Fortune",
+    "aliases": [
+      "fortune soyabean",
+      "fortune soya oil",
+      "fortune oil 1 litre",
+      "फॉर्च्यून तेल",
+      "फॉर्च्यून सोयाबीन तेल",
+      "fortune tel"
+    ]
+  },
+  {
+    "id": "fortune-rice-bran-1l",
+    "hinglish": "Fortune Rice Bran Oil 1L",
+    "hi": "राइस ब्रान तेल 1 लीटर",
+    "en": "Fortune Rice Bran Oil 1L",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Fortune",
+    "aliases": [
+      "rice bran oil",
+      "rice bran tel",
+      "राइस ब्रान तेल",
+      "fortune rice bran",
+      "राइस ब्रान ऑयल"
+    ]
+  },
+  {
+    "id": "saffola-gold-1l",
+    "hinglish": "Saffola Gold 1L",
+    "hi": "सैफोला गोल्ड 1 लीटर",
+    "en": "Saffola Gold Oil 1L",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Saffola",
+    "aliases": [
+      "saffola",
+      "saffola gold",
+      "सैफोला",
+      "सैफोला गोल्ड",
+      "saffola tel",
+      "सेफोला"
+    ]
+  },
+  {
+    "id": "dhara-kachi-ghani-1l",
+    "hinglish": "Dhara Kachi Ghani 1L",
+    "hi": "धारा कच्ची घानी सरसों तेल 1 लीटर",
+    "en": "Dhara Kachi Ghani Mustard Oil 1L",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Dhara",
+    "aliases": [
+      "dhara",
+      "dhara sarson tel",
+      "dhara mustard",
+      "धारा",
+      "धारा सरसों तेल",
+      "kachi ghani dhara"
+    ]
+  },
+  {
+    "id": "sarson-tel-loose",
+    "hinglish": "Sarson Tel (loose)",
+    "hi": "सरसों तेल",
+    "en": "Mustard Oil (loose)",
+    "category": "oil-ghee",
+    "unit": "l",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "sarson tel",
+      "sarson ka tel",
+      "sarso tel",
+      "sarson",
+      "mustard oil",
+      "सरसों तेल",
+      "सरसों का तेल",
+      "kachchi ghani tel"
+    ]
+  },
+  {
+    "id": "soyabean-tel-loose",
+    "hinglish": "Soyabean Tel (loose)",
+    "hi": "सोयाबीन तेल",
+    "en": "Soyabean Oil (loose)",
+    "category": "oil-ghee",
+    "unit": "l",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "soya tel",
+      "soyabin tel",
+      "soyabean loose tel",
+      "सोया तेल",
+      "सोयाबीन तेल खुला",
+      "soyabean loose"
+    ]
+  },
+  {
+    "id": "mungfali-tel-loose",
+    "hinglish": "Mungfali Tel (loose)",
+    "hi": "मूंगफली तेल",
+    "en": "Groundnut Oil (loose)",
+    "category": "oil-ghee",
+    "unit": "l",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "mungfali tel",
+      "mungphali tel",
+      "moongfali tel",
+      "groundnut oil",
+      "मूंगफली तेल",
+      "शेंगदाणा तेल",
+      "शेंगदाने का तेल"
+    ]
+  },
+  {
+    "id": "gemini-oil-1l",
+    "hinglish": "Gemini Oil 1L",
+    "hi": "जेमिनी तेल 1 लीटर",
+    "en": "Gemini Refined Oil 1L",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Gemini",
+    "aliases": [
+      "gemini",
+      "gemini oil",
+      "gemini tel",
+      "जेमिनी",
+      "जेमिनी तेल"
+    ]
+  },
+  {
+    "id": "fortune-sunflower-1l",
+    "hinglish": "Fortune Sunflower Oil 1L",
+    "hi": "सूरजमुखी तेल 1 लीटर",
+    "en": "Sunflower Oil 1L",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Fortune",
+    "aliases": [
+      "sunflower oil",
+      "suraj mukhi tel",
+      "surajmukhi tel",
+      "सूरजमुखी तेल",
+      "सूरजमुखी",
+      "sunflower tel"
+    ]
+  },
+  {
+    "id": "amul-ghee-500g",
+    "hinglish": "Amul Ghee 500g",
+    "hi": "अमूल घी 500 ग्राम",
+    "en": "Amul Cow Ghee 500g",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "amul ghee",
+      "amul ghi",
+      "amul desi ghee",
+      "अमूल घी",
+      "अमूल घी 500 ग्राम",
+      "amul ghee 500"
+    ]
+  },
+  {
+    "id": "sanchi-ghee-1l",
+    "hinglish": "Sanchi Ghee 1L",
+    "hi": "सांची घी 1 लीटर",
+    "en": "Sanchi Ghee 1L",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Sanchi",
+    "aliases": [
+      "sanchi ghee",
+      "sanchi ghi",
+      "सांची घी",
+      "sanchi desi ghee",
+      "सांची घी 1 लीटर"
+    ]
+  },
+  {
+    "id": "gowardhan-ghee-500g",
+    "hinglish": "Gowardhan Ghee 500g",
+    "hi": "गोवर्धन घी 500 ग्राम",
+    "en": "Gowardhan Ghee 500g",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Gowardhan",
+    "aliases": [
+      "gowardhan",
+      "gowardhan ghee",
+      "गोवर्धन घी",
+      "govardhan ghee",
+      "govardhan ghi"
+    ]
+  },
+  {
+    "id": "desi-ghee-loose",
+    "hinglish": "Desi Ghee (loose)",
+    "hi": "देसी घी",
+    "en": "Desi Ghee (loose)",
+    "category": "oil-ghee",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "ghee",
+      "ghi",
+      "desi ghee",
+      "ghee loose",
+      "घी",
+      "देसी घी",
+      "शुद्ध घी"
+    ]
+  },
+  {
+    "id": "dalda-vanaspati-500g",
+    "hinglish": "Dalda Vanaspati 500g",
+    "hi": "डालडा वनस्पति 500 ग्राम",
+    "en": "Dalda Vanaspati 500g",
+    "category": "oil-ghee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Dalda",
+    "aliases": [
+      "dalda",
+      "vanaspati",
+      "dalda vanaspati",
+      "वनस्पति",
+      "डालडा",
+      "डालडा वनस्पति"
+    ]
+  },
+  {
+    "id": "mdh-garam-masala-100g",
+    "hinglish": "MDH Garam Masala 100g",
+    "hi": "एमडीएच गरम मसाला 100 ग्राम",
+    "en": "MDH Garam Masala 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": "MDH",
+    "aliases": [
+      "mdh garam masala",
+      "garam masala mdh",
+      "mdh gm",
+      "एमडीएच गरम मसाला",
+      "एमडीएच",
+      "गरम मसाला एमडीएच"
+    ]
+  },
+  {
+    "id": "everest-garam-masala-100g",
+    "hinglish": "Everest Garam Masala 100g",
+    "hi": "एवरेस्ट गरम मसाला 100 ग्राम",
+    "en": "Everest Garam Masala 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Everest",
+    "aliases": [
+      "everest garam masala",
+      "everest gm",
+      "एवरेस्ट गरम मसाला",
+      "एवरेस्ट",
+      "everest masala"
+    ]
+  },
+  {
+    "id": "garam-masala-loose",
+    "hinglish": "Garam Masala (loose)",
+    "hi": "गरम मसाला",
+    "en": "Garam Masala (loose)",
+    "category": "spices",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "garam masala",
+      "गरम मसाला",
+      "khula garam masala",
+      "गरम मसाला खुला"
+    ]
+  },
+  {
+    "id": "mdh-chana-masala-100g",
+    "hinglish": "MDH Chana Masala 100g",
+    "hi": "एमडीएच छोले मसाला 100 ग्राम",
+    "en": "MDH Chana Masala 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": "MDH",
+    "aliases": [
+      "chana masala mdh",
+      "mdh chole masala",
+      "छोला मसाला",
+      "छोले मसाला एमडीएच",
+      "chole masala mdh"
+    ]
+  },
+  {
+    "id": "catch-chaat-masala-100g",
+    "hinglish": "Catch Chaat Masala 100g",
+    "hi": "कैच चाट मसाला 100 ग्राम",
+    "en": "Catch Chaat Masala 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Catch",
+    "aliases": [
+      "catch chaat masala",
+      "chaat masala",
+      "catch masala",
+      "चाट मसाला",
+      "कैच चाट मसाला",
+      "catch chaat"
+    ]
+  },
+  {
+    "id": "everest-kitchen-king-100g",
+    "hinglish": "Everest Kitchen King Masala 100g",
+    "hi": "एवरेस्ट किचन किंग मसाला 100 ग्राम",
+    "en": "Everest Kitchen King Masala 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Everest",
+    "aliases": [
+      "kitchen king",
+      "everest kitchen king",
+      "किचन किंग",
+      "किचन किंग मसाला",
+      "kitchen king masala"
+    ]
+  },
+  {
+    "id": "everest-pav-bhaji-100g",
+    "hinglish": "Everest Pav Bhaji Masala 100g",
+    "hi": "एवरेस्ट पाव भाजी मसाला 100 ग्राम",
+    "en": "Everest Pav Bhaji Masala 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Everest",
+    "aliases": [
+      "pav bhaji masala",
+      "pav bhaji masala everest",
+      "पाव भाजी मसाला",
+      "bhaji masala everest",
+      "bhaji masala"
+    ]
+  },
+  {
+    "id": "mdh-sambhar-100g",
+    "hinglish": "MDH Sambhar Masala 100g",
+    "hi": "एमडीएच सांभर मसाला 100 ग्राम",
+    "en": "MDH Sambhar Masala 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": "MDH",
+    "aliases": [
+      "sambhar masala",
+      "sambar masala mdh",
+      "सांभर मसाला",
+      "सांभर मसाला एमडीएच",
+      "sambhar masala mdh"
+    ]
+  },
+  {
+    "id": "mdh-kashmiri-mirch-100g",
+    "hinglish": "MDH Kashmiri Mirch 100g",
+    "hi": "एमडीएच कश्मीरी मिर्च 100 ग्राम",
+    "en": "MDH Kashmiri Mirch Powder 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": "MDH",
+    "aliases": [
+      "kashmiri mirch",
+      "kashmiri mirch powder",
+      "कश्मीरी मिर्च",
+      "कश्मीरी मिर्च पाउडर",
+      "kashmiri lal mirch"
+    ]
+  },
+  {
+    "id": "kasuri-methi-50g",
+    "hinglish": "Kasuri Methi 50g",
+    "hi": "कसूरी मेथी 50 ग्राम",
+    "en": "Dried Fenugreek Leaves (Kasuri Methi) 50g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "kasuri methi",
+      "kasoori methi",
+      "कसूरी मेथी",
+      "कसूरी मेथी पत्ती",
+      "kasuri methi leaves"
+    ]
+  },
+  {
+    "id": "haldi-loose",
+    "hinglish": "Haldi Powder (loose)",
+    "hi": "हल्दी पाउडर",
+    "en": "Turmeric Powder (loose)",
+    "category": "spices",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "haldi",
+      "haldi powder",
+      "haldee",
+      "turmeric",
+      "हल्दी",
+      "हल्दी पाउडर",
+      "haldi loose"
+    ]
+  },
+  {
+    "id": "mirchi-loose",
+    "hinglish": "Lal Mirch Powder (loose)",
+    "hi": "लाल मिर्च पाउडर",
+    "en": "Red Chilli Powder (loose)",
+    "category": "spices",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "mirchi",
+      "lal mirch",
+      "mirch powder",
+      "मिर्च",
+      "लाल मिर्च",
+      "लाल मिर्ची",
+      "red chilli powder"
+    ]
+  },
+  {
+    "id": "dhaniya-loose",
+    "hinglish": "Dhaniya Powder (loose)",
+    "hi": "धनिया पाउडर",
+    "en": "Coriander Powder (loose)",
+    "category": "spices",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "dhaniya",
+      "dhaniya powder",
+      "dhania",
+      "धनिया",
+      "धनिया पाउडर",
+      "coriander powder"
+    ]
+  },
+  {
+    "id": "jeera-loose",
+    "hinglish": "Jeera (loose)",
+    "hi": "जीरा",
+    "en": "Cumin Seeds (loose)",
+    "category": "spices",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "jeera",
+      "zeera",
+      "jira",
+      "cumin seeds",
+      "जीरा",
+      "जीरे",
+      "jeera loose"
+    ]
+  },
+  {
+    "id": "rai-loose",
+    "hinglish": "Rai (loose)",
+    "hi": "राई",
+    "en": "Mustard Seeds (loose)",
+    "category": "spices",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "rai",
+      "rai dana",
+      "sarson dana",
+      "mustard seeds",
+      "राई",
+      "राई दाना"
+    ]
+  },
+  {
+    "id": "hing-loose",
+    "hinglish": "Hing (Asafoetida)",
+    "hi": "हींग",
+    "en": "Asafoetida (Hing)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "hing",
+      "heeng",
+      "hing powder",
+      "asafoetida",
+      "हींग",
+      "हिंग"
+    ]
+  },
+  {
+    "id": "kali-mirch-loose",
+    "hinglish": "Kali Mirch (loose)",
+    "hi": "काली मिर्च",
+    "en": "Black Pepper (loose)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "kali mirch",
+      "kali mirchi",
+      "black pepper",
+      "काली मिर्च",
+      "kaali mirch",
+      "pepper"
+    ]
+  },
+  {
+    "id": "laung-loose",
+    "hinglish": "Laung (Clove)",
+    "hi": "लौंग",
+    "en": "Cloves (loose)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "laung",
+      "lavang",
+      "lavng",
+      "clove",
+      "लौंग",
+      "लवंग"
+    ]
+  },
+  {
+    "id": "elaichi-loose",
+    "hinglish": "Elaichi (Cardamom)",
+    "hi": "इलायची",
+    "en": "Cardamom (loose)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "elaichi",
+      "ilaichi",
+      "cardamom",
+      "इलायची",
+      "choti elaichi",
+      "elayachi"
+    ]
+  },
+  {
+    "id": "dalchini-loose",
+    "hinglish": "Dalchini (Cinnamon)",
+    "hi": "दालचीनी",
+    "en": "Cinnamon (loose)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "dalchini",
+      "cinnamon",
+      "daalchini",
+      "दालचीनी",
+      "दालचीनी स्टिक",
+      "dalchini loose"
+    ]
+  },
+  {
+    "id": "ajwain-loose",
+    "hinglish": "Ajwain",
+    "hi": "अजवाइन",
+    "en": "Carom Seeds (Ajwain)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "ajwain",
+      "ajwain seeds",
+      "carom seeds",
+      "अजवाइन",
+      "अजवायन",
+      "ajvain"
+    ]
+  },
+  {
+    "id": "methi-dana-loose",
+    "hinglish": "Methi Dana",
+    "hi": "मेथी दाना",
+    "en": "Fenugreek Seeds (loose)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "methi dana",
+      "methi seeds",
+      "fenugreek seeds",
+      "मेथी दाना",
+      "मेथी",
+      "methi"
+    ]
+  },
+  {
+    "id": "saunf-loose",
+    "hinglish": "Saunf",
+    "hi": "सौंफ",
+    "en": "Fennel Seeds (loose)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "saunf",
+      "saunph",
+      "fennel seeds",
+      "सौंफ",
+      "मुखवास सौंफ"
+    ]
+  },
+  {
+    "id": "sabut-dhaniya-loose",
+    "hinglish": "Sabut Dhaniya",
+    "hi": "साबुत धनिया",
+    "en": "Whole Coriander (loose)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "sabut dhaniya",
+      "sabut dhania",
+      "whole coriander",
+      "साबुत धनिया",
+      "dhaniya sabut"
+    ]
+  },
+  {
+    "id": "baking-soda-100g",
+    "hinglish": "Baking Soda 100g",
+    "hi": "बेकिंग सोडा 100 ग्राम",
+    "en": "Baking Soda 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "baking soda",
+      "meetha soda",
+      "khane ka soda",
+      "बेकिंग सोडा",
+      "खाने का सोडा",
+      "soda bicarb"
+    ]
+  },
+  {
+    "id": "amchur-100g",
+    "hinglish": "Amchur Powder 100g",
+    "hi": "अमचूर पाउडर 100 ग्राम",
+    "en": "Dry Mango Powder (Amchur) 100g",
+    "category": "spices",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "amchur",
+      "amchoor",
+      "अमचूर",
+      "amchur powder",
+      "aamchur"
+    ]
+  },
+  {
+    "id": "sonth-loose",
+    "hinglish": "Sonth (Dry Ginger)",
+    "hi": "सोंठ",
+    "en": "Dry Ginger (Sonth)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "sonth",
+      "saunth",
+      "सोंठ",
+      "dry ginger",
+      "sonth powder"
+    ]
+  },
+  {
+    "id": "imli-loose",
+    "hinglish": "Imli (loose)",
+    "hi": "इमली",
+    "en": "Tamarind (loose)",
+    "category": "spices",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "imli",
+      "imli loose",
+      "इमली",
+      "tamarind",
+      "imli pulp"
+    ]
+  },
+  {
+    "id": "tej-patta-loose",
+    "hinglish": "Tej Patta",
+    "hi": "तेज़ पत्ता",
+    "en": "Bay Leaf (Tej Patta)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "tej patta",
+      "tejpatta",
+      "तेज़ पत्ता",
+      "तेजपत्ता",
+      "bay leaf"
+    ]
+  },
+  {
+    "id": "kesar-loose",
+    "hinglish": "Kesar (Saffron)",
+    "hi": "केसर",
+    "en": "Saffron (Kesar)",
+    "category": "spices",
+    "unit": "g",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "kesar",
+      "kesari",
+      "केसर",
+      "saffron",
+      "केसरिया"
+    ]
+  },
+  {
+    "id": "madhur-sugar-1kg",
+    "hinglish": "Madhur Sugar 1kg",
+    "hi": "मधुर चीनी 1 किलो",
+    "en": "Madhur Sugar 1kg",
+    "category": "sugar-salt",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Madhur",
+    "aliases": [
+      "madhur 1kg",
+      "madhur chini packet",
+      "मधुर चीनी",
+      "मधुर चीनी 1 किलो",
+      "madhur packet sugar"
+    ]
+  },
+  {
+    "id": "tata-salt-1kg",
+    "hinglish": "Tata Salt 1kg",
+    "hi": "टाटा नमक 1 किलो",
+    "en": "Tata Salt 1kg",
+    "category": "sugar-salt",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Tata",
+    "aliases": [
+      "tata salt",
+      "tata salt 1kg",
+      "tata namak",
+      "namak tata",
+      "टाटा नमक",
+      "टाटा नमक 1 किलो"
+    ]
+  },
+  {
+    "id": "tata-salt-500g",
+    "hinglish": "Tata Salt 500g",
+    "hi": "टाटा नमक 500 ग्राम",
+    "en": "Tata Salt 500g",
+    "category": "sugar-salt",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Tata",
+    "aliases": [
+      "tata salt chhota",
+      "tata 500g namak",
+      "टाटा नमक आधा किलो",
+      "tata half kg namak",
+      "tata salt 500"
+    ]
+  },
+  {
+    "id": "namak-loose",
+    "hinglish": "Namak (loose)",
+    "hi": "नमक",
+    "en": "Salt (loose)",
+    "category": "sugar-salt",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "namak",
+      "nimak",
+      "salt",
+      "salt loose",
+      "नमक",
+      "नमक खुला"
+    ]
+  },
+  {
+    "id": "sendha-namak-loose",
+    "hinglish": "Sendha Namak",
+    "hi": "सेंधा नमक",
+    "en": "Rock Salt (Sendha)",
+    "category": "sugar-salt",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "sendha namak",
+      "sendha",
+      "rock salt",
+      "सेंधा नमक",
+      "सेंधा",
+      "vrat ka namak"
+    ]
+  },
+  {
+    "id": "kala-namak-100g",
+    "hinglish": "Kala Namak 100g",
+    "hi": "काला नमक 100 ग्राम",
+    "en": "Black Salt (Kala Namak) 100g",
+    "category": "sugar-salt",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "kala namak",
+      "black salt",
+      "काला नमक",
+      "kaala namak",
+      "kala namak powder"
+    ]
+  },
+  {
+    "id": "gud-loose",
+    "hinglish": "Gud (loose)",
+    "hi": "गुड़",
+    "en": "Jaggery (loose)",
+    "category": "sugar-salt",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "gud",
+      "gur",
+      "jaggery",
+      "गुड़",
+      "गुड",
+      "गुड़ खुला",
+      "gur loose"
+    ]
+  },
+  {
+    "id": "mishri-loose",
+    "hinglish": "Mishri",
+    "hi": "मिश्री",
+    "en": "Mishri (rock sugar)",
+    "category": "sugar-salt",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "mishri",
+      "mishari",
+      "mishree",
+      "मिश्री",
+      "rock sugar mishri"
+    ]
+  },
+  {
+    "id": "khand-loose",
+    "hinglish": "Khand (loose)",
+    "hi": "खांड",
+    "en": "Khand (raw sugar, loose)",
+    "category": "sugar-salt",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "khand",
+      "khaand",
+      "खांड",
+      "brown sugar",
+      "khand loose"
+    ]
+  },
+  {
+    "id": "dabur-honey-250g",
+    "hinglish": "Dabur Honey 250g",
+    "hi": "डाबर शहद 250 ग्राम",
+    "en": "Dabur Honey 250g",
+    "category": "sugar-salt",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Dabur",
+    "aliases": [
+      "honey",
+      "shahad",
+      "शहद",
+      "dabur honey",
+      "dabur shahad",
+      "शहद बोतल"
+    ]
+  },
+  {
+    "id": "tata-tea-premium-250g",
+    "hinglish": "Tata Tea Premium 250g",
+    "hi": "टाटा टी प्रीमियम 250 ग्राम",
+    "en": "Tata Tea Premium 250g",
+    "category": "tea-coffee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Tata",
+    "aliases": [
+      "tata tea",
+      "tata tea premium",
+      "tata chai",
+      "टाटा चाय",
+      "टाटा टी",
+      "tata tea 250g"
+    ]
+  },
+  {
+    "id": "tata-tea-gold-250g",
+    "hinglish": "Tata Tea Gold 250g",
+    "hi": "टाटा टी गोल्ड 250 ग्राम",
+    "en": "Tata Tea Gold 250g",
+    "category": "tea-coffee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Tata",
+    "aliases": [
+      "tata tea gold",
+      "tata gold chai",
+      "टाटा टी गोल्ड",
+      "टाटा गोल्ड चाय"
+    ]
+  },
+  {
+    "id": "red-label-250g",
+    "hinglish": "Red Label Tea 250g",
+    "hi": "रेड लेबल चाय 250 ग्राम",
+    "en": "Red Label Tea 250g",
+    "category": "tea-coffee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Red Label",
+    "aliases": [
+      "red label",
+      "red label chai",
+      "रेड लेबल",
+      "रेड लेबल चाय",
+      "lal label chai"
+    ]
+  },
+  {
+    "id": "wagh-bakri-250g",
+    "hinglish": "Wagh Bakri Tea 250g",
+    "hi": "वाघ बकरी चाय 250 ग्राम",
+    "en": "Wagh Bakri Tea 250g",
+    "category": "tea-coffee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Wagh Bakri",
+    "aliases": [
+      "wagh bakri",
+      "bakri chai",
+      "बकरी चाय",
+      "वाघ बकरी",
+      "wagh bakri tea",
+      "bakri tea"
+    ]
+  },
+  {
+    "id": "taj-mahal-250g",
+    "hinglish": "Taj Mahal Tea 250g",
+    "hi": "ताज महल चाय 250 ग्राम",
+    "en": "Taj Mahal Tea 250g",
+    "category": "tea-coffee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Brooke Bond",
+    "aliases": [
+      "taj mahal",
+      "taj mahal tea",
+      "ताज महल चाय",
+      "ताज महल",
+      "taaj mahal"
+    ]
+  },
+  {
+    "id": "lipton-yellow-label-250g",
+    "hinglish": "Lipton Tea 250g",
+    "hi": "लिप्टन चाय 250 ग्राम",
+    "en": "Lipton Yellow Label Tea 250g",
+    "category": "tea-coffee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Lipton",
+    "aliases": [
+      "lipton",
+      "lipton tea",
+      "लिप्टन",
+      "लिप्टन चाय",
+      "lipton chai"
+    ]
+  },
+  {
+    "id": "chai-patti-loose",
+    "hinglish": "Chai Patti (loose)",
+    "hi": "चाय पत्ती",
+    "en": "Tea Leaves (loose)",
+    "category": "tea-coffee",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "chai patti",
+      "chai pati",
+      "chai",
+      "tea loose",
+      "चाय पत्ती",
+      "चाय",
+      "chaipatti"
+    ]
+  },
+  {
+    "id": "nescafe-classic-50g",
+    "hinglish": "Nescafe Classic 50g",
+    "hi": "नेस्कैफे क्लासिक 50 ग्राम",
+    "en": "Nescafe Classic Instant Coffee 50g",
+    "category": "tea-coffee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Nescafe",
+    "aliases": [
+      "nescafe",
+      "nescafe classic",
+      "coffee",
+      "नेस्कैफे",
+      "नेसकैफे",
+      "nescafe coffee"
+    ]
+  },
+  {
+    "id": "bru-instant-50g",
+    "hinglish": "Bru Instant Coffee 50g",
+    "hi": "ब्रू कॉफी 50 ग्राम",
+    "en": "Bru Instant Coffee 50g",
+    "category": "tea-coffee",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Bru",
+    "aliases": [
+      "bru",
+      "bru coffee",
+      "ब्रू",
+      "ब्रू कॉफी",
+      "bru instant"
+    ]
+  },
+  {
+    "id": "parle-g-chhota",
+    "hinglish": "Parle-G Chhota",
+    "hi": "पारले-जी छोटा",
+    "en": "Parle-G Biscuits (small pack)",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Parle",
+    "aliases": [
+      "parle g chhota",
+      "parle g",
+      "parle-g",
+      "parle chhota",
+      "पारले जी",
+      "पारले जी छोटा",
+      "parle g 5 rupees"
+    ]
+  },
+  {
+    "id": "parle-g-bada",
+    "hinglish": "Parle-G Bada",
+    "hi": "पारले-जी बड़ा",
+    "en": "Parle-G Biscuits (big pack)",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Parle",
+    "aliases": [
+      "parle g bada",
+      "parle g big",
+      "पारले जी बड़ा",
+      "parle g 10 rupees",
+      "parle bada"
+    ]
+  },
+  {
+    "id": "britannia-good-day-butter",
+    "hinglish": "Good Day Butter",
+    "hi": "गुड डे बटर",
+    "en": "Britannia Good Day Butter",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Britannia",
+    "aliases": [
+      "good day",
+      "good day butter",
+      "गुड डे",
+      "गुड डे बटर",
+      "britannia good day",
+      "good day biscuit"
+    ]
+  },
+  {
+    "id": "britannia-marie-gold",
+    "hinglish": "Marie Gold",
+    "hi": "मारी गोल्ड",
+    "en": "Britannia Marie Gold",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Britannia",
+    "aliases": [
+      "marie gold",
+      "marie",
+      "मारी गोल्ड",
+      "मैरी गोल्ड",
+      "marigold biscuit"
+    ]
+  },
+  {
+    "id": "britannia-bourbon",
+    "hinglish": "Bourbon",
+    "hi": "बॉर्बन",
+    "en": "Britannia Bourbon Biscuit",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Britannia",
+    "aliases": [
+      "bourbon",
+      "bourbon biscuit",
+      "बॉर्बन",
+      "बोरबोन",
+      "bourban"
+    ]
+  },
+  {
+    "id": "parle-monaco",
+    "hinglish": "Monaco",
+    "hi": "मोनैको",
+    "en": "Parle Monaco Biscuit",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Parle",
+    "aliases": [
+      "monaco",
+      "monaco biscuit",
+      "मोनैको",
+      "मोनाको",
+      "monako"
+    ]
+  },
+  {
+    "id": "parle-krackjack",
+    "hinglish": "Krackjack",
+    "hi": "क्रैकजैक",
+    "en": "Parle Krackjack",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Parle",
+    "aliases": [
+      "krackjack",
+      "crackjack",
+      "क्रैकजैक",
+      "krack jack",
+      "kraackjack"
+    ]
+  },
+  {
+    "id": "parle-hide-seek",
+    "hinglish": "Hide & Seek",
+    "hi": "हाइड एंड सीक",
+    "en": "Parle Hide & Seek",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Parle",
+    "aliases": [
+      "hide and seek",
+      "hide seek",
+      "हाइड एंड सीक",
+      "hide & seek biscuit",
+      "हाईड सीक"
+    ]
+  },
+  {
+    "id": "britannia-milk-bikis",
+    "hinglish": "Milk Bikis",
+    "hi": "मिल्क बिकिस",
+    "en": "Britannia Milk Bikis",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Britannia",
+    "aliases": [
+      "milk bikis",
+      "bikis",
+      "मिल्क बिकिस",
+      "बिकिस",
+      "milk biscuit"
+    ]
+  },
+  {
+    "id": "oreo-vanilla-120g",
+    "hinglish": "Oreo Vanilla 120g",
+    "hi": "ओरियो वनीला 120 ग्राम",
+    "en": "Oreo Vanilla Sandwich Biscuit 120g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Oreo",
+    "aliases": [
+      "oreo",
+      "oreo vanilla",
+      "ओरियो",
+      "ओरियो बिस्कुट",
+      "oreo biscuit"
+    ]
+  },
+  {
+    "id": "kitkat-17g",
+    "hinglish": "KitKat 17g",
+    "hi": "किटकैट 17 ग्राम",
+    "en": "KitKat Chocolate 17g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Nestle",
+    "aliases": [
+      "kitkat",
+      "kit kat",
+      "किटकैट",
+      "किट कैट",
+      "kitkat chocolate"
+    ]
+  },
+  {
+    "id": "cadbury-dairy-milk-13g",
+    "hinglish": "Cadbury Dairy Milk Chhota",
+    "hi": "कैडबरी डेयरी मिल्क छोटा",
+    "en": "Cadbury Dairy Milk 13g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Cadbury",
+    "aliases": [
+      "dairy milk",
+      "cadbury",
+      "cadbury dairy milk chhota",
+      "कैडबरी",
+      "डेयरी मिल्क",
+      "कैडबरी डेयरी मिल्क"
+    ]
+  },
+  {
+    "id": "five-star-chocolate",
+    "hinglish": "5 Star Chocolate",
+    "hi": "फाइव स्टार",
+    "en": "Cadbury 5 Star",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Cadbury",
+    "aliases": [
+      "5 star",
+      "five star",
+      "फाइव स्टार",
+      "5 स्टार",
+      "five star chocolate"
+    ]
+  },
+  {
+    "id": "alpenliebe-lollipop",
+    "hinglish": "Alpenliebe Lollipop",
+    "hi": "अल्पेनलिबे लॉलीपॉप",
+    "en": "Alpenliebe Lollipop",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Perfetti",
+    "aliases": [
+      "alpenliebe",
+      "alpen liebe",
+      "अल्पेनलिबे",
+      "लॉलीपॉप",
+      "alpenliebe lollipop"
+    ]
+  },
+  {
+    "id": "lays-classic-26g",
+    "hinglish": "Lays Classic Salted 26g",
+    "hi": "लेज़ क्लासिक सॉल्टेड 26 ग्राम",
+    "en": "Lays Classic Salted 26g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays",
+      "lays classic",
+      "लेज़",
+      "लेज़ चिप्स",
+      "lays salted",
+      "लेज़ क्लासिक"
+    ]
+  },
+  {
+    "id": "lays-magic-masala-26g",
+    "hinglish": "Lays Magic Masala 26g",
+    "hi": "लेज़ मैजिक मसाला 26 ग्राम",
+    "en": "Lays Magic Masala 26g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays magic masala",
+      "magic masala lays",
+      "लेज़ मैजिक मसाला",
+      "lays chhota masala",
+      "lays magic"
+    ]
+  },
+  {
+    "id": "kurkure-masala-40g",
+    "hinglish": "Kurkure Masala Munch 40g",
+    "hi": "कुरकुरे मसाला मंच 40 ग्राम",
+    "en": "Kurkure Masala Munch 40g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure",
+      "kurkure masala",
+      "कुरकुरे",
+      "कुरकुरे मसाला",
+      "kurkura",
+      "kurkure munch"
+    ]
+  },
+  {
+    "id": "bingo-mad-angles-50g",
+    "hinglish": "Bingo Mad Angles 50g",
+    "hi": "बिंगो मैड एंगल्स 50 ग्राम",
+    "en": "Bingo Mad Angles 50g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "bingo",
+      "bingo chips",
+      "बिंगो",
+      "बिंगो चिप्स",
+      "bingo mad angles"
+    ]
+  },
+  {
+    "id": "bingo-tedhe-medhe-50g",
+    "hinglish": "Bingo Tedhe Medhe 50g",
+    "hi": "बिंगो टेढ़े मेढ़े 50 ग्राम",
+    "en": "Bingo Tedhe Medhe 50g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "tedhe medhe",
+      "bingo tedhe",
+      "टेढ़े मेढ़े",
+      "बिंगो टेढ़े मेढ़े",
+      "tedhe medhe chips"
+    ]
+  },
+  {
+    "id": "haldiram-aloo-bhujia-200g",
+    "hinglish": "Haldiram Aloo Bhujia 200g",
+    "hi": "हल्दीराम आलू भुजिया 200 ग्राम",
+    "en": "Haldiram Aloo Bhujia 200g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Haldiram",
+    "aliases": [
+      "haldiram bhujia",
+      "aloo bhujia",
+      "bhujia",
+      "भुजिया",
+      "आलू भुजिया",
+      "हल्दीराम भुजिया"
+    ]
+  },
+  {
+    "id": "bikaji-bhujia-200g",
+    "hinglish": "Bikaji Bikaneri Bhujia 200g",
+    "hi": "बीकाजी भुजिया 200 ग्राम",
+    "en": "Bikaji Bikaneri Bhujia 200g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Bikaji",
+    "aliases": [
+      "bikaji",
+      "bikaji bhujia",
+      "बीकाजी",
+      "बीकाजी भुजिया",
+      "bikaneri bhujia"
+    ]
+  },
+  {
+    "id": "haldiram-moong-dal-200g",
+    "hinglish": "Haldiram Moong Dal 200g",
+    "hi": "हल्दीराम मूंग दाल 200 ग्राम",
+    "en": "Haldiram Moong Dal Namkeen 200g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Haldiram",
+    "aliases": [
+      "haldiram moong dal",
+      "moong dal namkeen",
+      "मूंग दाल नमकीन",
+      "haldiram namkeen mung dal",
+      "हल्दीराम मूंग दाल"
+    ]
+  },
+  {
+    "id": "indori-sev-loose",
+    "hinglish": "Indori Sev (loose)",
+    "hi": "इंदौरी सेव",
+    "en": "Indori Sev (loose)",
+    "category": "snacks-biscuits",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "indori sev",
+      "indori sew",
+      "sev indori",
+      "इंदौरी सेव",
+      "इंदौरी सेव खुली",
+      "इंदौरी नमकीन"
+    ]
+  },
+  {
+    "id": "ratlami-sev-loose",
+    "hinglish": "Ratlami Sev (loose)",
+    "hi": "रतलामी सेव",
+    "en": "Ratlami Sev (loose)",
+    "category": "snacks-biscuits",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "ratlami sev",
+      "ratlami namkeen",
+      "रतलामी सेव",
+      "रतलामी सेव खुली",
+      "ratlami"
+    ]
+  },
+  {
+    "id": "mixture-loose",
+    "hinglish": "Mixture (loose)",
+    "hi": "मिक्चर",
+    "en": "Mixture Namkeen (loose)",
+    "category": "snacks-biscuits",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "mixture",
+      "mixture namkeen",
+      "मिक्सचर",
+      "मिक्चर",
+      "chivda mixture",
+      "mixture loose"
+    ]
+  },
+  {
+    "id": "papad-loose",
+    "hinglish": "Papad (loose)",
+    "hi": "पापड़",
+    "en": "Papad (loose)",
+    "category": "snacks-biscuits",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "papad",
+      "papadam",
+      "पापड़",
+      "पापड",
+      "papad loose",
+      "मूंग पापड़"
+    ]
+  },
+  {
+    "id": "kishmish-loose",
+    "hinglish": "Kishmish (loose)",
+    "hi": "किशमिश",
+    "en": "Raisins (loose)",
+    "category": "snacks-biscuits",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "kishmish",
+      "kishmis",
+      "raisins",
+      "किशमिश",
+      "kishmish loose"
+    ]
+  },
+  {
+    "id": "kaju-loose",
+    "hinglish": "Kaju (loose)",
+    "hi": "काजू",
+    "en": "Cashew (loose)",
+    "category": "snacks-biscuits",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "kaju",
+      "kaaju",
+      "cashew",
+      "काजू",
+      "kaju loose"
+    ]
+  },
+  {
+    "id": "badam-loose",
+    "hinglish": "Badam (loose)",
+    "hi": "बादाम",
+    "en": "Almonds (loose)",
+    "category": "snacks-biscuits",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "badam",
+      "badaam",
+      "almond",
+      "almonds",
+      "बादाम"
+    ]
+  },
+  {
+    "id": "mungfali-dana-loose",
+    "hinglish": "Mungfali Dana (loose)",
+    "hi": "मूंगफली दाना",
+    "en": "Peanuts (loose)",
+    "category": "snacks-biscuits",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "mungfali",
+      "moongphali",
+      "peanuts",
+      "मूंगफली",
+      "मूंगफली दाना",
+      "मूंगफली दाने"
+    ]
+  },
+  {
+    "id": "kissan-jam-200g",
+    "hinglish": "Kissan Mixed Fruit Jam 200g",
+    "hi": "किसान जैम 200 ग्राम",
+    "en": "Kissan Mixed Fruit Jam 200g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Kissan",
+    "aliases": [
+      "kissan jam",
+      "jam",
+      "mixed fruit jam",
+      "जैम",
+      "किसान जैम",
+      "मिक्स्ड फ्रूट जैम"
+    ]
+  },
+  {
+    "id": "kissan-ketchup-500g",
+    "hinglish": "Kissan Tomato Ketchup 500g",
+    "hi": "किसान टोमैटो केचप 500 ग्राम",
+    "en": "Kissan Tomato Ketchup 500g",
+    "category": "snacks-biscuits",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Kissan",
+    "aliases": [
+      "ketchup",
+      "tomato ketchup",
+      "केचप",
+      "कैचप",
+      "kissan ketchup",
+      "टमाटर केचप"
+    ]
+  },
+  {
+    "id": "maggi-4-pack",
+    "hinglish": "Maggi 4 Pack",
+    "hi": "मैगी 4 पैक",
+    "en": "Maggi Masala Noodles 4 Pack (280g)",
+    "category": "noodles-pasta",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Maggi",
+    "aliases": [
+      "maggi 4 pack",
+      "maggi chaar wala",
+      "maggi char pack",
+      "मैगी चार पैक",
+      "maggi bada pack",
+      "maggi 280g"
+    ]
+  },
+  {
+    "id": "yippee-noodles-70g",
+    "hinglish": "Yippee Noodles 70g",
+    "hi": "यिप्पी नूडल्स 70 ग्राम",
+    "en": "Yippee Noodles 70g",
+    "category": "noodles-pasta",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Yippee",
+    "aliases": [
+      "yippee",
+      "yippie",
+      "yippy",
+      "यिप्पी",
+      "यिप्पी नूडल्स",
+      "yippee noodles"
+    ]
+  },
+  {
+    "id": "top-ramen-70g",
+    "hinglish": "Top Ramen Noodles 70g",
+    "hi": "टॉप रैमेन 70 ग्राम",
+    "en": "Top Ramen Noodles 70g",
+    "category": "noodles-pasta",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Top Ramen",
+    "aliases": [
+      "top ramen",
+      "top raman",
+      "टॉप रेमन",
+      "टॉप रैमेन",
+      "top ramen noodles"
+    ]
+  },
+  {
+    "id": "maggi-atta-noodles-70g",
+    "hinglish": "Maggi Atta Noodles 70g",
+    "hi": "मैगी आटा नूडल्स 70 ग्राम",
+    "en": "Maggi Atta Noodles 70g",
+    "category": "noodles-pasta",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Maggi",
+    "aliases": [
+      "atta noodles",
+      "maggi atta",
+      "मैगी आटा नूडल्स",
+      "आटा नूडल्स",
+      "maggi atta noodles"
+    ]
+  },
+  {
+    "id": "macaroni-400g",
+    "hinglish": "Macaroni 400g",
+    "hi": "मैकरोनी 400 ग्राम",
+    "en": "Macaroni Pasta 400g",
+    "category": "noodles-pasta",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "macaroni",
+      "makaroni",
+      "मैकरोनी",
+      "पास्ता",
+      "pasta",
+      "macroni"
+    ]
+  },
+  {
+    "id": "chings-schezwan-noodles",
+    "hinglish": "Ching's Schezwan Noodles",
+    "hi": "चिंग्स शेज़वान नूडल्स",
+    "en": "Ching's Schezwan Noodles",
+    "category": "noodles-pasta",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Ching's",
+    "aliases": [
+      "chings noodles",
+      "ching's",
+      "चिंग्स",
+      "शेज़वान नूडल्स",
+      "schezwan noodles"
+    ]
+  },
+  {
+    "id": "sanchi-milk-500ml",
+    "hinglish": "Sanchi Milk 500ml",
+    "hi": "सांची दूध 500 मिली",
+    "en": "Sanchi Toned Milk 500ml",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Sanchi",
+    "aliases": [
+      "sanchi milk",
+      "sanchi doodh",
+      "सांची दूध",
+      "sanchi 500ml",
+      "sanchi dudh",
+      "सांची दूध पैकेट"
+    ]
+  },
+  {
+    "id": "amul-taaza-500ml",
+    "hinglish": "Amul Taaza Milk 500ml",
+    "hi": "अमूल ताज़ा दूध 500 मिली",
+    "en": "Amul Taaza Toned Milk 500ml",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "amul taaza",
+      "amul taza",
+      "amul milk",
+      "अमूल दूध",
+      "अमूल ताज़ा",
+      "amul doodh"
+    ]
+  },
+  {
+    "id": "amul-gold-500ml",
+    "hinglish": "Amul Gold Milk 500ml",
+    "hi": "अमूल गोल्ड दूध 500 मिली",
+    "en": "Amul Gold Full Cream Milk 500ml",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "amul gold",
+      "amul gold milk",
+      "अमूल गोल्ड",
+      "अमूल गोल्ड दूध",
+      "amul gold doodh"
+    ]
+  },
+  {
+    "id": "doodh-loose",
+    "hinglish": "Doodh (loose)",
+    "hi": "दूध",
+    "en": "Milk (loose)",
+    "category": "dairy-bread",
+    "unit": "l",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "doodh",
+      "dudh",
+      "milk",
+      "milk loose",
+      "दूध",
+      "खुला दूध",
+      "khula doodh"
+    ]
+  },
+  {
+    "id": "amul-butter-100g",
+    "hinglish": "Amul Butter 100g",
+    "hi": "अमूल बटर 100 ग्राम",
+    "en": "Amul Butter 100g",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "amul butter",
+      "amul makhan",
+      "अमूल बटर",
+      "makhan",
+      "मक्खन",
+      "amul butter 100"
+    ]
+  },
+  {
+    "id": "amul-butter-500g",
+    "hinglish": "Amul Butter 500g",
+    "hi": "अमूल बटर 500 ग्राम",
+    "en": "Amul Butter 500g",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "amul butter bada",
+      "amul butter 500g",
+      "अमूल बटर बड़ा",
+      "amul butter 500 gram"
+    ]
+  },
+  {
+    "id": "paneer-loose",
+    "hinglish": "Paneer (loose)",
+    "hi": "पनीर",
+    "en": "Paneer (loose)",
+    "category": "dairy-bread",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "paneer",
+      "panir",
+      "cottage cheese",
+      "पनीर",
+      "पनीर खुला",
+      "chhena"
+    ]
+  },
+  {
+    "id": "amul-paneer-200g",
+    "hinglish": "Amul Paneer 200g",
+    "hi": "अमूल पनीर 200 ग्राम",
+    "en": "Amul Paneer 200g",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "amul paneer",
+      "amul paneer pack",
+      "अमूल पनीर",
+      "amul paneer 200g"
+    ]
+  },
+  {
+    "id": "dahi-loose",
+    "hinglish": "Dahi (loose)",
+    "hi": "दही",
+    "en": "Curd (loose)",
+    "category": "dairy-bread",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "dahi",
+      "curd",
+      "dhai",
+      "दही",
+      "दही खुला",
+      "dahee"
+    ]
+  },
+  {
+    "id": "amul-masti-dahi-400g",
+    "hinglish": "Amul Masti Dahi 400g",
+    "hi": "अमूल मस्ती दही 400 ग्राम",
+    "en": "Amul Masti Dahi 400g",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "amul dahi",
+      "amul masti dahi",
+      "मस्ती दही",
+      "अमूल दही",
+      "amul curd"
+    ]
+  },
+  {
+    "id": "amul-chaach-200ml",
+    "hinglish": "Amul Chaach 200ml",
+    "hi": "अमूल छाछ 200 मिली",
+    "en": "Amul Masti Spiced Buttermilk 200ml",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "chaach",
+      "chhach",
+      "छाछ",
+      "buttermilk",
+      "amul chaach",
+      "amul chhach"
+    ]
+  },
+  {
+    "id": "amul-cheese-slice-200g",
+    "hinglish": "Amul Cheese Slices 200g",
+    "hi": "अमूल चीज़ स्लाइस 200 ग्राम",
+    "en": "Amul Processed Cheese Slices 200g",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "amul cheese",
+      "cheese slice",
+      "चीज़ स्लाइस",
+      "अमूल चीज़",
+      "amul cheese slices"
+    ]
+  },
+  {
+    "id": "modern-bread-400g",
+    "hinglish": "Modern Bread 400g",
+    "hi": "मॉडर्न ब्रेड 400 ग्राम",
+    "en": "Modern White Bread 400g",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Modern",
+    "aliases": [
+      "bread",
+      "modern bread",
+      "ब्रेड",
+      "मॉडर्न ब्रेड",
+      "white bread"
+    ]
+  },
+  {
+    "id": "pav-6pc",
+    "hinglish": "Pav (6 pcs)",
+    "hi": "पाव",
+    "en": "Pav (6 pieces)",
+    "category": "dairy-bread",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "pav",
+      "paav",
+      "ladi pav",
+      "पाव",
+      "पाव पैकेट",
+      "pav bread"
+    ]
+  },
+  {
+    "id": "ande-tray",
+    "hinglish": "Ande (tray of 30)",
+    "hi": "अंडे",
+    "en": "Eggs (tray of 30)",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "ande",
+      "anda",
+      "egg",
+      "eggs",
+      "अंडे",
+      "अंडा",
+      "ande tray",
+      "30 ande"
+    ]
+  },
+  {
+    "id": "mawa-loose",
+    "hinglish": "Mawa (loose)",
+    "hi": "मावा",
+    "en": "Khoya (Mawa, loose)",
+    "category": "dairy-bread",
+    "unit": "kg",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "mawa",
+      "khoya",
+      "khoa",
+      "मावा",
+      "खोया",
+      "mawa loose"
+    ]
+  },
+  {
+    "id": "amul-fresh-cream-250ml",
+    "hinglish": "Amul Fresh Cream 250ml",
+    "hi": "अमूल फ्रेश क्रीम 250 मिली",
+    "en": "Amul Fresh Cream 250ml",
+    "category": "dairy-bread",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "fresh cream",
+      "amul cream",
+      "क्रीम",
+      "फ्रेश क्रीम",
+      "malai cream"
+    ]
+  },
+  {
+    "id": "frooti-200ml",
+    "hinglish": "Frooti 200ml",
+    "hi": "फ्रूटी 200 मिली",
+    "en": "Frooti Mango Drink 200ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Parle Agro",
+    "aliases": [
+      "frooti",
+      "frooty",
+      "mango drink frooti",
+      "फ्रूटी",
+      "फ्रूटी छोटी"
+    ]
+  },
+  {
+    "id": "maaza-250ml",
+    "hinglish": "Maaza 250ml",
+    "hi": "माज़ा 250 मिली",
+    "en": "Maaza Mango Drink 250ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Maaza",
+    "aliases": [
+      "maaza",
+      "maza",
+      "माज़ा",
+      "माजा",
+      "maaza mango"
+    ]
+  },
+  {
+    "id": "thums-up-750ml",
+    "hinglish": "Thums Up 750ml",
+    "hi": "थम्स अप 750 मिली",
+    "en": "Thums Up 750ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Thums Up",
+    "aliases": [
+      "thums up",
+      "thumbs up",
+      "थम्स अप",
+      "थम्सअप",
+      "thumps up"
+    ]
+  },
+  {
+    "id": "sprite-750ml",
+    "hinglish": "Sprite 750ml",
+    "hi": "स्प्राइट 750 मिली",
+    "en": "Sprite 750ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Sprite",
+    "aliases": [
+      "sprite",
+      "स्प्राइट",
+      "sprite bottle",
+      "sprit"
+    ]
+  },
+  {
+    "id": "pepsi-750ml",
+    "hinglish": "Pepsi 750ml",
+    "hi": "पेप्सी 750 मिली",
+    "en": "Pepsi 750ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Pepsi",
+    "aliases": [
+      "pepsi",
+      "पेप्सी",
+      "pepsi bottle",
+      "pepsi cold drink"
+    ]
+  },
+  {
+    "id": "coca-cola-600ml",
+    "hinglish": "Coca-Cola 600ml",
+    "hi": "कोका कोला 600 मिली",
+    "en": "Coca-Cola 600ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Coca-Cola",
+    "aliases": [
+      "coke",
+      "coca cola",
+      "coca-cola",
+      "कोका कोला",
+      "कोक"
+    ]
+  },
+  {
+    "id": "bisleri-1l",
+    "hinglish": "Bisleri Water 1L",
+    "hi": "बिसलेरी पानी 1 लीटर",
+    "en": "Bisleri Mineral Water 1L",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Bisleri",
+    "aliases": [
+      "bisleri",
+      "bisleri 1 litre",
+      "बिसलेरी",
+      "पानी की बोतल",
+      "bisleri pani"
+    ]
+  },
+  {
+    "id": "rooh-afza-750ml",
+    "hinglish": "Rooh Afza 750ml",
+    "hi": "रूह अफ़ज़ा 750 मिली",
+    "en": "Rooh Afza Syrup 750ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Hamdard",
+    "aliases": [
+      "rooh afza",
+      "roohafza",
+      "रूह अफ़ज़ा",
+      "रूह अफ़ज़ा शरबत",
+      "rooh afza sharbat"
+    ]
+  },
+  {
+    "id": "soda-bottle",
+    "hinglish": "Soda (bottle)",
+    "hi": "सोडा",
+    "en": "Soda Water (bottle)",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "soda",
+      "soda bottle",
+      "सोडा",
+      "soda water",
+      "नमकीन सोडा"
+    ]
+  },
+  {
+    "id": "amul-kool-cafe-200ml",
+    "hinglish": "Amul Kool Cafe 200ml",
+    "hi": "अमूल कूल कैफ़े 200 मिली",
+    "en": "Amul Kool Cafe 200ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Amul",
+    "aliases": [
+      "kool cafe",
+      "amul kool cafe",
+      "कूल कैफे",
+      "कूल कैफ़े",
+      "amul cold coffee"
+    ]
+  },
+  {
+    "id": "real-mango-juice-1l",
+    "hinglish": "Real Mango Juice 1L",
+    "hi": "रियल मैंगो जूस 1 लीटर",
+    "en": "Real Mango Juice 1L",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Real",
+    "aliases": [
+      "real juice",
+      "real mango",
+      "रियल जूस",
+      "जूस",
+      "juice"
+    ]
+  },
+  {
+    "id": "limca-750ml",
+    "hinglish": "Limca 750ml",
+    "hi": "लिम्का 750 मिली",
+    "en": "Limca 750ml",
+    "category": "beverages",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Limca",
+    "aliases": [
+      "limca",
+      "लिम्का",
+      "lemon drink limca",
+      "limca bottle",
+      "लिम्का बोतल"
+    ]
+  },
+  {
+    "id": "lux-soap-100g",
+    "hinglish": "Lux Soap 100g",
+    "hi": "लक्स साबुन 100 ग्राम",
+    "en": "Lux Beauty Soap 100g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Lux",
+    "aliases": [
+      "lux",
+      "lux soap",
+      "लक्स",
+      "लक्स साबुन",
+      "lux bathing bar"
+    ]
+  },
+  {
+    "id": "lifebuoy-soap-100g",
+    "hinglish": "Lifebuoy Soap 100g",
+    "hi": "लाइफबॉय साबुन 100 ग्राम",
+    "en": "Lifebuoy Soap 100g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Lifebuoy",
+    "aliases": [
+      "lifebuoy",
+      "life buoy",
+      "लाइफबॉय",
+      "लाइफबॉय साबुन",
+      "lifebuoy soap"
+    ]
+  },
+  {
+    "id": "dettol-soap-75g",
+    "hinglish": "Dettol Soap 75g",
+    "hi": "डेटॉल साबुन 75 ग्राम",
+    "en": "Dettol Soap 75g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Dettol",
+    "aliases": [
+      "dettol",
+      "dettol soap",
+      "डेटॉल",
+      "डेटॉल साबुन",
+      "dettol bar"
+    ]
+  },
+  {
+    "id": "santoor-soap-100g",
+    "hinglish": "Santoor Soap 100g",
+    "hi": "संतूर साबुन 100 ग्राम",
+    "en": "Santoor Soap 100g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Wipro",
+    "aliases": [
+      "santoor",
+      "santoor soap",
+      "संतूर",
+      "संतूर साबुन",
+      "santur"
+    ]
+  },
+  {
+    "id": "cinthol-soap-100g",
+    "hinglish": "Cinthol Soap 100g",
+    "hi": "सिन्थोल साबुन 100 ग्राम",
+    "en": "Cinthol Soap 100g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Cinthol",
+    "aliases": [
+      "cinthol",
+      "सिन्थोल",
+      "cinthol soap",
+      "सिंथोल साबुन"
+    ]
+  },
+  {
+    "id": "clinic-plus-shampoo-80ml",
+    "hinglish": "Clinic Plus Shampoo 80ml",
+    "hi": "क्लिनिक प्लस शैम्पू 80 मिली",
+    "en": "Clinic Plus Shampoo 80ml",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Clinic Plus",
+    "aliases": [
+      "clinic plus",
+      "clinic plus shampoo",
+      "क्लिनिक प्लस",
+      "क्लिनिक शैम्पू",
+      "clinic shampoo"
+    ]
+  },
+  {
+    "id": "sunsilk-shampoo-180ml",
+    "hinglish": "Sunsilk Shampoo 180ml",
+    "hi": "सनसिल्क शैम्पू 180 मिली",
+    "en": "Sunsilk Shampoo 180ml",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Sunsilk",
+    "aliases": [
+      "sunsilk",
+      "sunsilk shampoo",
+      "सनसिल्क",
+      "सनसिल्क शैम्पू"
+    ]
+  },
+  {
+    "id": "head-shoulders-sachet",
+    "hinglish": "Head & Shoulders Sachet",
+    "hi": "हेड एंड शोल्डर्स सैशे",
+    "en": "Head & Shoulders Shampoo Sachet",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Head & Shoulders",
+    "aliases": [
+      "head shoulders",
+      "head and shoulders",
+      "हेड एंड शोल्डर्स",
+      "dandruff shampoo",
+      "shampoo sachet",
+      "शैम्पू सैशे"
+    ]
+  },
+  {
+    "id": "parachute-coconut-100ml",
+    "hinglish": "Parachute Coconut Oil 100ml",
+    "hi": "पैराशूट नारियल तेल 100 मिली",
+    "en": "Parachute Pure Coconut Oil 100ml",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Parachute",
+    "aliases": [
+      "parachute",
+      "parachute oil",
+      "पैराशूट",
+      "पैराशूट नारियल तेल",
+      "parachute nariyal tel",
+      "नारियल तेल पैराशूट"
+    ]
+  },
+  {
+    "id": "dabur-amla-100ml",
+    "hinglish": "Dabur Amla Hair Oil 100ml",
+    "hi": "डाबर आंवला तेल 100 मिली",
+    "en": "Dabur Amla Hair Oil 100ml",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Dabur",
+    "aliases": [
+      "amla oil",
+      "dabur amla",
+      "आंवला तेल",
+      "आमला तेल",
+      "amla tel",
+      "dabur amla hair oil"
+    ]
+  },
+  {
+    "id": "colgate-100g",
+    "hinglish": "Colgate Toothpaste 100g",
+    "hi": "कोलगेट टूथपेस्ट 100 ग्राम",
+    "en": "Colgate Toothpaste 100g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Colgate",
+    "aliases": [
+      "colgate",
+      "colgate paste",
+      "कोलगेट",
+      "कोलगेट पेस्ट",
+      "colgate toothpaste",
+      "colgate tooth paste"
+    ]
+  },
+  {
+    "id": "pepsodent-100g",
+    "hinglish": "Pepsodent Toothpaste 100g",
+    "hi": "पेप्सोडेंट टूथपेस्ट 100 ग्राम",
+    "en": "Pepsodent Toothpaste 100g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Pepsodent",
+    "aliases": [
+      "pepsodent",
+      "पेप्सोडेंट",
+      "pepsodent paste",
+      "पेप्सोडेंट पेस्ट"
+    ]
+  },
+  {
+    "id": "closeup-100g",
+    "hinglish": "Close-Up Toothpaste 100g",
+    "hi": "क्लोज़-अप टूथपेस्ट 100 ग्राम",
+    "en": "Close-Up Toothpaste 100g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Close-Up",
+    "aliases": [
+      "close up",
+      "closeup",
+      "क्लोज़अप",
+      "क्लोज अप",
+      "close up paste"
+    ]
+  },
+  {
+    "id": "vicco-vajradanti-100g",
+    "hinglish": "Vicco Vajradanti 100g",
+    "hi": "विको वज्रदंती 100 ग्राम",
+    "en": "Vicco Vajradanti Toothpaste 100g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Vicco",
+    "aliases": [
+      "vicco",
+      "vicco vajradanti",
+      "विको",
+      "वज्रदंती",
+      "विको वज्रदंती पेस्ट",
+      "vicco dant manjan"
+    ]
+  },
+  {
+    "id": "toothbrush-pc",
+    "hinglish": "Toothbrush",
+    "hi": "टूथब्रश",
+    "en": "Toothbrush",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "toothbrush",
+      "brush",
+      "टूथब्रश",
+      "ब्रश",
+      "दांत का ब्रश",
+      "tooth brush"
+    ]
+  },
+  {
+    "id": "glow-lovely-cream-25g",
+    "hinglish": "Glow & Lovely Cream 25g",
+    "hi": "ग्लो एंड लवली क्रीम 25 ग्राम",
+    "en": "Glow & Lovely Face Cream 25g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Glow & Lovely",
+    "aliases": [
+      "glow and lovely",
+      "glow & lovely",
+      "fair and lovely",
+      "फेयर एंड लवली",
+      "ग्लो एंड लवली",
+      "fair lovely cream"
+    ]
+  },
+  {
+    "id": "gillette-blue-razor",
+    "hinglish": "Gillette Blue II Razor",
+    "hi": "जिलेट रेज़र",
+    "en": "Gillette Blue II Razor",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Gillette",
+    "aliases": [
+      "gillette",
+      "jillet",
+      "जिलेट",
+      "रेज़र",
+      "razor",
+      "gillette blade"
+    ]
+  },
+  {
+    "id": "vaseline-50g",
+    "hinglish": "Vaseline Petroleum Jelly 50g",
+    "hi": "वैसलीन 50 ग्राम",
+    "en": "Vaseline Petroleum Jelly 50g",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Vaseline",
+    "aliases": [
+      "vaseline",
+      "वैसलीन",
+      "petroleum jelly",
+      "वैसलीन जेली"
+    ]
+  },
+  {
+    "id": "axe-deo",
+    "hinglish": "Axe Deodorant",
+    "hi": "एक्स डिओ",
+    "en": "Axe Deodorant Spray",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Axe",
+    "aliases": [
+      "axe",
+      "axe deo",
+      "deo",
+      "डियो",
+      "एक्स डियो",
+      "body spray"
+    ]
+  },
+  {
+    "id": "nivea-creme-50ml",
+    "hinglish": "Nivea Creme 50ml",
+    "hi": "नीविया क्रीम 50 मिली",
+    "en": "Nivea Creme 50ml",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Nivea",
+    "aliases": [
+      "nivea",
+      "nivea cream",
+      "नीविया",
+      "नीविया क्रीम",
+      "nivea creme"
+    ]
+  },
+  {
+    "id": "sanitary-pad-pc",
+    "hinglish": "Sanitary Pads",
+    "hi": "सैनेटरी पैड",
+    "en": "Sanitary Pads Pack",
+    "category": "personal-care",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Whisper",
+    "aliases": [
+      "sanitary pad",
+      "whisper",
+      "सैनेटरी पैड",
+      "व्हिस्पर",
+      "pad"
+    ]
+  },
+  {
+    "id": "cotton-roll-pc",
+    "hinglish": "Cotton (roll)",
+    "hi": "रुई",
+    "en": "Cotton Wool Roll",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "cotton",
+      "rui",
+      "रुई",
+      "cotton wool",
+      "रूई"
+    ]
+  },
+  {
+    "id": "dettol-handwash-200ml",
+    "hinglish": "Dettol Handwash 200ml",
+    "hi": "डेटॉल हैंडवॉश 200 मिली",
+    "en": "Dettol Handwash 200ml",
+    "category": "personal-care",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Dettol",
+    "aliases": [
+      "handwash",
+      "hand wash",
+      "हैंडवॉश",
+      "डेटॉल हैंडवॉश",
+      "dettol handwash"
+    ]
+  },
+  {
+    "id": "surf-excel-1kg",
+    "hinglish": "Surf Excel Easy Wash 1kg",
+    "hi": "सर्फ एक्सेल 1 किलो",
+    "en": "Surf Excel Easy Wash 1kg",
+    "category": "cleaning",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Surf Excel",
+    "aliases": [
+      "surf excel",
+      "surf",
+      "सर्फ",
+      "सर्फ एक्सेल",
+      "surf powder",
+      "surf excel 1kg"
+    ]
+  },
+  {
+    "id": "rin-bar-250g",
+    "hinglish": "Rin Detergent Bar 250g",
+    "hi": "रिन साबुन 250 ग्राम",
+    "en": "Rin Detergent Bar 250g",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Rin",
+    "aliases": [
+      "rin",
+      "rin bar",
+      "रिन",
+      "रिन बार",
+      "rin soap"
+    ]
+  },
+  {
+    "id": "wheel-1kg",
+    "hinglish": "Wheel Detergent 1kg",
+    "hi": "व्हील डिटर्जेंट 1 किलो",
+    "en": "Wheel Washing Powder 1kg",
+    "category": "cleaning",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Wheel",
+    "aliases": [
+      "wheel",
+      "wheel powder",
+      "व्हील",
+      "व्हील पाउडर",
+      "wheel 1kg"
+    ]
+  },
+  {
+    "id": "ghadi-500g",
+    "hinglish": "Ghadi Detergent 500g",
+    "hi": "घड़ी डिटर्जेंट 500 ग्राम",
+    "en": "Ghadi Detergent 500g",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Ghadi",
+    "aliases": [
+      "ghadi",
+      "ghadi detergent",
+      "घड़ी",
+      "घडी",
+      "घड़ी डिटर्जेंट"
+    ]
+  },
+  {
+    "id": "nirma-1kg",
+    "hinglish": "Nirma Washing Powder 1kg",
+    "hi": "निरमा वॉशिंग पाउडर 1 किलो",
+    "en": "Nirma Washing Powder 1kg",
+    "category": "cleaning",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Nirma",
+    "aliases": [
+      "nirma",
+      "nirma powder",
+      "निरमा",
+      "निरमा पाउडर",
+      "nirma washing powder"
+    ]
+  },
+  {
+    "id": "vim-bar-200g",
+    "hinglish": "Vim Dishwash Bar 200g",
+    "hi": "विम बार 200 ग्राम",
+    "en": "Vim Dishwash Bar 200g",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Vim",
+    "aliases": [
+      "vim",
+      "vim bar",
+      "विम",
+      "विम बार",
+      "dish wash bar",
+      "बर्तन साबुन"
+    ]
+  },
+  {
+    "id": "vim-liquid-500ml",
+    "hinglish": "Vim Dishwash Liquid 500ml",
+    "hi": "विम लिक्विड 500 मिली",
+    "en": "Vim Dishwash Liquid 500ml",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Vim",
+    "aliases": [
+      "vim liquid",
+      "vim gel",
+      "विम लिक्विड",
+      "dishwash liquid",
+      "vim 500ml"
+    ]
+  },
+  {
+    "id": "harpic-500ml",
+    "hinglish": "Harpic Toilet Cleaner 500ml",
+    "hi": "हार्पिक 500 मिली",
+    "en": "Harpic Toilet Cleaner 500ml",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Harpic",
+    "aliases": [
+      "harpic",
+      "हार्पिक",
+      "toilet cleaner",
+      "संडास क्लीनर",
+      "harpik"
+    ]
+  },
+  {
+    "id": "lizol-500ml",
+    "hinglish": "Lizol Floor Cleaner 500ml",
+    "hi": "लाइज़ोल 500 मिली",
+    "en": "Lizol Floor Cleaner 500ml",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Lizol",
+    "aliases": [
+      "lizol",
+      "lysol",
+      "लिज़ोल",
+      "लाइज़ोल",
+      "floor cleaner lizol"
+    ]
+  },
+  {
+    "id": "colin-500ml",
+    "hinglish": "Colin Glass Cleaner 500ml",
+    "hi": "कोलिन ग्लास क्लीनर 500 मिली",
+    "en": "Colin Glass Cleaner 500ml",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Colin",
+    "aliases": [
+      "colin",
+      "कोलिन",
+      "glass cleaner colin",
+      "colin glass"
+    ]
+  },
+  {
+    "id": "phenyl-loose",
+    "hinglish": "Phenyl (loose)",
+    "hi": "फिनायल",
+    "en": "Phenyl Floor Cleaner (loose)",
+    "category": "cleaning",
+    "unit": "l",
+    "loose": true,
+    "brand": null,
+    "aliases": [
+      "phenyl",
+      "फिनायल",
+      "फेनाइल",
+      "phenyl loose",
+      "phenyl liquid"
+    ]
+  },
+  {
+    "id": "scrubber-pc",
+    "hinglish": "Scrubber",
+    "hi": "स्क्रबर",
+    "en": "Scrub Pad",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "scrubber",
+      "scrub",
+      "स्क्रबर",
+      "जाली",
+      "jali scrubber",
+      "scrub pad"
+    ]
+  },
+  {
+    "id": "cif-cream-500ml",
+    "hinglish": "Cif Cream 500ml",
+    "hi": "सिफ क्रीम 500 मिली",
+    "en": "Cif Cream Cleaner 500ml",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Cif",
+    "aliases": [
+      "cif",
+      "cif cream",
+      "सिफ",
+      "सिफ क्रीम",
+      "cif kitchen"
+    ]
+  },
+  {
+    "id": "jhadu-pc",
+    "hinglish": "Jhadu (broom)",
+    "hi": "झाड़ू",
+    "en": "Broom",
+    "category": "cleaning",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "jhadu",
+      "jhaadu",
+      "jhadoo",
+      "झाड़ू",
+      "broom",
+      "झाडू"
+    ]
+  },
+  {
+    "id": "agarbatti-pack",
+    "hinglish": "Agarbatti",
+    "hi": "अगरबत्ती",
+    "en": "Incense Sticks (agarbatti)",
+    "category": "household",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "agarbatti",
+      "agarbati",
+      "अगरबत्ती",
+      "incense sticks",
+      "dhoop batti",
+      "agarbatti packet"
+    ]
+  },
+  {
+    "id": "cycle-agarbatti-100g",
+    "hinglish": "Cycle Agarbatti 100g",
+    "hi": "साइकिल अगरबत्ती 100 ग्राम",
+    "en": "Cycle Agarbatti 100g",
+    "category": "household",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Cycle",
+    "aliases": [
+      "cycle agarbatti",
+      "cycle agarbati",
+      "साइकिल अगरबत्ती",
+      "cycle incense",
+      "cycle agarbatti pack"
+    ]
+  },
+  {
+    "id": "mangaldeep-agarbatti",
+    "hinglish": "Mangaldeep Agarbatti",
+    "hi": "मंगलदीप अगरबत्ती",
+    "en": "Mangaldeep Agarbatti",
+    "category": "household",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Mangaldeep",
+    "aliases": [
+      "mangaldeep",
+      "mangal deep",
+      "मंगलदीप",
+      "मंगलदीप अगरबत्ती",
+      "mangaldeep agarbatti"
+    ]
+  },
+  {
+    "id": "matchbox-pc",
+    "hinglish": "Machis (matchbox)",
+    "hi": "माचिस",
+    "en": "Matchbox",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "machis",
+      "matchbox",
+      "माचिस",
+      "माचिस की डिब्बी",
+      "deesalai"
+    ]
+  },
+  {
+    "id": "candle-pc",
+    "hinglish": "Mombatti (candle)",
+    "hi": "मोमबत्ती",
+    "en": "Candle",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "candle",
+      "mombatti",
+      "मोमबत्ती",
+      "मोमबत्ती पैकेट",
+      "batti"
+    ]
+  },
+  {
+    "id": "good-knight-refill",
+    "hinglish": "Good Knight Refill",
+    "hi": "गुड नाइट रिफिल",
+    "en": "Good Knight Liquid Vapour Refill",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Good Knight",
+    "aliases": [
+      "good knight",
+      "good night",
+      "गुड नाइट",
+      "goodnight",
+      "गुड नाइट लिक्विड",
+      "good knight mat"
+    ]
+  },
+  {
+    "id": "all-out-refill",
+    "hinglish": "All Out Refill",
+    "hi": "ऑल आउट रिफिल",
+    "en": "All Out Liquid Refill 45ml",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": "All Out",
+    "aliases": [
+      "all out",
+      "all-out",
+      "ऑल आउट",
+      "ऑलआउट",
+      "mosquito liquid"
+    ]
+  },
+  {
+    "id": "mortein-spray",
+    "hinglish": "Mortein Spray 425ml",
+    "hi": "मॉर्टीन स्प्रे 425 मिली",
+    "en": "Mortein Insect Killer Spray 425ml",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Mortein",
+    "aliases": [
+      "mortein",
+      "mortin",
+      "मॉर्टीन",
+      "कीड़े मारने का स्प्रे",
+      "mortein spray"
+    ]
+  },
+  {
+    "id": "mosquito-coil-pc",
+    "hinglish": "Mosquito Coil",
+    "hi": "मच्छर कॉइल",
+    "en": "Mosquito Coil",
+    "category": "household",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "mosquito coil",
+      "coil",
+      "मच्छर कॉइल",
+      "machhar agarbatti",
+      "मच्छर अगरबत्ती"
+    ]
+  },
+  {
+    "id": "eveready-aa-battery",
+    "hinglish": "Eveready AA Battery",
+    "hi": "एवरेडी AA बैटरी",
+    "en": "Eveready AA Battery",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Eveready",
+    "aliases": [
+      "battery",
+      "batteri",
+      "eveready battery",
+      "बैटरी",
+      "aa battery",
+      "सेल"
+    ]
+  },
+  {
+    "id": "fevicol-pc",
+    "hinglish": "Fevicol",
+    "hi": "फेविकोल",
+    "en": "Fevicol Adhesive",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Fevicol",
+    "aliases": [
+      "fevicol",
+      "fevikwik",
+      "फेविकोल",
+      "गोंद",
+      "glue"
+    ]
+  },
+  {
+    "id": "lighter-pc",
+    "hinglish": "Lighter",
+    "hi": "लाइटर",
+    "en": "Lighter",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "lighter",
+      "लाइटर",
+      "gas lighter",
+      "lighter ka"
+    ]
+  },
+  {
+    "id": "aluminium-foil-pc",
+    "hinglish": "Aluminium Foil",
+    "hi": "एल्युमिनियम फॉयल",
+    "en": "Aluminium Foil Roll",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "foil",
+      "aluminium foil",
+      "एल्युमिनियम फॉयल",
+      "foil paper",
+      "फॉयल"
+    ]
+  },
+  {
+    "id": "thaili-pack",
+    "hinglish": "Thaili (plastic bag)",
+    "hi": "थैली",
+    "en": "Plastic Carry Bags",
+    "category": "household",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "thaili",
+      "thaili pack",
+      "थैली",
+      "polythene",
+      "poly bag",
+      "carry bag"
+    ]
+  },
+  {
+    "id": "tissue-pack",
+    "hinglish": "Tissue Paper",
+    "hi": "टिश्यू पेपर",
+    "en": "Tissue Paper Pack",
+    "category": "household",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "tissue",
+      "tissue paper",
+      "टिश्यू",
+      "टिशू",
+      "napkin tissue"
+    ]
+  },
+  {
+    "id": "garbage-bag-pack",
+    "hinglish": "Garbage Bags",
+    "hi": "कचरा बैग",
+    "en": "Garbage Bags Roll",
+    "category": "household",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "garbage bag",
+      "kachra bag",
+      "कचरा बैग",
+      "dustbin bag",
+      "dust bag"
+    ]
+  },
+  {
+    "id": "dabur-chyawanprash-500g",
+    "hinglish": "Dabur Chyawanprash 500g",
+    "hi": "डाबर च्यवनप्राश 500 ग्राम",
+    "en": "Dabur Chyawanprash 500g",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Dabur",
+    "aliases": [
+      "chyawanprash",
+      "chavanprash",
+      "च्यवनप्राश",
+      "च्यवनप्रकाश",
+      "dabur chyawanprash"
+    ]
+  },
+  {
+    "id": "dettol-liquid-100ml",
+    "hinglish": "Dettol Antiseptic Liquid 100ml",
+    "hi": "डेटॉल लिक्विड 100 मिली",
+    "en": "Dettol Antiseptic Liquid 100ml",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Dettol",
+    "aliases": [
+      "dettol liquid",
+      "dettol antiseptic",
+      "डेटॉल लिक्विड",
+      "dettol 100ml",
+      "एंटीसेप्टिक लिक्विड"
+    ]
+  },
+  {
+    "id": "odonil-freshener",
+    "hinglish": "Odonil Air Freshener",
+    "hi": "ओडोनिल एयर फ्रेशनर",
+    "en": "Odonil Room Freshener",
+    "category": "household",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Odonil",
+    "aliases": [
+      "odonil",
+      "odonil freshener",
+      "ओडोनिल",
+      "रूम फ्रेशनर",
+      "air freshener"
+    ]
+  },
+  {
+    "id": "cerelac-wheat-300g",
+    "hinglish": "Cerelac Wheat 300g",
+    "hi": "सेरेलैक गेहूं 300 ग्राम",
+    "en": "Cerelac Wheat Baby Cereal 300g",
+    "category": "baby",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Nestle",
+    "aliases": [
+      "cerelac",
+      "cerelac wheat",
+      "सेरेलैक",
+      "सेरेलैक दलिया",
+      "cerelac baby food"
+    ]
+  },
+  {
+    "id": "pampers-medium",
+    "hinglish": "Pampers Diapers Medium",
+    "hi": "पैम्पर्स डायपर मीडियम",
+    "en": "Pampers Diapers Medium",
+    "category": "baby",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Pampers",
+    "aliases": [
+      "pampers",
+      "pampers diaper",
+      "पैम्पर्स",
+      "पैम्पर्स डायपर",
+      "pampers medium"
+    ]
+  },
+  {
+    "id": "huggies-medium",
+    "hinglish": "Huggies Diapers Medium",
+    "hi": "हगीज़ डायपर मीडियम",
+    "en": "Huggies Diapers Medium",
+    "category": "baby",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Huggies",
+    "aliases": [
+      "huggies",
+      "huggies diaper",
+      "हगीज़",
+      "हगीज़ डायपर",
+      "diaper huggies"
+    ]
+  },
+  {
+    "id": "diaper-pc",
+    "hinglish": "Diaper (baby)",
+    "hi": "डायपर",
+    "en": "Baby Diaper",
+    "category": "baby",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "diaper",
+      "diapers",
+      "डायपर",
+      "नैपी",
+      "nappy"
+    ]
+  },
+  {
+    "id": "johnsons-baby-powder-100g",
+    "hinglish": "Johnson's Baby Powder 100g",
+    "hi": "जॉनसन बेबी पाउडर 100 ग्राम",
+    "en": "Johnson's Baby Powder 100g",
+    "category": "baby",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Johnson's",
+    "aliases": [
+      "johnsons baby powder",
+      "johnson baby powder",
+      "जॉनसन बेबी पाउडर",
+      "baby powder",
+      "बेबी पाउडर",
+      "johnson powder"
+    ]
+  },
+  {
+    "id": "johnsons-baby-oil-100ml",
+    "hinglish": "Johnson's Baby Oil 100ml",
+    "hi": "जॉनसन बेबी ऑयल 100 मिली",
+    "en": "Johnson's Baby Oil 100ml",
+    "category": "baby",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Johnson's",
+    "aliases": [
+      "baby oil",
+      "बेबी ऑयल",
+      "johnson baby oil",
+      "जॉनसन बेबी ऑयल"
+    ]
+  },
+  {
+    "id": "lactogen-1-400g",
+    "hinglish": "Lactogen 1 Infant Formula 400g",
+    "hi": "लैक्टोजेन 1 400 ग्राम",
+    "en": "Lactogen 1 Infant Formula 400g",
+    "category": "baby",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Nestle",
+    "aliases": [
+      "lactogen",
+      "लैक्टोजेन",
+      "infant milk powder",
+      "बेबी मिल्क पाउडर",
+      "lactogen 1"
+    ]
+  },
+  {
+    "id": "baby-wipes-pack",
+    "hinglish": "Baby Wipes",
+    "hi": "बेबी वाइप्स",
+    "en": "Baby Wipes Pack",
+    "category": "baby",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "baby wipes",
+      "wet wipes",
+      "बेबी वाइप्स",
+      "गीले टिशू",
+      "wipes"
+    ]
+  },
+  {
+    "id": "kulfi-pc",
+    "hinglish": "Kulfi",
+    "hi": "कुल्फी",
+    "en": "Kulfi",
+    "category": "frozen-misc",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "kulfi",
+      "kulfee",
+      "कुल्फी",
+      "कुल्फ़ी",
+      "malai kulfi"
+    ]
+  },
+  {
+    "id": "vadilal-ice-cream-500ml",
+    "hinglish": "Vadilal Ice Cream 500ml",
+    "hi": "वाडीलाल आइसक्रीम 500 मिली",
+    "en": "Vadilal Vanilla Ice Cream 500ml",
+    "category": "frozen-misc",
+    "unit": "pc",
+    "loose": false,
+    "brand": "Vadilal",
+    "aliases": [
+      "ice cream",
+      "icecream",
+      "आइसक्रीम",
+      "vadilal",
+      "वाडीलाल"
+    ]
+  },
+  {
+    "id": "frozen-peas-500g",
+    "hinglish": "Frozen Green Peas 500g",
+    "hi": "फ्रोज़न मटर 500 ग्राम",
+    "en": "Frozen Green Peas 500g",
+    "category": "frozen-misc",
+    "unit": "pc",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "frozen peas",
+      "matar frozen",
+      "फ्रोज़न मटर",
+      "हरी मटर फ्रोज़न"
+    ]
+  },
+  {
+    "id": "frozen-paratha-pc",
+    "hinglish": "Frozen Paratha",
+    "hi": "फ्रोज़न पराठा",
+    "en": "Frozen Paratha",
+    "category": "frozen-misc",
+    "unit": "pack",
+    "loose": false,
+    "brand": null,
+    "aliases": [
+      "frozen paratha",
+      "paratha frozen",
+      "फ्रोज़न पराठा",
+      "ready paratha",
+      "रेडी पराठा"
+    ]
+  },
+  {
+    "id": "frozen-mixveg-500g",
+    "hinglish": "Frozen Mixed Vegetables 500g",
+    "hi": "फ्रोज़न मिक्स वेज 500 ग्राम",
+    "en": "Frozen Mixed Vegetables 500g",
+    "category": "frozen-misc",
+    "unit": "pc",
+    "loose": false,
+    "brand": "ITC",
+    "aliases": [
+      "mix veg",
+      "mixed vegetables",
+      "मिक्स वेज",
+      "frozen mix veg",
+      "फ्रोज़न मिक्स वेज"
+    ]
+  },
+  {
+    "id": "lays-classic-salted-10",
+    "hinglish": "Lays Classic Salted 10 wala",
+    "hi": "लेज़ क्लासिक सॉल्टेड 10 वाला",
+    "en": "Lays Classic Salted (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays classic salted 10 wala",
+      "lays classic salted das wala",
+      "lays classic salted 10 rupaye wala",
+      "लेज़ क्लासिक सॉल्टेड दस वाला",
+      "लेज़ क्लासिक सॉल्टेड 10 रुपये वाला",
+      "laal lays",
+      "red lays",
+      "lays laal",
+      "lace classic",
+      "les classic",
+      "lays namak wala",
+      "लाल लेज़",
+      "लेज़ नमकीन"
+    ]
+  },
+  {
+    "id": "lays-classic-salted-5",
+    "hinglish": "Lays Classic Salted 5 wala",
+    "hi": "लेज़ क्लासिक सॉल्टेड 5 वाला",
+    "en": "Lays Classic Salted (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays classic salted 5 wala",
+      "lays classic salted paanch wala",
+      "lays classic salted 5 rupaye wala",
+      "लेज़ क्लासिक सॉल्टेड पाँच वाला",
+      "लेज़ क्लासिक सॉल्टेड 5 रुपये वाला",
+      "laal lays 5 wala",
+      "red lays 5 wala",
+      "लाल लेज़ पाँच वाला"
+    ]
+  },
+  {
+    "id": "lays-classic-salted-20",
+    "hinglish": "Lays Classic Salted 20 wala",
+    "hi": "लेज़ क्लासिक सॉल्टेड 20 वाला",
+    "en": "Lays Classic Salted (20 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays classic salted 20 wala",
+      "lays classic salted bees wala",
+      "lays classic salted 20 rupaye wala",
+      "लेज़ क्लासिक सॉल्टेड बीस वाला",
+      "लेज़ क्लासिक सॉल्टेड 20 रुपये वाला",
+      "laal lays 20 wala",
+      "red lays 20 wala",
+      "लाल लेज़ बीस वाला"
+    ]
+  },
+  {
+    "id": "lays-magic-masala-10",
+    "hinglish": "Lays Magic Masala 10 wala",
+    "hi": "लेज़ मैजिक मसाला 10 वाला",
+    "en": "Lays Magic Masala (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays magic masala 10 wala",
+      "lays magic masala das wala",
+      "lays magic masala 10 rupaye wala",
+      "लेज़ मैजिक मसाला दस वाला",
+      "लेज़ मैजिक मसाला 10 रुपये वाला",
+      "neela lays",
+      "blue lays",
+      "lays blue",
+      "lace magic masala",
+      "les magic masala",
+      "नीला लेज़",
+      "लेज़ नीला"
+    ]
+  },
+  {
+    "id": "lays-magic-masala-5",
+    "hinglish": "Lays Magic Masala 5 wala",
+    "hi": "लेज़ मैजिक मसाला 5 वाला",
+    "en": "Lays Magic Masala (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays magic masala 5 wala",
+      "lays magic masala paanch wala",
+      "lays magic masala 5 rupaye wala",
+      "लेज़ मैजिक मसाला पाँच वाला",
+      "लेज़ मैजिक मसाला 5 रुपये वाला",
+      "neela lays 5 wala",
+      "blue lays 5 wala",
+      "नीला लेज़ पाँच वाला"
+    ]
+  },
+  {
+    "id": "lays-magic-masala-20",
+    "hinglish": "Lays Magic Masala 20 wala",
+    "hi": "लेज़ मैजिक मसाला 20 वाला",
+    "en": "Lays Magic Masala (20 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays magic masala 20 wala",
+      "lays magic masala bees wala",
+      "lays magic masala 20 rupaye wala",
+      "लेज़ मैजिक मसाला बीस वाला",
+      "लेज़ मैजिक मसाला 20 रुपये वाला",
+      "neela lays 20 wala",
+      "blue lays 20 wala",
+      "नीला लेज़ बीस वाला"
+    ]
+  },
+  {
+    "id": "lays-american-style-cream-onion-10",
+    "hinglish": "Lays American Style Cream & Onion 10 wala",
+    "hi": "लेज़ क्रीम एंड अनियन 10 वाला",
+    "en": "Lays American Style Cream & Onion (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays cream & onion 10 wala",
+      "lays cream & onion das wala",
+      "lays cream & onion 10 rupaye wala",
+      "लेज़ क्रीम एंड अनियन दस वाला",
+      "लेज़ क्रीम एंड अनियन 10 रुपये वाला",
+      "hara lays",
+      "green lays",
+      "lays green",
+      "lace cream onion",
+      "les cream onion",
+      "हरा लेज़",
+      "हरे लेज़"
+    ]
+  },
+  {
+    "id": "lays-american-style-cream-onion-5",
+    "hinglish": "Lays American Style Cream & Onion 5 wala",
+    "hi": "लेज़ क्रीम एंड अनियन 5 वाला",
+    "en": "Lays American Style Cream & Onion (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays cream & onion 5 wala",
+      "lays cream & onion paanch wala",
+      "lays cream & onion 5 rupaye wala",
+      "लेज़ क्रीम एंड अनियन पाँच वाला",
+      "लेज़ क्रीम एंड अनियन 5 रुपये वाला",
+      "hara lays 5 wala",
+      "green lays 5 wala",
+      "हरा लेज़ पाँच वाला"
+    ]
+  },
+  {
+    "id": "lays-american-style-cream-onion-20",
+    "hinglish": "Lays American Style Cream & Onion 20 wala",
+    "hi": "लेज़ क्रीम एंड अनियन 20 वाला",
+    "en": "Lays American Style Cream & Onion (20 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays cream & onion 20 wala",
+      "lays cream & onion bees wala",
+      "lays cream & onion 20 rupaye wala",
+      "लेज़ क्रीम एंड अनियन बीस वाला",
+      "लेज़ क्रीम एंड अनियन 20 रुपये वाला",
+      "hara lays 20 wala",
+      "green lays 20 wala",
+      "हरा लेज़ बीस वाला"
+    ]
+  },
+  {
+    "id": "lays-spanish-tomato-tango-10",
+    "hinglish": "Lays Spanish Tomato Tango 10 wala",
+    "hi": "लेज़ टोमैटो टैंगो 10 वाला",
+    "en": "Lays Spanish Tomato Tango (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays spanish tomato tango 10 wala",
+      "lays spanish tomato tango das wala",
+      "lays spanish tomato tango 10 rupaye wala",
+      "लेज़ टोमैटो टैंगो दस वाला",
+      "लेज़ टोमैटो टैंगो 10 रुपये वाला",
+      "tomato lays",
+      "lays tomato",
+      "lace tomato",
+      "les tomato",
+      "टमाटर लेज़",
+      "टमाटर वाला लेज़"
+    ]
+  },
+  {
+    "id": "lays-spanish-tomato-tango-5",
+    "hinglish": "Lays Spanish Tomato Tango 5 wala",
+    "hi": "लेज़ टोमैटो टैंगो 5 वाला",
+    "en": "Lays Spanish Tomato Tango (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays spanish tomato tango 5 wala",
+      "lays spanish tomato tango paanch wala",
+      "lays spanish tomato tango 5 rupaye wala",
+      "लेज़ टोमैटो टैंगो पाँच वाला",
+      "लेज़ टोमैटो टैंगो 5 रुपये वाला",
+      "tomato lays 5 wala",
+      "lays tomato 5 wala",
+      "टमाटर लेज़ पाँच वाला"
+    ]
+  },
+  {
+    "id": "lays-chile-limon-10",
+    "hinglish": "Lays Chile Limon 10 wala",
+    "hi": "लेज़ चिली लिमोन 10 वाला",
+    "en": "Lays Chile Limon (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays chile limon 10 wala",
+      "lays chile limon das wala",
+      "lays chile limon 10 rupaye wala",
+      "लेज़ चिली लिमोन दस वाला",
+      "लेज़ चिली लिमोन 10 रुपये वाला",
+      "nimbu lays",
+      "lays nimbu",
+      "lace limon",
+      "lays chili nimbu",
+      "नींबू लेज़",
+      "लेज़ नींबू"
+    ]
+  },
+  {
+    "id": "lays-chile-limon-5",
+    "hinglish": "Lays Chile Limon 5 wala",
+    "hi": "लेज़ चिली लिमोन 5 वाला",
+    "en": "Lays Chile Limon (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Lays",
+    "aliases": [
+      "lays chile limon 5 wala",
+      "lays chile limon paanch wala",
+      "lays chile limon 5 rupaye wala",
+      "लेज़ चिली लिमोन पाँच वाला",
+      "लेज़ चिली लिमोन 5 रुपये वाला",
+      "nimbu lays 5 wala",
+      "lays nimbu 5 wala",
+      "नींबू लेज़ पाँच वाला"
+    ]
+  },
+  {
+    "id": "uncle-chipps-spicy-random-10",
+    "hinglish": "Uncle Chipps Spicy Random 10 wala",
+    "hi": "अंकल चिप्स स्पाइसी रैंडम 10 वाला",
+    "en": "Uncle Chipps Spicy Random (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Uncle Chipps",
+    "aliases": [
+      "uncle chipps spicy random 10 wala",
+      "uncle chipps spicy random das wala",
+      "uncle chipps spicy random 10 rupaye wala",
+      "अंकल चिप्स स्पाइसी रैंडम दस वाला",
+      "अंकल चिप्स स्पाइसी रैंडम 10 रुपये वाला",
+      "uncle chipps spicy",
+      "uncle chips masala",
+      "uncle chips lal",
+      "अंकल चिप्स मसाला",
+      "मसाला अंकल चिप्स"
+    ]
+  },
+  {
+    "id": "uncle-chipps-classic-salted-10",
+    "hinglish": "Uncle Chipps Classic Salted 10 wala",
+    "hi": "अंकल चिप्स क्लासिक सॉल्टेड 10 वाला",
+    "en": "Uncle Chipps Classic Salted (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Uncle Chipps",
+    "aliases": [
+      "uncle chipps classic salted 10 wala",
+      "uncle chipps classic salted das wala",
+      "uncle chipps classic salted 10 rupaye wala",
+      "अंकल चिप्स क्लासिक सॉल्टेड दस वाला",
+      "अंकल चिप्स क्लासिक सॉल्टेड 10 रुपये वाला",
+      "uncle chips namak",
+      "uncle chipps salted",
+      "अंकल चिप्स नमकीन"
+    ]
+  },
+  {
+    "id": "uncle-chipps-classic-salted-20",
+    "hinglish": "Uncle Chipps Classic Salted 20 wala",
+    "hi": "अंकल चिप्स क्लासिक सॉल्टेड 20 वाला",
+    "en": "Uncle Chipps Classic Salted (20 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Uncle Chipps",
+    "aliases": [
+      "uncle chipps classic salted 20 wala",
+      "uncle chipps classic salted bees wala",
+      "uncle chipps classic salted 20 rupaye wala",
+      "अंकल चिप्स क्लासिक सॉल्टेड बीस वाला",
+      "अंकल चिप्स क्लासिक सॉल्टेड 20 रुपये वाला",
+      "uncle chips namak 20 wala",
+      "uncle chipps salted 20 wala",
+      "अंकल चिप्स नमकीन बीस वाला"
+    ]
+  },
+  {
+    "id": "bingo-mad-angles-achaari-masti-10",
+    "hinglish": "Bingo Mad Angles Achaari Masti 10 wala",
+    "hi": "बिंगो आचारी मस्ती 10 वाला",
+    "en": "Bingo Mad Angles Achaari Masti (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "bingo mad angles achaari masti 10 wala",
+      "bingo mad angles achaari masti das wala",
+      "bingo mad angles achaari masti 10 rupaye wala",
+      "बिंगो आचारी मस्ती दस वाला",
+      "बिंगो आचारी मस्ती 10 रुपये वाला",
+      "achari bingo",
+      "bingo achar",
+      "आचारी बिंगो",
+      "बिंगो आचार",
+      "अचार वाला बिंगो"
+    ]
+  },
+  {
+    "id": "bingo-mad-angles-achaari-masti-5",
+    "hinglish": "Bingo Mad Angles Achaari Masti 5 wala",
+    "hi": "बिंगो आचारी मस्ती 5 वाला",
+    "en": "Bingo Mad Angles Achaari Masti (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "bingo mad angles achaari masti 5 wala",
+      "bingo mad angles achaari masti paanch wala",
+      "bingo mad angles achaari masti 5 rupaye wala",
+      "बिंगो आचारी मस्ती पाँच वाला",
+      "बिंगो आचारी मस्ती 5 रुपये वाला",
+      "achari bingo 5 wala",
+      "bingo achar 5 wala",
+      "आचारी बिंगो पाँच वाला"
+    ]
+  },
+  {
+    "id": "bingo-mad-angles-achaari-masti-20",
+    "hinglish": "Bingo Mad Angles Achaari Masti 20 wala",
+    "hi": "बिंगो आचारी मस्ती 20 वाला",
+    "en": "Bingo Mad Angles Achaari Masti (20 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "bingo mad angles achaari masti 20 wala",
+      "bingo mad angles achaari masti bees wala",
+      "bingo mad angles achaari masti 20 rupaye wala",
+      "बिंगो आचारी मस्ती बीस वाला",
+      "बिंगो आचारी मस्ती 20 रुपये वाला",
+      "achari bingo 20 wala",
+      "bingo achar 20 wala",
+      "आचारी बिंगो बीस वाला"
+    ]
+  },
+  {
+    "id": "bingo-tomato-madness-10",
+    "hinglish": "Bingo Tomato Madness 10 wala",
+    "hi": "बिंगो टोमैटो मैडनेस 10 वाला",
+    "en": "Bingo Tomato Madness (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "bingo tomato madness 10 wala",
+      "bingo tomato madness das wala",
+      "bingo tomato madness 10 rupaye wala",
+      "बिंगो टोमैटो मैडनेस दस वाला",
+      "बिंगो टोमैटो मैडनेस 10 रुपये वाला",
+      "tomato bingo",
+      "bingo tomato",
+      "bingo tamatar",
+      "टमाटर बिंगो",
+      "बिंगो टमाटर"
+    ]
+  },
+  {
+    "id": "bingo-tomato-madness-5",
+    "hinglish": "Bingo Tomato Madness 5 wala",
+    "hi": "बिंगो टोमैटो मैडनेस 5 वाला",
+    "en": "Bingo Tomato Madness (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "bingo tomato madness 5 wala",
+      "bingo tomato madness paanch wala",
+      "bingo tomato madness 5 rupaye wala",
+      "बिंगो टोमैटो मैडनेस पाँच वाला",
+      "बिंगो टोमैटो मैडनेस 5 रुपये वाला",
+      "tomato bingo 5 wala",
+      "bingo tomato 5 wala",
+      "टमाटर बिंगो पाँच वाला"
+    ]
+  },
+  {
+    "id": "bingo-original-style-10",
+    "hinglish": "Bingo Original Style 10 wala",
+    "hi": "बिंगो ओरिजिनल स्टाइल 10 वाला",
+    "en": "Bingo Original Style (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "bingo original style 10 wala",
+      "bingo original style das wala",
+      "bingo original style 10 rupaye wala",
+      "बिंगो ओरिजिनल स्टाइल दस वाला",
+      "बिंगो ओरिजिनल स्टाइल 10 रुपये वाला",
+      "bingo original",
+      "bingo simple",
+      "bingo plain",
+      "सादा बिंगो",
+      "बिंगो ओरिजिनल"
+    ]
+  },
+  {
+    "id": "bingo-original-style-5",
+    "hinglish": "Bingo Original Style 5 wala",
+    "hi": "बिंगो ओरिजिनल स्टाइल 5 वाला",
+    "en": "Bingo Original Style (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Bingo",
+    "aliases": [
+      "bingo original style 5 wala",
+      "bingo original style paanch wala",
+      "bingo original style 5 rupaye wala",
+      "बिंगो ओरिजिनल स्टाइल पाँच वाला",
+      "बिंगो ओरिजिनल स्टाइल 5 रुपये वाला",
+      "bingo original 5 wala",
+      "bingo simple 5 wala",
+      "सादा बिंगो पाँच वाला"
+    ]
+  },
+  {
+    "id": "kurkure-masala-munch-10",
+    "hinglish": "Kurkure Masala Munch 10 wala",
+    "hi": "कुरकुरे मसाला मंच 10 वाला",
+    "en": "Kurkure Masala Munch (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure masala munch 10 wala",
+      "kurkure masala munch das wala",
+      "kurkure masala munch 10 rupaye wala",
+      "कुरकुरे मसाला मंच दस वाला",
+      "कुरकुरे मसाला मंच 10 रुपये वाला",
+      "kurkure lal",
+      "red kurkure",
+      "lal kurkure",
+      "kurkurey masala",
+      "कुरकुरे लाल",
+      "लाल कुरकुरे"
+    ]
+  },
+  {
+    "id": "kurkure-masala-munch-5",
+    "hinglish": "Kurkure Masala Munch 5 wala",
+    "hi": "कुरकुरे मसाला मंच 5 वाला",
+    "en": "Kurkure Masala Munch (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure masala munch 5 wala",
+      "kurkure masala munch paanch wala",
+      "kurkure masala munch 5 rupaye wala",
+      "कुरकुरे मसाला मंच पाँच वाला",
+      "कुरकुरे मसाला मंच 5 रुपये वाला",
+      "kurkure lal 5 wala",
+      "red kurkure 5 wala",
+      "कुरकुरे लाल पाँच वाला"
+    ]
+  },
+  {
+    "id": "kurkure-masala-munch-20",
+    "hinglish": "Kurkure Masala Munch 20 wala",
+    "hi": "कुरकुरे मसाला मंच 20 वाला",
+    "en": "Kurkure Masala Munch (20 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure masala munch 20 wala",
+      "kurkure masala munch bees wala",
+      "kurkure masala munch 20 rupaye wala",
+      "कुरकुरे मसाला मंच बीस वाला",
+      "कुरकुरे मसाला मंच 20 रुपये वाला",
+      "kurkure lal 20 wala",
+      "red kurkure 20 wala",
+      "कुरकुरे लाल बीस वाला"
+    ]
+  },
+  {
+    "id": "kurkure-chilli-chatka-10",
+    "hinglish": "Kurkure Chilli Chatka 10 wala",
+    "hi": "कुरकुरे चिली चटका 10 वाला",
+    "en": "Kurkure Chilli Chatka (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure chilli chatka 10 wala",
+      "kurkure chilli chatka das wala",
+      "kurkure chilli chatka 10 rupaye wala",
+      "कुरकुरे चिली चटका दस वाला",
+      "कुरकुरे चिली चटका 10 रुपये वाला",
+      "chatka kurkure",
+      "kurkure chatka",
+      "chilli kurkure",
+      "kurkure chatpata",
+      "कुरकुरे चटका",
+      "चटपटा कुरकुरे"
+    ]
+  },
+  {
+    "id": "kurkure-chilli-chatka-5",
+    "hinglish": "Kurkure Chilli Chatka 5 wala",
+    "hi": "कुरकुरे चिली चटका 5 वाला",
+    "en": "Kurkure Chilli Chatka (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure chilli chatka 5 wala",
+      "kurkure chilli chatka paanch wala",
+      "kurkure chilli chatka 5 rupaye wala",
+      "कुरकुरे चिली चटका पाँच वाला",
+      "कुरकुरे चिली चटका 5 रुपये वाला",
+      "chatka kurkure 5 wala",
+      "kurkure chatka 5 wala",
+      "कुरकुरे चटका पाँच वाला"
+    ]
+  },
+  {
+    "id": "kurkure-chilli-chatka-20",
+    "hinglish": "Kurkure Chilli Chatka 20 wala",
+    "hi": "कुरकुरे चिली चटका 20 वाला",
+    "en": "Kurkure Chilli Chatka (20 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure chilli chatka 20 wala",
+      "kurkure chilli chatka bees wala",
+      "kurkure chilli chatka 20 rupaye wala",
+      "कुरकुरे चिली चटका बीस वाला",
+      "कुरकुरे चिली चटका 20 रुपये वाला",
+      "chatka kurkure 20 wala",
+      "kurkure chatka 20 wala",
+      "कुरकुरे चटका बीस वाला"
+    ]
+  },
+  {
+    "id": "kurkure-green-chutney-10",
+    "hinglish": "Kurkure Green Chutney 10 wala",
+    "hi": "कुरकुरे ग्रीन चटनी 10 वाला",
+    "en": "Kurkure Green Chutney (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure green chutney 10 wala",
+      "kurkure green chutney das wala",
+      "kurkure green chutney 10 rupaye wala",
+      "कुरकुरे ग्रीन चटनी दस वाला",
+      "कुरकुरे ग्रीन चटनी 10 रुपये वाला",
+      "hara kurkure",
+      "green kurkure",
+      "kurkure hara",
+      "kurkure chutney",
+      "हरा कुरकुरे",
+      "कुरकुरे हरा"
+    ]
+  },
+  {
+    "id": "kurkure-green-chutney-5",
+    "hinglish": "Kurkure Green Chutney 5 wala",
+    "hi": "कुरकुरे ग्रीन चटनी 5 वाला",
+    "en": "Kurkure Green Chutney (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure green chutney 5 wala",
+      "kurkure green chutney paanch wala",
+      "kurkure green chutney 5 rupaye wala",
+      "कुरकुरे ग्रीन चटनी पाँच वाला",
+      "कुरकुरे ग्रीन चटनी 5 रुपये वाला",
+      "hara kurkure 5 wala",
+      "green kurkure 5 wala",
+      "हरा कुरकुरे पाँच वाला"
+    ]
+  },
+  {
+    "id": "kurkure-solid-masti-10",
+    "hinglish": "Kurkure Solid Masti 10 wala",
+    "hi": "कुरकुरे सॉलिड मस्ती 10 वाला",
+    "en": "Kurkure Solid Masti (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure solid masti 10 wala",
+      "kurkure solid masti das wala",
+      "kurkure solid masti 10 rupaye wala",
+      "कुरकुरे सॉलिड मस्ती दस वाला",
+      "कुरकुरे सॉलिड मस्ती 10 रुपये वाला",
+      "kurkure solid",
+      "solid kurkure",
+      "kurkure masti",
+      "सॉलिड कुरकुरे",
+      "कुरकुरे मस्ती"
+    ]
+  },
+  {
+    "id": "kurkure-solid-masti-5",
+    "hinglish": "Kurkure Solid Masti 5 wala",
+    "hi": "कुरकुरे सॉलिड मस्ती 5 वाला",
+    "en": "Kurkure Solid Masti (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Kurkure",
+    "aliases": [
+      "kurkure solid masti 5 wala",
+      "kurkure solid masti paanch wala",
+      "kurkure solid masti 5 rupaye wala",
+      "कुरकुरे सॉलिड मस्ती पाँच वाला",
+      "कुरकुरे सॉलिड मस्ती 5 रुपये वाला",
+      "kurkure solid 5 wala",
+      "solid kurkure 5 wala",
+      "सॉलिड कुरकुरे पाँच वाला"
+    ]
+  },
+  {
+    "id": "balaji-simply-salted-10",
+    "hinglish": "Balaji Simply Salted 10 wala",
+    "hi": "बालाजी सिंपली सॉल्टेड 10 वाला",
+    "en": "Balaji Simply Salted (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Balaji",
+    "aliases": [
+      "balaji simply salted 10 wala",
+      "balaji simply salted das wala",
+      "balaji simply salted 10 rupaye wala",
+      "बालाजी सिंपली सॉल्टेड दस वाला",
+      "बालाजी सिंपली सॉल्टेड 10 रुपये वाला",
+      "balaji namak",
+      "balaji salted",
+      "बालाजी नमकीन",
+      "सादा बालाजी"
+    ]
+  },
+  {
+    "id": "balaji-simply-salted-5",
+    "hinglish": "Balaji Simply Salted 5 wala",
+    "hi": "बालाजी सिंपली सॉल्टेड 5 वाला",
+    "en": "Balaji Simply Salted (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Balaji",
+    "aliases": [
+      "balaji simply salted 5 wala",
+      "balaji simply salted paanch wala",
+      "balaji simply salted 5 rupaye wala",
+      "बालाजी सिंपली सॉल्टेड पाँच वाला",
+      "बालाजी सिंपली सॉल्टेड 5 रुपये वाला",
+      "balaji namak 5 wala",
+      "balaji salted 5 wala",
+      "बालाजी नमकीन पाँच वाला"
+    ]
+  },
+  {
+    "id": "balaji-masala-masti-10",
+    "hinglish": "Balaji Masala Masti 10 wala",
+    "hi": "बालाजी मसाला मस्ती 10 वाला",
+    "en": "Balaji Masala Masti (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Balaji",
+    "aliases": [
+      "balaji masala masti 10 wala",
+      "balaji masala masti das wala",
+      "balaji masala masti 10 rupaye wala",
+      "बालाजी मसाला मस्ती दस वाला",
+      "बालाजी मसाला मस्ती 10 रुपये वाला",
+      "balaji masala",
+      "balaji lal",
+      "लाल बालाजी",
+      "बालाजी मसाला"
+    ]
+  },
+  {
+    "id": "balaji-masala-masti-5",
+    "hinglish": "Balaji Masala Masti 5 wala",
+    "hi": "बालाजी मसाला मस्ती 5 वाला",
+    "en": "Balaji Masala Masti (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Balaji",
+    "aliases": [
+      "balaji masala masti 5 wala",
+      "balaji masala masti paanch wala",
+      "balaji masala masti 5 rupaye wala",
+      "बालाजी मसाला मस्ती पाँच वाला",
+      "बालाजी मसाला मस्ती 5 रुपये वाला",
+      "balaji masala 5 wala",
+      "balaji lal 5 wala",
+      "लाल बालाजी पाँच वाला"
+    ]
+  },
+  {
+    "id": "balaji-chaat-chaska-10",
+    "hinglish": "Balaji Chaat Chaska 10 wala",
+    "hi": "बालाजी चाट चटका 10 वाला",
+    "en": "Balaji Chaat Chaska (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Balaji",
+    "aliases": [
+      "balaji chaat chaska 10 wala",
+      "balaji chaat chaska das wala",
+      "balaji chaat chaska 10 rupaye wala",
+      "बालाजी चाट चटका दस वाला",
+      "बालाजी चाट चटका 10 रुपये वाला",
+      "balaji chaat",
+      "chaat balaji",
+      "बालाजी चाट",
+      "चाट वाला बालाजी"
+    ]
+  },
+  {
+    "id": "balaji-chaat-chaska-5",
+    "hinglish": "Balaji Chaat Chaska 5 wala",
+    "hi": "बालाजी चाट चटका 5 वाला",
+    "en": "Balaji Chaat Chaska (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Balaji",
+    "aliases": [
+      "balaji chaat chaska 5 wala",
+      "balaji chaat chaska paanch wala",
+      "balaji chaat chaska 5 rupaye wala",
+      "बालाजी चाट चटका पाँच वाला",
+      "बालाजी चाट चटका 5 रुपये वाला",
+      "balaji chaat 5 wala",
+      "chaat balaji 5 wala",
+      "बालाजी चाट पाँच वाला"
+    ]
+  },
+  {
+    "id": "balaji-tomato-10",
+    "hinglish": "Balaji Tomato 10 wala",
+    "hi": "बालाजी टमाटर 10 वाला",
+    "en": "Balaji Tomato (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Balaji",
+    "aliases": [
+      "balaji tomato 10 wala",
+      "balaji tomato das wala",
+      "balaji tomato 10 rupaye wala",
+      "बालाजी टमाटर दस वाला",
+      "बालाजी टमाटर 10 रुपये वाला",
+      "balaji tamatar",
+      "balaji tomato",
+      "tamatar balaji",
+      "बालाजी टमाटर",
+      "टमाटर बालाजी"
+    ]
+  },
+  {
+    "id": "balaji-tomato-5",
+    "hinglish": "Balaji Tomato 5 wala",
+    "hi": "बालाजी टमाटर 5 वाला",
+    "en": "Balaji Tomato (5 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Balaji",
+    "aliases": [
+      "balaji tomato 5 wala",
+      "balaji tomato paanch wala",
+      "balaji tomato 5 rupaye wala",
+      "बालाजी टमाटर पाँच वाला",
+      "बालाजी टमाटर 5 रुपये वाला",
+      "balaji tamatar 5 wala"
+    ]
+  },
+  {
+    "id": "haldiram-aloo-bhujia-10",
+    "hinglish": "Haldiram Aloo Bhujia 10 wala",
+    "hi": "हल्दीराम आलू भुजिया 10 वाला",
+    "en": "Haldiram Aloo Bhujia (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Haldiram",
+    "aliases": [
+      "haldiram aloo bhujia 10 wala",
+      "haldiram aloo bhujia das wala",
+      "haldiram aloo bhujia 10 rupaye wala",
+      "हल्दीराम आलू भुजिया दस वाला",
+      "हल्दीराम आलू भुजिया 10 रुपये वाला",
+      "chhota aloo bhujia",
+      "aloo bhujia chhota",
+      "haldiram chhota bhujia",
+      "आलू भुजिया छोटा",
+      "छोटा हल्दीराम"
+    ]
+  },
+  {
+    "id": "haldiram-moong-dal-10",
+    "hinglish": "Haldiram Moong Dal 10 wala",
+    "hi": "हल्दीराम मूंग दाल 10 वाला",
+    "en": "Haldiram Moong Dal (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Haldiram",
+    "aliases": [
+      "haldiram moong dal 10 wala",
+      "haldiram moong dal das wala",
+      "haldiram moong dal 10 rupaye wala",
+      "हल्दीराम मूंग दाल दस वाला",
+      "हल्दीराम मूंग दाल 10 रुपये वाला",
+      "chhota moong dal",
+      "moong dal chhota",
+      "मूंग दाल छोटी",
+      "छोटी मूंग दाल"
+    ]
+  },
+  {
+    "id": "haldiram-khatta-meetha-10",
+    "hinglish": "Haldiram Khatta Meetha 10 wala",
+    "hi": "हल्दीराम खट्टा मीठा 10 वाला",
+    "en": "Haldiram Khatta Meetha (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Haldiram",
+    "aliases": [
+      "haldiram khatta meetha 10 wala",
+      "haldiram khatta meetha das wala",
+      "haldiram khatta meetha 10 rupaye wala",
+      "हल्दीराम खट्टा मीठा दस वाला",
+      "हल्दीराम खट्टा मीठा 10 रुपये वाला",
+      "khatta meetha namkeen",
+      "khatta meetha chhota",
+      "खट्टा मीठा छोटा",
+      "खट्टी मीठी नमकीन"
+    ]
+  },
+  {
+    "id": "haldiram-navratan-10",
+    "hinglish": "Haldiram Navratan 10 wala",
+    "hi": "हल्दीराम नवरतन 10 वाला",
+    "en": "Haldiram Navratan (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Haldiram",
+    "aliases": [
+      "haldiram navratan 10 wala",
+      "haldiram navratan das wala",
+      "haldiram navratan 10 rupaye wala",
+      "हल्दीराम नवरतन दस वाला",
+      "हल्दीराम नवरतन 10 रुपये वाला",
+      "navratan mixture chhota",
+      "navratan chhota",
+      "नवरतन छोटा",
+      "नवरतन नमकीन"
+    ]
+  },
+  {
+    "id": "bikaji-bikaneri-bhujia-10",
+    "hinglish": "Bikaji Bikaneri Bhujia 10 wala",
+    "hi": "बीकाजी बीकानेरी भुजिया 10 वाला",
+    "en": "Bikaji Bikaneri Bhujia (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Bikaji",
+    "aliases": [
+      "bikaji bikaneri bhujia 10 wala",
+      "bikaji bikaneri bhujia das wala",
+      "bikaji bikaneri bhujia 10 rupaye wala",
+      "बीकाजी बीकानेरी भुजिया दस वाला",
+      "बीकाजी बीकानेरी भुजिया 10 रुपये वाला",
+      "bikaji chhota",
+      "chhota bikaji",
+      "बीकाजी छोटा",
+      "बीकाजी छोटी भुजिया"
+    ]
+  },
+  {
+    "id": "too-yumm-peri-peri-10",
+    "hinglish": "Too Yumm Peri Peri 10 wala",
+    "hi": "टू यम्म पेरी पेरी 10 वाला",
+    "en": "Too Yumm Peri Peri (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Too Yumm",
+    "aliases": [
+      "too yumm peri peri 10 wala",
+      "too yumm peri peri das wala",
+      "too yumm peri peri 10 rupaye wala",
+      "टू यम्म पेरी पेरी दस वाला",
+      "टू यम्म पेरी पेरी 10 रुपये वाला",
+      "too yumm peri",
+      "tooyumm peri",
+      "टू यम्म पेरी",
+      "पेरी पेरी टू यम्म"
+    ]
+  },
+  {
+    "id": "too-yumm-classic-salted-10",
+    "hinglish": "Too Yumm Classic Salted 10 wala",
+    "hi": "टू यम्म सॉल्टेड 10 वाला",
+    "en": "Too Yumm Classic Salted (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Too Yumm",
+    "aliases": [
+      "too yumm classic salted 10 wala",
+      "too yumm classic salted das wala",
+      "too yumm classic salted 10 rupaye wala",
+      "टू यम्म सॉल्टेड दस वाला",
+      "टू यम्म सॉल्टेड 10 रुपये वाला",
+      "too yumm namak",
+      "too yumm salted",
+      "टू यम्म नमक"
+    ]
+  },
+  {
+    "id": "too-yumm-classic-salted-20",
+    "hinglish": "Too Yumm Classic Salted 20 wala",
+    "hi": "टू यम्म सॉल्टेड 20 वाला",
+    "en": "Too Yumm Classic Salted (20 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Too Yumm",
+    "aliases": [
+      "too yumm classic salted 20 wala",
+      "too yumm classic salted bees wala",
+      "too yumm classic salted 20 rupaye wala",
+      "टू यम्म सॉल्टेड बीस वाला",
+      "टू यम्म सॉल्टेड 20 रुपये वाला",
+      "too yumm namak 20 wala",
+      "too yumm salted 20 wala",
+      "टू यम्म नमक बीस वाला"
+    ]
+  },
+  {
+    "id": "doritos-nacho-cheese-10",
+    "hinglish": "Doritos Nacho Cheese 10 wala",
+    "hi": "डोरिटोस नाचो चीज़ 10 वाला",
+    "en": "Doritos Nacho Cheese (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Doritos",
+    "aliases": [
+      "doritos nacho cheese 10 wala",
+      "doritos nacho cheese das wala",
+      "doritos nacho cheese 10 rupaye wala",
+      "डोरिटोस नाचो चीज़ दस वाला",
+      "डोरिटोस नाचो चीज़ 10 रुपये वाला",
+      "doritos cheese",
+      "cheese doritos",
+      "डोरिटोस चीज़",
+      "चीज़ डोरिटोस"
+    ]
+  },
+  {
+    "id": "doritos-sweet-chilli-10",
+    "hinglish": "Doritos Sweet Chilli 10 wala",
+    "hi": "डोरिटोस स्वीट चिली 10 वाला",
+    "en": "Doritos Sweet Chilli (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Doritos",
+    "aliases": [
+      "doritos sweet chilli 10 wala",
+      "doritos sweet chilli das wala",
+      "doritos sweet chilli 10 rupaye wala",
+      "डोरिटोस स्वीट चिली दस वाला",
+      "डोरिटोस स्वीट चिली 10 रुपये वाला",
+      "doritos sweet chilli",
+      "sweet chili doritos",
+      "मीठी मिर्ची डोरिटोस",
+      "डोरिटोस मीठी मिर्च"
+    ]
+  },
+  {
+    "id": "doritos-tangy-tomato-10",
+    "hinglish": "Doritos Tangy Tomato 10 wala",
+    "hi": "डोरिटोस टैंगी टोमैटो 10 वाला",
+    "en": "Doritos Tangy Tomato (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Doritos",
+    "aliases": [
+      "doritos tangy tomato 10 wala",
+      "doritos tangy tomato das wala",
+      "doritos tangy tomato 10 rupaye wala",
+      "डोरिटोस टैंगी टोमैटो दस वाला",
+      "डोरिटोस टैंगी टोमैटो 10 रुपये वाला",
+      "doritos tomato",
+      "tangy tomato doritos",
+      "टैंगी टमाटर डोरिटोस",
+      "डोरिटोस टमाटर"
+    ]
+  },
+  {
+    "id": "pringles-original-10",
+    "hinglish": "Pringles Original 10 wala",
+    "hi": "प्रिंगल्स ओरिजिनल 10 वाला",
+    "en": "Pringles Original (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Pringles",
+    "aliases": [
+      "pringles original 10 wala",
+      "pringles original das wala",
+      "pringles original 10 rupaye wala",
+      "प्रिंगल्स ओरिजिनल दस वाला",
+      "प्रिंगल्स ओरिजिनल 10 रुपये वाला",
+      "pringles plain",
+      "pringles namak",
+      "प्रिंगल्स सादा",
+      "प्रिंगल्स नमक"
+    ]
+  },
+  {
+    "id": "pringles-sour-cream-onion-10",
+    "hinglish": "Pringles Sour Cream & Onion 10 wala",
+    "hi": "प्रिंगल्स सावर क्रीम एंड अनियन 10 वाला",
+    "en": "Pringles Sour Cream & Onion (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Pringles",
+    "aliases": [
+      "pringles sour cream & onion 10 wala",
+      "pringles sour cream & onion das wala",
+      "pringles sour cream & onion 10 rupaye wala",
+      "प्रिंगल्स सावर क्रीम एंड अनियन दस वाला",
+      "प्रिंगल्स सावर क्रीम एंड अनियन 10 रुपये वाला",
+      "pringles cream",
+      "pringles hara",
+      "प्रिंगल्स क्रीम",
+      "क्रीम प्रिंगल्स"
+    ]
+  },
+  {
+    "id": "act-ii-butter-popcorn-10",
+    "hinglish": "Act II Butter Popcorn 10 wala",
+    "hi": "एक्ट II बटर पॉपकॉर्न 10 वाला",
+    "en": "Act II Butter Popcorn (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Act II",
+    "aliases": [
+      "act ii butter popcorn 10 wala",
+      "act ii butter popcorn das wala",
+      "act ii butter popcorn 10 rupaye wala",
+      "एक्ट II बटर पॉपकॉर्न दस वाला",
+      "एक्ट II बटर पॉपकॉर्न 10 रुपये वाला",
+      "act 2 butter",
+      "act two butter",
+      "एक्ट टू बटर",
+      "बटर एक्ट"
+    ]
+  },
+  {
+    "id": "act-ii-cheese-popcorn-10",
+    "hinglish": "Act II Cheese Popcorn 10 wala",
+    "hi": "एक्ट II चीज़ पॉपकॉर्न 10 वाला",
+    "en": "Act II Cheese Popcorn (10 rupee pack)",
+    "category": "snacks-biscuits",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Act II",
+    "aliases": [
+      "act ii cheese popcorn 10 wala",
+      "act ii cheese popcorn das wala",
+      "act ii cheese popcorn 10 rupaye wala",
+      "एक्ट II चीज़ पॉपकॉर्न दस वाला",
+      "एक्ट II चीज़ पॉपकॉर्न 10 रुपये वाला",
+      "act 2 cheese",
+      "act two cheese popcorn",
+      "एक्ट टू चीज़",
+      "चीज़ एक्ट"
+    ]
+  },
+  {
+    "id": "silver-coin-atta-1kg",
+    "hinglish": "Silver Coin Atta 1kg",
+    "hi": "सिल्वर कॉइन आटा 1 किलो",
+    "en": "Silver Coin Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin atta 1kg",
+      "silver coin atta 1 kilo",
+      "silwar coin aata 1kg",
+      "silvercoin aata 1kg",
+      "silver coin ka atta ek kilo",
+      "silver coin atta ek kilo wala",
+      "सिल्वर कॉइन आटा 1 किलो",
+      "सिल्वर कॉइन आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-atta-5kg",
+    "hinglish": "Silver Coin Atta 5kg",
+    "hi": "सिल्वर कॉइन आटा 5 किलो",
+    "en": "Silver Coin Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin atta 5kg",
+      "silver coin atta 5 kilo",
+      "silwar coin aata 5kg",
+      "silvercoin aata 5kg",
+      "silver coin ka atta paanch kilo",
+      "silver coin atta paanch kilo wala",
+      "सिल्वर कॉइन आटा 5 किलो",
+      "सिल्वर कॉइन आटा पांच किलो वाला",
+      "सिल्वर कॉइन आटा"
+    ]
+  },
+  {
+    "id": "silver-coin-atta-10kg",
+    "hinglish": "Silver Coin Atta 10kg",
+    "hi": "सिल्वर कॉइन आटा 10 किलो",
+    "en": "Silver Coin Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin atta 10kg",
+      "silver coin atta 10 kilo",
+      "silwar coin aata 10kg",
+      "silvercoin aata 10kg",
+      "silver coin ka atta das kilo",
+      "silver coin atta das kilo wala",
+      "सिल्वर कॉइन आटा 10 किलो",
+      "सिल्वर कॉइन आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "aashirvaad-atta-1kg",
+    "hinglish": "Aashirvaad Atta 1kg",
+    "hi": "आशीर्वाद आटा 1 किलो",
+    "en": "Aashirvaad Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Aashirvaad",
+    "aliases": [
+      "aashirvaad atta 1kg",
+      "aashirvaad atta 1 kilo",
+      "ashirwad aata 1kg",
+      "aashirwad aata 1kg",
+      "aashirvaad ka atta ek kilo",
+      "aashirvaad atta ek kilo wala",
+      "आशीर्वाद आटा 1 किलो",
+      "आशीर्वाद आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "pillsbury-chakki-fresh-atta-1kg",
+    "hinglish": "Pillsbury Chakki Fresh Atta 1kg",
+    "hi": "पिल्सबरी चक्की फ्रेश आटा 1 किलो",
+    "en": "Pillsbury Chakki Fresh Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Pillsbury",
+    "aliases": [
+      "pillsbury chakki fresh atta 1kg",
+      "pillsbury chakki fresh atta 1 kilo",
+      "pillsberry chakki fresh aata 1kg",
+      "pillsbury chakki aata 1kg",
+      "pillsbury chakki fresh ka atta ek kilo",
+      "pillsbury chakki fresh atta ek kilo wala",
+      "पिल्सबरी चक्की फ्रेश आटा 1 किलो",
+      "पिल्सबरी चक्की फ्रेश आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "pillsbury-chakki-fresh-atta-10kg",
+    "hinglish": "Pillsbury Chakki Fresh Atta 10kg",
+    "hi": "पिल्सबरी चक्की फ्रेश आटा 10 किलो",
+    "en": "Pillsbury Chakki Fresh Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Pillsbury",
+    "aliases": [
+      "pillsbury chakki fresh atta 10kg",
+      "pillsbury chakki fresh atta 10 kilo",
+      "pillsberry chakki fresh aata 10kg",
+      "pillsbury chakki aata 10kg",
+      "pillsbury chakki fresh ka atta das kilo",
+      "pillsbury chakki fresh atta das kilo wala",
+      "पिल्सबरी चक्की फ्रेश आटा 10 किलो",
+      "पिल्सबरी चक्की फ्रेश आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "fortune-chakki-fresh-atta-1kg",
+    "hinglish": "Fortune Chakki Fresh Atta 1kg",
+    "hi": "फॉर्च्यून चक्की फ्रेश आटा 1 किलो",
+    "en": "Fortune Chakki Fresh Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Fortune",
+    "aliases": [
+      "fortune chakki fresh atta 1kg",
+      "fortune chakki fresh atta 1 kilo",
+      "fortun chakki fresh aata 1kg",
+      "fortune chakki fresh ka atta ek kilo",
+      "fortune chakki fresh atta ek kilo wala",
+      "फॉर्च्यून चक्की फ्रेश आटा 1 किलो",
+      "फॉर्च्यून चक्की फ्रेश आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "fortune-chakki-fresh-atta-10kg",
+    "hinglish": "Fortune Chakki Fresh Atta 10kg",
+    "hi": "फॉर्च्यून चक्की फ्रेश आटा 10 किलो",
+    "en": "Fortune Chakki Fresh Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Fortune",
+    "aliases": [
+      "fortune chakki fresh atta 10kg",
+      "fortune chakki fresh atta 10 kilo",
+      "fortun chakki fresh aata 10kg",
+      "fortune chakki fresh ka atta das kilo",
+      "fortune chakki fresh atta das kilo wala",
+      "फॉर्च्यून चक्की फ्रेश आटा 10 किलो",
+      "फॉर्च्यून चक्की फ्रेश आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "shaktibhog-atta-1kg",
+    "hinglish": "Shaktibhog Atta 1kg",
+    "hi": "शक्तिभोग आटा 1 किलो",
+    "en": "Shaktibhog Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Shaktibhog",
+    "aliases": [
+      "shaktibhog atta 1kg",
+      "shaktibhog atta 1 kilo",
+      "shakti bhog aata 1kg",
+      "shaktibhog ka atta ek kilo",
+      "shaktibhog atta ek kilo wala",
+      "शक्तिभोग आटा 1 किलो",
+      "शक्तिभोग आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "shaktibhog-atta-5kg",
+    "hinglish": "Shaktibhog Atta 5kg",
+    "hi": "शक्तिभोग आटा 5 किलो",
+    "en": "Shaktibhog Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Shaktibhog",
+    "aliases": [
+      "shaktibhog atta 5kg",
+      "shaktibhog atta 5 kilo",
+      "shakti bhog aata 5kg",
+      "shaktibhog ka atta paanch kilo",
+      "shaktibhog atta paanch kilo wala",
+      "शक्तिभोग आटा 5 किलो",
+      "शक्तिभोग आटा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "shaktibhog-atta-10kg",
+    "hinglish": "Shaktibhog Atta 10kg",
+    "hi": "शक्तिभोग आटा 10 किलो",
+    "en": "Shaktibhog Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Shaktibhog",
+    "aliases": [
+      "shaktibhog atta 10kg",
+      "shaktibhog atta 10 kilo",
+      "shakti bhog aata 10kg",
+      "shaktibhog ka atta das kilo",
+      "shaktibhog atta das kilo wala",
+      "शक्तिभोग आटा 10 किलो",
+      "शक्तिभोग आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "annapurna-atta-1kg",
+    "hinglish": "Annapurna Atta 1kg",
+    "hi": "अन्नपूर्णा आटा 1 किलो",
+    "en": "Annapurna Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Annapurna",
+    "aliases": [
+      "annapurna atta 1kg",
+      "annapurna atta 1 kilo",
+      "annpurna aata 1kg",
+      "annapurna ka atta ek kilo",
+      "annapurna atta ek kilo wala",
+      "अन्नपूर्णा आटा 1 किलो",
+      "अन्नपूर्णा आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "annapurna-atta-5kg",
+    "hinglish": "Annapurna Atta 5kg",
+    "hi": "अन्नपूर्णा आटा 5 किलो",
+    "en": "Annapurna Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Annapurna",
+    "aliases": [
+      "annapurna atta 5kg",
+      "annapurna atta 5 kilo",
+      "annpurna aata 5kg",
+      "annapurna ka atta paanch kilo",
+      "annapurna atta paanch kilo wala",
+      "अन्नपूर्णा आटा 5 किलो",
+      "अन्नपूर्णा आटा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "annapurna-atta-10kg",
+    "hinglish": "Annapurna Atta 10kg",
+    "hi": "अन्नपूर्णा आटा 10 किलो",
+    "en": "Annapurna Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Annapurna",
+    "aliases": [
+      "annapurna atta 10kg",
+      "annapurna atta 10 kilo",
+      "annpurna aata 10kg",
+      "annapurna ka atta das kilo",
+      "annapurna atta das kilo wala",
+      "अन्नपूर्णा आटा 10 किलो",
+      "अन्नपूर्णा आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "patanjali-atta-1kg",
+    "hinglish": "Patanjali Atta 1kg",
+    "hi": "पतंजलि आटा 1 किलो",
+    "en": "Patanjali Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Patanjali",
+    "aliases": [
+      "patanjali atta 1kg",
+      "patanjali atta 1 kilo",
+      "patanjli aata 1kg",
+      "patanjali ka atta ek kilo",
+      "patanjali atta ek kilo wala",
+      "पतंजलि आटा 1 किलो",
+      "पतंजलि आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "patanjali-atta-5kg",
+    "hinglish": "Patanjali Atta 5kg",
+    "hi": "पतंजलि आटा 5 किलो",
+    "en": "Patanjali Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Patanjali",
+    "aliases": [
+      "patanjali atta 5kg",
+      "patanjali atta 5 kilo",
+      "patanjli aata 5kg",
+      "patanjali ka atta paanch kilo",
+      "patanjali atta paanch kilo wala",
+      "पतंजलि आटा 5 किलो",
+      "पतंजलि आटा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "patanjali-atta-10kg",
+    "hinglish": "Patanjali Atta 10kg",
+    "hi": "पतंजलि आटा 10 किलो",
+    "en": "Patanjali Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Patanjali",
+    "aliases": [
+      "patanjali atta 10kg",
+      "patanjali atta 10 kilo",
+      "patanjli aata 10kg",
+      "patanjali ka atta das kilo",
+      "patanjali atta das kilo wala",
+      "पतंजलि आटा 10 किलो",
+      "पतंजलि आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-atta-1kg",
+    "hinglish": "Rajdhani Atta 1kg",
+    "hi": "राजधानी आटा 1 किलो",
+    "en": "Rajdhani Atta 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani atta 1kg",
+      "rajdhani atta 1 kilo",
+      "rajdani aata 1kg",
+      "rajdhani ka atta ek kilo",
+      "rajdhani atta ek kilo wala",
+      "राजधानी आटा 1 किलो",
+      "राजधानी आटा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-atta-5kg",
+    "hinglish": "Rajdhani Atta 5kg",
+    "hi": "राजधानी आटा 5 किलो",
+    "en": "Rajdhani Atta 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani atta 5kg",
+      "rajdhani atta 5 kilo",
+      "rajdani aata 5kg",
+      "rajdhani ka atta paanch kilo",
+      "rajdhani atta paanch kilo wala",
+      "राजधानी आटा 5 किलो",
+      "राजधानी आटा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-atta-10kg",
+    "hinglish": "Rajdhani Atta 10kg",
+    "hi": "राजधानी आटा 10 किलो",
+    "en": "Rajdhani Atta 10kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani atta 10kg",
+      "rajdhani atta 10 kilo",
+      "rajdani aata 10kg",
+      "rajdhani ka atta das kilo",
+      "rajdhani atta das kilo wala",
+      "राजधानी आटा 10 किलो",
+      "राजधानी आटा दस किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-maida-1kg",
+    "hinglish": "Silver Coin Maida 1kg",
+    "hi": "सिल्वर कॉइन मैदा 1 किलो",
+    "en": "Silver Coin Maida 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin maida 1kg",
+      "silver coin maida 1 kilo",
+      "silwar coin maida 1kg",
+      "silver coin ka maida ek kilo",
+      "silver coin maida ek kilo wala",
+      "सिल्वर कॉइन मैदा 1 किलो",
+      "सिल्वर कॉइन मैदा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-maida-5kg",
+    "hinglish": "Silver Coin Maida 5kg",
+    "hi": "सिल्वर कॉइन मैदा 5 किलो",
+    "en": "Silver Coin Maida 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin maida 5kg",
+      "silver coin maida 5 kilo",
+      "silwar coin maida 5kg",
+      "silver coin ka maida paanch kilo",
+      "silver coin maida paanch kilo wala",
+      "सिल्वर कॉइन मैदा 5 किलो",
+      "सिल्वर कॉइन मैदा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-maida-1kg",
+    "hinglish": "Gangwal Maida 1kg",
+    "hi": "गंगवाल मैदा 1 किलो",
+    "en": "Gangwal Maida 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal maida 1kg",
+      "gangwal maida 1 kilo",
+      "gangval maida 1kg",
+      "gangwaal maida 1kg",
+      "gangwal ka maida ek kilo",
+      "gangwal maida ek kilo wala",
+      "गंगवाल मैदा 1 किलो",
+      "गंगवाल मैदा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-maida-5kg",
+    "hinglish": "Gangwal Maida 5kg",
+    "hi": "गंगवाल मैदा 5 किलो",
+    "en": "Gangwal Maida 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal maida 5kg",
+      "gangwal maida 5 kilo",
+      "gangval maida 5kg",
+      "gangwaal maida 5kg",
+      "gangwal ka maida paanch kilo",
+      "gangwal maida paanch kilo wala",
+      "गंगवाल मैदा 5 किलो",
+      "गंगवाल मैदा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-maida-1kg",
+    "hinglish": "Rajdhani Maida 1kg",
+    "hi": "राजधानी मैदा 1 किलो",
+    "en": "Rajdhani Maida 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani maida 1kg",
+      "rajdhani maida 1 kilo",
+      "rajdani maida 1kg",
+      "rajdhani ka maida ek kilo",
+      "rajdhani maida ek kilo wala",
+      "राजधानी मैदा 1 किलो",
+      "राजधानी मैदा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-maida-5kg",
+    "hinglish": "Rajdhani Maida 5kg",
+    "hi": "राजधानी मैदा 5 किलो",
+    "en": "Rajdhani Maida 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani maida 5kg",
+      "rajdhani maida 5 kilo",
+      "rajdani maida 5kg",
+      "rajdhani ka maida paanch kilo",
+      "rajdhani maida paanch kilo wala",
+      "राजधानी मैदा 5 किलो",
+      "राजधानी मैदा पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-suji-1kg",
+    "hinglish": "Gangwal Suji 1kg",
+    "hi": "गंगवाल सूजी 1 किलो",
+    "en": "Gangwal Suji 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal suji 1kg",
+      "gangwal suji 1 kilo",
+      "gangval suji 1kg",
+      "gangwaal suji 1kg",
+      "gangwal ka suji ek kilo",
+      "gangwal suji ek kilo wala",
+      "गंगवाल सूजी 1 किलो",
+      "गंगवाल सूजी एक किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-suji-500g",
+    "hinglish": "Gangwal Suji 500g",
+    "hi": "गंगवाल सूजी 500 ग्राम",
+    "en": "Gangwal Suji 500g",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal suji 500g",
+      "gangwal suji 500 gram",
+      "gangval suji 500g",
+      "gangwaal suji 500g",
+      "gangwal ka suji aadha kilo",
+      "gangwal suji aadha kilo wala",
+      "गंगवाल सूजी 500 ग्राम",
+      "गंगवाल सूजी आधा किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-suji-1kg",
+    "hinglish": "Silver Coin Suji 1kg",
+    "hi": "सिल्वर कॉइन सूजी 1 किलो",
+    "en": "Silver Coin Suji 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin suji 1kg",
+      "silver coin suji 1 kilo",
+      "silwar coin suji 1kg",
+      "silver coin ka suji ek kilo",
+      "silver coin suji ek kilo wala",
+      "सिल्वर कॉइन सूजी 1 किलो",
+      "सिल्वर कॉइन सूजी एक किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-suji-500g",
+    "hinglish": "Silver Coin Suji 500g",
+    "hi": "सिल्वर कॉइन सूजी 500 ग्राम",
+    "en": "Silver Coin Suji 500g",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin suji 500g",
+      "silver coin suji 500 gram",
+      "silwar coin suji 500g",
+      "silver coin ka suji aadha kilo",
+      "silver coin suji aadha kilo wala",
+      "सिल्वर कॉइन सूजी 500 ग्राम",
+      "सिल्वर कॉइन सूजी आधा किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-besan-1kg",
+    "hinglish": "Gangwal Besan 1kg",
+    "hi": "गंगवाल बेसन 1 किलो",
+    "en": "Gangwal Besan 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal besan 1kg",
+      "gangwal besan 1 kilo",
+      "gangval besan 1kg",
+      "gangwaal besan 1kg",
+      "gangwal ka besan ek kilo",
+      "gangwal besan ek kilo wala",
+      "गंगवाल बेसन 1 किलो",
+      "गंगवाल बेसन एक किलो वाला"
+    ]
+  },
+  {
+    "id": "rajdhani-besan-1kg",
+    "hinglish": "Rajdhani Besan 1kg",
+    "hi": "राजधानी बेसन 1 किलो",
+    "en": "Rajdhani Besan 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Rajdhani",
+    "aliases": [
+      "rajdhani besan 1kg",
+      "rajdhani besan 1 kilo",
+      "rajdani besan 1kg",
+      "rajdhani ka besan ek kilo",
+      "rajdhani besan ek kilo wala",
+      "राजधानी बेसन 1 किलो",
+      "राजधानी बेसन एक किलो वाला"
+    ]
+  },
+  {
+    "id": "tata-sampann-besan-500g",
+    "hinglish": "Tata Sampann Besan 500g",
+    "hi": "टाटा संपन्न बेसन 500 ग्राम",
+    "en": "Tata Sampann Besan 500g",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Tata Sampann",
+    "aliases": [
+      "tata sampann besan 500g",
+      "tata sampann besan 500 gram",
+      "tata sampan besan 500g",
+      "tata sampann ka besan aadha kilo",
+      "tata sampann besan aadha kilo wala",
+      "टाटा संपन्न बेसन 500 ग्राम",
+      "टाटा संपन्न बेसन आधा किलो वाला"
+    ]
+  },
+  {
+    "id": "tata-sampann-besan-1kg",
+    "hinglish": "Tata Sampann Besan 1kg",
+    "hi": "टाटा संपन्न बेसन 1 किलो",
+    "en": "Tata Sampann Besan 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Tata Sampann",
+    "aliases": [
+      "tata sampann besan 1kg",
+      "tata sampann besan 1 kilo",
+      "tata sampan besan 1kg",
+      "tata sampann ka besan ek kilo",
+      "tata sampann besan ek kilo wala",
+      "टाटा संपन्न बेसन 1 किलो",
+      "टाटा संपन्न बेसन एक किलो वाला"
+    ]
+  },
+  {
+    "id": "gangwal-poha-1kg",
+    "hinglish": "Gangwal Poha 1kg",
+    "hi": "गंगवाल पोहा 1 किलो",
+    "en": "Gangwal Poha 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Gangwal",
+    "aliases": [
+      "gangwal poha 1kg",
+      "gangwal poha 1 kilo",
+      "gangval poha 1kg",
+      "gangwaal poha 1kg",
+      "gangwal ka poha ek kilo",
+      "gangwal poha ek kilo wala",
+      "गंगवाल पोहा 1 किलो",
+      "गंगवाल पोहा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "silver-coin-poha-1kg",
+    "hinglish": "Silver Coin Poha 1kg",
+    "hi": "सिल्वर कॉइन पोहा 1 किलो",
+    "en": "Silver Coin Poha 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Silver Coin",
+    "aliases": [
+      "silver coin poha 1kg",
+      "silver coin poha 1 kilo",
+      "silwar coin poha 1kg",
+      "silver coin ka poha ek kilo",
+      "silver coin poha ek kilo wala",
+      "सिल्वर कॉइन पोहा 1 किलो",
+      "सिल्वर कॉइन पोहा एक किलो वाला"
+    ]
+  },
+  {
+    "id": "india-gate-basmati-5kg",
+    "hinglish": "India Gate Basmati 5kg",
+    "hi": "इंडिया गेट बासमती चावल 5 किलो",
+    "en": "India Gate Basmati 5kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "India Gate",
+    "aliases": [
+      "india gate basmati 5kg",
+      "india gate basmati 5 kilo",
+      "indiya gate basmati 5kg",
+      "india get basmati 5kg",
+      "india gate ka basmati paanch kilo",
+      "india gate basmati paanch kilo wala",
+      "इंडिया गेट बासमती चावल 5 किलो",
+      "इंडिया गेट बासमती चावल पांच किलो वाला"
+    ]
+  },
+  {
+    "id": "daawat-basmati-1kg",
+    "hinglish": "Daawat Basmati 1kg",
+    "hi": "दावत बासमती चावल 1 किलो",
+    "en": "Daawat Basmati 1kg",
+    "category": "atta-rice-dal",
+    "unit": "pack",
+    "loose": false,
+    "brand": "Daawat",
+    "aliases": [
+      "daawat basmati 1kg",
+      "daawat basmati 1 kilo",
+      "dawat basmati 1kg",
+      "daavat basmati 1kg",
+      "daawat ka basmati ek kilo",
+      "daawat basmati ek kilo wala",
+      "दावत बासमती चावल 1 किलो",
+      "दावत बासमती चावल एक किलो वाला"
+    ]
+  }
 ]

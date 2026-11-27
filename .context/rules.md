@@ -1,0 +1,11 @@
+# Owner + session rules (full: ../CLAUDE.md, ../PROJECT.md ROLE/FIRST)
+- Session start: .context/INDEX.md + TASKS.md + graphify report. Open other files only on need.
+- Skills: impeccable, interface-design, emil-design-eng, frontend-ui-engineering, ui-ux-pro-max, design-taste-frontend (design); incremental-implementation, test-driven-development (code); delegate (max 1 Sonnet + 1 Haiku).
+- Ponytail on (lean) unless quality drops.
+- Report: BUILT / LIVE / SEEN WORKING / NOT TESTED / TAP TEST / DECIDED FOR YOU / KNOWN ISSUES / NEXT. "fixed" only when watched working.
+- Git: push to `main`; stop hook also wants branch `claude/relaxed-gauss-slkn9x` pushed.
+- Design versions: keep current + one `*-prev.*` in design/.
+- NEVER delete data (rows, stores, customers, bills, files) unless owner explicitly asks. Mock data only in TEST store (code TEST, PIN 0000).
+- ₹0 spend; ask before cost or irreversible actions. Gemini paid key only with approval.
+- Owner pronoun unknown → use they/them in text.
+- Update .context (INDEX line + topic file + log) at every commit chunk — owner reminded 24 Nov.

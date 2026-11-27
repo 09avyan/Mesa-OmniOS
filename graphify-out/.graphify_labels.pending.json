@@ -1,16 +1,10 @@
 {
   "0": "App.tsx",
-  "1": "package.json",
-  "2": "OmniOS — Project Brief (read at the start of every session)",
-  "3": "compilerOptions",
-  "4": "compilerOptions",
-  "5": "Product",
-  "6": "speech.ts",
-  "7": "OmniOS Dukaan — Design rules",
-  "8": ".oxlintrc.json",
-  "9": "index.ts",
-  "10": "React + TypeScript + Vite",
-  "11": "0001_core.sql",
-  "12": "tsconfig.json",
-  "13": "vercel.json"
+  "1": "parse.ts",
+  "2": "Voice.tsx",
+  "3": "errorFx",
+  "4": "Udhaar.tsx",
+  "5": "BillPage.tsx",
+  "6": "Maal.tsx",
+  "7": "vite-env.d.ts"
 }

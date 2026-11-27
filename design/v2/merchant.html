@@ -1,0 +1,148 @@
+<!doctype html><html lang="hi-Latn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dukaan Merchant v2</title><link rel="icon" href="logo/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="phone.css">
+<style>
+/* bill line: name | amount, then unit price | stepper (stepper sits under the amount, right side) */
+.it{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:4px;align-items:center;padding:12px 16px}
+.it+.it{box-shadow:inset 0 1px 0 var(--line)}
+.it>b{font:700 20px/28px var(--font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.it>.a{font:700 20px/28px var(--font);text-align:right}
+.it>span{color:var(--ink2);white-space:nowrap}.it>.qty{justify-self:end}
+.it.q{background:color-mix(in srgb,var(--vsoft) 64%,var(--s))}
+.it.q .ask{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:8px}.it.q .ask b{flex:1;font:700 20px/24px var(--font)}
+.tile{height:112px;border-radius:var(--r3);background:var(--s);box-shadow:inset 0 0 0 1.5px var(--line2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font:700 20px/24px var(--font);transition:transform .12s,background .12s}
+.tile:active{transform:scale(.97);background:var(--s2)}
+.split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);padding-top:16px}
+.split>div+div{padding-left:16px;border-left:1px solid var(--line)}.split b{display:block;font:700 20px/28px var(--font);white-space:nowrap}
+.bar{display:flex;align-items:flex-end;gap:8px;height:152px}.bar div{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}.bar i{width:100%;border-radius:var(--r1) var(--r1) 4px 4px;background:var(--line2)}.bar i.on{background:var(--ink)}.bar span{font:600 18px/1 var(--font);color:var(--ink3)}
+.banner{display:flex;align-items:center;gap:12px;margin:0 16px 12px;padding:12px 16px;border-radius:var(--r2);background:var(--s2);min-height:64px}
+.banner b{display:block;font:700 18px/24px var(--font)}.banner span{display:block;font:500 18px/24px var(--font);color:var(--ink2)}
+.empty{position:absolute;left:24px;right:24px;top:236px;text-align:center;display:grid;justify-items:center}
+.empty h2{font:800 24px/32px var(--font);letter-spacing:-.015em;margin-top:24px}.empty p{color:var(--ink2);margin-top:8px;max-width:300px}
+.say{margin-top:24px;display:inline-flex;align-items:center;gap:8px;padding:0 16px;height:56px;border-radius:var(--r2);background:var(--vsoft);color:var(--vt);font:600 18px/1 var(--font)}
+.ask-in{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 16px;min-height:72px}
+.ask-in .m{width:48px;height:48px;border-radius:var(--r2);background:var(--vsoft);color:var(--vt);display:grid;place-items:center;flex:none}
+.ask-in .t b{display:block;font:700 20px/28px var(--font)}.ask-in .t span{display:block;color:var(--ink2);font:500 18px/24px var(--font)}
+.fu{display:flex;gap:8px;flex-wrap:wrap}.fu button{height:56px;padding:0 16px;border-radius:var(--r2);background:var(--s);box-shadow:inset 0 0 0 1.5px var(--line2);font:600 18px/1 var(--font)}
+.bubble{background:var(--s2);border-radius:var(--r3) var(--r3) 4px var(--r3);padding:12px 16px;font:600 20px/28px var(--font)}
+</style></head><body><div id="app"></div>
+<script src="icons.js"></script><script>
+const E=Q.get('edge')==='1';
+const SB=`<div class="sb"><span>9:41</span><i><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1" opacity=".35"/></svg><b></b></i></div>`;
+const tb=(ti,l='chevL',r='')=>`<div class="top${l?' bk':''}">${l?`<button class="ib" aria-label="${l=='x'?'Band karo':'Peeche'}">${I(l)}</button>`:''}<h1>${ti}</h1>${r}</div>`;
+const SHOP=E?'Shri Venkateshwara Provision & General Stores':t('Sharma General Store','शर्मा जनरल स्टोर');
+const SJ=t('Sharma ji','शर्मा जी');
+const band=on=>`<div class="fade"></div><button class="bolo"><b>${t('Bolo','बोलो')}</b><em>${t('bill, udhaar, sawaal','Bill, उधार, सवाल')}</em><span class="m">${I('mic')}</span></button>
+<nav class="band">${[['home','Home','होम'],['receipt','Bills','Bill'],['book','Udhaar','उधार'],['box','Maal','माल']].map(([i,en,hi])=>`<a class="${en==on?'on':''}">${I(i)}${t(en,hi)}</a>`).join('')}</nav>`;
+const N={maggi:t('Maggi Masala 70g','मैगी मसाला 70g'),dal:t('Toor Dal 1kg','तूर दाल 1kg'),cheeni:t('Cheeni 1kg','चीनी 1kg'),amul:t('Amul Taaza 500ml','अमूल ताज़ा 500ml')};
+const items=[[N.maggi,2,14],[N.dal,1,168],[N.cheeni,2,46],[N.amul,2,28]];
+const qty=n=>`<div class="qty"><button aria-label="Kam">${I('minus')}</button><b>${n}</b><button aria-label="Zyada">${I('plus')}</button></div>`;
+const split=(vals)=>`<div class="split">${vals.map(([a,b,c])=>`<div><div class="lab">${a}</div><b class="${c}">${b}</b></div>`).join('')}</div>`;
+const sale=E?{tot:'₹1,12,400',c:'₹54,210',u:'₹41,780',d:'₹16,410',ud:'₹12,48,960'}:{tot:'₹14,218',c:'₹6,930',u:'₹5,872',d:'₹1,416',ud:'₹38,560'};
+const emptyArt=k=>k=='bills'?`<svg width="120" height="104" viewBox="0 0 120 104" fill="none" stroke="var(--ink3)" stroke-opacity=".55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 8h64v88l-10-6-11 6-11-6-11 6-11-6-10 6z" fill="var(--s)"/><path d="M42 30h36 M42 44h36 M42 58h20" stroke-dasharray="1 7" stroke-width="3"/><path d="M78 58h0" stroke="var(--vt)" stroke-opacity="1" stroke-width="6"/></svg>`
+:`<svg width="120" height="104" viewBox="0 0 120 104" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M24 14a6 6 0 0 1 6-6h62v80H30a6 6 0 0 0-6 6z" fill="var(--s)" stroke="var(--ink3)" stroke-opacity=".55"/><path d="M24 94a6 6 0 0 0 6 4h62v-10" stroke="var(--ink3)" stroke-opacity=".55"/><path d="M44 48l10 10 20-22" stroke="var(--ok)" stroke-width="4"/></svg>`;
+const S={
+login:()=>`${SB}<div style="padding:32px 24px 0">${LOGO(56)}<h1 class="h1" style="margin:24px 0 8px">PIN daaliye</h1>
+<p class="mute">Dukaan code <b style="color:var(--ink)">SGS-2041</b> · <a style="color:var(--ink);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px">badlo</a></p>
+<div style="display:flex;gap:12px;margin:32px 0 0">${[1,1,1,0,0,0].map((f,i)=>`<span style="flex:1;height:60px;border-radius:var(--r2);display:grid;place-items:center;background:var(--s);box-shadow:inset 0 0 0 ${i==3?'2px var(--ink)':'1px var(--line2)'}">${f?'<i style="width:14px;height:14px;border-radius:50%;background:var(--ink)"></i>':''}</span>`).join('')}</div></div>
+<div class="k" style="position:absolute;left:24px;right:24px;bottom:40px">${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="${n==4?'pressed':''}">${n}</button>`).join('')}<button style="box-shadow:none;background:none;font:600 18px/22px var(--font);color:var(--ink2);text-align:center">PIN bhool<br>gaye?</button><button>0</button><button style="box-shadow:none;background:none" aria-label="Mitao">${I('back')}</button></div>`,
+home:(mode)=>`${SB}<div class="top" style="padding-left:16px;gap:12px">${LOGO(40)}<h1>${SHOP}</h1><button class="ib" aria-label="Settings">${I('sliders')}</button></div>
+${mode=='off'?`<div class="banner">${I('cloudOff')}<div style="flex:1"><b>${t('Net nahi — 3 bill save hone baaki','नेट नहीं — 3 Bill सेव होने बाकी')}</b><span>${t('Phone mein safe hain. Net aate hi chale jayenge.','फ़ोन में सुरक्षित हैं। नेट आते ही चले जाएँगे।')}</span></div></div>`:''}
+<div class="pad stack">
+<div class="card" style="padding:20px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="lab">${t('Aaj ki bikri','आज की बिक्री')}</span><span class="chip ok">${I('up')}${t('12% kal se','कल से 12%')}</span></div>
+<div class="big" style="margin:8px 0 16px">${sale.tot}</div>
+${split([['Cash',sale.c,''],['UPI',sale.u,''],[t('Udhaar','उधार'),sale.d,'ud']])}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<button class="card" style="text-align:left;padding:16px;display:grid;gap:8px">${I('book','ud')}<div><div class="lab">${t('Baaki udhaar','बाकी उधार')}</div><div class="ud fig" style="font-weight:800">${sale.ud}</div></div></button>
+<button class="card" style="text-align:left;padding:16px;display:grid;gap:8px">${I('bag')}<div><div class="lab">${t('Online orders','ऑनलाइन ऑर्डर')}</div><div class="fig" style="font-weight:800">${t('3 naye','3 नए')}</div></div></button></div>
+<button class="card ask-in" style="text-align:left"><span class="m">${I('spark')}</span><span class="t" style="flex:1"><b>${t('Poochho','पूछो')}</b><span>${t('“Aaj kitna bika?”','“आज कितना बिका?”')}</span></span>${I('chevR','mute')}</button>
+${mode=='off'?'':`<div class="card"><div class="row" style="min-height:56px;padding-top:8px;padding-bottom:8px"><span class="t"><b>${t('Abhi ke bills','अभी के Bill')}</b></span><button class="lab" style="height:40px;color:var(--ink)"><u>${t('Sab dekho','सब देखो')}</u></button></div>
+<div class="row"><span class="t"><b>${E?'Mohammed Abdul Rahman Siddiqui':SJ}</b><span>${t('4 items · 10:42','4 आइटम · 10:42')}</span></span><span class="a">${E?'₹12,480':'₹344'}</span></div></div>`}
+</div>${band('Home')}`,
+loading:()=>`${SB}<div class="top" style="padding-left:16px;gap:12px">${LOGO(40)}<h1>${SHOP}</h1><button class="ib">${I('sliders')}</button></div>
+<div class="pad stack" aria-busy="true"><div class="card" style="padding:20px"><div style="display:flex;justify-content:space-between"><i class="sk" style="width:112px;height:24px"></i><i class="sk" style="width:96px;height:32px"></i></div><i class="sk" style="display:block;width:200px;height:48px;margin:12px 0 20px"></i>
+<div class="split">${[0,1,2].map(()=>`<div><i class="sk" style="display:block;width:48px;height:20px"></i><i class="sk" style="display:block;width:72px;height:24px;margin-top:8px"></i></div>`).join('')}</div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">${[0,1].map(()=>`<div class="card" style="padding:16px;height:120px"><i class="sk" style="display:block;width:24px;height:24px"></i><i class="sk" style="display:block;width:104px;height:20px;margin-top:16px"></i><i class="sk" style="display:block;width:88px;height:24px;margin-top:8px"></i></div>`).join('')}</div>
+<div class="card ask-in"><i class="sk" style="width:48px;height:48px;border-radius:var(--r2)"></i><span style="flex:1"><i class="sk" style="display:block;width:96px;height:20px"></i><i class="sk" style="display:block;width:160px;height:20px;margin-top:8px"></i></span></div>
+<p class="lab" style="text-align:center;margin-top:4px">Aaj ka hisaab la rahe hain…</p></div>${band('Home')}`,
+listening:()=>`${SB}${tb('Bill ban raha hai','x')}
+<div class="pad"><div style="color:var(--vt);display:flex;align-items:center;gap:8px;font:700 18px/1 var(--font)"><span style="width:12px;height:12px;border-radius:50%;background:var(--vt);box-shadow:0 0 0 4px var(--vsoft)"></span>Sun raha hoon</div>
+<p style="font:600 24px/32px var(--font);letter-spacing:-.01em;margin:16px 0 24px">Sharma ji, do Maggi, ek kilo toor dal, do kilo cheeni<span style="color:var(--ink3)">, Amul Taaza do…</span></p>
+<div class="card">${items.slice(0,3).map(([n,q,p])=>`<div class="row"><span class="t"><b>${n}</b><span>${q} × ₹${p}</span></span><span class="a">₹${q*p}</span></div>`).join('')}
+<div class="row"><span class="t"><b style="color:var(--ink3)">Amul Taaza…</b><span>dhoondh raha hoon</span></span><i class="sk" style="width:48px;height:20px"></i></div></div></div>
+<div class="foot" style="display:flex;align-items:center;gap:16px"><div class="wave" style="color:var(--vt);flex:1;justify-content:center">${[12,28,40,20,48,32,16,44,24,36,16,28].map(h=>`<i style="height:${h}px"></i>`).join('')}</div>
+<button class="btn v" style="width:160px">${I('check')}Ho gaya</button></div>`,
+check:()=>`${SB}${tb(t('Bill check karo','Bill जाँचो'),'chevL',`<span class="chip" style="margin-right:8px">${I('user')}${SJ}</span>`)}
+<div class="pad"><div class="card" style="overflow:hidden">
+${items.slice(0,2).map(([n,q,p])=>`<div class="it"><b>${n}</b><span class="a">₹${q*p}</span><span>₹${p} ${t('/ pc','/ पीस')}</span>${qty(q)}</div>`).join('')}
+<div class="it q"><b>${N.cheeni}</b><span class="a">₹92</span><span>${t('Madhur','मधुर')} · 2 × ₹46</span><span></span>
+<div class="ask"><b>${t('Yahi wali?','यही वाली?')}</b><button class="btn s p" style="padding:0 16px">${I('check')}${t('Haan','हाँ')}</button><button class="btn s o" style="padding:0 16px">${I('x')}${t('Nahi','नहीं')}</button></div></div>
+<div class="it"><b>${N.amul}</b><span class="a">₹56</span><span>₹28 ${t('/ pc','/ पीस')} · <u>${t('badlo','बदलो')}</u></span>${qty(2)}</div>
+</div><button class="btn o s" style="width:100%;margin-top:12px">${I('plus')}${t('Item jodo','आइटम जोड़ो')}</button></div>
+<div class="foot" style="display:flex;align-items:center;gap:12px"><div style="flex:1"><div class="lab">${t('4 items','4 आइटम')}</div><div class="mid">₹344</div></div><button class="ib" style="width:64px;height:64px;border-radius:var(--r2);background:var(--vf);color:#fff" aria-label="${t('Bolo','बोलो')}">${I('mic')}</button><button class="btn p" style="width:148px">${t('Aage','आगे')}${I('chevR')}</button></div>`,
+pay:()=>`${SB}${tb(t('Paisa kaise mila?','पैसा कैसे मिला?'))}
+<div class="pad"><div class="card" style="padding:24px 20px;text-align:center"><div class="lab">${SJ} · ${t('4 items','4 आइटम')}</div><div class="big" style="margin-top:8px">₹344</div></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px">${[['cash','Cash',''],['qr','UPI',''],['book',t('Udhaar','उधार'),'ud']].map(([i,l,c])=>`<button class="tile ${c}">${I(i)}<span>${l}</span></button>`).join('')}</div>
+<div class="card" style="margin-top:16px"><div class="row"><span class="av">SJ</span><span class="t"><b>${SJ}</b><span>${t('Pichhla udhaar','पिछला उधार')}</span></span><span class="a ud">₹2,416</span></div></div></div>
+<div class="foot"><p class="lab" style="text-align:center;margin-bottom:12px">${t('Upar Cash, UPI ya Udhaar chuno','ऊपर Cash, UPI या उधार चुनो')}</p><button class="btn" disabled style="width:100%">${I('check')}${t('Bill save karo','Bill सेव करो')}</button></div>`,
+upi:()=>`${SB}${tb('UPI se lo')}
+<div class="pad" style="text-align:center"><div class="big" style="margin:0">₹344</div><div class="lab" style="margin-top:4px">Customer ko QR dikhao</div>
+<div class="card" style="width:288px;height:288px;margin:24px auto 0;padding:16px;background:#fff">${QR(29,11)}</div>
+<div style="margin-top:16px;font:600 18px/24px var(--font)">sharmagen@okaxis</div><div class="lab">Sharma General Store</div></div>
+<div class="foot" style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px"><button class="btn o">${I('chevL')}Badlo</button><button class="btn p">${I('check')}Paisa mil gaya</button></div>`,
+saved:()=>`${SB}<div class="top"><span style="flex:1"></span><button class="ib" aria-label="Band karo">${I('x')}</button></div>
+<div class="pad" style="text-align:center;padding-top:16px"><span style="width:88px;height:88px;border-radius:50%;background:var(--oksoft);color:var(--ok);display:inline-grid;place-items:center"><svg class="i" style="width:44px;height:44px;stroke-width:2.2" viewBox="0 0 24 24"><path d="${P.check}"/></svg></span>
+<h1 class="h1" style="margin-top:24px">${t('Bill save ho gaya','Bill सेव हो गया')}</h1><p class="lab" style="margin-top:4px">#1042 · ${SJ} · UPI</p>
+<div class="big" style="margin-top:16px;margin-left:0">₹344</div>
+<div class="card" style="margin-top:32px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:12px;text-align:left"><span class="lab" style="flex:1">${t('Galti hui?','गलती हुई?')}</span><button class="btn o s" style="padding:0 16px">${I('undo')}${t('Bill wapas lo','Bill वापस लो')}</button></div></div>
+<div class="foot flat" style="display:grid;gap:12px"><button class="btn wa">${I('send')}${t('WhatsApp pe bhejo','WhatsApp पर भेजो')}</button><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><button class="btn o s">${I('print')}${t('Print','प्रिंट')}</button><button class="btn o s">${I('plus')}${t('Naya bill','नया Bill')}</button></div></div>`,
+bills:(empty)=>`${SB}${tb('Bills','',`<button class="ib b" aria-label="Dhoondho">${I('search')}</button>`)}
+<div class="seg"><span class="on">Aaj</span><span>Kal</span><span>Is hafte</span><span>Mahina</span></div>
+${empty?`<div class="empty">${emptyArt('bills')}<h2>Aaj abhi koi bill nahi</h2><p>Pehla bill bolkar banao. Neeche Bolo dabao aur kaho:</p><span class="say">${I('mic')}“Sharma ji, 2 Maggi”</span></div>`:
+`<div class="pad" style="margin-top:16px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin:0 4px 8px"><span class="lab">38 bills</span><b class="fig">${E?'₹1,12,400':'₹14,218'}</b></div>
+<div class="card">${(E?[['MA','Mohammed Abdul Rahman Siddiqui','10:42 · UPI','₹12,480',''],['SV','Shri Venkateshwara Caterers','10:31 · Udhaar','₹1,08,250','ud'],['—','Walk-in','10:15 · Cash','₹6','']]:[['SJ','Sharma ji','10:42 · UPI','₹344',''],['RV','Ravi Verma','10:31 · Cash','₹1,120',''],['GK','Geeta Kaur','10:15 · Udhaar','₹486','ud'],['—','Walk-in','10:02 · Cash','₹62',''],['MA','Mohd. Aslam','9:48 · UPI','₹2,035',''],['PS','Pooja Singh','9:30 · Cash','₹218','']]).map(([a,n,s,v,c],i)=>`<button class="row${i==1&&!E?' pressed':''}"><span class="av">${a}</span><span class="t"><b>${n}</b><span>${s}</span></span><span class="a ${c}">${v}</span></button>`).join('')}</div></div>`}${band('Bills')}`,
+bill:()=>`${SB}${tb('Bill #1042','chevL',`<button class="ib" aria-label="Aur">${I('more')}</button>`)}
+<div class="pad"><div class="card" style="padding:20px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="h2">Sharma ji</div><div class="lab">Aaj, 10:42</div></div><span class="chip">${I('qr')}UPI</span></div>
+<div class="big" style="margin:12px 0 0">₹344</div></div>
+<div class="card" style="margin-top:12px">${items.map(([n,q,p])=>`<div class="row" style="min-height:64px"><span class="t"><b>${n}</b><span>${q} × ₹${p}</span></span><span class="a">₹${q*p}</span></div>`).join('')}
+<div class="row" style="min-height:64px"><span class="t"><b>Total</b></span><span class="a fig">₹344</span></div></div></div>
+<div class="foot" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><button class="btn o s">${I('print')}Print</button><button class="btn s wa">${I('send')}WhatsApp</button></div>`,
+udhaar:(empty)=>`${SB}${tb('Udhaar','',`<button class="ib b" aria-label="Dhoondho">${I('search')}</button>`)}
+${empty?`<div class="empty" style="top:200px">${emptyArt('ud')}<h2>Kisi ka udhaar baaki nahi</h2><p>Sab hisaab saaf hai. Jab koi udhaar le, bas bolo: “Geeta ji, 486 udhaar”.</p></div>`:
+`<div class="pad"><div class="card" style="padding:20px"><div class="lab">Kul baaki · 27 log</div><div class="big ud" style="margin-top:4px">₹38,560</div></div>
+<div class="card" style="margin-top:12px">${[['SJ','Sharma ji','12 din se','₹2,416'],['RV','Ravi Verma','3 din se','₹1,830'],['GK','Geeta Kaur','Aaj','₹486'],['DP','Dinesh Patel','21 din se','₹3,120'],['NB','Neha Bansal','6 din se','₹940']].map(([a,n,s,v])=>`<button class="row"><span class="av">${a}</span><span class="t"><b>${n}</b><span>${s}</span></span><span class="a ud">${v}</span></button>`).join('')}</div></div>`}${band('Udhaar')}`,
+khata:(jama)=>`${SB}${tb('Sharma ji','chevL',`<button class="ib b" aria-label="Call">${I('phone')}</button>`)}
+<div class="pad"><div class="card" style="padding:20px"><div class="lab">Baaki</div><div class="big ud" style="margin-top:4px">${jama?'₹1,416':'₹2,416'}</div><div class="lab" style="margin-top:4px">${jama?'Abhi ₹1,000 jama hua':'Aakhri payment 12 din pehle'}</div></div>
+<div class="lab" style="margin:20px 4px 8px">Hisaab</div>
+<div class="card">${[...(jama?[['Jama · Cash','Abhi','− ₹1,000','']]:[]),['Bill #1042','Aaj · 4 items','+ ₹344','ud'],['Jama · UPI','14 Nov','− ₹1,000',''],['Bill #0987','12 Nov · 9 items','+ ₹1,268','ud'],['Bill #0921','8 Nov · 6 items','+ ₹804','ud']].slice(0,4).map(([n,s,v,c])=>`<div class="row"><span class="t"><b>${n}</b><span>${s}</span></span><span class="a ${c}">${v}</span></div>`).join('')}</div></div>
+${jama?`<div class="toast" style="bottom:120px"><b>₹1,000 jama hua</b><button>${I('undo')}Wapas lo</button><i style="width:62%"></i></div>`:''}
+<div class="foot" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><button class="btn o s">${I('send')}Yaad dilao</button><button class="btn p s">${I('cash')}Paisa jama</button></div>`,
+maal:()=>`${SB}${tb('Maal','',`<button class="ib b" aria-label="Dhoondho">${I('search')}</button><button class="ib b" aria-label="Naya maal">${I('plus')}</button>`)}
+<div class="seg"><span class="on">Sab · 412</span><span>Kam bacha · 9</span><span>Khatam · 2</span></div>
+<div class="pad" style="margin-top:16px"><div class="card">${[['Maggi Masala 70g','₹14 · Nestlé','46 pc',''],['Toor Dal 1kg','₹168 · Tata Sampann','3 pc','low'],['Cheeni 1kg','₹46 · Madhur','28 pc',''],['Amul Taaza 500ml','₹28 · Amul','0','out'],['Parle-G 250g','₹25 · Parle','64 pc',''],['Fortune Soya Oil 1L','₹142 · Fortune','5 pc','low']].map(([n,s,v,c])=>`<button class="row"><span class="t"><b>${n}</b><span>${s}</span></span>${c=='low'?`<span class="chip ud">Kam · ${v}</span>`:c=='out'?`<span class="chip" style="background:var(--ink);color:var(--bg)">Khatam</span>`:`<span class="a" style="font-weight:600">${v}</span>`}</button>`).join('')}</div></div>${band('Maal')}`,
+hisaab:()=>`${SB}${tb('Hisaab')}
+<div class="seg"><span>Aaj</span><span class="on">Is hafte</span><span>Mahina</span><span>Saal</span></div>
+<div class="pad stack" style="margin-top:16px"><div class="card" style="padding:20px"><div class="lab">18 – 24 Nov</div><div class="big" style="margin:4px 0 20px">₹92,640</div>
+<div class="bar">${[['S',58],['M',72],['T',64],['W',80],['T',61],['F',88],['S',100]].map(([d,h],i)=>`<div><i class="${i==6?'on':''}" style="height:${h}%"></i><span style="${i==6?'color:var(--ink)':''}">${d}</span></div>`).join('')}</div></div>
+<div class="card">${[['Bills','261',''],['Cash','₹41,380',''],['UPI','₹39,510',''],['Udhaar diya','₹11,750','ud'],['Udhaar wapas','₹8,200','']].map(([a,b,c])=>`<div class="row" style="min-height:56px;padding-top:8px;padding-bottom:8px"><span class="t"><b style="font-weight:600">${a}</b></span><span class="a ${c}">${b}</span></div>`).join('')}</div></div>`,
+settings:()=>`${SB}${tb('Settings')}
+<div class="pad stack"><button class="card row" style="padding:16px">${LOGO(48)}<span class="t"><b>Sharma General Store</b><span>SGS-2041 · Lajpat Nagar</span></span>${I('chevR','mute')}</button>
+<div class="card">${[['globe','Bhasha','Hinglish'],['moon','Dark mode','Auto'],['qr','UPI ID','sharmagen@okaxis'],['print','Printer','Jude nahi'],['store','Online dukaan','Chalu']].map(([i,a,b])=>`<button class="row" style="min-height:64px">${I(i)}<span class="t"><b>${a}</b></span><span class="lab" style="max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${b}</span>${I('chevR','mute')}</button>`).join('')}</div>
+<div class="card">${[['lock','PIN badlo'],['phone','Madad · Call karo']].map(([i,a])=>`<button class="row" style="min-height:64px">${I(i)}<span class="t"><b>${a}</b></span>${I('chevR','mute')}</button>`).join('')}</div>
+<button class="btn o s">${I('logout')}Log out</button></div>`,
+orders:()=>`${SB}${tb('Online orders')}
+<div class="seg"><span class="on">Naye · 3</span><span>Pack ho rahe</span><span>Bheje</span></div>
+<div class="pad stack" style="margin-top:16px">${[['Anita Rao','B-14, Lajpat Nagar · 6 items','₹612','10 min pehle'],['Kunal Mehta','C-2, Amar Colony · 3 items','₹238','24 min pehle']].map(([n,s,v,tm],k)=>`<div class="card" style="padding:16px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="chip v">${I('clock')}${tm}</span><b class="fig">${v}</b></div>
+<div class="h2" style="margin-top:12px">${n}</div><div class="lab">${s}</div><div style="margin-top:4px;color:var(--ink)">${k?'Parle-G ×2, Amul Taaza ×1':'Maggi ×4, Toor Dal 1kg, Cheeni 2kg…'}</div>
+<div style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:16px"><button class="btn o s">${I('x')}Mana</button><button class="btn p s">${I('check')}Accept</button></div></div>`).join('')}</div>`,
+assistant:()=>`${SB}${tb(t('Poochho','पूछो'),'x')}
+<div class="pad"><div style="display:flex;justify-content:flex-end"><span class="bubble">${t('Aaj kitna bika?','आज कितना बिका?')}</span></div>
+<div class="card" style="padding:20px;margin-top:16px"><div style="display:flex;align-items:center;gap:8px;color:var(--vt);font:700 18px/1 var(--font);height:24px">${I('vol')}<span style="flex:1">${t('Bol raha hoon','बोल रहा हूँ')}</span><button style="color:var(--ink);height:40px;display:flex;align-items:center"><u>${t('Phir suno','फिर सुनो')}</u></button></div>
+<p style="font:600 24px/32px var(--font);letter-spacing:-.01em;margin:12px 0 20px">${t('Aaj 38 bills mein <b style="font-weight:800">₹14,218</b> bika. Kal se 12% zyada.','आज 38 Bill में <b style="font-weight:800">₹14,218</b> बिका। कल से 12% ज़्यादा।')}</p>
+${split([['Cash','₹6,930',''],['UPI','₹5,872',''],[t('Udhaar','उधार'),'₹1,416','ud']])}
+<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--line)"><div class="lab">${t('Sabse zyada bika','सबसे ज़्यादा बिका')}</div><b style="font:700 20px/28px var(--font)">${N.maggi} · 42 ${t('pc','पीस')}</b></div>
+<p class="lab" style="margin-top:16px;display:flex;align-items:center;gap:8px;font-weight:500">${I('receipt')}${t('Aaj ke 38 bills se, 10:42 tak','आज के 38 Bill से, 10:42 तक')}</p></div>
+<div class="fu" style="margin-top:16px"><button>${t('Kal ka?','कल का?')}</button><button>${t('Kya khatam hai?','क्या खत्म है?')}</button></div></div>
+<div class="foot flat"><button class="btn v" style="width:100%">${I('mic')}${t('Aur poochho','और पूछो')}</button></div>`
+};
+const s=Q.get('s')||'home',R={'home-loading':()=>S.loading(),'home-offline':()=>S.home('off'),'bills-empty':()=>S.bills(1),'udhaar-empty':()=>S.udhaar(1),'jama':()=>S.khata(1)};
+document.getElementById('app').innerHTML=(R[s]||S[s]||S.home)();
+</script></body></html>

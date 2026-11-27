@@ -1,43 +1,38 @@
-# OmniOS Dukaan — Design system ("Bank passbook")
+# DESIGN.md — OmniOS Dukaan v3 ("Clean counter")
 
-Mode: Operate. The shop's numbers are the hero; chrome recedes. The world is the bank passbook every shop owner trusts: passbook-blue cover, white pages, entries in ruled columns with tabular numbers. Ease-of-use rules in PROJECT.md override everything here. Tokens live in `app/src/styles/app.css`.
+Chosen 23 Nov 2026 by test, not taste: 3 directions → simulated owner panel → "Standard clean" won; 6 design rounds + 3 real-app rounds until every persona scored ≥ 9/10 (ease, calm, trust). Previous system: `design/DESIGN-prev.md`. Prototypes + screenshots: `design/redo/`.
 
-## Colour (Restrained: navy shell + neutrals + meaning colours)
-| Token | Value | Job |
+## Principles (what made it pass)
+1. **One solid green per screen.** The main action (or the mic) is the only filled green; everything else is outlined or text.
+2. **Items first, money second.** Payment choices appear only when every question on the bill is answered.
+3. **Nothing pre-selected** where money is involved. Save stays grey and *says why* ("↑ Upar sahi Sharma ji chuno") — tapping the reason jumps to it.
+4. **Save states the consequence**: "Udhaar → Sharma ji ka khata (ab ₹2,597)". No "are you sure?" pop-ups (brief).
+5. **Undo is big and lasting**: "Bill wapas lo" until the next bill.
+6. **Udhaar is never red**: warm brown, light tint when chosen.
+
+## Colour
+| Token | Hex | Use |
 |---|---|---|
-| `--navy` | `#17325C` | passbook cover: home/login header, primary action, mic |
-| `--navy-press` | `#0F2445` | pressed primary |
-| `--on-navy-soft` | `#C7D3E6` | secondary text on navy (≥7:1) |
-| `--ground` | `#F3F5F8` | screen ground (cool, never cream) |
-| `--page` | `#FFFFFF` | pages: lists, ledger, panels |
-| `--ink` / `--ink-2` / `--ink-3` | `#0F1B2D` / `#44526A` / `#6B778C` | text levels |
-| `--rule` / `--rule-strong` | `#DCE2EA` / `#B9C3D2` | ledger rules, borders |
-| `--jama` | `#0F7B3F` | money in, success, ✓ |
-| `--baki` | `#B42318` | udhaar / due / error / ✗ only |
-| `--note-tint` | `#FFF4D6` | "check this" highlight, coming-soon status |
-| `--stamp` | `#3E4CB8` | rubber-stamp ink, used only by the save stamp |
-
-Red never decorates; it always means money owed or a problem.
+| bg | #F2F4F6 | App background (cool light grey) |
+| s | #FFFFFF | Cards, sheets, dock |
+| s2 | #EEF1F4 | Icon tiles, waiting buttons, undo box |
+| line / mute | #E4E7EC / #C4CAD3 | Dividers / outlines of secondary buttons |
+| ink / ink2 | #0E1116 / #2B313A | Text / secondary text (never lighter) |
+| ac / acp / acs | #0B7A4B / #086339 / #E3F3EA | The one accent: main action, mic, active tab, sales number |
+| uns / unsb | #FFF4D1 / #D99A00 | "Not sure" items and the waiting reason button (#FBE7B0) |
+| ud / udsoft | #8A4B12 / #FBEFE3 | Udhaar amounts / chosen Udhaar tile |
+| WhatsApp | #1FA855 outline, #137A3C text | WhatsApp buttons (outlined, never filled) |
 
 ## Type
-One family: **Mukta** (Devanagari + Latin), 500/600/700/800. All amounts use tabular lining numerals.
-Scale: 15 meta · 18 body · 19–21 labels/titles · 25–28 page headings · 44 balance. Nothing below 15px.
+Hind (self-hosted, Devanagari + Latin) 500/600/700 for everything. Body 18/26. Secondary lines ≥ 17px. Title 28–30. Sales 56/60 green, tabular figures. Total in dock 26.
 
-## Shell (identical on every screen)
-- Home and login: navy **cover** with mark, store name, language button; home shows today's sales as the passbook balance.
-- Inner screens: white bar, **Back** (arrow + "Wapas") left, title centre, language right.
-- Bottom: white bar with the full-width navy **Bolo** mic pill, always visible.
-- Home actions: **Bill** full-width navy (primary), then Maal aaya · Udhaar · Stock in one row of three.
+## Shape & touch
+Cards 16 radius, soft shadow, no border. Buttons ≥ 56px (main 62–64), always icon + word. Header buttons 56px with words (QR, Settings). Tabs: neutral icons, active = green text (no pill). Mic 76px round, centre-bottom, on every screen.
 
-## Signature: the passbook ledger
-Money lists (today's bills, udhaar, supplier dues) are passbook entries: heavy top rule, column heads (Samay · Vivran · Rakam), alternate-row tint, right-aligned tabular amounts, udhaar in red. Empty state says what will appear there.
-Saving money (bill, receipt, payment) shows the round "Jama ✓" stamp for under half a second, with vibration and tone.
-
-## Components
-- Buttons: 56px min (primary 60), radius 12, icon + word always. Lucide icons, ~2px stroke, navy. No emoji.
-- Lists: white grouped rows, 64px, icon · label · chevron.
-- Messages: tinted strip with icon (err red, ok green, note amber).
-- PIN: 4 boxes + large keypad, no system keyboard.
+## Screens (built)
+- **Home:** greeting + QR/Settings → shop name → sales card (big green ₹, bills · udhaar diya) → "Aaj ki shuruaat" (yesterday line, one green "Aaj 3 saaman gino", people to collect from with outlined WhatsApp reminder) → plain list (Hisaab, Galla, Orders, Bags, Coming soon).
+- **Bill review:** items card → bottom dock: total + yellow reason (while questions open) → Cash/UPI/Udhaar tiles → Save with consequence.
+- **Bill ban gaya:** tick + summary + khata after → outlined WhatsApp + outlined Ghar → undo box → bill card.
 
 ## Motion
-90ms press (scale .98), state changes ≤200ms ease-out, stamp 380ms. No page-load choreography. Reduced motion turns it off.
+Unchanged from v2: 180ms fade+rise enter, press scale .97, one looping animation max (listening mic), reduced-motion respected.

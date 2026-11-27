@@ -1,0 +1,7 @@
+Apply in this order (each file is additive and safe to re-run). 0001-0013 are already applied.
+0014_bag_shop.sql          branded bags: tables, seed 3 products, RPCs
+0015_bill_idempotent_undo.sql  client_key, save_bill/public_bill/undo_bill re-created
+0016_login_lockout.sql     login_fails, login_alerts, recent_login_alerts()  (apply BEFORE deploying login function)
+0017_assistant_rpcs.sql    ask_* lookups + indexes
+0018_admin_reports.sql     admin_* functions (service role only)  (apply BEFORE deploying admin function)
+Then deploy: supabase functions deploy login ; supabase functions deploy admin

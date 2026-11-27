@@ -1,0 +1,39 @@
+<!doctype html><html lang="hi-Latn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dukaan Customer v2</title><link rel="icon" href="logo/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="phone.css">
+<style>
+.kv{display:flex;justify-content:space-between;gap:16px;padding:8px 0}.kv b{font:700 20px/28px var(--font);text-align:right}
+.li{display:flex;justify-content:space-between;gap:16px;padding:8px 0}.li b{display:block;font:600 20px/28px var(--font)}.li .a{font:700 20px/28px var(--font)}
+.rule{border-top:1px dashed var(--line2);margin:16px 0 8px}
+/* store line: name + price on the left, stepper or Add on the right */
+.sl{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 16px;min-height:80px}
+.sl+.sl{box-shadow:inset 0 1px 0 var(--line)}
+.sl .t{flex:1;min-width:0}.sl .t b{display:block;font:700 20px/28px var(--font)}.sl .t span{display:block;color:var(--ink2)}
+.sl .add{min-height:56px;min-width:112px;padding:0 16px}
+.st{display:flex;gap:16px}.st .d{display:flex;flex-direction:column;align-items:center}.st .d span{width:28px;height:28px;border-radius:50%;display:grid;place-items:center}.st .d span svg.i{width:18px;height:18px;stroke-width:2.4}
+.st .d i{width:2px;flex:1;min-height:28px}.st .b{padding-bottom:20px;display:flex;justify-content:space-between;flex:1}
+</style></head><body><div id="app"></div>
+<script src="icons.js"></script><script>
+const SB=`<div class="sb"><span>9:41</span><i><b></b></i></div>`;
+const items=[['Maggi Masala 70g','2 × ₹14',28],['Toor Dal 1kg','1 × ₹168',168],['Cheeni 1kg','2 × ₹46',92],['Amul Taaza 500ml','2 × ₹28',56]];
+const shop=`<div class="top" style="gap:12px;padding-left:16px"><span class="av" style="background:var(--ink);color:var(--bg)">SG</span><span style="flex:1;min-width:0"><b style="display:block;font:700 20px/28px var(--font)">Sharma General Store</b><span class="lab" style="display:block">Lajpat Nagar, Delhi</span></span><button class="ib b" aria-label="Call karo">${I('phone')}</button></div>`;
+const kv=(a,b,c='')=>`<div class="kv"><span class="lab">${a}</span><b class="${c}">${b}</b></div>`;
+const powered=`<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px" class="lab">${LOGO(20)}OmniOS Dukaan</div>`;
+const qty=n=>`<div class="qty"><button aria-label="Kam">${I('minus')}</button><b>${n}</b><button aria-label="Zyada">${I('plus')}</button></div>`;
+const S={
+ebill:()=>`${SB}${shop}<div class="pad"><div class="card" style="padding:24px 20px 16px"><div style="text-align:center"><span class="chip ok">${I('check')}Paid · UPI</span><div class="big" style="margin:12px 0 0">₹344</div><div class="lab">Bill #1042 · 25 Nov, 10:42</div></div>
+<div class="rule"></div>${items.map(([n,q,a])=>`<div class="li"><span><b>${n}</b><span class="lab">${q}</span></span><span class="a">₹${a}</span></div>`).join('')}
+<div class="rule"></div>${kv('Customer','Sharma ji')}${kv('Total','₹344')}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><button class="btn o s">${I('download')}PDF</button><button class="btn p s">${I('book')}Mera khata</button></div>${powered}</div>`,
+khata:()=>`${SB}${shop}<div class="pad"><div class="card" style="padding:24px 20px 20px"><div class="lab">Sharma ji, aapka baaki</div><div class="big ud" style="margin:4px 0">₹2,416</div><div class="lab">25 Nov 2026 tak</div>
+<button class="btn p" style="width:100%;margin-top:20px">${I('qr')}UPI se chukao</button></div>
+<div class="lab" style="margin:20px 4px 8px">Hisaab</div><div class="card">${[['Bill #1042','25 Nov','+ ₹344','ud'],['Jama · UPI','14 Nov','− ₹1,000',''],['Bill #0987','12 Nov','+ ₹1,268','ud'],['Bill #0921','8 Nov','+ ₹804','ud']].map(([n,s,v,c])=>`<div class="row"><span class="t"><b>${n}</b><span>${s}</span></span><span class="a ${c}">${v}</span></div>`).join('')}</div>${powered}</div>`,
+store:()=>`${SB}${shop}<div class="pad"><div class="card" style="display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;color:var(--ink3)">${I('search')}Maggi, dal, doodh…</div></div>
+<div class="seg" style="margin-top:12px"><span class="on">Sab</span><span>Atta, dal</span><span>Snacks</span><span>Doodh</span></div>
+<div class="pad" style="margin-top:12px"><div class="card">${[['Maggi Masala 70g','₹14',2],['Toor Dal 1kg','₹168',1],['Cheeni 1kg','₹46',0],['Parle-G 250g','₹25',0],['Amul Taaza 500ml','₹28',0,1]].map(([n,p,q,o])=>`<div class="sl"><span class="t"><b style="${o?'color:var(--ink3)':''}">${n}</b><span>${o?'Abhi khatam · kal aayega':p}</span></span>${o?'':q?qty(q):`<button class="btn o s add">${I('plus')}Add</button>`}</div>`).join('')}</div></div>
+<div class="foot"><button class="btn p" style="width:100%;justify-content:space-between"><span style="display:flex;gap:8px;align-items:center">${I('bag')}3 items · ₹196</span><span style="display:flex;gap:4px;align-items:center">Order karo${I('chevR')}</span></button></div>`,
+order:()=>`${SB}${shop}<div class="pad"><div class="card" style="padding:24px 20px 4px"><div class="lab">Order #O-318 · ₹612</div><div class="h1" style="margin:4px 0 20px">Pack ho raha hai</div>
+${[['Order mila','10:12',2],['Pack ho raha','10:20',1],['Raste mein','',0],['Pahunch gaya','',0]].map(([tt,s,st],i,a)=>`<div class="st"><div class="d"><span style="${st==2?'background:var(--ink);color:var(--bg)':st==1?'box-shadow:inset 0 0 0 2px var(--ink)':'box-shadow:inset 0 0 0 1.5px var(--line2)'}">${st==2?I('check'):st==1?'<i style="width:10px;height:10px;border-radius:50%;background:var(--ink);min-height:0;flex:none"></i>':''}</span>${i<a.length-1?`<i style="background:${st==2?'var(--ink)':'var(--line2)'}"></i>`:''}</div><div class="b"><b style="font:${st?700:500} 20px/28px var(--font);color:${st?'var(--ink)':'var(--ink3)'}">${tt}</b><span class="lab">${s}</span></div></div>`).join('')}</div>
+<div class="card" style="padding:8px 20px;margin-top:12px">${kv('Items','6')}${kv('Delivery','B-14, Lajpat Nagar')}${kv('Payment','Delivery pe')}</div>
+<button class="btn o s" style="width:100%;margin-top:12px">${I('phone')}Dukaan ko call karo</button></div>`};
+document.getElementById('app').innerHTML=(S[Q.get('s')]||S.ebill)();
+</script></body></html>

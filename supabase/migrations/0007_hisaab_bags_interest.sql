@@ -1,0 +1,2 @@
+-- day_summary(p_from,p_to), bag_requests + request_bags, feature_interest + want_feature.
+-- Applied via MCP on 23 Nov 2026 (see migration "hisaab_bags_interest" in Supabase).

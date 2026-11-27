@@ -1,0 +1,51 @@
+# Session log (newest first)
+- 24 Nov: .context/ created (owner: keep context small). Start rule = INDEX + TASKS + graphify. Owner answered redo #4 questions (see ui-redo-4.md). Starting redo #4.
+- 24 Nov: round 4 versions d13c/d2c/d6d built and sent for owner look.
+- 24 Nov: panel 3 (d13b 7.96 best); shared screens are the blocker.
+- 24 Nov: b-versions tweaked (store name in top bar, common words English, design code in watermark) and sent per design.
+- 24 Nov: panel 2 on b-versions — all fail; d13b best 7.88; improvement rounds used.
+- 24 Nov: panel on d2/d5/d6/d13 — all fail; best d13 (7.31).
+- 24 Nov: d14 failed; d6b (AI clean-up of d6) sent for owner score; panel next.
+- 24 Nov: designs 1–14 (d2 pass; d5,d6,d13 hold; d14 last waiting). Universe 403 items, fast build, wired into billing; per-shop pricing; receipt price-suggestion moved to forecast work.
+- 24 Nov: owner vetoed design C, asked to delete A/B/C (deleted) and restart from square 0.
+- 24 Nov: owner vetoed design B (block print), no fix round. Design C next.
+- 24 Nov: added AI-detector panelist (≥8 to pass; 3 fix rounds if only AI fails); use ui-ux-pro-max + impeccable.
+- 24 Nov: redo #5 design A (banknote) 7.48 → 8.04 after its one fix → closed; design B (indigo block print) next.
+- 24 Nov: owner said "remove proto" → /proto/ + /proto-prev/ deleted from live site; redo #5 versions live in design/redo5/.
+- 24 Nov: owner ordered UI REDO #5 from absolute scratch (v10 dropped). Loop: version → panel → 1 fix → panel → else new design.
+- 24 Nov: v10 PASSED 7/7 (9.15). Waiting owner approval on phone before rebuild.
+- 24 Nov: v8 8.96, v9 9.00 (6/7 YES); v10 = bottom-sheet craft.
+- 24 Nov: v7 8.89 (5/7 YES); v8 = last craft fixes.
+- 24 Nov: v6 8.74 (2 YES); v7 = layout fix + stamp.
+- 24 Nov: v4 8.15, v5 8.33 (Baldev first YES); v6 = fixes.
+- 24 Nov: v3 failed 7.93 (rising); v4 = specific fixes.
+- 24 Nov: v2 (MRP box) failed 7.44 (best yet); asked owner whether v3 = fresh direction or push MRP box.
+- 24 Nov: redo #4 v1 (calendar) failed panel 6.3; building v2 (MRP box world).
+- 24 Nov: memory.md (everything else known) added; README section on keeping .context updated.
+- 23 Nov (late): graphify → 0.9.118, code map rebuilt (348 nodes); README refreshed; TASKS got UI REDO #4.
+- 23 Nov: receipts, briefing+streak+stock check, forecast, PIN lockout/devices, Hisaab/Galla/Bags/T&C/Coming soon, top-150 TEST items; redo #3 prototype v1→v6 passed panel.
+- 21–22 Nov: fresh start; S0–S4 built (shell, login, admin, voice parser, review card, bills, udhaar, Maal, online store).
+- 24 Nov: owner rejected 60-30-10 round (forgot it, CSS block stripped). r5: listening = plain app background, big ink transcript, thin brand bars, hairline item rows, ink "Ho gaya"; pay = 3 neutral side-by-side buttons, selected = ink border (Udhaar = udhaar colour); accent only on the one main button per screen. Awaiting pass/hold/fail on d13c/d2c/d6d.
+- 24 Nov: owner asked layout overhaul. Panel questionnaire (experts+AI-detector x2) said d13c/d2c/d6d were one template recoloured. New built from scratch via design/redo5/gen6.py: d13d "Ledger" (no cards, hairlines), d2d "Priority" (khata-first, bottom sheet question, tall pay tiles), d6e "Voice" (big Bolo dock, waveform, one question per screen). All: payment on its own screen, money buttons in thumb zone, total shown once, Undo separate from WhatsApp. Kept owner's 3-side-by-side pay over panel's stacked rows. Awaiting verdict.
+- 24 Nov: joint meeting combined d13d/d2d/d6e → df1..df4 (gen7/gen8.py). Owner asked: ultra-premium + yes/no under doubtful item, "which one?" on No. Panel: df1 8/7/8/8/8/7/7 AI6 → df2 AI7 → df3 users 9, designers 8, AI7 → df4 PASS all 9, AI 8. Polish applied: fade 48px, chip stroke. Owner to review df4.
+- 24 Nov: mega round (5 merchants + 8 experts incl. typographer, a11y, motion, Devanagari, front-end, AI-detector) on df4 → 20-item list → df5 (gen9.py). Rescore after 7 more fixes: PASS, all ≥9, AI-detector 9. df5 = current final; awaiting owner.
+- 24 Nov: Universe v5 = 750 items + 2,484 flavour/size variants (one default each), voice matches variants; gz 12→62 KB. Bills don't save variant yet.
+- 24 Nov: owner PASSED design; df7 = final (e-bill, big QR). Universe → 1000 items + India-only flavours/sizes + flavour engine running (Sonnet helper).
+- 24 Nov: Universe v6 1000 items/3,335 variants, flavour engine, variant on bills+WhatsApp, matcher 17x faster; 82 tests pass. Migration 0012 pending apply.
+- 25 Nov: owner OK'd: applied 0012 + 0013 to live Supabase (verified live save_bill\/public_bill matched base first; 2,208 bills intact). Owner asked: restore all removed flavours, Universe → 1500 (helper running), deploy.
+- 25 Nov: DF7 implemented in the real app (df7.css tokens, Hanken+Mukta fonts, light/dark/auto in Settings, Bolo bar + tabs, Home, billing split check→pay, QR inline, ticket saved, e-bill BillCard; helper restyled all other pages + admin dashboard via df7-pages.css). Universe v7: 1500 items, 5,226 variants (615 restored). Screens: design/app-df7/. 85 tests pass.
+- 25 Nov: full audit listed to owner (offline, double-save, PIN lockout DoS, voice parse bugs: 'parle g'=grams, 'dhai sau gram', aloo→bhujia, 'ji ka', coke 750ml, litre milk). Perf: lazy routes + vendor chunks + immutable assets. Universe v8 2500 items. Awaiting owner pick of fixes.
+- 25 Nov: 6-digit PIN live (login v2, admin v6). STT upgrade: n-best x5 + pickBest, transcript cleanup, restart dedupe, 7 voice bugs fixed; 169 tests. Refs/logo/fix-proposals/assistant-plan sent, awaiting approval.
+- 25 Nov: Universe v9 3000 items; STT round 2 (phonetic layer, numbers, names, shop bias, interim stabiliser); 296 tests. design/v2 sent; owner: remind to switch to v2 after polish+features.
+- 26 Nov: Universe v10 = 4,500 items (+1,500 regional/supermart/loose/home). Reminders kept: switch to design/v2 UI; owner picks logo + fixes.
+- 26 Nov: owner: logo A chosen; fixes list deferred (remind later); v2 UI being polished, screenshots then WAIT for approval; Universe +500 and optimise (→5,000, v11) running.
+- 26 Nov: Universe v11 = 5,000 items, optimised (174 KB gz). v2 UI polished + screenshots sent; AWAITING owner approval. Reminders in TASKS.md top.
+- 27 Nov: owner deadline Sun 29 Nov, limited usage. Wave1 helpers running (A merchant v2, F universe 5,500); backend 0014-0018 written, NOT applied (awaiting owner go). Wave2 queued. See TASKS.md BUILD PLAN.
+
+## 27 Nov — backend live + v2 core
+- Applied 0014–0018 + pg_trgm; deployed login v3 (6-digit PIN, lockout) and admin v7 (reports, bags, CSV). Advisors: no new anon-executable RPCs.
+- App v2 core (Login/Home/Voice/Bills/Settings), Universe v12 (5,500 items), offline queue, 30-min undo.
+- Next: Wave 2 (other merchant pages, customer store, admin dashboard + dark, /poochho, repo cleanup, HANDOFF).
+- 27 Nov (later): Wave 2 done by helpers — merchant pages, customer pages (Cx.tsx, Balance.tsx), admin (screens/admin/*, dark mode); Poochho built; old design versions removed; HANDOFF.md written.
+- 27 Nov (night): iOS15 fix (regex lookbehind removed, safari13 target), device_key (one row per phone), receipt items + All receipts, longer Terms (14 sections), bag margins (compostable ₹229/170, paper ₹249/160, cloth ₹149/90), lazy screens + cached shop, admin Analytics (admin v8 + 0020), migrations 0019/0020 + receipt_items applied.
+- 27 Nov (late): voice chatter filter (FILLER + WEAK gate, noise.test), shop opens on catalogue then Universe joins index in 250-item slices (uniReady), bookkeeping calls deferred 2-3s, Universe v13 = 5,750 items (key omni-universe-v13). Note: index ~144MB heap/1.7s on desktop — a risk on 2GB iPhones; next step if still slow: smaller index (drop phonetic postings for non-main aliases / lazy-load by category).

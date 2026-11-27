@@ -1,0 +1,6 @@
+# Design history, compressed (full: ../DESIGN.md, design/DESIGN-prev.md, design/redo*, DECISIONS.md)
+- v1 "warm market + premium" → owner-test rounds → v3 "Clean counter" (DESIGN.md): white+green #0B7A4B, Hind font, one solid green per screen, items first then money, Save says why it's grey, big lasting Undo, udhaar brown. This is what the live app uses.
+- Redo #3 (23 Nov): owner called live UI "hollow" (empty, no personality, lifeless) and v1 prototype "trash"; wanted "utterly professional, not a pixel of AI feel".
+  - Prototype loop v1 (signboard, fail) → v2 (fintech generic, fail) → v3–v5 (8s) → v6 PASS 9/9/9 with 5 merchants (Shyam ji 64 Hindi-only, Aman 28 modern, Rekha 40 basti, Pooja 34 Instagram mini-mart, Baldev 55 numbers-first wholesaler) + designer Anika.
+  - v6 look: bahi green #0C3B2E + saffron #E9A21A on #F5F3EE, Anek Latin/Devanagari, awning scallop under headers, shop mark (awning+mic), paper grain, ledger-equation sales card, receipt with rubber stamp, live-heard text + ghost rows, centre nav mic.
+  - Owner then (23–24 Nov) asked for redo #4 from absolute scratch: v6 still feels AI/generic, not premium enough, flows wrong — reference only. Screenshots design/redo3/.

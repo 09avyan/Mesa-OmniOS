@@ -1,0 +1,1 @@
+-- briefing(), stock_check(jsonb). Applied via MCP on 23 Nov 2026 ("briefing_streak_stock_check").

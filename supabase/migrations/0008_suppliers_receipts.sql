@@ -1,0 +1,2 @@
+-- suppliers, supplier_entries, supplier_balances view, save_receipt(jsonb), pay_supplier(uuid,numeric),
+-- day_summary now returns supplier_due + suppliers. Applied via MCP on 23 Nov 2026 ("suppliers_receipts").

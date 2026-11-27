@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Dukaan Admin v2</title><link rel="icon" href="logo/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="base.css">
+<style>
+/* Admin type scale (5): 12 table heads · 14 body · 16 section titles · 24 page title · 28 KPI. Radii: 8 controls · 14 cards. */
+body{width:1440px;height:900px;overflow:hidden;font-size:14px;line-height:20px;display:grid;grid-template-columns:240px minmax(0,1fr)}
+aside{background:var(--s);border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+aside .brand{display:flex;align-items:center;gap:12px;font:800 16px/1 var(--font);letter-spacing:-.01em;height:40px;padding:0 8px;margin-bottom:16px}
+aside a{display:flex;align-items:center;gap:12px;height:40px;padding:0 12px;border-radius:var(--r1);font:600 14px/1 var(--font);color:var(--ink2);cursor:pointer;transition:background .12s,color .12s}
+aside a:hover{background:var(--bg);color:var(--ink)}
+aside a.on{background:var(--s2);color:var(--ink)}aside a em{margin-left:auto;font-style:normal;background:var(--ink);color:var(--bg);border-radius:var(--r1);min-width:20px;height:20px;display:grid;place-items:center;padding:0 6px;font:700 12px/1 var(--font)}
+aside svg.i{width:20px;height:20px}
+.me{margin-top:auto;display:flex;align-items:center;gap:12px;padding:12px 8px 0;border-top:1px solid var(--line)}
+main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bar{height:64px;flex:none;display:flex;align-items:center;gap:12px;padding:0 32px;border-bottom:1px solid var(--line);background:var(--s)}
+.search{flex:0 1 480px;height:40px;border-radius:var(--r1);background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;gap:8px;padding:0 8px 0 12px;color:var(--ink3)}
+.search span{flex:1}.search kbd{font:600 12px/1 var(--font);color:var(--ink2);background:var(--s);box-shadow:inset 0 0 0 1px var(--line2);border-radius:6px;padding:4px 6px}
+.ibt{width:40px;height:40px;border-radius:var(--r1);display:grid;place-items:center;color:var(--ink2);position:relative}.ibt:hover{background:var(--s2);color:var(--ink)}
+.ibt .dot{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--vt);box-shadow:0 0 0 2px var(--s)}
+.page{flex:1;min-height:0;padding:24px 32px;display:flex;flex-direction:column;gap:20px}
+.hd{display:flex;align-items:center;gap:12px;height:40px;flex:none}.hd h1{font:800 24px/32px var(--font);letter-spacing:-.02em;flex:1;white-space:nowrap}.hd h1 small{font:600 24px/32px var(--font);color:var(--ink3);margin-left:8px}
+.bt{height:40px;border-radius:var(--r1);padding:0 12px 0 10px;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--font);background:var(--s);box-shadow:inset 0 0 0 1px var(--line2);white-space:nowrap;transition:background .12s,transform .12s}
+.bt:hover{background:var(--bg)}.bt:active{transform:scale(.98)}
+.bt.p{background:var(--ink);color:var(--bg);box-shadow:none}.bt.p:hover{background:#2B2D30}
+.bt.sm{height:32px;padding:0 12px;font-size:14px}
+.bt svg.i,.search svg.i,.ibt svg.i,.seg svg.i,.in svg.i{width:18px;height:18px}
+.seg{display:inline-flex;height:40px;padding:4px;border-radius:var(--r1);background:var(--s2);gap:2px}
+.seg button{height:32px;padding:0 12px;border-radius:6px;font:600 14px/1 var(--font);color:var(--ink2);display:inline-flex;align-items:center;gap:6px}.seg button:hover{color:var(--ink)}
+.seg button.on{background:var(--s);color:var(--ink);box-shadow:0 1px 2px rgba(20,21,23,.08),inset 0 0 0 1px var(--line)}
+.card{background:var(--s);border-radius:var(--r2);box-shadow:inset 0 0 0 1px var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;flex:none}
+.kpi{padding:16px 20px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:12px}
+.kpi .l{color:var(--ink2);font-weight:600;grid-column:1/-1}.kpi .v{font:800 28px/36px var(--font);letter-spacing:-.02em;margin-top:4px;white-space:nowrap}.kpi .s{color:var(--ink3);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kpi .s b{color:var(--ok)}
+.kpi svg{grid-row:2;grid-column:2;align-self:end;margin-bottom:6px}.kpi .s{grid-column:1/-1}
+.ct{padding:16px 20px;display:flex;flex-direction:column;min-height:0}.ct h2{font:700 16px/24px var(--font);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.legend{display:flex;gap:20px;font:600 14px/20px var(--font);color:var(--ink2)}.legend b{color:var(--ink)}
+.chart{position:relative;flex:1;min-height:0;margin-top:16px}
+.chart .g{position:absolute;left:48px;right:0;height:1px;background:var(--line)}.chart .g span{position:absolute;right:calc(100% + 8px);top:-10px;font:600 12px/20px var(--font);color:var(--ink3);white-space:nowrap}
+.chart svg{position:absolute;left:48px;right:0;top:0;bottom:28px;width:calc(100% - 48px);height:calc(100% - 28px);overflow:visible}
+.chart .x{position:absolute;left:48px;right:0;bottom:0;height:20px;font:600 12px/20px var(--font);color:var(--ink3)}.chart .x span{position:absolute;transform:translateX(-50%);white-space:nowrap}.chart .x span:first-child{transform:none}.chart .x span:last-child{transform:translateX(-100%)}
+.chart .pt{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 3px var(--s);transform:translate(-50%,-50%)}
+.chart .tip{position:absolute;transform:translate(-100%,0);margin:12px 0 0 -12px;background:var(--ink);color:var(--bg);border-radius:var(--r1);padding:6px 10px;font:600 12px/16px var(--font);white-space:nowrap}.chart .tip b{display:block;font:700 14px/20px var(--font)}
+table{width:100%;border-collapse:separate;border-spacing:0}
+th{position:sticky;top:0;z-index:1;background:var(--s);text-align:left;font:600 12px/16px var(--font);color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;padding:12px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{padding-left:20px}th:last-child,td:last-child{padding-right:20px}
+td{padding:0 16px;height:52px;border-bottom:1px solid var(--line);white-space:nowrap;transition:background .1s}tbody tr:last-child td{border-bottom:0}
+tbody tr{cursor:pointer}tbody tr:hover td,tbody tr.hov td{background:#FAFAF8}
+.compact td{height:40px}.compact .av{width:24px;height:24px;font-size:12px;border-radius:6px}
+td.n,th.n{text-align:right}.n{font-variant-numeric:tabular-nums}
+.stt{display:inline-flex;align-items:center;gap:8px;font-weight:600}.stt i{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.stt.idle i{background:var(--ud)}.stt.off{color:var(--ink3)}.stt.off i{background:var(--line2)}.stt.new i{background:var(--vt)}
+.av{width:32px;height:32px;border-radius:var(--r1);background:var(--s2);display:inline-grid;place-items:center;font:700 12px/1 var(--font);vertical-align:middle;margin-right:12px}
+.lst>div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}.lst>div:last-child{border:0}
+.tw{flex:1;min-height:0;overflow:auto}
+.tw.scrolled th{box-shadow:0 6px 12px -8px rgba(20,21,23,.18)}
+.tbar{display:flex;align-items:center;gap:8px;padding:12px 20px;border-bottom:1px solid var(--line)}
+.in{height:40px;border-radius:var(--r1);background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--ink3);width:280px}
+.tfoot{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--line);color:var(--ink2)}
+.meter{height:8px;border-radius:4px;background:var(--s2);margin-top:8px}.meter div{height:100%;border-radius:4px;background:var(--ink)}
+</style></head><body>
+<script src="icons.js"></script>
+<aside id="nav"></aside><main><div class="bar"><div class="search">${''}</div></div><div class="page" id="app"></div></main>
+<script>
+const s=Q.get('s')||'overview',D=Q.get('d')||'comfortable';
+document.getElementById('nav').innerHTML=`<div class="brand">${LOGO(32)}Dukaan Admin</div>`+[['grid','Overview','overview'],['store','Shops','shops'],['bag','Requests','requests',5],['receipt','Bills'],['chart','Usage & AI'],['sliders','Settings']].map(([i,tt,k,b])=>`<a class="${k==s||(s=='shop'&&k=='shops')?'on':''}">${I(i)}${tt}${b?`<em>${b}</em>`:''}</a>`).join('')+`<div class="me"><span class="av" style="margin:0">AD</span><span style="flex:1"><b style="display:block">Admin</b><span style="color:var(--ink3)">OmniOS team</span></span><button class="ibt" aria-label="Log out">${I('logout')}</button></div>`;
+document.querySelector('.bar').innerHTML=`<label class="search">${I('search')}<span>Search shops, phone numbers, bills…</span><kbd>/</kbd></label><span style="flex:1"></span><span style="display:flex;align-items:center;gap:8px;color:var(--ink2);font-weight:600"><i style="width:8px;height:8px;border-radius:50%;background:var(--ok)"></i>All systems normal</span><button class="ibt" aria-label="Notifications">${I('bell')}<i class="dot"></i></button>`;
+// data
+const base=[38,42,40,51,48,55,61,58,64,70,66,74,79,72,81,88,84,91,96,90,102,108,104,112,118,114,121,128,124,133];
+const pts=base.map(v=>v*98.4/133); // ₹ thousands x10 → lakh/10; last day = ₹9.84L
+const sum=pts.reduce((a,b)=>a+b,0)/10, last7=pts.slice(-7).reduce((a,b)=>a+b,0)/10;
+const L=v=>'₹'+v.toFixed(v>=100?0:v>=10?1:2)+'L';
+function spark(arr,w=96,h=32){const mx=Math.max(...arr),mn=Math.min(...arr),X=i=>i*(w-4)/(arr.length-1)+2,Y=v=>h-3-((v-mn)/((mx-mn)||1))*(h-6);
+return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${arr.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--ink3)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity=".7"/><circle cx="${X(arr.length-1)}" cy="${Y(arr[arr.length-1])}" r="2.5" fill="var(--ink)"/></svg>`}
+const ser=(a,b,n=14,j=.08)=>Array.from({length:n},(_,i)=>a+(b-a)*i/(n-1)+Math.sin(i*1.7)*(b-a)*j);
+function chart(){const mx=100,X=i=>i/(pts.length-1)*1000,Y=v=>1000-v/mx*1000,d=pts.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ');const lv=pts[pts.length-1];
+return `<div class="chart">${[0,1,2,3,4].map(k=>`<div class="g" style="top:calc((100% - 28px) * ${k/4})"><span>${['₹10L','₹7.5L','₹5L','₹2.5L','₹0'][k]}</span></div>`).join('')}
+<svg viewBox="0 0 1000 1000" preserveAspectRatio="none"><path d="${d} L1000 1000 L0 1000Z" fill="var(--ink)" opacity=".045"/><path d="${d}" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+<i class="pt" style="left:100%;top:calc((100% - 28px) * ${(1-lv/mx).toFixed(4)})"></i><div class="tip" style="left:100%;top:calc((100% - 28px) * ${(1-lv/mx).toFixed(4)})">Today<b>${L(lv/10)}</b></div>
+<div class="x">${['27 Oct','3 Nov','10 Nov','17 Nov','25 Nov'].map((tt,i)=>`<span style="left:${i*25}%">${tt}</span>`).join('')}</div></div>`}
+const shops=[['SG','Sharma General Store','Lajpat Nagar, Delhi','Active','2 min','₹14,218','38',38560],['GK','Gupta Kirana','Indiranagar, Bengaluru','Active','6 min','₹11,940','31',21400],['BS','Bansal Stores','Sector 15, Noida','Active','14 min','₹9,612','27',17020],['MP','Mahalaxmi Provision','Kothrud, Pune','Active','22 min','₹8,305','24',12880],['RK','Rajesh Kirana','Salt Lake, Kolkata','Idle','3 hr','₹2,140','6',9400],['AN','Annapurna Mart','Gomti Nagar, Lucknow','Active','41 min','₹6,870','19',8210],['NS','New Shree Traders','Navrangpura, Ahmedabad','Off','4 days','₹0','0',3100],['KB','Krishna Bhandar','Malviya Nagar, Jaipur','Active','9 min','₹7,455','21',11760],['DS','Devi Super Store','T. Nagar, Chennai','New','—','₹0','0',0],['SV','Shri Venkateshwara Provision & General Stores','Vijay Nagar, Indore','Active','1 min','₹1,12,400','212',1248960],['AK','Agarwal Kirana','Rajwada, Indore','Active','5 min','₹10,620','29',15340],['JM','Jain Mart','Palasia, Indore','Active','11 min','₹8,980','25',7420],['PG','Patel General','Bhawarkuan, Indore','Idle','2 hr','₹1,860','5',6110],['MS','Maa Sharda Stores','Sudama Nagar, Indore','Active','18 min','₹5,240','16',4980],['RG','Ram Gopal & Sons','Sarafa, Indore','Active','27 min','₹4,410','14',2260],['OM','Om Sai Provision','Annapurna, Indore','Off','6 days','₹0','0',0]];
+const st=x=>`<span class="stt ${x=='Active'||x=='Done'?'':x=='New'?'new':x=='Idle'||x=='In progress'?'idle':'off'}"><i></i>${x}</span>`;
+const inr=n=>'₹'+n.toLocaleString('en-IN');
+const range=(on='30d')=>`<div class="seg" role="tablist">${['Today','7d','30d'].map(x=>`<button class="${x==on?'on':''}">${x}</button>`).join('')}<button>${I('cal')}Custom</button></div><button class="bt">${I('cal')}27 Oct – 25 Nov 2026${I('chevD')}</button>`;
+const csv=`<button class="bt">${I('download')}Export CSV</button>`;
+const hd=(tt,r='')=>`<div class="hd"><h1>${tt}</h1>${r}</div>`;
+const kpi=(l,v,x,sp,c='')=>`<div class="card kpi"><div class="l">${l}</div><div class="v ${c}">${v}</div>${x?`<div class="s">${x}</div>`:''}${sp?spark(sp):''}</div>`;
+const V={
+overview:()=>`${hd('Overview',range('30d')+csv)}
+<div class="kpis">${kpi('Shops','148','<b>+12</b> this month',ser(136,148))+kpi('Active today','117','79% of shops',ser(98,117,14,.15))+kpi('Bills today','3,942','<b>+8%</b> vs last Tue',ser(2900,3942,14,.12))+kpi('Sales today',L(pts[29]/10),`30 days ₹${(sum/100).toFixed(2)}Cr`,pts.slice(-14))}</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;flex:1;min-height:0">
+<div class="card ct"><h2>Daily sales, all shops <span class="legend"><span>Udhaar outstanding <b class="ud">₹18.7L</b></span><span>AI calls today <b>11,206</b></span></span></h2>${chart()}</div>
+<div class="card ct"><h2>Recent activity <button class="bt sm">View all</button></h2><div class="lst" style="margin-top:4px;overflow:hidden">${[['Sharma General Store','Bill ₹344 · UPI','now'],['Gupta Kirana','Bill ₹1,120 · Cash','1m'],['Devi Super Store','Shop created','8m'],['Bansal Stores','Udhaar ₹486','11m'],['Rajesh Kirana','PIN reset','34m']].map(([a,b,c])=>`<div><span style="min-width:0"><b style="display:block">${a}</b><span style="color:var(--ink2)">${b}</span></span><span style="color:var(--ink3)">${c}</span></div>`).join('')}</div></div></div>
+<div class="card" style="flex:none;overflow:hidden"><table><thead><tr><th>Top shops today</th><th>Area</th><th>Status</th><th class="n">Bills</th><th class="n">Sales</th></tr></thead><tbody>${[shops[9],...shops.slice(0,3)].map((r,i)=>`<tr class="${i==1?'hov':''}"><td><span class="av">${r[0]}</span><b>${r[1]}</b></td><td style="color:var(--ink2)">${r[2]}</td><td>${st(r[3])}</td><td class="n">${r[6]}</td><td class="n"><b>${r[5]}</b></td></tr>`).join('')}</tbody></table></div>`,
+shops:()=>`${hd('Shops<small>148</small>',`<button class="bt p">${I('plus')}New shop</button>`)}
+<div class="card" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden">
+<div class="tbar"><label class="in">${I('search')}Filter by name, area, code</label><button class="bt">${I('filter')}Status: All${I('chevD')}</button><button class="bt">City: All${I('chevD')}</button><span style="flex:1"></span>
+<div class="seg" aria-label="Row density"><button class="${D=='comfortable'?'on':''}">${I('rows')}Comfortable</button><button class="${D=='compact'?'on':''}">${I('rowsC')}Compact</button></div>${csv}</div>
+<div class="tw"><table class="${D=='compact'?'compact':''}"><thead><tr><th>Shop ↓</th><th>Area</th><th>Status</th><th>Last active</th><th class="n">Bills today</th><th class="n">Sales today</th><th class="n">Udhaar out</th><th></th></tr></thead><tbody>${shops.map((r,i)=>`<tr class="${i==9?'hov':''}"><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis"><span class="av">${r[0]}</span><b title="${r[1]}">${r[1]}</b></td><td style="color:var(--ink2)">${r[2]}</td><td>${st(r[3])}</td><td style="color:var(--ink2)">${r[4]}</td><td class="n">${r[6]}</td><td class="n"><b>${r[5]}</b></td><td class="n ${r[7]?'ud':''}" style="${r[7]?'':'color:var(--ink3)'}">${inr(r[7])}</td><td class="n" style="width:1%"><button class="bt sm" style="${i==9?'':'opacity:0'}">Open${I('chevR')}</button></td></tr>`).join('')}</tbody></table></div>
+<div class="tfoot"><span>Showing 1–16 of 148</span><span style="display:flex;gap:8px"><button class="bt sm">${I('chevL')}Prev</button><button class="bt sm">Next${I('chevR')}</button></span></div></div>`,
+shop:()=>`${hd('<span style="color:var(--ink3);font-weight:600">Shops /</span> Sharma General Store',`<button class="bt">${I('lock')}Reset PIN</button><button class="bt">${I('phone')}Call owner</button><button class="bt p">${I('edit')}Edit</button>`)}
+<div style="display:grid;grid-template-columns:340px minmax(0,1fr);gap:16px;flex:1;min-height:0">
+<div class="card ct" style="align-self:start"><div style="display:flex;gap:12px;align-items:center">${LOGO(48)}<div><b style="font-size:16px;line-height:24px">Sharma General Store</b><div>${st('Active')} <span style="color:var(--ink3)">· since 2 Sep 2026</span></div></div></div>
+<div class="lst" style="margin-top:12px">${[['Code','SGS-2041'],['Owner','Ramesh Sharma'],['Owner phone','+91 98110 42xxx'],['Staff phone','+91 98734 17xxx'],['UPI','sharmagen@okaxis'],['Area','Lajpat Nagar, Delhi'],['Language','Hinglish'],['Plan','Pilot · free']].map(([a,b])=>`<div><span style="color:var(--ink2)">${a}</span><b>${b}</b></div>`).join('')}</div></div>
+<div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr))">${kpi('Sales today','₹14,218','<b>+12%</b> vs yesterday',ser(9800,14218))+kpi('30-day sales','₹3.92L','avg ₹13.1k / day',ser(10,14,14,.2))+kpi('Udhaar out','₹38,560','27 customers',ser(31000,38560,14,.05),'ud')+kpi('AI calls 30d','2,914','97 / day',ser(80,97,14,.2))}</div>
+<div class="card" style="overflow:hidden"><div class="tbar" style="justify-content:space-between"><b style="font-size:16px;line-height:24px">Recent bills</b><span style="display:flex;gap:8px">${range('Today')}${csv}</span></div><table><thead><tr><th>Bill</th><th>Customer</th><th>Payment</th><th>Time</th><th class="n">Items</th><th class="n">Amount</th></tr></thead><tbody>${[['#1042','Sharma ji','UPI','10:42','4','₹344'],['#1041','Ravi Verma','Cash','10:31','7','₹1,120'],['#1040','Geeta Kaur','Udhaar','10:15','3','₹486'],['#1039','Walk-in','Cash','10:02','1','₹62'],['#1038','Mohd. Aslam','UPI','9:48','12','₹2,035'],['#1037','Pooja Singh','Cash','9:30','2','₹218']].map((r,i)=>`<tr class="${i==2?'hov':''}"><td><b>${r[0]}</b></td><td>${r[1]}</td><td class="${r[2]=='Udhaar'?'ud':''}" style="font-weight:600">${r[2]}</td><td style="color:var(--ink2)">${r[3]}</td><td class="n">${r[4]}</td><td class="n"><b>${r[5]}</b></td></tr>`).join('')}</tbody></table></div></div></div>`,
+requests:()=>`${hd('Requests',range('7d')+csv)}
+<div class="kpis">${kpi('Open requests','5','2 older than 2 days')+kpi('Bags requested','1,800','across 4 shops')+kpi('Shops waiting','4','oldest: 22 Nov')+kpi('Top demand','Parle-G 250g','asked by 92 shops')}</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start">
+<div class="card" style="overflow:hidden"><table><thead><tr><th>Shop</th><th>Request</th><th class="n">Qty</th><th>Raised</th><th>Status</th><th class="n" style="width:1%"></th></tr></thead><tbody>${[['SG','Sharma General Store','Bags (medium)','500','Today 9:10','New'],['GK','Gupta Kirana','Bags (small)','800','Yesterday','New'],['KB','Krishna Bhandar','Thermal printer','1','24 Nov','In progress'],['AN','Annapurna Mart','Bags (large)','300','23 Nov','New'],['BS','Bansal Stores','QR standee','2','22 Nov','Done']].map((r,i)=>`<tr class="${i==1?'hov':''}"><td><span class="av">${r[0]}</span><b>${r[1]}</b></td><td>${r[2]}</td><td class="n">${r[3]}</td><td style="color:var(--ink2)">${r[4]}</td><td>${st(r[5])}</td><td class="n"><button class="bt sm">${r[5]=='Done'?'View':'Mark done'}</button></td></tr>`).join('')}</tbody></table></div>
+<div class="card ct"><h2>Asked for, not in stock</h2><div style="margin-top:8px">${[['Parle-G 250g',92],['Amul Taaza 500ml',74],['Fortune Soya Oil 1L',58],['Surf Excel 1kg',41],['Tata Salt 1kg',33]].map(([n,v])=>`<div style="padding:8px 0"><div style="display:flex;justify-content:space-between"><b style="font-weight:600">${n}</b><span class="n" style="color:var(--ink2)">${v} shops</span></div><div class="meter"><div style="width:${v}%"></div></div></div>`).join('')}</div></div></div>`};
+document.getElementById('app').innerHTML=V[s]();
+const tw=document.querySelector('.tw');if(tw&&Q.get('scroll')){tw.scrollTop=+Q.get('scroll');tw.classList.add('scrolled')}
+if(tw)tw.addEventListener('scroll',()=>tw.classList.toggle('scrolled',tw.scrollTop>0));
+</script></body></html>

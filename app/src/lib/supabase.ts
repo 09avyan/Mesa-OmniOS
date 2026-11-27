@@ -1,12 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
+import { SUPABASE_KEY, SUPABASE_URL } from './config'
 
-export const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
-
-// Store logins are Supabase users with a derived email/password: code + 4-digit PIN.
-export const storeEmail = (code: string) => `${code.toLowerCase()}@store.omnios.app`
-export const storePassword = (code: string, pin: string) => `omni-${code.toLowerCase()}-${pin}`
-
-export async function logUsage(kind: string) {
-  const { data } = await supabase.rpc('my_store_id')
-  if (data) await supabase.from('usage_events').insert({ store_id: data, kind })
-}
+export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: { persistSession: true, autoRefreshToken: true, storageKey: 'omni-session' },
+})

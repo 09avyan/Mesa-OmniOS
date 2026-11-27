@@ -1,0 +1,1 @@
+-- forecast(): learning state (<14 sale days) + simple low stock; then days-left from last 14 days of real sales. Applied via MCP 23 Nov 2026 ("forecast_basic").
