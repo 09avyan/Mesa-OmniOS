@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
-import { createClient } from '@supabase/supabase-js'
 import { useT, rupees } from '../lib/i18n'
 import { supabase } from '../lib/supabase'
-import { SUPABASE_KEY, SUPABASE_URL } from '../lib/config'
 import { useStore } from '../lib/store'
 import { navigate } from '../lib/router'
 import { custLabel, invalidateShop } from '../lib/shop'
 import { errorFx, successFx } from '../lib/feedback'
 import { LoadError, Sheet, Tap, toast, TopBar } from '../components/ui'
-import { NumberSheet, ru } from '../components/Pad'
+import { NumberSheet } from '../components/Pad'
 import { Icon } from '../components/Icon'
 
 type Cust = { id: string; name: string; tag: string | null; phone: string | null; share_token: string; balance: number; last_at: string | null }
@@ -150,65 +148,5 @@ function AddPerson({ open, onClose }: { open: boolean; onClose: () => void }) {
         <Tap className="btn primary" disabled={f.name.trim().length < 2 || (needTag && !f.tag.trim())} onClick={save}><Icon name="tick" size={22} stroke={3} />{t('ok')}</Tap>
       </div>
     </Sheet>
-  )
-}
-
-// Public page the customer opens from the reminder: their balance and recent entries. No login.
-const pub = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false } })
-type Pub = { store: string; area: string | null; phone: string | null; upi: string | null; updated: string | null; customer: string; balance: number; entries: { amount: number; kind: string; at: string; bill: string | null }[] }
-const BT = {
-  hi: { hi: 'नमस्ते', due: 'उधार बाकी', clear: 'सब चुकता', hisaab: 'हिसाब', took: 'सामान लिया', paid: 'पैसे जमा किए', none: 'हिसाब नहीं मिला', upi: 'UPI से दें', note: 'UPI ऐप खुलेगा — भेजने से पहले रकम दिखेगी, आप चाहें तो कम भी दे सकते हैं।', shop: 'या दुकान पर नकद दे सकते हैं', call: 'दुकान को कॉल करें', after: 'बाकी', upd: 'अपडेट', see: 'बिल देखें' },
-  hinglish: { hi: 'Namaste', due: 'Udhaar baaki', clear: 'Sab chukta', hisaab: 'Hisaab', took: 'Saaman liya', paid: 'Paise jama kiye', none: 'Hisaab nahi mila', upi: 'UPI se dein', note: 'UPI app khulega — bhejne se pehle rakam dikhegi, chahein to kam bhi de sakte hain.', shop: 'Ya dukaan par cash de sakte hain', call: 'Dukaan ko call karein', after: 'Baaki', upd: 'Update', see: 'Bill dekhein' },
-  en: { hi: 'Hello', due: 'Balance due', clear: 'All paid', hisaab: 'Account', took: 'Bought items', paid: 'Paid', none: 'Account not found', upi: 'Pay by UPI', note: 'Your UPI app opens — you see the amount before sending and can pay less if you want.', shop: 'Or pay cash at the shop', call: 'Call the shop', after: 'Balance', upd: 'Updated', see: 'See bill' },
-}
-export function BalancePage({ token }: { token: string }) {
-  const [d, setD] = useState<Pub | null | undefined>(undefined)
-  const [bl, setBl] = useState<'hi' | 'hinglish' | 'en'>(() => { try { return (localStorage.getItem('omni-bill-lang') as 'hi') || 'hi' } catch { return 'hi' } })
-  const B = BT[bl] ?? BT.hi
-  useEffect(() => { pub.rpc('public_balance', { p_token: token }).then(({ data }) => setD((data as Pub) ?? null)) }, [token])
-  if (d === undefined) return <main className="bc-page kh"><div className="skel" style={{ width: '100%', maxWidth: 420, height: 300, borderRadius: 18 }} /></main>
-  if (!d) return <main className="bc-page kh"><h1 className="kh-store">{B.none}</h1></main>
-  const bal = Number(d.balance)
-  const fmtD = (iso: string) => {
-    const d = new Date(iso), h = d.getHours(), m = String(d.getMinutes()).padStart(2, '0')
-    const day = d.toLocaleDateString(bl === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short' })
-    const part = bl === 'en' ? (h < 12 ? 'am' : 'pm') : h < 12 ? (bl === 'hi' ? 'सुबह' : 'subah') : h < 17 ? (bl === 'hi' ? 'दोपहर' : 'dopahar') : (bl === 'hi' ? 'शाम' : 'shaam')
-    const hh = ((h + 11) % 12) + 1
-    return bl === 'en' ? `${day} · ${hh}:${m} ${part}` : `${day} · ${part} ${hh}:${m}`
-  }
-  let run = bal
-  const rows = d.entries.map((e) => { const r = { ...e, after: run }; run -= Number(e.amount); return r })
-  return (
-    <main className="bc-page kh">
-      <div className="bc-langs">{(['hi', 'hinglish', 'en'] as const).map((l) => <button key={l} className={bl === l ? 'on' : ''} onClick={() => { setBl(l); try { localStorage.setItem('omni-bill-lang', l) } catch { /* ignore */ } }}>{l === 'hi' ? 'हिंदी' : l === 'en' ? 'English' : 'Hinglish'}</button>)}</div>
-      <article className="kh-wrap">
-        <header>
-          <h1 className="kh-store">{d.store}</h1>
-          {d.area && <div className="kh-area">{d.area}</div>}
-        </header>
-        <section className="kh-hero">
-          <div className="kh-hi">{B.hi} {d.customer}</div>
-          <div className="kh-bal">
-            <span className={bal > 0 ? 'ud' : ''}>{bal > 0 ? B.due : B.clear}</span>
-            <b className={bal > 0 ? 'ud' : ''}>{ru(Math.abs(bal))}</b>
-          </div>
-          {d.updated && <div className="kh-upd">{B.upd}: {fmtD(d.updated)}</div>}
-        </section>
-        <div className="kh-acts">
-          {bal > 0 && d.upi && <a className="tap btn primary" href={`upi://pay?pa=${encodeURIComponent(d.upi)}&pn=${encodeURIComponent(d.store)}&am=${bal.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Udhaar ' + d.customer)}`}>{B.upi} · {rupees(bal)}</a>}
-          {d.phone && <a className="tap btn outline" href={'tel:' + d.phone}><Icon name="phone" size={22} />{B.call}</a>}
-        </div>
-        <section>
-          <h2 className="kh-sec">{B.hisaab}</h2>
-          {rows.map((e, i) => {
-            const took = Number(e.amount) > 0
-            const inner = <><div className="g"><b>{took ? B.took : B.paid}</b><small>{fmtD(e.at)}</small><small>{B.after} {rupees(e.after)}</small></div>
-              <div className={`kh-amt ${took ? 'ud' : ''}`}>{took ? '+' : '−'} {rupees(Math.abs(Number(e.amount)))}{e.bill && <Icon name="chev" size={20} />}</div></>
-            return e.bill ? <a key={i} className="kh-row tap" href={'/b/' + e.bill} aria-label={B.see}>{inner}</a> : <div key={i} className="kh-row">{inner}</div>
-          })}
-        </section>
-        <div className="kh-brand">OmniOS Dukaan</div>
-      </article>
-    </main>
   )
 }
