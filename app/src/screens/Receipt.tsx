@@ -203,3 +203,29 @@ export function Suppliers() {
     </main>
   )
 }
+
+type Rcpt = { id: number; amount: number; lines: number | null; note: string | null; created_at: string; suppliers: { name: string } | null }
+/** Every scanned / saved supplier receipt, newest first. */
+export function AllReceipts() {
+  const { t } = useT()
+  const [list, setList] = useState<Rcpt[] | null>(null)
+  const [failed, setFailed] = useState(false)
+  const load = () => { setFailed(false); supabase.from('supplier_entries').select('id,amount,lines,note,created_at,suppliers(name)').eq('kind', 'receipt').order('created_at', { ascending: false }).limit(200)
+    .then(({ data, error }) => { if (error) setFailed(true); else setList(((data ?? []) as unknown as Rcpt[]).map((r) => ({ ...r, amount: +r.amount }))) }, () => setFailed(true)) }
+  useEffect(() => { load() }, [])
+  return (
+    <main className="screen v2 has-bar">
+      <TopBar back="/settings" title={t('rowReceipts')} />
+      {failed ? <LoadError onRetry={() => { setList(null); load() }} /> : !list ? <div className="vc">{[0, 1, 2].map((k) => <div key={k} className="vrow"><i className="vsk" style={{ width: 150, height: 22 }} /></div>)}</div>
+        : !list.length ? <div className="vempty"><h2>{t('rcNone')}</h2></div> : (
+        <div className="vc">{list.map((r) => (
+          <div key={r.id} className="vrow">
+            <span className="t"><b>{r.suppliers?.name ?? t('rcNoSup')}</b><span>{new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}{r.lines ? ` · ${r.lines} ${t('rcItems')}` : ''}</span></span>
+            <span className="a">{rupees(r.amount)}</span>
+          </div>
+        ))}</div>
+      )}
+      <Tap className="btn outline" style={{ marginTop: 16 }} onClick={() => navigate('/receipt')}><Icon name="camera" size={24} />{t('rcTitle')}</Tap>
+    </main>
+  )
+}

@@ -38,6 +38,7 @@ export function Settings() {
         </div>
         <div className="vc">
           <R icon="lock" label={t('phones')} onClick={() => setPhonesOpen(true)} />
+          <R icon="doc" label={t('rowReceipts')} onClick={() => navigate('/receipts')} />
           <R icon="bag" label={t('rowBags')} onClick={() => navigate('/bags')} />
           <R icon="tools" label={t('rowSoon')} onClick={() => navigate('/soon')} />
           <R icon="doc" label={t('terms')} onClick={() => navigate('/terms')} />

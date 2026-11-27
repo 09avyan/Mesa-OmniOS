@@ -20,7 +20,7 @@ const BillPage = lazy(() => import('./screens/BillPage').then((m) => ({ default:
 import { Hisaab, Galla } from './screens/Hisaab'
 import { Bags, Terms, Soon } from './screens/Extras'
 import { Poochho } from './screens/Poochho'
-import { Receipt, Suppliers } from './screens/Receipt'
+import { Receipt, Suppliers, AllReceipts } from './screens/Receipt'
 import { StockCheck } from './screens/Briefing'
 import { supabase } from './lib/supabase'
 
@@ -65,6 +65,7 @@ function Owner({ path }: { path: string }) {
     case '/dukaan': screen = <MyStore />; break
     case '/bags': screen = <Bags />; break
     case '/soon': screen = <Soon />; break
+    case '/receipts': screen = <AllReceipts />; break
     case '/suppliers': screen = <Suppliers />; break
     case '/check': screen = <StockCheck />; break
     case '/terms': screen = <Terms />; break
