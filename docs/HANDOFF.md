@@ -19,6 +19,12 @@
 8. Repo renamed to `09avyan/OmniOS` (owner authorised it in the session).
 9. Sarvam STT: optional one-off comparison only; free browser STT stays default.
 
+## Owner's open asks (28 Nov) — do these first
+1. **Voice speed + accuracy (critical).** Owner reports: recognition is slow and sometimes wrong; after saying/tapping "nahi" the item changed, then re-recognised and changed again. Done so far: spoken "nahi X" now replaces the rejected line (`voice/correction.ts`), edited lines are `locked`, "haan/sahi" confirms all rows, AI (Gemini) call only when rules find nothing (2.5 s cap), end-of-speech 4 s → 2.6 s, Universe joins the index in the background (`uniReady`, 1.2 s max wait). **Not yet verified on a real phone.** Next: (a) log each voice turn (heard text, chosen item, edits) to `usage_events` to find the real failure; (b) show the live parse while listening and let "Haan"/"Nahi" be said per item; (c) cut matcher/index memory (144 MB, 1.7 s desktop) so a 2 GB iPhone 6s stays fast; (d) fewer taps: auto-confirm rows when the top match is exact.
+2. **Reduce friction everywhere**: fewer confirmations, bigger one-tap defaults, Ghar button after receipt save, remember last pay mode per customer (never pre-select money — owner rule).
+3. **Minor**: login-alerts card in admin (`recent_login_alerts()` exists), move old styles (`df7-pages.css`, NumberSheet) to v2, Home's Briefing/QR/Yaad rows were removed in v2 — ask owner if wanted back, store call button needs `phone` in `store_public`, receipt photos are not stored (text items only), confirm flavour learning on undo.
+4. Admin Usage page was restored (owner: "undo the section removals").
+
 ## Rules to keep (CLAUDE.md)
 Owner cannot read code → plain-words reports. Never delete data. Mock data only in TEST store (code TEST, PIN 000000). Push to `main` (auto-deploys Vercel). Text ≥18px, buttons ≥56px, udhaar never red, nothing pre-selected for money, ink = actions / teal = voice / amber-brown = udhaar.
 
