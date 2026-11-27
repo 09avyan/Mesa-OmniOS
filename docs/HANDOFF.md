@@ -4,7 +4,7 @@
 - **Backend (Supabase msqmuvqhbxyrhogbhtta):** migrations 0001–0018 applied. Edge functions: `login` v3 (6-digit PIN, per-device lockout, shop lock), `admin` v7 (reports, bags, CSV, requests), `understand` (Gemini, receipt photos + fallback only). Docs: `docs/backend.md`.
 - **App (app/):** v2 look + logo A on every screen: merchant (Login, Home, Voice/billing, Bills, Udhaar, Maal, Hisaab, Orders, Receipt, Settings, Bag shop…), customer (e-bill `/b/`, khata `/k/`, store `/s/`, order `/o/`), admin `/admin` (light+dark, toggle). Ghar button ends every flow. Offline bill queue, idempotent save, 30-min undo, retry/LoadError everywhere.
 - **Poochho** (`/poochho`): rules-first assistant, no Gemini. `src/lib/assistant.ts` (parse + plan, 23 tests) → `ask_*` SQL functions → `src/screens/Poochho.tsx`. Add a question type = add a RULE + a `plan` case + a `format` case.
-- **Universe v12:** 5,500 items / 11,538 variants (`supabase/seed/universe.json` → packed `app/public/universe/`).
+- **Universe v12:** 5,750 items / 11,538 variants (`supabase/seed/universe.json` → packed `app/public/universe/`).
 - **Own-brand bags:** 3 products (compostable ₹199/100, paper ₹249/50, cloth ₹199/10). **Costs in `bag_products.cost` are assumptions — verify with suppliers and edit in Admin → Bags.**
 - Repo cleaned: old design versions removed (history keeps them); kept `design/v2`, `design/app-v2`, `design/logo`, `design/refs`.
 

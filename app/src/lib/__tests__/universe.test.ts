@@ -17,9 +17,9 @@ beforeAll(async () => {
 })
 
 describe('universe data', () => {
-  it('has exactly 5500 distinct top-level items; variants are not counted', () => {
-    expect(src.items).toHaveLength(5500)
-    expect(new Set(src.items.map((i) => i.id)).size).toBe(5500)
+  it('has exactly 5750 distinct top-level items; variants are not counted', () => {
+    expect(src.items).toHaveLength(5750)
+    expect(new Set(src.items.map((i) => i.id)).size).toBe(5750)
     expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(11000)
   })
   it('no two variants of one item share a name', () => {
@@ -204,10 +204,10 @@ describe('universe data', () => {
       expect(matchName(said, idx)[0].id, said).toBe('u:' + id)
     }
   })
-  it('the 500 new v12 items (5001-5500) are clean: real products, one default, Devanagari, 2-4 mis-heard spellings, no duplicates, no clashes', () => {
+  it('the 750 new v12+v13 items (5001-5750) are clean: real products, one default, Devanagari, 2-4 mis-heard spellings, no duplicates, no clashes', () => {
     const fresh = src.items.slice(5000)
-    expect(fresh).toHaveLength(500)
-    expect(new Set(fresh.map((i) => i.id)).size).toBe(500)
+    expect(fresh).toHaveLength(750)
+    expect(new Set(fresh.map((i) => i.id)).size).toBe(750)
     expect(fresh.filter((i) => i.variants).length).toBeGreaterThan(450)
     expect(fresh.filter((i) => i.loose).length).toBeGreaterThan(50)
     expect(new Set(fresh.map((i) => i.category)).size).toBeGreaterThanOrEqual(12)
@@ -363,8 +363,8 @@ describe('packed universe file', () => {
   // the file leaves out aliases that read the same as the item's own names (see dedupe in scripts/build-universe.mjs)
   const keep = (names: string[], aliases: string[]) => { const seen = new Set(names.map(norm)); return aliases.filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true }) }
   it('is the version-12 format, small, and says how many items it holds', () => {
-    expect(pointer.v).toBe(12); expect(file.v).toBe(12); expect(file.p).toBe(2)
-    expect(pointer.items).toBe(5500); expect(file.i).toHaveLength(5500)
+    expect(pointer.v).toBe(13); expect(file.v).toBe(13); expect(file.p).toBe(2)
+    expect(pointer.items).toBe(5750); expect(file.i).toHaveLength(5750)
     expect(pointer.variants).toBe(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0))
     // phones download it once: stay well under the old format (290 KB gzipped at 5,000 items); budget 220 KB at 5,500
     expect(gzipSync(raw).length).toBeLessThan(220 * 1024)
@@ -407,7 +407,7 @@ describe('start-up (warmUniverse)', () => {
       const first = await import('../universe')
       await new Promise<void>((done) => first.warmUniverse(done))
       expect(calls).toHaveLength(2); expect(calls[0]).toBe('/universe/u.json')
-      expect(store.has('omni-universe-v12')).toBe(true); expect(store.has('omni-universe-v11')).toBe(false); expect(store.get('other-key')).toBe('kept')
+      expect(store.has('omni-universe-v13')).toBe(true); expect(store.has('omni-universe-v11')).toBe(false); expect(store.get('other-key')).toBe('kept')
       expect(first.findInUniverse('maida').length).toBeGreaterThan(0)
       // phone restarts: fresh module, same saved copy
       calls.length = 0; vi.resetModules()
