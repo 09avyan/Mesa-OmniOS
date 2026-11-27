@@ -48,6 +48,14 @@ export function qtyFor(p: ParsedItem, m: ShopMatchable | null, price: number | n
   return p.qty
 }
 
+/** Tie-break by this shop's own history: the top guess is something the shop has sold before and the runner-up is not -> no question. */
+function soldBefore(match: ShopMatchable | null, cands: ShopMatchable[], shop: Shop): boolean {
+  if (!match || cands.length < 2) return false
+  const sold = new Set(Object.values(shop.flavour).flat())
+  const fam = (m: ShopMatchable) => m.family ?? m.id
+  return sold.has(match.id) && cands.slice(1, 3).every((c) => fam(c) === fam(match) || !sold.has(c.id))
+}
+
 export function lineFrom(p: ParsedItem, shop: Shop): Line {
   const candidates = toMatchables(p.candidates, shop)
   // several flavours/sizes of one product: pick this shop's favourite (else the Universe default) without asking; "badlo" stays one tap away
@@ -57,7 +65,7 @@ export function lineFrom(p: ParsedItem, shop: Shop): Line {
   // "50 rupaye ka dhaniya": with a shop price the qty follows from it; without one the line IS the amount (1 x Rs 50)
   const amountLine = p.rupees != null && price == null
   return {
-    key: 'l' + ++n, said: p.said, match, candidates, sure: p.sure && !!match,
+    key: 'l' + ++n, said: p.said, match, candidates, sure: (p.sure || ((p.candidates[0]?.score ?? 0) >= 0.8 && soldBefore(match, candidates, shop))) && !!match,
     qty: amountLine ? 1 : qtyFor(p, match, price), price: amountLine ? p.rupees : price, priceSure: amountLine ? true : priceSure, flavour,
     ...(amountLine ? { rupees: p.rupees! } : {}),
   }
