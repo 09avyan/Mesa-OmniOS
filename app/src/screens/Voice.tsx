@@ -65,7 +65,7 @@ export function Voice() {
     if (!append) setStage('listen')
     stopRef.current = listen({
       lang: lang === 'en' ? 'en-IN' : 'hi-IN',
-      silenceMs: 2600, // short pauses between items are fine; the Ho gaya button ends it at once
+      silenceMs: 2000, // short pauses between items are fine; the Ho gaya button ends it at once
       onWords: setWords,
       onDone: (text, alts) => { setListening(false); understand(text, append, alts) },
       onError: (e) => { setListening(false); setErr(e); if (e === 'no-speech' || e === 'other' || e === 'network') errorFx() },
@@ -298,6 +298,8 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
     }
     successFx(); invalidateShop()
     // flavour engine learns what this shop really sold (kept on this phone, and by the server through save_bill)
+    // what was heard vs what was saved (and which rows the owner had to fix): shows where recognition really fails
+    if (store) supabase.from('usage_events').insert({ store_id: store.id, kind: 'voice_save', meta: { heard: draft.heard, lines: draft.lines.map((l) => ({ said: l.said, id: l.match?.id ?? null, fixed: !!l.locked })) } }).then(() => {})
     if (isBill && shop) shop.flavour = recordSales(shop.flavour, draft.lines.filter((l) => l.match).map((l) => ({ family: l.match!.family, id: l.match!.id })), shop.shopKey)
     if (isBill) {
       const r = res.data as { bill_id: string; share_token: string; total: number; balance: number | null; has_unrecorded: boolean }

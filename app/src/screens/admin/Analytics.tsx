@@ -9,7 +9,7 @@ type An = {
   top_items: { name: string; qty: N; amount: N; shops: N }[]
 }
 const n = (v: unknown) => Number(v) || 0
-const KIND: Record<string, string> = { open: 'App opens', receipt: 'Receipts scanned', bill: 'Bills made', voice: 'Voice bills', share: 'Bills shared', udhaar: 'Udhaar entries', stock: 'Stock changes', order: 'Bag orders', ai: 'AI calls' }
+const KIND: Record<string, string> = { open: 'App opens', receipt: 'Receipts scanned', bill: 'Bills made', voice: 'Voice bills', voice_save: 'Voice bills saved', share: 'Bills shared', udhaar: 'Udhaar entries', stock: 'Stock changes', order: 'Bag orders', ai: 'AI calls' }
 const STEPS: [string, string][] = [['shops', 'Shops'], ['with_bill', 'Made a bill'], ['with_10_bills', '10+ bills'], ['with_udhaar', 'Used udhaar'], ['with_stock', 'Added stock'], ['with_receipt', 'Scanned a receipt']]
 const PAY: [string, string, string][] = [['cash', 'Cash', 'var(--ink)'], ['upi', 'UPI', 'var(--ink3)'], ['udhaar', 'Udhaar', 'var(--ud,#8A5000)']]
 
