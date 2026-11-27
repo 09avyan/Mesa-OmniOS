@@ -47,3 +47,4 @@
 - App v2 core (Login/Home/Voice/Bills/Settings), Universe v12 (5,500 items), offline queue, 30-min undo.
 - Next: Wave 2 (other merchant pages, customer store, admin dashboard + dark, /poochho, repo cleanup, HANDOFF).
 - 27 Nov (later): Wave 2 done by helpers — merchant pages, customer pages (Cx.tsx, Balance.tsx), admin (screens/admin/*, dark mode); Poochho built; old design versions removed; HANDOFF.md written.
+- 27 Nov (night): iOS15 fix (regex lookbehind removed, safari13 target), device_key (one row per phone), receipt items + All receipts, longer Terms (14 sections), bag margins (compostable ₹229/170, paper ₹249/160, cloth ₹149/90), lazy screens + cached shop, admin Analytics (admin v8 + 0020), migrations 0019/0020 + receipt_items applied.
