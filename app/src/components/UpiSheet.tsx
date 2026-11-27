@@ -11,7 +11,7 @@ export function UpiQr({ upi, name, amount }: { upi: string; name: string; amount
     const uri = `upi://pay?pa=${encodeURIComponent(upi)}&pn=${encodeURIComponent(name)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Bill ' + name)}`
     QRCode.toDataURL(uri, { width: 640, margin: 1 }).then(setImg)
   }, [upi, name, amount])
-  return <div className="qrc">{img ? <img src={img} alt="UPI QR" /> : <div style={{ width: 280, height: 280 }} />}</div>
+  return <div className="vqr">{img && <img src={img} alt="UPI QR" />}</div>
 }
 
 // UPI payment QR with the amount already filled in. Customer scans with any UPI app (PhonePe, GPay, Paytm).

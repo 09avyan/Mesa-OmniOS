@@ -22,12 +22,43 @@ export function BackBar({ fallback = '/', right }: { fallback?: string; right?: 
   )
 }
 
+/** v2 top bar: back icon (optional), title, right-side icon buttons. */
+export function TopBar({ title, back, onBack, right, left, icon = 'back' }: { title?: ReactNode; back?: string | false; onBack?: () => void; right?: ReactNode; left?: ReactNode; icon?: string }) {
+  const { t } = useT()
+  return (
+    <div className={`vtop ${back !== undefined && back !== false || onBack ? 'bk' : ''}`}>
+      {(onBack || (back !== undefined && back !== false)) && <Tap className="ib" aria-label={t('back')} onClick={onBack ?? (() => goBack(back as string))}><Icon name={icon} size={24} /></Tap>}
+      {left}
+      <h1>{title}</h1>
+      {right}
+    </div>
+  )
+}
+
+/** "Ghar" button (icon + word): the way home at the end of every flow. */
+export function HomeBtn({ className = 'outline s', onDone }: { className?: string; onDone?: () => void }) {
+  const { t } = useT()
+  return <Tap className={`btn ${className}`} onClick={() => { onDone?.(); navigate('/', true) }}><Icon name="home" size={22} />{t('goHome')}</Tap>
+}
+
+/** A load that failed: plain words + retry, instead of an endless skeleton. Use wherever data is fetched. */
+export function LoadError({ onRetry }: { onRetry: () => void }) {
+  const { t } = useT()
+  return (
+    <div className="vload" role="alert">
+      <Icon name="cloudOff" size={40} />
+      <h2>{t('netDown')}</h2>
+      <Tap className="btn primary" onClick={onRetry}><Icon name="undo" size={22} />{t('retry')}</Tap>
+    </div>
+  )
+}
+
 type TabId = 'home' | 'bill' | 'maal' | 'udhaar'
 const TABS: { id: TabId; icon: string; key: 'tabHome' | 'tabBill' | 'tabMaal' | 'tabUdhaar'; path: string; color?: string }[] = [
   { id: 'home', icon: 'home', key: 'tabHome', path: '/' },
-  { id: 'bill', icon: 'bill', key: 'tabBill', path: '/bill', color: 'var(--ac)' },
-  { id: 'maal', icon: 'box', key: 'tabMaal', path: '/maal', color: 'var(--c-maal)' },
-  { id: 'udhaar', icon: 'book', key: 'tabUdhaar', path: '/udhaar', color: 'var(--c-udh)' },
+  { id: 'bill', icon: 'receipt', key: 'tabBill', path: '/bill' },
+  { id: 'udhaar', icon: 'book', key: 'tabUdhaar', path: '/udhaar' },
+  { id: 'maal', icon: 'box', key: 'tabMaal', path: '/maal' },
 ]
 
 // Bottom of every main screen: the one teal Bolo bar (same place everywhere) over four tabs.
@@ -44,7 +75,7 @@ export function BottomBar({ active, flow = false, micLabel, listening = false, o
   return (
     <>
       <Tap className={`bolo ${listening ? 'listening' : ''}`} onClick={onMic} aria-label={micLabel ?? t('mic')}>
-        <b>{micLabel ?? t('mic')}</b><span>{t('sayExample')}</span><i><Icon name="mic" size={26} /></i>
+        <b>{micLabel ?? t('mic')}</b><span>{t('boloSub')}</span><i><Icon name="mic" size={26} /></i>
       </Tap>
       <nav className="band" aria-label="tabs">{TABS.map(tab)}</nav>
     </>

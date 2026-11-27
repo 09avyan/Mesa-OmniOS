@@ -4,7 +4,7 @@ import { useStore } from '../lib/store'
 import { supabase } from '../lib/supabase'
 import { pickBest } from '../voice/pickBest'
 import { listen, speak, speechSupported, type ListenError } from '../lib/speech'
-import { speakOn, speakRate } from '../lib/prefs'
+import { canUndo, speakOn, speakRate } from '../lib/prefs'
 import { custLabel, invalidateShop, loadShop, type Customer, type Shop, type ShopMatchable } from '../lib/shop'
 import { parse, parseItems } from '../voice/parse'
 import { tokenize } from '../voice/normalize'
@@ -13,14 +13,15 @@ import { billLinePayload, buildDraft, draftTotal, lineFrom, lineTotal, linesRead
 import { chooseFlavour, recordSales } from '../voice/flavour'
 import { goBack, navigate } from '../lib/router'
 import { errorFx, successFx } from '../lib/feedback'
-import { askText, BackBar, FlowBar, Sheet, Tap, toast, type MicProps } from '../components/ui'
+import { askText, FlowBar, HomeBtn, LoadError, Sheet, Tap, toast, TopBar, type MicProps } from '../components/ui'
+import { enqueueBill, isOffline, newClientKey } from '../lib/offlineQueue'
 import { NumberSheet } from '../components/Pad'
 import { Icon } from '../components/Icon'
 import { billMessage } from '../components/BillCard'
 import { UpiQr } from '../components/UpiSheet'
 
 type Stage = 'listen' | 'review' | 'done'
-type Saved = { kind: 'bill'; billId: string; token: string; total: number; discount: number; phone?: string; fromOrder?: boolean; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
+type Saved = { kind: 'bill'; billId: string; token: string; queued?: boolean; savedAt: number; total: number; discount: number; phone?: string; fromOrder?: boolean; customer: string | null; pay: string; balance: number | null; unrecorded: boolean; lines: Line[] }
   | { kind: 'stock'; lines: Line[] } | { kind: 'payment'; customer: string; amount: number; balance: number }
 
 const unitLabel = (u?: string) => ({ kg: 'kg', g: 'g', l: 'L', ml: 'ml', pc: '', pack: 'pkt' } as Record<string, string>)[u ?? ''] ?? ''
@@ -46,12 +47,14 @@ export function Voice() {
   const [draft, setDraft] = useState<Draft | null>(null)
   const [saved, setSaved] = useState<Saved | null>(null)
   const [appendMode, setAppendMode] = useState(false)
+  const [shopErr, setShopErr] = useState(false)
   const stopRef = useRef<{ stop(): void } | null>(null)
   const startRef = useRef<(append: boolean) => void>(() => {})
   const draftRef = useRef<Draft | null>(null)
   draftRef.current = draft
 
-  useEffect(() => { loadShop().then(setShop) }, [])
+  const fetchShop = () => { setShopErr(false); invalidateShop(); loadShop().then(setShop, () => setShopErr(true)) }
+  useEffect(fetchShop, [])
 
   function start(append = false) {
     setErr(null); setWords(''); setAppendMode(append)
@@ -130,33 +133,34 @@ export function Voice() {
 
   const fix = (line: Line) => (patch: Partial<Line>) => draft && setDraft({ ...draft, lines: draft.lines.map((l) => l.key === line.key ? { ...l, ...patch } : l) })
 
+  if (shopErr && !shop) return <div className="app"><main className="screen v2"><TopBar back="/" /><LoadError onRetry={fetchShop} /></main></div>
+
   // ---------- LISTEN ----------
   if (stage === 'listen') {
     const msg = err === 'denied' ? t('micDenied') : err === 'unsupported' ? t('noMicSupport') : err === 'network' ? t('offline') : err ? t('noSpeech') : null
     const live = listening && shop && words ? parse(words, shop.index, shop.customers.map((c) => c.name)) : null
-    const sofar = live ? live.items.reduce((a, i) => { const m = i.candidates[0]?.item as ShopMatchable | undefined; const pr = m?.shop?.price ?? m?.shop?.learned_price ?? m?.lastPrice ?? 0; return a + pr * (i.qty ?? 1) }, 0) : 0
     return (
       <div className="app">
-        <main className="screen has-flow">
-          <BackBar right={listening ? <span className="stat"><span><i />{t('micSpeaking')}</span></span> : undefined} />
-          {!listening && <h1 className="h1" style={{ marginTop: 8 }}>{msg ? t('notUnderstood') : t('listenTitle')}</h1>}
-          <p className="live" aria-live="polite">{words || (listening ? '' : '')}{listening && <i className="caret" />}</p>
-          {live && <LivePreview p={live} />}
-          {msg && <><div className="gap16" /><div className="err" role="alert">{msg}</div></>}
+        <main className="screen v2 has-flow">
+          <TopBar icon="x" back="/" title={listening ? t('billBanRaha') : msg ? t('notUnderstood') : t('listenTitle')} />
+          {listening && <div className="vlisten"><i />{t('sunRaha')}</div>}
+          <p className="vsaid" aria-live="polite">{words}{listening && <i className="caret" />}</p>
+          {live && shop && <LivePreview p={live} shop={shop} />}
+          {msg && <><div className="err" role="alert">{msg}</div><div className="gap16" /><HomeBtn /></>}
           {!listening && <TypeBox value={typed} onChange={setTyped} onGo={() => typed.trim() && understand(typed.trim(), false)} />}
         </main>
-        <FlowBar mic={{ listening, micLabel: listening ? t('micSpeaking') : t('mic'), onMic: () => listening ? stopRef.current?.stop() : start(false) }}>
-          {listening
-            ? <><div className="sum">{sofar > 0 && <><small>{t('abTak')}</small><b>{rupees(sofar)}</b></>}</div><Tap className="btn primary" onClick={() => stopRef.current?.stop()}><Icon name="tick" size={22} stroke={3} />{t('hoGaya')}</Tap></>
-            : msg ? <Tap className="btn primary wide" onClick={() => start(false)}>{t('listenAgain')}</Tap> : <div className="sum" />}
-        </FlowBar>
+        {listening
+          ? <div className="vfoot vlfoot"><div className="vwave" aria-hidden="true">{[12, 28, 40, 20, 48, 32, 16, 44, 24, 36, 16, 28].map((h, i) => <i key={i} style={{ maxHeight: h }} />)}</div>
+              <Tap className="btn vo" onClick={() => stopRef.current?.stop()}><Icon name="tick" size={22} stroke={2.6} />{t('hoGaya')}</Tap></div>
+          : <FlowBar mic={{ listening, micLabel: t('mic'), onMic: () => start(false) }}>{msg ? <Tap className="btn primary wide" onClick={() => start(false)}>{t('listenAgain')}</Tap> : <div className="sum" />}</FlowBar>}
       </div>
     )
   }
 
   // ---------- DONE ----------
   if (stage === 'done' && saved) return <SavedView saved={saved} onUndo={async () => {
-    if (saved.kind !== 'bill') return
+    if (saved.kind !== 'bill' || !saved.billId) return
+    if (!canUndo(saved.savedAt)) { toast({ text: t('undoGone') }); return }
     const { error } = await supabase.rpc('undo_bill', { p_bill: saved.billId })
     if (error) { errorFx(); toast({ text: t('saveFailed') }); return }
     invalidateShop(); toast({ text: saved.fromOrder ? t('orderBackReady') : t('billRemoved') }); navigate(saved.fromOrder ? '/orders' : '/', true)
@@ -170,16 +174,15 @@ export function Voice() {
   if (draft.intent === 'galla') return <GallaView amount={draft.amount} mic={mic} />
   if (draft.intent === 'unknown' || (draft.intent !== 'payment' && draft.intent !== 'bill' && draft.lines.length === 0)) return (
     <div className="app">
-      <main className="screen has-flow">
-        <BackBar />
-        <h1 className="h1">{t('notUnderstood')}</h1>
-        <p className="lab" style={{ marginTop: 4 }}>{t('heard')}: "{draft.heard}"</p>
-        <div className="gap24" />
-        <p>{t('notUnderstoodBody')}</p>
-        <div className="card" style={{ marginTop: 8, lineHeight: '30px' }}>
+      <main className="screen v2 has-flow">
+        <TopBar title={t('notUnderstood')} back="/" />
+        <p className="vlab">{t('heard')}: "{draft.heard}"</p>
+        <p style={{ marginTop: 16 }}>{t('notUnderstoodBody')}</p>
+        <div className="vc" style={{ marginTop: 8, padding: 16, lineHeight: '30px' }}>
           <b>"Sharma ji, 2 kilo cheeni"</b><br /><b>"Maal aaya, 10 Aashirvaad atta"</b><br /><b>"Gupta ji ne 500 diye"</b><br /><b>"Cheeni kitni bachi?"</b>
         </div>
         <TypeBox value={typed} onChange={setTyped} onGo={() => typed.trim() && understand(typed.trim(), false)} />
+        <div className="gap16" /><HomeBtn />
       </main>
       <FlowBar mic={{ listening, micLabel: listening ? t('micSpeaking') : t('mic'), onMic: () => start(false) }}><Tap className="btn primary wide" onClick={() => start(false)}>{t('listenAgain')}</Tap></FlowBar>
     </div>
@@ -200,23 +203,22 @@ export function Voice() {
   )
 }
 
-// While speaking: the bill forms line by line, so the owner can keep going.
-function LivePreview({ p }: { p: ReturnType<typeof parse> }) {
-  const { lang } = useT()
+// While speaking: the bill forms line by line, with the same unit-aware totals as the Check screen.
+function LivePreview({ p, shop }: { p: ReturnType<typeof parse>; shop: Shop }) {
+  const { lang, t } = useT()
   if (!p.customer && p.items.length === 0) return null
+  const lines = p.items.map((i) => ({ i, l: lineFrom({ ...i, qty: i.qty ?? 1 }, shop) }))
+  const sofar = lines.reduce((a, { l }) => a + lineTotal(l), 0)
   return (
-    <div className="lbill">
-      {p.customer && <div className="lrow2"><b>{p.customer}</b></div>}
-      {p.items.map((i, k) => {
-        const m = i.candidates[0]?.item as ShopMatchable | undefined
-        const pr = m?.shop?.price ?? m?.shop?.learned_price ?? m?.lastPrice
-        return (
-          <div key={k} className="lrow2">
-            <span><b>{m ? itemLabel(m, lang) : `"${i.said}"`}</b><em>{i.qty ?? ''} {i.unit ?? ''}</em></span>
-            {pr != null && <span className="num">{rupees(pr * (i.qty ?? 1))}</span>}
-          </div>
-        )
-      })}
+    <div className="vc">
+      {p.customer && <div className="vrow" style={{ minHeight: 56 }}><span className="t"><b>{p.customer}</b></span></div>}
+      {lines.map(({ i, l }, k) => (
+        <div key={k} className="vrow">
+          <span className="t"><b>{l.match ? itemLabel(l.match, lang) : `"${i.said}"`}</b><span>{l.match ? `${fmtQty(l.qty, l.match.shop?.unit ?? l.match.unit)}${l.price != null ? ` × ₹${+l.price.toFixed(2)}` : ''}` : t('whatIsThis')}</span></span>
+          {l.price != null && <span className="a">{rupees(lineTotal(l))}</span>}
+        </div>
+      ))}
+      {sofar > 0 && <div className="vrow" style={{ minHeight: 56 }}><span className="t"><b>{t('abTak')}</b></span><span className="a vfig" style={{ fontSize: 24 }}>{rupees(sofar)}</span></div>}
     </div>
   )
 }
@@ -225,7 +227,7 @@ function TypeBox({ value, onChange, onGo }: { value: string; onChange: (v: strin
   const { t } = useT()
   return (
     <div className="field" style={{ marginTop: 28 }}>
-      <label htmlFor="typed">{t('typeInstead')}</label>
+      <label htmlFor="typed" className="vlab">{t('typeInstead')}</label>
       <div style={{ display: 'flex', gap: 10 }}>
         <input id="typed" className="input" value={value} placeholder={t('typeHint')} onChange={(e) => onChange(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && onGo()} />
         <Tap className="btn primary small" style={{ minWidth: 72 }} disabled={!value.trim()} onClick={onGo}>{t('next')}</Tap>
@@ -239,14 +241,15 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   draft: Draft; setDraft: (d: Draft) => void; shop: Shop; isBill: boolean; ready: boolean; total: number; udhaarBlocked: boolean
   fix: (l: Line) => (p: Partial<Line>) => void; mic: MicProps; listening: boolean; words: string; onSaved: (s: Saved) => void
 }) {
-  const { t, lang } = useT()
+  const { t } = useT()
   const [pick, setPick] = useState<Line | null>(null)
   const [pad, setPad] = useState<{ line: Line; field: 'qty' | 'price' } | null>(null)
   const [disc, setDisc] = useState(0)
   const [discOpen, setDiscOpen] = useState(false)
   const [custOpen, setCustOpen] = useState(false)
   const [busy, setBusy] = useState(false)
-  const [step, setStep] = useState<'check' | 'pay'>('check')
+  const [step, setStep] = useState<'check' | 'pay' | 'upi'>('check')
+  const clientKey = useRef(newClientKey()) // one key per bill: a double tap or a retry can never save it twice
   const { store } = useStore()
   const pending = draft.lines.find((l) => !l.sure || !l.match) ?? (isBill && !draft.customerSure ? draft.lines[0] : undefined)
   const custPending = isBill && !draft.customerSure
@@ -254,153 +257,161 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
   const prevBal = draft.customer?.balance ?? 0
   const net = Math.max(0, total - disc)
 
-  async function save() {
+  async function save(pay: Draft['pay'] = draft.pay) {
+    if (busy) return
     setBusy(true)
     const lines = draft.lines.map(billLinePayload)
-    const res = isBill
-      ? await supabase.rpc('save_bill', { p: { customer: draft.customerName, customer_id: draft.customer?.id ?? null, order_id: draft.orderId ?? null, new_customer: !!draft.newCustomer, tag: draft.tag ?? null, phone: draft.phone ?? draft.customer?.phone ?? null, pay: draft.pay, discount: disc, voice_text: draft.heard, lines } })
-      : await supabase.rpc('add_stock', { p: { reason: 'stock_in', lines } })
+    const payload = { customer: draft.customerName, customer_id: draft.customer?.id ?? null, order_id: draft.orderId ?? null, new_customer: !!draft.newCustomer, tag: draft.tag ?? null, phone: draft.phone ?? draft.customer?.phone ?? null, pay, discount: disc, voice_text: draft.heard, lines, client_key: clientKey.current }
+    const res = isBill ? await supabase.rpc('save_bill', { p: payload }) : await supabase.rpc('add_stock', { p: { reason: 'stock_in', lines } })
     setBusy(false)
-    if (res.error) { errorFx(); toast({ text: t('saveFailed') }); return }
+    if (res.error) {
+      errorFx()
+      // no internet: keep the bill on this phone, it goes through when the net is back
+      if (isBill && isOffline(res.error)) {
+        enqueueBill(payload)
+        onSaved({ kind: 'bill', billId: '', token: '', queued: true, savedAt: Date.now(), total: net, discount: disc, fromOrder: !!draft.orderId, phone: '', customer: draft.customerName, pay: pay ?? 'cash', balance: null, unrecorded: false, lines: draft.lines })
+        return
+      }
+      toast({ text: t('saveFailed') }); return
+    }
     successFx(); invalidateShop()
     // flavour engine learns what this shop really sold (kept on this phone, and by the server through save_bill)
     if (isBill && shop) shop.flavour = recordSales(shop.flavour, draft.lines.filter((l) => l.match).map((l) => ({ family: l.match!.family, id: l.match!.id })), shop.shopKey)
     if (isBill) {
       const r = res.data as { bill_id: string; share_token: string; total: number; balance: number | null; has_unrecorded: boolean }
-      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, total: Number(r.total), discount: disc, fromOrder: !!draft.orderId, phone: (draft.phone ?? draft.customer?.phone ?? '').replace(/\D/g, ''), customer: draft.customerName, pay: draft.pay ?? "cash", balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
+      onSaved({ kind: 'bill', billId: r.bill_id, token: r.share_token, savedAt: Date.now(), total: Number(r.total), discount: disc, fromOrder: !!draft.orderId, phone: (draft.phone ?? draft.customer?.phone ?? '').replace(/\D/g, ''), customer: draft.customerName, pay: pay ?? 'cash', balance: r.balance == null ? null : Number(r.balance), unrecorded: r.has_unrecorded, lines: draft.lines })
     } else onSaved({ kind: 'stock', lines: draft.lines })
   }
 
-  const after = draft.pay === 'udhaar' && draft.customerName ? t('dkUdhaar').replace('{name}', draft.customerName).replace('{x}', rupees(prevBal + net))
-    : draft.pay === 'upi' ? t('dkUpi').replace('{x}', rupees(net)) : t('dkCash').replace('{x}', rupees(net))
-  const fixFirst = () => (document.querySelector('.it.u') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  useEffect(() => { if (!ready) setTimeout(() => { const u = document.querySelectorAll('.items .it.u'); const last = u[u.length - 1]; if (last && last.getBoundingClientRect().bottom > window.innerHeight - 260) last.scrollIntoView({ block: 'center' }) }, 300) }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  const cta = !ready
-    ? <Tap className="btn dk-wait dk-todo" onClick={fixFirst}><small><Icon name="up" size={20} stroke={2.6} /> {cap(reason)}</small><span className="dk-sub">{isBill ? t('saveBill') : t('stockAdd')} · {t('dkAfter')}</span></Tap>
-    : udhaarBlocked
-      ? <Tap className="btn dk-wait" onClick={() => setCustOpen(true)}><span>{t('saveBill')}</span><small>{t('udhaarNeedsName')}</small></Tap>
-      : isBill && !draft.pay
-        ? <div className="btn dk-wait" aria-disabled="true"><span>{t('saveBill')} · {rupees(net)}</span><small>{t('dkChoose')}</small></div>
-        : <Tap className="btn primary dk-go" disabled={busy} onClick={save}>
-            <span><Icon name="tick" size={22} stroke={3} /> {busy ? t('saving') : isBill ? `${t('saveBill')} · ${rupees(net)}` : t('stockAdd')}</span>
-            {isBill && !busy && <small>{after}</small>}
-          </Tap>
-  const payLabel = draft.pay === 'udhaar' ? t('saveUdhaar') : draft.pay === 'upi' ? t('saveUpi') : t('saveCash')
-  const udChg = draft.pay === 'udhaar' && draft.customerName
-  const goPay = () => { setStep('pay'); window.scrollTo(0, 0) }
+  const fixFirst = () => (document.querySelector('.vit.u,.vit.q') ?? document.querySelector('.pricebtn'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  useEffect(() => { if (!ready) setTimeout(() => { const u = document.querySelectorAll('.vit.q'); const last = u[u.length - 1]; if (last && last.getBoundingClientRect().bottom > window.innerHeight - 260) last.scrollIntoView({ block: 'center' }) }, 300) }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  const goPay = () => { setDraft({ ...draft, pay: null }); setStep('pay'); window.scrollTo(0, 0) } // nothing is pre-selected for money
+  const choose = (p: 'cash' | 'upi' | 'udhaar') => { setDraft({ ...draft, pay: p }); if (p === 'upi') { setStep('upi'); window.scrollTo(0, 0) } }
+
   const checkBar = !isBill
-    ? <FlowBar mic={mic}>{cta}</FlowBar>
+    ? <FlowBar mic={mic}>
+        {ready ? <Tap className="btn primary wide" disabled={busy} onClick={() => save()}><Icon name="tick" size={22} stroke={2.6} />{busy ? t('saving') : t('stockAdd')}</Tap>
+          : <Tap className="btn primary wide" onClick={fixFirst}><Icon name="up" size={20} stroke={2.6} />{cap(reason)}</Tap>}
+      </FlowBar>
     : <FlowBar mic={mic}>
-        <div className="sum"><small>{t('kulWord')}</small><b>{rupees(net)}</b></div>
-        {ready ? <Tap className="btn primary" onClick={goPay}>{t('paisaLo')}<Icon name="chev" size={22} stroke={2.6} /></Tap>
+        <div className="sum"><small>{t('itemsN').replace('{n}', String(draft.lines.length))}</small><b>{rupees(net)}</b></div>
+        {ready ? <Tap className="btn primary" onClick={goPay}>{t('next')}<Icon name="chev" size={22} stroke={2.6} /></Tap>
           : <Tap className="btn primary" onClick={fixFirst}><Icon name="up" size={20} stroke={2.6} />{t('confirmFirst')}</Tap>}
       </FlowBar>
-  const payBar = (
-    <div className="paydock">
-      <div className="ph">{t('howPaid')}</div>
-      <div className="dk-tiles">
-        {(['cash', 'upi', 'udhaar'] as const).map((p) => (
-          <Tap key={p} className={`dk-tile ${draft.pay === p ? (p === 'udhaar' ? 'onu' : 'on') : ''}`} aria-pressed={draft.pay === p} onClick={() => setDraft({ ...draft, pay: p })}>
-            {draft.pay === p && <span className="tk"><Icon name="tick" size={16} stroke={3} /></span>}
-            <Icon name={p === 'cash' ? 'cash' : p === 'upi' ? 'qr' : 'book'} size={32} />{t(p)}
-          </Tap>
-        ))}
-      </div>
-      <div className="dk-chg">{udChg && <><span>{draft.customerName} · {t('khataWord')}</span><span className="num">{rupees(prevBal)} → <b>{rupees(prevBal + net)}</b></span></>}</div>
-      <div className="dkrow">
-        <Tap className="fmic" onClick={mic.onMic} aria-label={mic.micLabel}><Icon name="mic" size={28} /></Tap>
-        {!draft.pay ? <div className="btn dk-wait" aria-disabled="true"><Icon name="up" size={20} stroke={2.6} />{t('dkChoose')}</div>
-          : udhaarBlocked ? <Tap className="btn dk-wait" onClick={() => setCustOpen(true)}>{t('udhaarNeedsName')}</Tap>
-          : <Tap className="btn dk-go" disabled={busy} onClick={save}><Icon name={draft.pay === 'cash' ? 'cash' : draft.pay === 'upi' ? 'qr' : 'book'} size={24} />{busy ? t('saving') : <><span className="num">{rupees(net)}</span><span>{payLabel}</span></>}</Tap>}
-      </div>
-    </div>
+
+  const pickers = (
+    <>
+      <NumberSheet open={discOpen} title={t('discount')} initial={disc || null} unit="₹" onClose={() => setDiscOpen(false)} onDone={(n) => setDisc(Math.min(n, total))} />
+      <CustomerPicker open={custOpen} shop={shop} current={draft.customerName} onClose={() => setCustOpen(false)}
+        onPick={(name, c) => { setDraft({ ...draft, customerName: name, customer: c, customerSure: true }); setCustOpen(false) }} />
+    </>
   )
-  if (isBill && step === 'pay') {
+
+  // ---------- UPI: the QR, nothing else ----------
+  if (isBill && step === 'upi') {
     const upiId = store?.upi_id ?? null
     return (
       <div className="app">
-        <main className="screen has-pay">
-          <div className="top"><Tap className="ghost back" onClick={() => setStep('check')}><Icon name="back" size={22} stroke={2.4} />{t('back')}</Tap></div>
-          {draft.pay === 'upi' && upiId ? <div className="qrv"><UpiQr upi={upiId} name={store?.name ?? ''} amount={net} /></div> : (
-            <div className="slip">
-              <div className="slip-h"><b>{draft.customerName ?? t('walkInShort')}</b>{draft.customer && draft.customer.balance > 0 && <span className="num">{t('udhaar')} {rupees(draft.customer.balance)}</span>}</div>
-              {draft.lines.filter((l) => l.match).map((l) => <div key={l.key} className="sr"><span>{itemLabel(l.match!, lang)}</span><span className="num">{rupees(lineTotal(l))}</span></div>)}
-              {disc > 0 && <div className="sr"><span>{t('discount')}</span><span className="num">− {rupees(disc)}</span></div>}
-              <div className="dbl" />
-              <div className="sr tot"><span>{t('kulWord')}</span><span className="num">{rupees(net)}</span></div>
-            </div>
-          )}
-          {draft.pay === 'upi' && !upiId && <p className="lab" style={{ marginTop: 16 }}>{t('upiMissingBody')}</p>}
-          {draft.pay !== 'upi' && <>
-            {draft.customerName && (
-              <div className="field" style={{ marginTop: 16 }}>
-                <label htmlFor="ph">{t('phoneOpt')}</label>
-                <input id="ph" className="input" inputMode="tel" maxLength={13} placeholder="98xxxxxxxx" value={draft.phone ?? draft.customer?.phone ?? ''}
-                  onChange={(e) => setDraft({ ...draft, phone: e.target.value.replace(/[^\d+]/g, '') })} />
-              </div>
-            )}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 }}>
-              <Tap className="linkrow" style={{ flex: 1 }} onClick={() => setDiscOpen(true)}><span>{t('discount')}</span><span>{disc ? `− ${rupees(disc)}` : <Icon name="chev" size={20} />}</span></Tap>
-              {disc > 0 && <Tap className="chg" style={{ minHeight: 56 }} onClick={() => setDisc(0)}>{t('remove')}</Tap>}
-            </div>
-          </>}
+        <main className="screen v2 has-foot vcenter">
+          <TopBar title={t('upiTitle')} onBack={() => { setDraft({ ...draft, pay: null }); setStep('pay') }} />
+          <div className="vbig" style={{ marginLeft: 0 }}>{rupees(net)}</div>
+          {upiId
+            ? <><div className="vlab" style={{ marginTop: 4 }}>{t('showQr')}</div>
+                <UpiQr upi={upiId} name={store?.name ?? ''} amount={net} />
+                <div style={{ marginTop: 16, font: '600 18px/24px var(--font)' }}>{upiId}</div></>
+            : <p className="vlab" style={{ marginTop: 24 }}>{t('upiMissingBody')}</p>}
         </main>
-        {payBar}
-        <NumberSheet open={discOpen} title={t('discount')} initial={disc || null} unit="₹" onClose={() => setDiscOpen(false)} onDone={(n) => setDisc(Math.min(n, total))} />
-        <CustomerPicker open={custOpen} shop={shop} current={draft.customerName} onClose={() => setCustOpen(false)}
-          onPick={(name, c) => { setDraft({ ...draft, customerName: name, customer: c, customerSure: true }); setCustOpen(false) }} />
+        <div className="vfoot vgrid2 w">
+          <Tap className="btn outline" onClick={() => { setDraft({ ...draft, pay: null }); setStep('pay') }}><Icon name="back" size={22} />{t('change')}</Tap>
+          <Tap className="btn primary" disabled={busy} onClick={() => save('upi')}><Icon name="tick" size={22} stroke={2.6} />{busy ? t('saving') : t('upiGot')}</Tap>
+        </div>
+        {pickers}
       </div>
     )
   }
 
+  // ---------- PAY ----------
+  if (isBill && step === 'pay') {
+    const nm = draft.customerName
+    const why = !draft.pay ? t('dkChoose') : udhaarBlocked ? t('udhaarNeedsName') : ''
+    return (
+      <div className="app">
+        <main className="screen v2 has-foot2">
+          <TopBar title={t('pickMoney')} onBack={() => setStep('check')} />
+          <div className="vc vcenter" style={{ padding: '24px 20px' }}>
+            <div className="vlab">{nm ?? t('walkInShort')} · {t('itemsN').replace('{n}', String(draft.lines.length))}</div>
+            <div className="vbig" style={{ marginTop: 8 }}>{rupees(net)}</div>
+          </div>
+          <div className="vpay">
+            {(['cash', 'upi', 'udhaar'] as const).map((p) => (
+              <Tap key={p} className={`vtile ${p === 'udhaar' ? 'ud' : ''}`} aria-pressed={draft.pay === p} onClick={() => choose(p)}>
+                <Icon name={p === 'cash' ? 'cash' : p === 'upi' ? 'qr' : 'book'} size={28} />{t(p)}
+              </Tap>
+            ))}
+          </div>
+          {nm && (
+            <div className="vc" style={{ marginTop: 16 }}>
+              <div className="vrow"><span className="vav">{nm.trim().slice(0, 2).toUpperCase()}</span>
+                <span className="t"><b>{nm}</b><span>{draft.pay === 'udhaar' ? `${rupees(prevBal)} → ${rupees(prevBal + net)}` : t('prevUdhaar')}</span></span>
+                {draft.pay !== 'udhaar' && prevBal > 0 && <span className="a ud">{rupees(prevBal)}</span>}</div>
+              {draft.pay !== 'upi' && <div className="vrow" style={{ minHeight: 64 }}>
+                <label htmlFor="ph" className="vlab" style={{ flex: 'none' }}>WhatsApp</label>
+                <input id="ph" className="input" style={{ minHeight: 48, background: 'transparent', boxShadow: 'none', textAlign: 'right' }} inputMode="tel" maxLength={13} placeholder="98xxxxxxxx" value={draft.phone ?? draft.customer?.phone ?? ''}
+                  onChange={(e) => setDraft({ ...draft, phone: e.target.value.replace(/[^\d+]/g, '') })} /></div>}
+            </div>
+          )}
+          <Tap className="vrow vc" style={{ marginTop: 12, minHeight: 56 }} onClick={() => setDiscOpen(true)}><span className="t"><b>{t('discount')}</b></span><span className="a">{disc ? `− ${rupees(disc)}` : <Icon name="chev" size={20} />}</span></Tap>
+        </main>
+        <div className="vfoot">
+          {why && <p className="why">{why}</p>}
+          {!draft.pay ? <div className="btn" aria-disabled="true"><Icon name="tick" size={22} />{t('saveBill')}</div>
+            : udhaarBlocked ? <Tap className="btn primary" onClick={() => setCustOpen(true)}><Icon name="user" size={22} />{t('addName')}</Tap>
+            : <Tap className="btn primary" disabled={busy} onClick={() => save()}><Icon name="tick" size={22} stroke={2.6} />{busy ? t('saving') : `${t('saveBill')} · ${rupees(net)}`}</Tap>}
+        </div>
+        {pickers}
+      </div>
+    )
+  }
+
+  // ---------- CHECK ----------
+  const who = isBill && (
+    <Tap className="vwho" onClick={() => setCustOpen(true)}><Icon name="user" size={20} />{draft.customerName ?? t('addName')}</Tap>
+  )
   return (
     <div className="app">
-      <main className="screen has-flow">
-        <BackBar />
-        {isBill ? (
-          <div className="who">
-            <div className="av">{(draft.customerName ?? '?').trim().charAt(0).toUpperCase()}</div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div className="lab" style={{ lineHeight: '20px' }}>{t('billWhose')}{draft.customerName && !draft.customer && draft.customerOthers.length <= 1 ? ` · ${t('newCustomer')}` : ''}</div>
-              <div className="h1" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{draft.customerName ?? <span className="lab" style={{ font: "600 20px Hind" }}>{t('walkIn')}</span>}</div>
-            </div>
-            <Tap className="ghost" style={{ color: 'var(--ac)', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 4 }} onClick={() => setCustOpen(true)}>{draft.customerName ? t('change') : t('addName')}</Tap>
-          </div>
-        ) : <h1 className="h1" style={{ marginTop: 8 }}>{t('stockInTitle')}</h1>}
+      <main className="screen v2 has-flow">
+        <TopBar title={isBill ? t('billCheck') : t('stockInTitle')} back="/" right={who || undefined} />
         {isBill && draft.customerName && !draft.customer && draft.customerOthers.length > 1 && !draft.customerSure && (
-          <div className="it u" style={{ borderRadius: 16, marginTop: 12 }}>
-            <div className="ask">{t('whichOne')}</div>
-            <div className="stack" style={{ marginTop: 8 }}>
-              {draft.customerOthers.map((c) => <Tap key={c.id} className="rowb" style={{ minHeight: 56 }} onClick={() => setDraft({ ...draft, customer: c, customerName: c.name, customerSure: true, newCustomer: false })}>
-                <span className="grow">{custLabel(c)}</span>{c.balance > 0 && <span style={{ color: 'var(--ud)' }}>{rupees(c.balance)}</span>}</Tap>)}
-              <Tap className="chg" onClick={async () => { const tg = await askText({ title: t('tagAsk') }) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>+ {t('newOne')} {draft.customerName}</Tap>
+          <div className="vc vit q" style={{ marginBottom: 12 }}>
+            <b>{t('whichOne')}</b><span />
+            <div className="ask" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 8 }}>
+              {draft.customerOthers.map((c) => <Tap key={c.id} className="btn s outline" style={{ justifyContent: 'space-between' }} onClick={() => setDraft({ ...draft, customer: c, customerName: c.name, customerSure: true, newCustomer: false })}>
+                <span>{custLabel(c)}</span>{c.balance > 0 && <span className="ud">{rupees(c.balance)}</span>}</Tap>)}
+              <Tap className="btn s outline" onClick={async () => { const tg = await askText({ title: t('tagAsk') }) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}><Icon name="plus" size={22} />{t('newOne')} {draft.customerName}</Tap>
             </div>
           </div>
         )}
-        {isBill && draft.customer && <Tap className="ghost" style={{ marginLeft: -12, fontSize: 18, color: 'var(--ink)', textDecoration: 'underline', textUnderlineOffset: 4 }} onClick={async () => { const tg = await askText({ title: t('tagAsk') }) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>{t('notThisOne')}</Tap>}
         {isBill && !draft.customerSure && draft.customerName && draft.customerOthers.length <= 1 && (
-          <div className="it u" style={{ borderRadius: 16, marginTop: 12 }}>
-            <div className="guess" style={{ marginTop: 0 }}><span className="gtxt">{t('thisName')}</span>
-              <div style={{ display: 'flex', gap: 10 }}>
-                <Tap className="chg yes" onClick={() => setDraft({ ...draft, customerSure: true })}><Icon name="tick" size={22} stroke={3} />{t('yes')}</Tap>
-                <Tap className="chg" onClick={() => {
-                  const extra = parseItems(tokenize(draft.customerName!), shop.index).map((p) => lineFrom({ ...p, qty: p.qty ?? 1 }, shop))
-                  setDraft({ ...draft, customerName: null, customer: null, customerSure: true, lines: [...extra, ...draft.lines] })
-                }}>{t('itsAnItem')}</Tap>
-              </div>
+          <div className="vc vit q" style={{ marginBottom: 12 }}>
+            <b>{t('thisName')}</b><span />
+            <div className="ask">
+              <Tap className="btn s primary" onClick={() => setDraft({ ...draft, customerSure: true })}><Icon name="tick" size={22} stroke={2.6} />{t('yes')}</Tap>
+              <Tap className="btn s outline" onClick={() => {
+                const extra = parseItems(tokenize(draft.customerName!), shop.index).map((p) => lineFrom({ ...p, qty: p.qty ?? 1 }, shop))
+                setDraft({ ...draft, customerName: null, customer: null, customerSure: true, lines: [...extra, ...draft.lines] })
+              }}>{t('itsAnItem')}</Tap>
             </div>
           </div>
         )}
+        {isBill && draft.customer && <Tap className="ulink" style={{ minHeight: 48, font: '600 18px/24px var(--font)' }} onClick={async () => { const tg = await askText({ title: t('tagAsk') }) ?? ''; setDraft({ ...draft, customer: null, newCustomer: true, tag: tg.trim() || undefined, customerSure: true }) }}>{t('notThisOne')}</Tap>}
 
-        {isBill && draft.lines.length === 0 && <p className="h2" style={{ marginTop: 20, color: 'var(--ac)' }}>{t('sayItems')}</p>}
-        <div className="items" style={draft.lines.length ? undefined : { display: 'none' }}>
+        {draft.lines.length === 0 && <p className="vsaid" style={{ color: 'var(--vt)' }}>{t('sayItems')}</p>}
+        {draft.lines.length > 0 && <div className="vc">
           {draft.lines.map((l) => <LineRow key={l.key} l={l} isBill={isBill} onPick={() => setPick(l)} onPad={(field) => setPad({ line: l, field })} fix={fix(l)}
             onRemove={() => setDraft({ ...draft, lines: draft.lines.filter((x) => x.key !== l.key) })} />)}
-        </div>
-        {listening && <p className="live" style={{ fontSize: 24, marginTop: 16 }}>{words || '…'}</p>}
-        <Tap className="linkrow" style={{ marginTop: 12 }} onClick={() => setPick({ key: 'new', said: '', match: null, candidates: [], sure: true, qty: 1, price: null, priceSure: false })}><span>+ {t('addItem')}</span><span><Icon name="chev" size={20} /></span></Tap>
-
-        {!isBill && <div className="gap16" />}
+        </div>}
+        {listening && <p className="vsaid">{words || '…'}</p>}
+        <Tap className="btn outline s" style={{ marginTop: 12 }} onClick={() => setPick({ key: 'new', said: '', match: null, candidates: [], sure: true, qty: 1, price: null, priceSure: false })}><Icon name="plus" size={22} />{t('addItemBtn')}</Tap>
       </main>
       {checkBar}
 
@@ -409,56 +420,51 @@ function ReviewScreen({ draft, setDraft, shop, isBill, ready, total, udhaarBlock
       <NumberSheet open={!!pad} title={pad?.field === 'price' ? `${pad.line.match?.hinglish ?? ''} — ${t('priceAsk')}` : `${pad?.line.match?.hinglish ?? ''} — ${t('qtyAsk')}`}
         initial={pad ? (pad.field === 'price' ? pad.line.price : pad.line.qty) : null} unit={pad?.field === 'qty' ? unitLabel(pad.line.match?.unit) : '₹'}
         onClose={() => setPad(null)} onDone={(n) => pad && fix(pad.line)(pad.field === 'price' ? { price: n, priceSure: true } : { qty: n })} />
-      <CustomerPicker open={custOpen} shop={shop} current={draft.customerName} onClose={() => setCustOpen(false)}
-        onPick={(name, c) => { setDraft({ ...draft, customerName: name, customer: c, customerSure: true }); setCustOpen(false) }} />
+      {pickers}
     </div>
   )
 }
 
 function LineRow({ l, isBill, onPick, onPad, fix, onRemove }: { l: Line; isBill: boolean; onPick: () => void; onPad: (f: 'qty' | 'price') => void; fix: (p: Partial<Line>) => void; onRemove: () => void }) {
-  const { t } = useT()
+  const { t, lang } = useT()
   const [flOpen, setFlOpen] = useState(false)
   const unit = l.match?.shop?.unit ?? l.match?.unit
   const step = l.match?.loose && (unit === 'kg' || unit === 'l') ? 0.5 : 1
-  const { lang } = useT()
   const name = l.match ? itemLabel(l.match, lang) : `"${l.said}"`
-  const stepper = (
-    <div className="step">
-      <Tap aria-label="minus" onClick={() => (l.qty ?? 0) - step <= 0 ? onRemove() : fix({ qty: +((l.qty ?? 0) - step).toFixed(3) })}><i>−</i></Tap>
-      <Tap aria-label="quantity" onClick={() => onPad('qty')}><em>{fmtQty(l.qty, unit)}</em></Tap>
-      <Tap aria-label="plus" onClick={() => fix({ qty: +((l.qty ?? 0) + step).toFixed(3) })}><i>+</i></Tap>
-    </div>
-  )
-  const priceLine = isBill && l.match && (
-    <Tap className="pricebtn" onClick={() => onPad('price')} style={{ color: l.price == null ? 'var(--danger)' : l.priceSure ? 'var(--ink2)' : '#7A5600' }}>
-      {l.price == null ? t('priceAsk') : `₹${+l.price.toFixed(2)}${unitLabel(unit) ? '/' + unitLabel(unit) : ' ' + t('perUnit')}`}
-      {l.price != null && ` · ${rupees(lineTotal(l))}`}{l.price != null && !l.priceSure && ` · ${t('priceCheck')}`}
-    </Tap>
-  )
   if (!l.match) return (
-    <div className="it u">
-      <div className="qrow" style={{ margin: 0 }}><div><div className="nm">{name}</div><div className="ask" style={{ margin: 0 }}>{t('whatIsThis')}</div></div></div>
-      <div className="guess"><span /><div style={{ display: 'flex', gap: 10 }}><Tap className="chg yes" onClick={onPick}>{t('pickItem')}</Tap><Tap className="chg" onClick={onRemove}>{t('remove')}</Tap></div></div>
+    <div className="vit q">
+      <b>{name}</b><span />
+      <div className="ask"><b>{t('whatIsThis')}</b><Tap className="btn s primary" onClick={onPick}>{t('pickItem')}</Tap><Tap className="btn s outline" onClick={onRemove}><Icon name="x" size={22} />{t('remove')}</Tap></div>
     </div>
   )
+  const stepper = (
+    <div className="vqty">
+      <Tap aria-label="minus" onClick={() => (l.qty ?? 0) - step <= 0 ? onRemove() : fix({ qty: +((l.qty ?? 0) - step).toFixed(3) })}><Icon name="minus" size={22} /></Tap>
+      <Tap aria-label="quantity" className="qv" onClick={() => onPad('qty')}><b>{fmtQty(l.qty, unit)}</b></Tap>
+      <Tap aria-label="plus" onClick={() => fix({ qty: +((l.qty ?? 0) + step).toFixed(3) })}><Icon name="plus" size={22} /></Tap>
+    </div>
+  )
+  const priceTxt = l.price == null ? t('priceAsk') : `₹${+l.price.toFixed(2)} ${unitLabel(unit) ? '/ ' + unitLabel(unit) : t('pricePerPc')}`
   return (
-    <div className={`it ${l.sure ? '' : 'u'}`} style={{ display: 'block' }}>
-      <div className="qrow" style={{ margin: 0 }}>
-        <div style={{ minWidth: 0 }}><div className="nm">{name}</div>{priceLine}</div>
-        {stepper}
-      </div>
+    <div className={`vit ${l.sure ? '' : 'q'}`}>
+      <b>{name}</b>
+      <span className="a">{isBill && l.price != null ? rupees(lineTotal(l)) : ''}</span>
+      {isBill
+        ? <Tap className="pricebtn" style={{ textAlign: 'left', color: 'var(--ink2)', minHeight: 48, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', textDecoration: l.price == null || !l.priceSure ? 'underline' : undefined, textUnderlineOffset: 4 }} onClick={() => onPad('price')}>{priceTxt}{l.price != null && !l.priceSure && ` · ${t('priceCheck')}`}</Tap>
+        : <span />}
+      {stepper}
       {!l.sure && (
-        <div className="guess"><span className="gtxt">{t('thisOne')}</span>
-          <div style={{ display: 'flex', gap: 10 }}><Tap className="chg yes" onClick={() => fix({ sure: true })}><Icon name="tick" size={22} stroke={3} />{t('yes')}</Tap><Tap className="chg" onClick={onPick}>{t('nahi')}</Tap></div>
-        </div>
+        <div className="ask"><b>{t('thisOne')}</b>
+          <Tap className="btn s primary" onClick={() => fix({ sure: true })}><Icon name="tick" size={22} stroke={2.6} />{t('yes')}</Tap>
+          <Tap className="btn s outline" onClick={onPick}><Icon name="x" size={22} />{t('nahi')}</Tap></div>
       )}
       {l.flavour && l.match && (
         // flavour engine: never a blocking question. Auto-picked flavour shown as a small chip; a shop that really sells a mix gets the top few as one-tap choices.
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10, marginTop: 10 }}>
-          {l.flavour.ask && <span className="gtxt">{t('flWhich')}</span>}
-          {(l.flavour.ask ?? [l.match]).map((m) => <Tap key={m.id} className={`chg ${l.flavour!.ask && m.id === l.match!.id ? 'yes' : ''}`} onClick={() => (l.flavour!.ask ? fix(withVariant(l, m)) : setFlOpen(true))}>
-            {l.flavour!.ask && m.id === l.match!.id && <Icon name="tick" size={22} stroke={3} />}{varLabel(m, lang)}{!l.flavour!.ask && ` · ${t('flChange')}`}</Tap>)}
-          {l.flavour.ask && <Tap className="chg" onClick={() => setFlOpen(true)}>{t('flChange')}</Tap>}
+        <div className="flv">
+          {l.flavour.ask && <span className="vlab" style={{ alignSelf: 'center' }}>{t('flWhich')}</span>}
+          {(l.flavour.ask ?? [l.match]).map((m) => <Tap key={m.id} className={`btn s ${l.flavour!.ask && m.id === l.match!.id ? 'primary' : 'outline'}`} onClick={() => (l.flavour!.ask ? fix(withVariant(l, m)) : setFlOpen(true))}>
+            {l.flavour!.ask && m.id === l.match!.id && <Icon name="tick" size={22} stroke={2.6} />}{varLabel(m, lang)}{!l.flavour!.ask && ` · ${t('flChange')}`}</Tap>)}
+          {l.flavour.ask && <Tap className="btn s outline" onClick={() => setFlOpen(true)}>{t('flChange')}</Tap>}
         </div>
       )}
       {l.flavour && (
@@ -534,31 +540,24 @@ function PaymentView({ draft, shop, mic, onSaved }: { draft: Draft; shop: Shop; 
   }
   return (
     <div className="app">
-      <main className="screen has-flow">
-        <BackBar />
-        <h1 className="h1" style={{ marginTop: 8 }}>{t('paymentTitle')}</h1>
-        <div className="gap16" />
-        {cust ? (
-          <div className="who"><div className="av">{cust.name.charAt(0).toUpperCase()}</div>
-            <div style={{ flex: 1 }}><div className="lab" style={{ lineHeight: '20px' }}>{t('whoPaid')}</div><div className="h1">{cust.name}</div></div>
-            <Tap className="ghost" style={{ color: 'var(--ac)', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 4 }} onClick={() => setCust(null)}>{t('change')}</Tap></div>
-        ) : (
+      <main className="screen v2 has-flow">
+        <TopBar title={t('paymentTitle')} back="/" right={cust ? <Tap className="vwho" onClick={() => setCust(null)}><Icon name="user" size={20} />{cust.name}</Tap> : undefined} />
+        {!cust && (
           <>
-            <div className="it u" style={{ borderRadius: 18 }}><div className="ask" style={{ margin: 0 }}>{draft.customerName ? `"${draft.customerName}" — ` : ''}{t('noSuchCustomer')}</div></div>
-            <div className="stack" style={{ marginTop: 12 }}>
-              {choices.map((c) => <Tap key={c.id} className="rowb" onClick={() => setCust(c)}><span className="grow">{c.name}</span><span style={{ color: 'var(--ud)' }}>{rupees(c.balance)}</span></Tap>)}
+            <p className="vlab" style={{ marginBottom: 12 }}>{draft.customerName ? `"${draft.customerName}" — ` : ''}{t('noSuchCustomer')}</p>
+            <div className="vc">
+              {choices.map((c) => <Tap key={c.id} className="vrow" onClick={() => setCust(c)}><span className="vav">{c.name.trim().slice(0, 2).toUpperCase()}</span><span className="t"><b>{c.name}</b></span><span className="a ud">{rupees(c.balance)}</span></Tap>)}
             </div>
           </>
         )}
-        {cust && <div className="card" style={{ marginTop: 20 }}>
-          <Tap className="linkrow" style={{ color: 'var(--ink)' }} onClick={() => setPadOpen(true)}><span className="lab">{t('amount')}</span><span className="big" style={{ fontSize: 38 }}>{amount ? rupees(amount) : '?'}</span></Tap>
-          <div className="divider" />
-          <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }}><span className="lab">{t('balanceNow')}</span><span className="num" style={{ color: 'var(--ud)' }}>{rupees(cust.balance)}</span></div>
-          <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }}><span className="lab">{t('balanceAfter')}</span><span className="num">{rupees(cust.balance - (amount ?? 0))}</span></div>
+        {cust && <div className="vc">
+          <Tap className="vrow" style={{ minHeight: 88 }} onClick={() => setPadOpen(true)}><span className="vlab">{t('amount')}</span><span style={{ flex: 1 }} /><span className="vmid">{amount ? rupees(amount) : '?'}</span></Tap>
+          <div className="vrow" style={{ minHeight: 56 }}><span className="t"><b style={{ fontWeight: 600 }}>{t('balanceNow')}</b></span><span className="a ud">{rupees(cust.balance)}</span></div>
+          <div className="vrow" style={{ minHeight: 56 }}><span className="t"><b style={{ fontWeight: 600 }}>{t('balanceAfter')}</b></span><span className="a ud">{rupees(cust.balance - (amount ?? 0))}</span></div>
         </div>}
       </main>
       <FlowBar mic={mic}>
-        <Tap className="btn primary wide" disabled={!cust || !amount || busy} onClick={save}><Icon name="tick" size={24} stroke={3} />{busy ? t('saving') : `${t('payDo')}${amount ? ' · ' + rupees(amount) : ''}`}</Tap>
+        <Tap className="btn primary wide" disabled={!cust || !amount || busy} onClick={save}><Icon name="tick" size={24} stroke={2.6} />{busy ? t('saving') : `${t('payDo')}${amount ? ' · ' + rupees(amount) : ''}`}</Tap>
       </FlowBar>
       <NumberSheet open={padOpen} title={t('amount')} initial={amount} unit="₹" onClose={() => setPadOpen(false)} onDone={setAmount} />
     </div>
@@ -578,17 +577,17 @@ function AnswerView({ draft, mic }: { draft: Draft; mic: MicProps }) {
   const m = draft.lines[0]?.match
   return (
     <div className="app">
-      <main className="screen has-flow">
-        <BackBar />
-        <p className="lab" style={{ marginTop: 8 }}>{t('heard')}: "{draft.heard}"</p>
-        <div className="card center" style={{ marginTop: 20, padding: '32px 24px' }}>
+      <main className="screen v2 has-flow">
+        <TopBar title={t('answerTitle')} back="/" />
+        <p className="vlab">{t('heard')}: "{draft.heard}"</p>
+        <div className="vc vcenter" style={{ marginTop: 16, padding: '32px 24px' }}>
           {m && <div className="h2">{lang === 'hi' ? m.hi : m.shop?.name ?? m.hinglish}</div>}
           {m?.shop?.stock_known
-            ? <><div className="big" style={{ marginTop: 8 }}>{fmtQty(Math.max(0, m.shop.stock), m.shop.unit)}</div><div className="lab">{t('stockLeft')}</div></>
+            ? <><div className="vbig" style={{ marginTop: 8 }}>{fmtQty(Math.max(0, m.shop.stock), m.shop.unit)}</div><div className="vlab">{t('stockLeft')}</div></>
             : <p style={{ marginTop: 8 }}>{m ? t('stockUnknown') : t('notUnderstood')}</p>}
         </div>
       </main>
-      <FlowBar mic={mic}><Tap className="btn primary wide" onClick={() => goBack()}>{t('ok')}</Tap></FlowBar>
+      <FlowBar mic={mic}><HomeBtn /><Tap className="btn primary wide" onClick={() => goBack()}>{t('ok')}</Tap></FlowBar>
     </div>
   )
 }
@@ -603,21 +602,20 @@ function GallaView({ amount, mic }: { amount: number | null; mic: MicProps }) {
   const gap = amount != null && cash != null ? amount - cash : null
   return (
     <div className="app">
-      <main className="screen has-flow">
-        <BackBar />
-        <h1 className="h1" style={{ marginTop: 8 }}>{t('gallaTitle')}</h1>
-        <div className="card" style={{ marginTop: 20 }}>
-          <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }}><span className="lab">{t('gallaSaid')}</span><span className="num">{amount != null ? rupees(amount) : '?'}</span></div>
-          <div className="linkrow" style={{ color: 'var(--ink)', fontWeight: 500 }}><span className="lab">{t('gallaBills')}</span><span className="num">{cash != null ? rupees(cash) : '…'}</span></div>
+      <main className="screen v2 has-flow">
+        <TopBar title={t('gallaTitle')} back="/" />
+        <div className="vc">
+          <div className="vrow"><span className="t"><b style={{ fontWeight: 600 }}>{t('gallaSaid')}</b></span><span className="a">{amount != null ? rupees(amount) : '?'}</span></div>
+          <div className="vrow"><span className="t"><b style={{ fontWeight: 600 }}>{t('gallaBills')}</b></span><span className="a">{cash != null ? rupees(cash) : '…'}</span></div>
         </div>
         {gap != null && (
-          <div className={gap === 0 ? 'card' : 'udnote'} style={{ marginTop: 16, ...(gap === 0 ? { background: 'var(--acs)', color: 'var(--ac)' } : {}) }}>
+          <div className={gap === 0 ? 'vbanner' : 'vnote'} style={{ marginTop: 16, display: 'block' }}>
             <div className="h2">{gap === 0 ? t('gallaMatch') : `${rupees(Math.abs(gap))} ${gap < 0 ? t('gallaLess') : t('gallaMore')}`}</div>
             {gap !== 0 && <p style={{ marginTop: 4 }}>{t('gallaNote')}</p>}
           </div>
         )}
       </main>
-      <FlowBar mic={mic}><Tap className="btn primary wide" onClick={() => goBack()}>{t('ok')}</Tap></FlowBar>
+      <FlowBar mic={mic}><HomeBtn /><Tap className="btn primary wide" onClick={() => goBack()}>{t('ok')}</Tap></FlowBar>
     </div>
   )
 }
@@ -632,43 +630,42 @@ function SavedView({ saved, onUndo }: { saved: Saved; onUndo: () => void }) {
   const wa = saved.kind === 'bill' ? `https://wa.me/${saved.phone ? (saved.phone.length === 10 ? '91' + saved.phone : saved.phone) : ''}?text=${waText}` : ''
   const lineSummary = saved.kind !== 'payment' ? saved.lines.map((l) => `${fmtQty(l.qty, l.match?.unit)} ${l.match ? itemLabel(l.match, lang) : ''}`).join(', ') : ''
   const ud = saved.kind === 'bill' && saved.pay === 'udhaar' && !!saved.customer && saved.balance != null
-  const clock = new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' })
+  // lines that took the shop's stock below zero (the stock we hold in the app was already low or zero)
+  const negative = saved.kind === 'bill' && saved.lines.some((l) => l.match?.shop?.stock_known && l.qty != null && l.match.shop.stock - l.qty < 0)
+  const title = saved.kind === 'bill' ? (saved.queued ? t('queuedTitle') : ud ? t('wroteUdhaar') : t('billSavedV2')) : saved.kind === 'stock' ? t('stockAdded') : t('paySaved')
+  const payWord = saved.kind === 'bill' ? (saved.pay === 'upi' ? 'UPI' : saved.pay === 'udhaar' ? t('udhaar') : 'Cash') : ''
+  const sub = saved.kind === 'bill' ? [saved.queued ? '' : `#${saved.token.slice(0, 4).toUpperCase()}`, saved.customer ?? '', payWord].filter(Boolean).join(' · ') : saved.kind === 'payment' ? saved.customer : ''
+  const big = saved.kind === 'bill' ? saved.total : saved.kind === 'payment' ? saved.amount : null
   return (
     <div className="app">
-      <main className="screen has-flow">
-        <div className="top"><span /><span className="lab num">{clock}</span></div>
-        <div className="dh">
-          <span className="stamp"><Icon name="tick" size={30} stroke={2.8} /></span>
-          <h1>{saved.kind === 'bill' ? (ud ? t('wroteUdhaar') : t('billSaved')) : saved.kind === 'stock' ? t('stockAdded') : t('paySaved')}</h1>
+      <main className="screen v2 has-foot2 vcenter">
+        <div className="vtop"><span style={{ flex: 1 }} /><Tap className="ib" aria-label={t('goHome')} onClick={() => navigate('/', true)}><Icon name="x" size={24} /></Tap></div>
+        <div style={{ paddingTop: 8 }}>
+          <span className="vdone"><Icon name={saved.kind === 'bill' && saved.queued ? 'cloudOff' : 'tick'} size={44} stroke={2.2} /></span>
+          <h1 className="vh1" style={{ marginTop: 24 }}>{title}</h1>
+          {sub && <p className="vlab" style={{ marginTop: 4 }}>{sub}</p>}
+          {big != null && <div className="vbig" style={{ marginTop: 16 }}>{rupees(big)}</div>}
+          {ud && <p className="vlab ud" style={{ marginTop: 4 }}>{t('newBal')} {rupees(saved.kind === 'bill' ? saved.balance ?? 0 : 0)}</p>}
+          {saved.kind === 'payment' && <p className="vlab" style={{ marginTop: 4 }}>{t('newBal')} {rupees(saved.balance)}</p>}
+          {saved.kind === 'stock' && <p className="vlab" style={{ marginTop: 16 }}>+ {lineSummary}</p>}
         </div>
-        {saved.kind === 'bill' && (
-          <div className="ticket">
-            <div className="tk-h"><b>{saved.customer ?? t('walkInShort')}</b><span className="num">{rupees(saved.total)}</span></div>
-            {ud
-              ? <>
-                  <div className="tk-r"><span>{t('oldBal')}</span><span className="num">{rupees((saved.balance ?? 0) - saved.total)}</span></div>
-                  <div className="tk-r"><span>{t('thisBill')}</span><span className="num">+ {rupees(saved.total)}</span></div>
-                  <div className="perf" />
-                  <div className="tk-f"><span>{t('newBal')}</span><span className="num big ud">{rupees(saved.balance ?? 0)}</span></div>
-                </>
-              : <>
-                  {saved.lines.filter((l) => l.match).slice(0, 4).map((l) => <div key={l.key} className="tk-r"><span>{itemLabel(l.match!, lang)}</span><span className="num">{rupees(lineTotal(l))}</span></div>)}
-                  <div className="perf" />
-                  <div className="tk-f"><span>{saved.pay === 'upi' ? 'UPI' : 'Cash'}</span><span className="num big">{rupees(saved.total)}</span></div>
-                </>}
+        {saved.kind === 'bill' && saved.queued && <p className="vlab" style={{ marginTop: 16 }}>{t('queuedToast')}</p>}
+        {saved.kind === 'bill' && saved.unrecorded && <p className="vlab" style={{ marginTop: 16 }}>{t('unrecordedNote')}</p>}
+        {negative && <div className="vnote" style={{ marginTop: 24, textAlign: 'left' }}><b>{t('stockWasZero')}</b><Tap className="btn s outline" onClick={() => navigate('/maal')}>{t('openMaal')}</Tap></div>}
+        {saved.kind === 'bill' && !saved.queued && canUndo(saved.savedAt) && (
+          <div className="vc" style={{ marginTop: negative ? 12 : 32, padding: '8px 8px 8px 20px', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left' }}>
+            <span className="vlab" style={{ flex: 1 }}>{t('oops')}</span>
+            <Tap className="btn outline s" style={{ padding: '0 16px', width: 'auto' }} onClick={onUndo}><Icon name="undo" size={22} />{t('undoBill')}</Tap>
           </div>
         )}
-        {saved.kind === 'payment' && <div className="ticket"><div className="tk-h"><b>{saved.customer}</b><span className="num">{rupees(saved.amount)}</span></div><div className="perf" /><div className="tk-f"><span>{t('newBal')}</span><span className="num big">{rupees(saved.balance)}</span></div></div>}
-        {saved.kind === 'stock' && <p className="sv-sum" style={{ marginTop: 20 }}>+ {lineSummary}</p>}
-        {saved.kind === 'bill' && saved.unrecorded && <p className="lab" style={{ marginTop: 16 }}>{t('unrecordedNote')}</p>}
       </main>
-      <FlowBar className="stack-up">
-        <div style={{ display: 'flex', gap: 12 }}>
-          {saved.kind === 'bill' && <a className="btn ghostln tap" style={{ flex: 'none', textDecoration: 'none', padding: '0 20px' }} href={wa} target="_blank" rel="noreferrer"><Icon name="wa" size={22} />WhatsApp</a>}
-          <Tap className="btn vo wide" onClick={() => navigate('/bolo?new=' + Date.now(), true)}><Icon name="mic" size={24} />{t('nextBill')}</Tap>
+      <div className="vfoot flat">
+        {saved.kind === 'bill' && !saved.queued && <a className="btn wa tap" style={{ textDecoration: 'none' }} href={wa} target="_blank" rel="noreferrer"><Icon name="send" size={22} />{t('waSend')}</a>}
+        <div className="vgrid2">
+          <HomeBtn />
+          <Tap className="btn outline s" onClick={() => navigate('/bolo?new=' + Date.now(), true)}><Icon name="plus" size={22} />{t('newBill')}</Tap>
         </div>
-        {saved.kind === 'bill' && <Tap className="btn undo" onClick={onUndo}><Icon name="undo" size={20} />{t('undoBill')}</Tap>}
-      </FlowBar>
+      </div>
     </div>
   )
 }

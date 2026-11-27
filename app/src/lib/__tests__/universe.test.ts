@@ -17,10 +17,10 @@ beforeAll(async () => {
 })
 
 describe('universe data', () => {
-  it('has exactly 5000 distinct top-level items; variants are not counted', () => {
-    expect(src.items).toHaveLength(5000)
-    expect(new Set(src.items.map((i) => i.id)).size).toBe(5000)
-    expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(9400)
+  it('has exactly 5500 distinct top-level items; variants are not counted', () => {
+    expect(src.items).toHaveLength(5500)
+    expect(new Set(src.items.map((i) => i.id)).size).toBe(5500)
+    expect(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0)).toBeGreaterThan(11000)
   })
   it('no two variants of one item share a name', () => {
     for (const it of src.items) { const k = (it.variants ?? []).map((v) => v.hinglish.toLowerCase()); expect(new Set(k).size, it.id).toBe(k.length) }
@@ -152,7 +152,7 @@ describe('universe data', () => {
     }
   })
   it('the 500 new v11 items (4501-5000) are clean: real products, one default, Devanagari, 2-6 mis-heard spellings, no duplicates, no clashes', () => {
-    const fresh = src.items.slice(4500)
+    const fresh = src.items.slice(4500, 5000)
     expect(fresh).toHaveLength(500)
     expect(new Set(fresh.map((i) => i.id)).size).toBe(500)
     expect(fresh.filter((i) => i.variants).length).toBeGreaterThan(400)
@@ -199,6 +199,53 @@ describe('universe data', () => {
       ['domix toilet cleaner lemon', 'domex-toilet-cleaner-lemon'], ['drool puppy chicken and egg', 'drools-puppy-chicken-and-egg'], ['selo technotip pen', 'cello-technotip-pen'], ['ayodex ointment', 'iodex-ointment'], ['steel jog', 'steel-jug'],
     ]
     expect(cases.length).toBe(20)
+    for (const [said, id] of cases) {
+      expect(findInUniverse(said).map((x) => x.id), said).toContain(id)
+      expect(matchName(said, idx)[0].id, said).toBe('u:' + id)
+    }
+  })
+  it('the 500 new v12 items (5001-5500) are clean: real products, one default, Devanagari, 2-4 mis-heard spellings, no duplicates, no clashes', () => {
+    const fresh = src.items.slice(5000)
+    expect(fresh).toHaveLength(500)
+    expect(new Set(fresh.map((i) => i.id)).size).toBe(500)
+    expect(fresh.filter((i) => i.variants).length).toBeGreaterThan(450)
+    expect(fresh.filter((i) => i.loose).length).toBeGreaterThan(50)
+    expect(new Set(fresh.map((i) => i.category)).size).toBeGreaterThanOrEqual(12)
+    const old = src.items.slice(0, 5000)
+    const oldNames = new Set(old.flatMap((i) => [i.hinglish, i.en, i.id.replace(/-/g, ' ')].map(norm)))
+    const oldAlias = new Set(old.flatMap((i) => i.aliases.map(norm)))
+    const oldVariant = new Set(old.flatMap((i) => (i.variants ?? []).map((v) => norm(v.hinglish))))
+    const nameOwner = new Map<string, Set<string>>(), phonOwner = new Map<string, Set<string>>()
+    for (const it of src.items) for (const n of [it.hinglish, it.en]) { for (const [m, k] of [[nameOwner, norm(n)], [phonOwner, phonKey(n)]] as const) { if (!k) continue; (m.get(k) ?? m.set(k, new Set()).get(k)!).add(it.id) } }
+    const seenName = new Map<string, string>()
+    for (const it of fresh) {
+      expect(it.hi, it.id).toMatch(/[ऀ-ॿ]/); expect(it.hi, it.id).not.toMatch(/[A-Za-z]/)
+      expect(it.aliases.length, it.id).toBeGreaterThanOrEqual(2); expect(it.aliases.length, it.id).toBeLessThanOrEqual(4)
+      const nk = norm(it.hinglish)
+      expect(oldNames.has(nk) || oldNames.has(norm(it.en)), `${it.id} duplicates an older item`).toBe(false)
+      expect(oldVariant.has(nk) || oldAlias.has(nk), `${it.id} clashes with an older variant name or alias`).toBe(false)
+      expect(seenName.get(nk) ?? it.id, `${it.id} duplicates ${seenName.get(nk)}`).toBe(it.id); seenName.set(nk, it.id)
+      const keys = it.aliases.map(norm)
+      expect(new Set(keys).size, it.id).toBe(keys.length)
+      for (const a of it.aliases) {
+        const k = norm(a)
+        expect(oldAlias.has(k) || oldNames.has(k), `${it.id}: ${a} reuses an older name/alias`).toBe(false)
+        const o = nameOwner.get(k); expect(o && [...o].some((x) => x !== it.id), `${it.id}: ${a} is another item's name`).toBeFalsy()
+        const p = phonOwner.get(phonKey(a)); expect(p && [...p].some((x) => x !== it.id), `${it.id}: ${a} sounds like another item's name`).toBeFalsy()
+      }
+      const vk = (it.variants ?? []).map((v) => norm(v.hinglish)); expect(new Set(vk).size, it.id).toBe(vk.length)
+      for (const v of it.variants ?? []) { expect(v.hi.replace(/\b[A-Z]\d{1,3}\b|W\d+|XL\+?|XXL|NB|A4|N95|3D|B22|E27|\d+W|\d+V/g, ''), `${it.id}/${v.id}`).not.toMatch(/[A-Za-z]/); expect(v.hinglish.length).toBeGreaterThan(0) }
+      if (it.variants) expect(it.variants.filter((v) => v.default), it.id).toHaveLength(1)
+    }
+    const names = (id: string) => (src.items.find((i) => i.id === id)?.variants ?? []).map((v) => v.hinglish)
+    expect(names('crocin-advance-tablet')).toEqual(expect.arrayContaining(['15 tabs', '30 tabs']))
+    expect(names('diya-clay-plain-pack')).toEqual(expect.arrayContaining(['12 pcs', '25 pcs', '50 pcs']))
+    expect(src.items.find((i) => i.id === 'diya-clay-plain-pack')!.variants!.find((v) => v.default)!.hinglish).toBe('12 pcs')
+  })
+  it('v12: mis-heard names of the 500 new items find the right product', () => {
+    const idx = buildIndex(universeMatchables())
+    const cases: [string, string][] = [['tamil tenkuzhal murukku', 'tamil-thenkuzhal-murukku'], ['punjab methri', 'punjab-mathri'], ['heemachal siddu mix', 'himachal-siddu-mix'], ['tirunelveli helwa', 'tirunelveli-halwa'], ['maharashtreean lonche mix', 'maharashtrian-lonche-mix'], ['peenk peppercorn', 'pink-peppercorn'], ['saffron spaneesh', 'saffron-spanish'], ['kuttu etta buckwheat', 'kuttu-atta-buckwheat'], ['urad dal bleck whole sabut', 'urad-dal-black-whole-sabut'], ['filips led tube light 20w', 'philips-led-tube-light-20w'], ['hewkins contura pressure cooker 5l', 'hawkins-contura-pressure-cooker-5l'], ['stil sev maker sancha', 'steel-sev-maker-sancha'], ['toy car pooll back', 'toy-car-pull-back'], ['ganesh chaturthi decoretion set', 'ganesh-chaturthi-decoration-set'], ['christmes tree artificial 3ft', 'christmas-tree-artificial-3ft'], ['volini gel paeen relief', 'volini-gel-pain-relief'], ['cac 1000 plus calcium affervescent', 'cac-1000-plus-calcium-effervescent'], ['shrichand elaichi cup', 'shrikhand-elaichi-cup'], ['meelk a2 gir cow bottle', 'milk-a2-gir-cow-bottle'], ['doms scale 30cm stil', 'doms-scale-30cm-steel'], ['book covar brown paper roll', 'book-cover-brown-paper-roll'], ['calculator besic 8 digit pocket', 'calculator-basic-8-digit-pocket'], ['bakery focaccia harb', 'bakery-focaccia-herb'], ['bakery cake base sponga', 'bakery-cake-base-sponge'], ['pocaree sweat drink', 'pocari-sweat-drink'], ['mothar dairy ice cream matka kulfi', 'mother-dairy-ice-cream-matka-kulfi']]
+    expect(cases.length).toBeGreaterThanOrEqual(20)
     for (const [said, id] of cases) {
       expect(findInUniverse(said).map((x) => x.id), said).toContain(id)
       expect(matchName(said, idx)[0].id, said).toBe('u:' + id)
@@ -315,11 +362,11 @@ describe('packed universe file', () => {
   const file = JSON.parse(raw) as PackedFile
   // the file leaves out aliases that read the same as the item's own names (see dedupe in scripts/build-universe.mjs)
   const keep = (names: string[], aliases: string[]) => { const seen = new Set(names.map(norm)); return aliases.filter((a) => { const k = norm(a); if (!k || seen.has(k)) return false; seen.add(k); return true }) }
-  it('is the version-11 format, small, and says how many items it holds', () => {
-    expect(pointer.v).toBe(11); expect(file.v).toBe(11); expect(file.p).toBe(2)
-    expect(pointer.items).toBe(5000); expect(file.i).toHaveLength(5000)
+  it('is the version-12 format, small, and says how many items it holds', () => {
+    expect(pointer.v).toBe(12); expect(file.v).toBe(12); expect(file.p).toBe(2)
+    expect(pointer.items).toBe(5500); expect(file.i).toHaveLength(5500)
     expect(pointer.variants).toBe(src.items.reduce((n, i) => n + (i.variants?.length ?? 0), 0))
-    // phones download it once: stay well under the old format (290 KB gzipped at 5,000 items)
+    // phones download it once: stay well under the old format (290 KB gzipped at 5,000 items); budget 220 KB at 5,500
     expect(gzipSync(raw).length).toBeLessThan(220 * 1024)
   })
   it('unpacks to exactly what universe.json says: every item, variant, alias, flag and Hindi name', () => {
@@ -351,7 +398,7 @@ describe('packed universe file', () => {
 describe('start-up (warmUniverse)', () => {
   it('first run downloads the file once and saves it; the next run opens from the saved copy and downloads nothing while the file name (its hash) is unchanged', async () => {
     const realFetch = globalThis.fetch
-    const store = new Map<string, string>([['omni-universe-v10', 'old copy'], ['other-key', 'kept']])
+    const store = new Map<string, string>([['omni-universe-v11', 'old copy'], ['other-key', 'kept']])
     globalThis.localStorage = { getItem: (k: string) => store.get(k) ?? null, setItem: (k: string, v: string) => void store.set(k, v), removeItem: (k: string) => void store.delete(k), get length() { return store.size }, key: (i: number) => [...store.keys()][i] ?? null, clear: () => store.clear() } as Storage
     const calls: string[] = []
     globalThis.fetch = (async (u: string) => { calls.push(u); return { json: async () => JSON.parse(readFileSync(join(pub, u), 'utf8')) } }) as unknown as typeof fetch
@@ -360,7 +407,7 @@ describe('start-up (warmUniverse)', () => {
       const first = await import('../universe')
       await new Promise<void>((done) => first.warmUniverse(done))
       expect(calls).toHaveLength(2); expect(calls[0]).toBe('/universe/u.json')
-      expect(store.has('omni-universe-v11')).toBe(true); expect(store.has('omni-universe-v10')).toBe(false); expect(store.get('other-key')).toBe('kept')
+      expect(store.has('omni-universe-v12')).toBe(true); expect(store.has('omni-universe-v11')).toBe(false); expect(store.get('other-key')).toBe('kept')
       expect(first.findInUniverse('maida').length).toBeGreaterThan(0)
       // phone restarts: fresh module, same saved copy
       calls.length = 0; vi.resetModules()

@@ -5,7 +5,7 @@ create index if not exists bills_created_idx on public.bills (created_at desc);
 
 create or replace function public.admin_overview() returns jsonb language sql stable security definer set search_path = '' as $$
   with d as (select (now() at time zone 'Asia/Kolkata')::date today),
-  b as (select b.store_id, b.total, (b.created_at at time zone 'Asia/Kolkata')::date day from public.bills b where b.status = 'saved' and b.created_at > now() - interval '31 days')
+  b as (select b.store_id, b.total, (b.created_at at time zone 'Asia/Kolkata')::date as day from public.bills b where b.status = 'saved' and b.created_at > now() - interval '31 days')
   select jsonb_build_object(
     'shops_total', (select count(*) from public.stores), 'shops_active', (select count(*) from public.stores where status = 'active'), 'shops_paused', (select count(*) from public.stores where status = 'paused'),
     'new_shops_30d', (select count(*) from public.stores where created_at > now() - interval '30 days'),
@@ -35,7 +35,7 @@ create or replace function public.admin_shop_detail(p_store uuid) returns jsonb 
     'profile', (select to_jsonb(s) from public.stores s where s.id = p_store),
     'phones', coalesce((select jsonb_agg(jsonb_build_object('id', d.id, 'label', d.label, 'created_at', d.created_at, 'last_seen', d.last_seen, 'revoked', d.revoked) order by d.last_seen desc) from public.store_devices d where d.store_id = p_store), '[]'::jsonb),
     'usage_30d', coalesce((select jsonb_object_agg(kind, n) from (select kind, count(*) n from public.usage_events where store_id = p_store and at > now() - interval '30 days' group by kind) k), '{}'::jsonb),
-    'last_bills', coalesce((select jsonb_agg(x order by x.at desc) from (select b.id, b.created_at at, b.total, b.pay, b.status, c.name customer from public.bills b left join public.customers c on c.id = b.customer_id where b.store_id = p_store order by b.created_at desc limit 20) x), '[]'::jsonb),
+    'last_bills', coalesce((select jsonb_agg(x order by x.at desc) from (select b.id, b.created_at as at, b.total, b.pay, b.status, c.name customer from public.bills b left join public.customers c on c.id = b.customer_id where b.store_id = p_store order by b.created_at desc limit 20) x), '[]'::jsonb),
     'top_items', coalesce((select jsonb_agg(x order by x.amount desc) from (select l.name, sum(l.qty - l.returned_qty) qty, sum(l.amount) amount from public.bill_lines l join public.bills b on b.id = l.bill_id
       where l.store_id = p_store and b.status = 'saved' and b.created_at > now() - interval '30 days' group by l.name order by sum(l.amount) desc limit 10) x), '[]'::jsonb))
 $$;
@@ -44,12 +44,12 @@ create or replace function public.admin_usage_summary() returns jsonb language s
   select jsonb_build_object(
     'by_kind_7d', coalesce((select jsonb_object_agg(kind, n) from (select kind, count(*) n from public.usage_events where at > now() - interval '7 days' group by kind) a), '{}'::jsonb),
     'by_kind_30d', coalesce((select jsonb_object_agg(kind, n) from (select kind, count(*) n from public.usage_events where at > now() - interval '30 days' group by kind) a), '{}'::jsonb),
-    'daily_30d', coalesce((select jsonb_agg(x order by x.day) from (select (at at time zone 'Asia/Kolkata')::date day, count(*) events, count(distinct store_id) shops from public.usage_events where at > now() - interval '30 days' group by 1) x), '[]'::jsonb))
+    'daily_30d', coalesce((select jsonb_agg(x order by x.day) from (select (at at time zone 'Asia/Kolkata')::date as day, count(*) events, count(distinct store_id) shops from public.usage_events where at > now() - interval '30 days' group by 1) x), '[]'::jsonb))
 $$;
 
 create or replace function public.admin_bag_margin() returns jsonb language sql stable security definer set search_path = '' as $$
   select coalesce(jsonb_agg(x order by x.month desc, x.kind), '[]'::jsonb) from (
-    select to_char(o.created_at at time zone 'Asia/Kolkata', 'YYYY-MM') month, l.kind, sum(l.qty) packs, sum(l.qty * l.price) revenue, sum(l.qty * l.cost) cost, sum(l.qty * (l.price - l.cost)) margin
+    select to_char(o.created_at at time zone 'Asia/Kolkata', 'YYYY-MM') as month, l.kind, sum(l.qty) packs, sum(l.qty * l.price) revenue, sum(l.qty * l.cost) cost, sum(l.qty * (l.price - l.cost)) margin
     from public.bag_order_lines l join public.bag_orders o on o.id = l.order_id where o.status <> 'cancelled' group by 1, 2) x
 $$;
 

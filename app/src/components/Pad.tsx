@@ -26,9 +26,9 @@ export function NumberSheet({ open, title, initial, unit, decimals = true, zero 
     <Sheet open={open} onClose={onClose}>
       <h2 className="h2 padt">{title}</h2>
       <div className="padv" aria-live="polite">{unit === '₹' ? <span className="rs">₹</span> : null}{v || '0'}{unit && unit !== '₹' ? <span className="u">{unit}</span> : null}</div>
-      <div className="pad">
+      <div className="vk">
         {['1', '2', '3', '4', '5', '6', '7', '8', '9', decimals ? '.' : '', '0', '⌫'].map((k, i) =>
-          k ? <Tap key={i} className={`key ${k === '⌫' || k === '.' ? 'word' : ''}`} onClick={() => press(k)} aria-label={k === '⌫' ? 'delete' : k}>{k}</Tap> : <div key={i} />)}
+          k ? <Tap key={i} className={k === '.' ? 'q' : ''} onClick={() => press(k)} aria-label={k === '⌫' ? 'delete' : k}>{k === '⌫' ? <Icon name="bksp" size={26} /> : k}</Tap> : <div key={i} />)}
       </div>
       <div className="gap16" />
       <Tap className="btn primary" disabled={!(n > 0 || (zero && n === 0))} onClick={() => { onDone(n); onClose() }}><Icon name="tick" size={22} stroke={3} />{t('ok')}</Tap>

@@ -199,7 +199,7 @@ export function universeMatchables(): UMatchable[] {
   let m = mm.get(data); if (!m) mm.set(data, (m = build(data)))
   return m
 }
-const LS = 'omni-universe-v11'
+const LS = 'omni-universe-v12'
 /** Start-up: use the copy saved on this phone instantly (works offline), refresh in the background. The saved copy is the downloaded file itself
  *  (about a third the size of the unpacked rows), and when its name (= content hash) matches the server's nothing is downloaded or unpacked again. */
 export function warmUniverse(onReady: () => void) {

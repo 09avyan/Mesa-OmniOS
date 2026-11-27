@@ -41,3 +41,8 @@
 - 26 Nov: owner: logo A chosen; fixes list deferred (remind later); v2 UI being polished, screenshots then WAIT for approval; Universe +500 and optimise (→5,000, v11) running.
 - 26 Nov: Universe v11 = 5,000 items, optimised (174 KB gz). v2 UI polished + screenshots sent; AWAITING owner approval. Reminders in TASKS.md top.
 - 27 Nov: owner deadline Sun 29 Nov, limited usage. Wave1 helpers running (A merchant v2, F universe 5,500); backend 0014-0018 written, NOT applied (awaiting owner go). Wave2 queued. See TASKS.md BUILD PLAN.
+
+## 27 Nov — backend live + v2 core
+- Applied 0014–0018 + pg_trgm; deployed login v3 (6-digit PIN, lockout) and admin v7 (reports, bags, CSV). Advisors: no new anon-executable RPCs.
+- App v2 core (Login/Home/Voice/Bills/Settings), Universe v12 (5,500 items), offline queue, 30-min undo.
+- Next: Wave 2 (other merchant pages, customer store, admin dashboard + dark, /poochho, repo cleanup, HANDOFF).

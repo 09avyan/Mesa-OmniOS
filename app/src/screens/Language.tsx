@@ -1,21 +1,22 @@
 import { LANGS, useT, type Lang } from '../lib/i18n'
 import { Tap } from '../components/ui'
-import { Icon } from '../components/Icon'
+import { Icon, Logo } from '../components/Icon'
 
 // First launch: shown before login. Title in all three languages, since we don't know theirs yet.
 export function Language({ onDone, current }: { onDone: (l: Lang) => void; current?: Lang }) {
   const { setLang } = useT()
   return (
-    <main className="screen lg">
-      <div>
-        <h1 className="h1">भाषा चुनें</h1>
-        <div className="lg-alt">Bhasha chuno</div>
-        <div className="lg-alt">Choose language</div>
+    <main className="screen v2" style={{ paddingTop: 32 }}>
+      <div style={{ padding: '0 8px' }}>
+        <Logo size={56} />
+        <h1 className="vh1" style={{ marginTop: 24 }}>भाषा चुनें</h1>
+        <div className="vlab">Bhasha chuno · Choose language</div>
       </div>
-      <div className="lg-langs">
+      <div className="vc" style={{ marginTop: 32 }}>
         {LANGS.map((l) => (
-          <Tap key={l.id} className={`langbtn ${current === l.id ? 'on' : ''}`} onClick={() => { setLang(l.id); onDone(l.id) }}>
-            <span>{l.label}<small>{l.sub}</small></span>{current === l.id ? <Icon name="tick" size={26} stroke={3} /> : <Icon name="chev" size={22} />}
+          <Tap key={l.id} className="vrow" style={{ minHeight: 80 }} onClick={() => { setLang(l.id); onDone(l.id) }}>
+            <span className="t"><b style={{ font: '800 24px/32px var(--font)' }}>{l.label}</b><span>{l.sub}</span></span>
+            {current === l.id ? <Icon name="tick" size={26} stroke={2.6} /> : <Icon name="chev" size={22} />}
           </Tap>
         ))}
       </div>

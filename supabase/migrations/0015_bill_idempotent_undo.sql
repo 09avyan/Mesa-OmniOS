@@ -110,6 +110,8 @@ begin
       select s, bb.customer_id, -coalesce(sum(amount),0), 'undo', p_bill from public.udhaar_entries where bill_id = p_bill;
   end if;
   update public.bills set status = 'undone' where id = p_bill;
+  -- bill made from an online order: order goes back to Ready so it can be billed again (from the live definition)
+  update public.orders set status = 'ready', bill_id = null, updated_at = now() where bill_id = p_bill and store_id = s;
 end $$;
 
 revoke execute on function public.save_bill(jsonb), public.undo_bill(uuid) from public, anon;

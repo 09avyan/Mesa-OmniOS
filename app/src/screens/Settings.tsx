@@ -3,8 +3,8 @@ import { LANGS, useT } from '../lib/i18n'
 import { useStore } from '../lib/store'
 import { supabase } from '../lib/supabase'
 import { setSound, soundEnabled } from '../lib/feedback'
-import { askText, BackBar, Sheet, Tap, toast } from '../components/ui'
-import { Icon } from '../components/Icon'
+import { askText, Sheet, Tap, toast, TopBar } from '../components/ui'
+import { Icon, Logo } from '../components/Icon'
 import { navigate } from '../lib/router'
 import { setTheme, theme, type Theme } from '../lib/prefs'
 
@@ -21,33 +21,29 @@ export function Settings() {
     setLang(l)
     if (store) supabase.from('stores').update({ language: l }).eq('id', store.id).then(() => {})
   }
+  const R = ({ icon, label, val, onClick }: { icon: string; label: string; val?: string; onClick: () => void }) => (
+    <Tap className="vrow" onClick={onClick}><Icon name={icon} size={24} /><span className="t"><b>{label}</b></span>{val && <span className="val">{val}</span>}<Icon name="chev" size={22} /></Tap>
+  )
   return (
-    <main className="screen has-bar">
-      <BackBar />
-      <h1 className="h1">{t('settings')}</h1>
-      <div className="lab">{t('shopCode')}: <b style={{ color: 'var(--ink)', letterSpacing: 1 }}>{store?.code}</b></div>
-      <div className="gap24" />
-      <div className="stack">
-        <Tap className="rowb" onClick={async () => { const v = (await askText({ title: t('upiAsk'), initial: store?.upi_id ?? '' }) ?? '').trim(); if (!v) return; const { error } = await supabase.from('stores').update({ upi_id: v }).eq('id', store!.id); if (error) { toast({ text: t('upiBad') }); return } toast({ text: t('saved') }); reload() }}>
-          <Icon name="qr" /><span className="grow">{t('upiId')}<span className="lab" style={{ display: 'block', fontSize: 17, fontWeight: 500, lineHeight: '20px' }}>{store?.upi_id ?? t('upiNotSet')}</span></span><span className="chev"><Icon name="chev" size={20} /></span>
-        </Tap>
-        <Tap className="rowb" onClick={() => setLangOpen(true)}>
-          <Icon name="globe" /><span className="grow">{t('language')}</span><span style={{ color: 'var(--ac)' }}>{LANGS.find((l) => l.id === lang)?.label}</span><span className="chev"><Icon name="chev" size={20} /></span>
-        </Tap>
-        <Tap className="rowb" onClick={() => { const n: Theme = look === 'auto' ? 'light' : look === 'light' ? 'dark' : 'auto'; setTheme(n); setLook(n) }}>
-          <Icon name="gear" /><span className="grow">{t('themeTitle')}</span><span style={{ color: 'var(--ink)' }}>{look === 'auto' ? t('themeAuto') : look === 'light' ? t('themeLight') : t('themeDark')}</span>
-        </Tap>
-        <Tap className="rowb" onClick={() => { setSound(!snd); setSnd(!snd) }}>
-          <Icon name="sound" /><span className="grow">{t('sound')}</span><span style={{ color: snd ? 'var(--ac)' : 'var(--ink2)' }}>{snd ? t('on') : t('off')}</span>
-        </Tap>
-        <Tap className="rowb" onClick={() => setPhonesOpen(true)}><Icon name="lock" /><span className="grow">{t('phones')}</span><span className="chev"><Icon name="chev" size={20} /></span></Tap>
-        <Tap className="rowb" onClick={() => navigate('/dukaan')}><Icon name="globe" /><span className="grow">{t('myStore')}</span><span className="chev"><Icon name="chev" size={20} /></span></Tap>
-        <Tap className="rowb" onClick={() => navigate('/terms')}><Icon name="doc" /><span className="grow">{t('terms')}</span><span className="chev"><Icon name="chev" size={20} /></span></Tap>
+    <main className="screen v2 has-bar">
+      <TopBar back="/" title={t('settings')} />
+      <div className="vstack vset">
+        <div className="vc"><div className="vrow" style={{ minHeight: 80 }}><Logo size={48} /><span className="t"><b>{store?.name}</b><span>{store?.code}</span></span></div></div>
+        <div className="vc">
+          <R icon="globe" label={t('language')} val={LANGS.find((l) => l.id === lang)?.label} onClick={() => setLangOpen(true)} />
+          <R icon="moon" label={t('themeTitle')} val={look === 'auto' ? t('themeAuto') : look === 'light' ? t('themeLight') : t('themeDark')} onClick={() => { const n: Theme = look === 'auto' ? 'light' : look === 'light' ? 'dark' : 'auto'; setTheme(n); setLook(n) }} />
+          <R icon="qr" label={t('upiId')} val={store?.upi_id ?? t('upiNotSet')} onClick={async () => { const v = (await askText({ title: t('upiAsk'), initial: store?.upi_id ?? '' }) ?? '').trim(); if (!v) return; const { error } = await supabase.from('stores').update({ upi_id: v }).eq('id', store!.id); if (error) { toast({ text: t('upiBad') }); return } toast({ text: t('saved') }); reload() }} />
+          <R icon="sound" label={t('sound')} val={snd ? t('on') : t('off')} onClick={() => { setSound(!snd); setSnd(!snd) }} />
+          <R icon="store" label={t('myStore')} onClick={() => navigate('/dukaan')} />
+        </div>
+        <div className="vc">
+          <R icon="lock" label={t('phones')} onClick={() => setPhonesOpen(true)} />
+          <R icon="bag" label={t('rowBags')} onClick={() => navigate('/bags')} />
+          <R icon="tools" label={t('rowSoon')} onClick={() => navigate('/soon')} />
+          <R icon="doc" label={t('terms')} onClick={() => navigate('/terms')} />
+        </div>
+        <Tap className="btn outline s" onClick={() => setAskOut(true)}><Icon name="out" size={22} />{t('logout')}</Tap>
       </div>
-      <div style={{ height: 40 }} />
-      <Tap className="btn sv-home" onClick={() => setAskOut(true)}>
-        <Icon name="out" /><span className="grow">{t('logout')}</span>
-      </Tap>
       <Sheet open={langOpen} onClose={() => setLangOpen(false)}>
         <h2 className="h2">{t('language')}</h2><div className="gap16" />
         <div className="stack">

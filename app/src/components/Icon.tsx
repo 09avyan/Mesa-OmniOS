@@ -31,12 +31,31 @@ const P: Record<string, string> = {
   qr: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v1M14 20h1M17 17h4v4h-4"/>',
   print: '<path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/>',
   x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  sliders: '<path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1M15 4v4M9 10v4M17 16v4"/>',
+  cloudOff: '<path d="M3 3l18 18M9.5 5.4A6 6 0 0 1 17.7 9.2 4.5 4.5 0 0 1 20.5 17M16 19H7a5 5 0 0 1-2.9-9.1"/>',
+  spark: '<path d="M3 12h3l3-8 6 16 3-8h3"/>',
+  send: '<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>',
+  receipt: '<path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2zM9 8h6M9 12h6"/>',
+  more: '<path d="M5 12h.01M12 12h.01M19 12h.01"/>',
+  moon: '<path d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10z"/>',
+  store: '<path d="M3 9l2-5h14l2 5M4 9v11h16V9M3 9h18M9 20v-6h6v6"/>',
+  bksp: '<path d="M21 5H9l-6 7 6 7h12zM12 9l6 6M18 9l-6 6"/>',
+  vol: '<path d="M4 9h4l5-4v14l-5-4H4zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11"/>',
+  alert: '<path d="M12 3l10 18H2zM12 10v4M12 17h.01"/>',
   tools: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
 }
-export function Icon({ name, size = 24, stroke = 2, color }: { name: keyof typeof P | string; size?: number; stroke?: number; color?: string }) {
+export function Icon({ name, size = 24, stroke = 1.8, color }: { name: keyof typeof P | string; size?: number; stroke?: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke}
       strokeLinecap="round" strokeLinejoin="round" style={color ? { color } : undefined} aria-hidden="true"
       dangerouslySetInnerHTML={{ __html: P[name] ?? '' }} />
   )
+}
+
+/** Logo A: ink tile, white ring, teal wave bars (design/v2/logo). Tile follows the theme (--logo-tile). */
+export function Logo({ size = 36 }: { size?: number }) {
+  return size <= 24
+    ? <svg width={size} height={size} viewBox="0 0 96 96" style={{ flex: 'none' }} aria-hidden="true"><rect width="96" height="96" rx="22" fill="var(--logo-tile,#141517)" /><circle cx="48" cy="48" r="25" fill="none" stroke="#fff" strokeWidth="11" /><rect x="42" y="35" width="12" height="26" rx="6" fill="#5FC3B6" /></svg>
+    : <svg width={size} height={size} viewBox="0 0 96 96" style={{ flex: 'none' }} aria-hidden="true"><rect x=".5" y=".5" width="95" height="95" rx="23.5" fill="var(--logo-tile,#141517)" stroke="var(--logo-rim,transparent)" /><circle cx="48" cy="48" r="24" fill="none" stroke="#fff" strokeWidth="7" /><g fill="#5FC3B6"><rect x="38" y="40" width="5" height="16" rx="2.5" /><rect x="46" y="34" width="5" height="28" rx="2.5" /><rect x="54" y="42" width="5" height="12" rx="2.5" /></g></svg>
 }

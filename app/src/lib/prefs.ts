@@ -13,6 +13,10 @@ export const theme = (): Theme => get('omni-theme', 'auto') as Theme
 export const applyTheme = (t: Theme = theme()) => {
   const dark = t === 'dark' || (t === 'auto' && typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches)
   document.documentElement.dataset.theme = dark ? 'dark' : 'light'
-  document.querySelector('meta[name=theme-color]')?.setAttribute('content', dark ? '#0E0F0F' : '#F7F7F4')
+  document.querySelector('meta[name=theme-color]')?.setAttribute('content', dark ? '#0E0F0F' : '#F6F6F3')
 }
 export const setTheme = (t: Theme) => { set('omni-theme', t); applyTheme(t) }
+
+// A bill can be taken back ("Wapas lo") only for 30 minutes after it is saved.
+export const UNDO_MS = 30 * 60 * 1000
+export const canUndo = (savedAt: string | number | Date) => Date.now() - new Date(savedAt).getTime() <= UNDO_MS

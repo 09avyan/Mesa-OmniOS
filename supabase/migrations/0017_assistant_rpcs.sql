@@ -2,6 +2,7 @@
 -- Dates are inclusive Asia/Kolkata calendar days. "saved" bills only (undone bills are ignored).
 -- ASSUMPTIONS: item cost is not stored anywhere -> ask_profit_estimate returns null. orders/suppliers column names beyond id/store_id/status/name are not relied on.
 
+create extension if not exists pg_trgm with schema extensions;
 create index if not exists items_name_trgm on public.items using gin (lower(name) extensions.gin_trgm_ops);
 create index if not exists customers_name_trgm on public.customers using gin (lower(name) extensions.gin_trgm_ops);
 create index if not exists bills_store_status_at_idx on public.bills (store_id, status, created_at desc);
@@ -83,7 +84,7 @@ create or replace function public.ask_customer_history(p_name text, p_limit int 
         and (lower(cu.name) like '%'||q.t||'%' or extensions.similarity(lower(cu.name), q.t) > 0.35) order by extensions.similarity(lower(cu.name), q.t) desc limit 1)
   select jsonb_build_object('customer', (select name from c), 'balance', (select balance from public.customer_balances where id = (select id from c)),
     'entries', coalesce((select jsonb_agg(x order by x.at desc) from (
-      select u.created_at at, u.kind, u.amount, u.bill_id from public.udhaar_entries u, s where u.store_id = s.id and u.customer_id = (select id from c)
+      select u.created_at as at, u.kind, u.amount, u.bill_id from public.udhaar_entries u, s where u.store_id = s.id and u.customer_id = (select id from c)
       order by u.created_at desc limit least(greatest(coalesce(p_limit,10),1),50)) x), '[]'::jsonb))
 $$;
 
@@ -98,7 +99,7 @@ $$;
 create or replace function public.ask_last_price(p_query text) returns jsonb language sql stable security definer set search_path = '' as $$
   with s as (select public._store() id), q as (select lower(trim(coalesce(p_query,''))) t)
   select coalesce(jsonb_agg(x), '[]'::jsonb) from (
-    select l.name, l.variant, l.unit, l.price, b.created_at at, c.name customer
+    select l.name, l.variant, l.unit, l.price, b.created_at as at, c.name customer
     from public.bill_lines l join public.bills b on b.id = l.bill_id left join public.customers c on c.id = b.customer_id, s, q
     where l.store_id = s.id and b.status = 'saved' and length(q.t) >= 2
       and (lower(l.name) like '%'||q.t||'%' or lower(coalesce(l.variant,'')) like '%'||q.t||'%' or lower(l.name||' '||coalesce(l.variant,'')) like '%'||q.t||'%')
@@ -124,7 +125,7 @@ $$;
 create or replace function public.ask_busiest_hour(p_from date, p_to date) returns jsonb language sql stable security definer set search_path = '' as $$
   with s as (select public._store() id), r as (select public._ist_from(p_from) a, public._ist_to(coalesce(p_to, p_from)) z)
   select jsonb_build_object('hours', coalesce(jsonb_agg(x order by x.bills desc), '[]'::jsonb)) from (
-    select extract(hour from b.created_at at time zone 'Asia/Kolkata')::int hour, count(*) bills, sum(b.total) sales
+    select extract(hour from b.created_at at time zone 'Asia/Kolkata')::int as hour, count(*) bills, sum(b.total) sales
     from public.bills b, s, r where b.store_id = s.id and b.status = 'saved' and b.created_at >= r.a and b.created_at < r.z
     group by 1 order by 2 desc limit 3) x
 $$;
@@ -143,7 +144,7 @@ $$;
 create or replace function public.ask_bill_search(p_text text, p_limit int default 10) returns jsonb language sql stable security definer set search_path = '' as $$
   with s as (select public._store() id), q as (select lower(trim(coalesce(p_text,''))) t)
   select coalesce(jsonb_agg(x order by x.at desc), '[]'::jsonb) from (
-    select b.id, b.created_at at, b.total, b.pay, b.status, c.name customer
+    select b.id, b.created_at as at, b.total, b.pay, b.status, c.name customer
     from public.bills b left join public.customers c on c.id = b.customer_id, s, q
     where b.store_id = s.id and length(q.t) >= 1 and (
       lower(coalesce(c.name,'')) like '%'||q.t||'%' or b.total::text = q.t or b.total::numeric(12,0)::text = q.t
